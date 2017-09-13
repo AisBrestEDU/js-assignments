@@ -39,12 +39,6 @@ function findElement(arr, value) {
  */
 function generateOdds(len) {
     throw new Error('Not implemented');
-
-    //     let returnArray = [];
-    //    for(let i = 1;i <= len;i+=2) {
-    //         returnArray.push(i);
-    //    }
-    //    return returnArray;
 }
 
 
@@ -244,6 +238,10 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
     throw new Error('Not implemented');
+    // return arr.map((item, index) => {
+    //     if(index > 0)
+    //     item += arr[index-1];
+    // })
 }
 
 /**
