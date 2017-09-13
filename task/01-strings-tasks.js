@@ -283,11 +283,12 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if (typeof(value)===String){
-        return true
-    }
-        else
+   if ( typeof(value) === "string" || value instanceof String ){
+    return  true
+   }
+    else {
         return false;
+    }
 }
 
 
@@ -316,7 +317,59 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    var arr = value.split('',2) ;
+     if (arr[0] == 'A'){
+        arr[0] = 0;
+     }
+     else if (arr[0] == 'J'){
+        arr[0] = 10;
+     }
+     else if (arr[0] == 'Q'){
+        arr[0] = 11;
+     }
+     else if (arr[0] == 'K'){
+        arr[0] = 12;
+     }
+     else
+     arr[0] =  parseInt(arr[0])-1;
+ 
+    switch(arr[1]){
+        case '♣':
+        arr[1] = 0;
+        break;
+        case '♦':
+        arr[1] = 13;
+        break;
+        case '♥':
+        arr[1] = 26;
+        break;
+        case '♠':
+        arr[1] = 39;
+        break;
+    }
+    var result;
+    result=(arr[0]+arr[1])
+    switch(value){
+        case '10♣':
+        result= 9;
+        break;
+        case '10♦':
+        result= 22;
+        break;
+        case '10♥':
+        result= 35;
+        break;
+        case '10♠':
+        result= 48;
+        break;
+
+
+    }
+    return result;
+
+
+    
 }
 
 
