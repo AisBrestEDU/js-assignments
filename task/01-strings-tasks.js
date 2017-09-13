@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return "Hello, " + firstName + " " + lastName + "!"; 
+    return `Hello, ${firstName} ${lastName}!`; 
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    return count != 1 ? value + repeatString(value, count - 1) : value;
+    return value.repeat(count);
 }
 
 /**
@@ -280,7 +280,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return value instanceof String?true: typeof value == 'string';
+    return typeof value === "string"?true:value instanceof String;
 }
 
 
