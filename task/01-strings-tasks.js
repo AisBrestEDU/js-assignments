@@ -22,7 +22,8 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 + value2;
+    //throw new Error('Not implemented');
 }
 
 
@@ -38,7 +39,8 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return value.length
 }
 
 /**
@@ -55,7 +57,8 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return ('Hello, ' + firstName + ' '+ lastName+'!')
 }
 
 /**
@@ -69,7 +72,10 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   var r = value.replace("Hello, ","");
+    
+    return r.replace("!","");
 }
 
 
@@ -84,7 +90,9 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return value.charAt(0)
+   
 }
 
 /**
@@ -99,7 +107,10 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    
+    
+  return value.trim();
 }
 
 /**
@@ -114,7 +125,14 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+     var result = value;
+    for(var a=1; a<count; a++){
+        result = result + value;
+    }
+    return result;
+    
 }
 
 /**
@@ -130,7 +148,9 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    
+    //throw new Error('Not implemented');
+    return str.replace(value,'');
 }
 
 /**
@@ -145,7 +165,8 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    var result = str.slice(1,-1);
+    return result;
 }
 
 
@@ -160,7 +181,8 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return str.toUpperCase()
 }
 
 /**
@@ -174,7 +196,9 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   var ar = str.split(';')
+   return ar;
 }
 
 /**
@@ -201,8 +225,29 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
-}
+    
+    var line='';
+    while(line.length<width-2){
+        line=line+'─';
+    }
+    var middle="";
+    var space='';
+    while(space.length<width-2){
+        space=space+' ';
+    }
+    
+    for (var a = 0;a<height-2; a++){
+        middle = middle+'│'+space+'│\n'
+    }
+  var up = '┌'+line+'┐\n';
+
+  var down = '└'+line+'┘\n';
+  var result;
+  
+   return result = up +middle + down;
+    };
+    
+
 
 
 /**
@@ -221,7 +266,7 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+   return str.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});;
 }
 
 /**
@@ -238,7 +283,11 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    if (typeof(value)===String){
+        return true
+    }
+        else
+        return false;
 }
 
 
