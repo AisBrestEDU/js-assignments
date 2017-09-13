@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    return str.replace(/[<>]/gi,'');
+    return str.replace(/[<>]/gi, '');
 }
 
 
@@ -222,6 +222,10 @@ function getRectangleString(width, height) {
  */
 function encodeToRot13(str) {
     throw new Error('Not implemented');
+    // let returnValue = '';
+    // let newStr = str.split('');
+    // str.split('').forEach(char => returnValue += String.fromCharCode(char.charCodeAt(0) + 13));
+    // return returnValue;
 }
 
 /**
@@ -267,10 +271,11 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    const cardsId = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
-                     'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
-                     'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
-                     'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    const cardsId = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+        'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+        'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+        'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'
+    ];
     return cardsId.indexOf(value);
 }
 
