@@ -38,7 +38,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-    throw new Error('Not implemented');
+    return Array.from({ length: len }, (v, index) => index * 2 + 1);
 }
 
 
@@ -218,7 +218,7 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-    return arr.map(item => item = item * item);
+    return arr.map(item => item * item);
 }
 
 
