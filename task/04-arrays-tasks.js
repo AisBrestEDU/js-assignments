@@ -243,7 +243,6 @@ function getMovingSum(arr) {
         if (index == 0) {
             prevValue = el;
             return el;
-            return prevValue;
         } else {
             el = el + prevValue;
             prevValue = el;
