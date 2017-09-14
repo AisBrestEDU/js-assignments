@@ -58,7 +58,7 @@ function getStringLength(value) {
  */
 function getStringFromTemplate(firstName, lastName) {
    // throw new Error('Not implemented');
-   return ('Hello, ' + firstName + ' '+ lastName+'!')
+   return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -127,11 +127,8 @@ function removeLeadingAndTrailingWhitespaces(value) {
 function repeatString(value, count) {
     //throw new Error('Not implemented');
 
-     var result = value;
-    for(var a=1; a<count; a++){
-        result = result + value;
-    }
-    return result;
+     
+    return value.repeat(count);
     
 }
 
@@ -283,12 +280,8 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-   if ( typeof(value) === "string" || value instanceof String ){
-    return  true
-   }
-    else {
-        return false;
-    }
+  
+    return   (typeof(value) === "string" || value instanceof String );
 }
 
 
