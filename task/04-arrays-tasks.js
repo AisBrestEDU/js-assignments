@@ -238,7 +238,18 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-    throw new Error('Not implemented');
+    let prevValue = 0;
+    return arr.map((el, index) => {
+        if (index == 0) {
+            prevValue = el;
+            return el;
+            return prevValue;
+        } else {
+            el = el + prevValue;
+            prevValue = el;
+            return el;
+        }
+    });
 
     //return arr.map((el, index, _arr) => el+_arr[index] | el);
 
@@ -302,7 +313,7 @@ function propagateItemsByPositionIndex(arr) {
     //     for(let i = 0; i < index+1;i++) {
     //         returnedArray.push(item);
     //     }
-        
+
     // });
     // return returnedArray;
 }
@@ -341,7 +352,7 @@ function get3TopItems(arr) {
  *   [ null, 1, 'elephant' ] => 1
  */
 function getPositivesCount(arr) {
-    return arr.filter(item => item>0).length;
+    return arr.filter(item => item > 0).length;
 }
 
 /** 
@@ -359,7 +370,7 @@ function getPositivesCount(arr) {
  */
 function sortDigitNamesByNumericOrder(arr) {
     let digits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-        return arr.sort((a, b) => digits.indexOf(a) - digits.indexOf(b));
+    return arr.sort((a, b) => digits.indexOf(a) - digits.indexOf(b));
 }
 
 /** 
@@ -394,7 +405,7 @@ function getItemsSum(arr) {
  */
 function getFalsyValuesCount(arr) {
     throw new Error('Not implemented');
-   // return arr.filter(item => item ? true : false).length;
+    // return arr.filter(item => item ? true : false).length;
 }
 
 /**
@@ -615,9 +626,9 @@ function getElementByIndexes(arr, indexes) {
  */
 function swapHeadAndTail(arr) {
     const cutPosition = Math.round(arr.length / 2);
-    if(arr.length > 1 && arr.length%2) {
-        return new Array().concat(arr.slice(cutPosition, arr.length)).concat(arr.slice(cutPosition-1, cutPosition)).concat(arr.slice(0, cutPosition-1));
-    } else if(arr.length > 1){
+    if (arr.length > 1 && arr.length % 2) {
+        return new Array().concat(arr.slice(cutPosition, arr.length)).concat(arr.slice(cutPosition - 1, cutPosition)).concat(arr.slice(0, cutPosition - 1));
+    } else if (arr.length > 1) {
         return new Array().concat(arr.slice(cutPosition, arr.length)).concat(arr.slice(0, cutPosition));
     } else {
         return arr;
