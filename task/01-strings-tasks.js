@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    return value1 + value2;
+    return value1.concat(value2);
 }
 
 
@@ -201,7 +201,9 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    return '┌'+'─'.repeat(width-2)+'┐\n'+
+    ('│'+' '.repeat(width-2)+'│\n').repeat(height-2)+
+    '└'+'─'.repeat(width-2)+'┘\n';
 }
 
 
@@ -221,11 +223,10 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
-    // let returnValue = '';
-    // let newStr = str.split('');
-    // str.split('').forEach(char => returnValue += String.fromCharCode(char.charCodeAt(0) + 13));
-    // return returnValue;
+    return str.replace(/[A-Za-z]/g, char => {
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(
+               "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(char))
+      });
 }
 
 /**
