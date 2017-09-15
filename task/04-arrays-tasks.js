@@ -443,7 +443,6 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-    //return arr.sort((a,b)=>(a.country-b.country));
     function compare(a,b){
         if(a.country > b.country)
             return 1
