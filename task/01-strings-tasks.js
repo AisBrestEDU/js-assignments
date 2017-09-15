@@ -247,6 +247,7 @@ function encodeToRot13(str) {
  */
 function isString(value) {
     return typeof (value) === 'string' || value instanceof String;
+   // return Object.prototype.toString.call(value) === '[object String]';
 }
 
 
