@@ -72,7 +72,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    return value.substring(7,value.length - 1);
 }
 
 
