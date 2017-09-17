@@ -641,9 +641,8 @@ function getElementByIndexes(arr, indexes) {
  */
 function swapHeadAndTail(arr) {
     if (arr.length < 4) return arr.reverse();
-    var reversed = arr.reverse();
-    var result = reversed.slice(0, arr.length/2).reverse().concat(arr.length % 2 == 0 ? reversed.slice(-arr.length/2).reverse() : 
-                                                [reversed[parseInt(arr.length/2)]].concat(reversed.slice(-arr.length/2).reverse()));
+    var result = arr.slice(Math.round(arr.length/2)).concat(arr.length % 2 == 0 ? arr.slice(0, arr.length/2) : 
+                                                [arr[parseInt(arr.length/2)]].concat(arr.slice(0, arr.length/2)));
 
     return result;
 }
