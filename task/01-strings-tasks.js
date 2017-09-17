@@ -208,7 +208,17 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    function CreatLineStart(count){ var str='┌'; for(var i=1;i<count-1;i++) str=str.concat('─'); return str.concat('┐\n');  }
+    function CreatLineEnd(count){var str='└'; for(var i=1;i<count-1;i++) str=str.concat('─'); return str.concat('┘\n'); }
+    function CreatLineTypical(count){var str='│'; for(var i=1;i<count-1;i++) str=str.concat(' '); return str.concat('│\n'); }
+
+    var str=CreatLineStart(width);
+    for(var i=1;i<height-1;i++) 
+        str=str.concat(CreatLineTypical(width));
+        
+    return str.concat(CreatLineEnd(width));
 }
 
 
