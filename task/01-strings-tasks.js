@@ -217,7 +217,7 @@ function getRectangleString(width, height) {
     var str=CreatLineStart(width);
     for(var i=1;i<height-1;i++) 
         str=str.concat(CreatLineTypical(width));
-        
+
     return str.concat(CreatLineEnd(width));
 }
 
@@ -284,7 +284,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    var arr=['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    return arr.indexOf(value);
 }
 
 
