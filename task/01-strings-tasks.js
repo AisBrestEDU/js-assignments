@@ -104,9 +104,23 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
 
-    //var s1=value.replace(/\s+/,'');
+    value=value.replace(/\s+/,' ');
+
+    var start=0;
+    var end=value.length-1;
+
+    for(var i=0;i<value.length-1;i++){
+        if(value[i]!=' ') {start=i; break;}
+    }
+
+    for(var j=value.length-1; j>0; j--){
+        if(value[j]!=' ') {end=j; break;}
+    }
+
+    var str=value.substring(start,end+1);
+    return str;
 }
 
 /**
