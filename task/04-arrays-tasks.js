@@ -585,7 +585,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    return eval(`arr[${ indexes.join("][") }]`);
+    return indexes.reduce((accumulator, element) => accumulator[element], arr);
 }
 
 
