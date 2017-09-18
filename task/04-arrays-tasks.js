@@ -550,7 +550,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   throw new Error('Not implemented');
+    return Array(end-start+1).fill(0).map((x,i)=>(start++));
 }
 
 /**
@@ -565,7 +565,11 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   throw new Error('Not implemented');
+    function onlyUnique(value, index, arr) { 
+        return arr.indexOf(value) === index;
+    }
+    return arr.filter( onlyUnique );
+    
 }
 
 /**
@@ -599,7 +603,14 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   throw new Error('Not implemented');
+    let map = new Map();
+        array.map((el) => {
+        map.set(keySelector(el),[])
+    });
+    array.map((el) => {
+        map.set(keySelector(el), map.get(keySelector(el)).concat([valueSelector(el)]));
+    });
+    return map;
 }
 
 
@@ -615,7 +626,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    throw new Error('Not implemented');
+    return arr.map(x => childrenSelector(x)).reduce((elem1, elem2) => elem1.concat(elem2), []);
 }
 
 
@@ -632,7 +643,8 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
+    
+    return indexes.reduce((a,b)=>a[b], arr);
 }
 
 
@@ -655,9 +667,29 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
-}
+    if(arr.length == 1)
+        return arr;
+    else if (arr.length <4)
+        return arr.reverse();
+   
+   else{
+       let head,tail,middle;
+        if(arr.length%2 == 0){
+            head = arr.slice(0, arr.length/2);
+            tail = arr.slice(arr.length/2);
+            arr = tail.concat(head);
+            return arr;
+        }
+        else 
+        head = arr.slice(0, ((arr.length-1)/2));
+        middle = arr[(arr.length-1)/2];
+        tail = arr.slice((arr.length+1)/2);
+        head.unshift(middle);
+        arr = tail.concat(head);
+        return arr;
 
+}
+}
 
 module.exports = {
     findElement: findElement,
