@@ -527,20 +527,13 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-    n = 3;
-    let arrIn =  new Array(n);
-    let arrOut = new Array(n);
-    //let countr = 0;
-    arrOut.fill(arrIn);    
-    arrIn.fill(0);
-    arrOut.map(function(index) {
-        arrOut.push((new Array(n)).fill(0));
-        arrOut[index][index] = 1   
-        arrOut.shift();
-        return 1;
-});
-        
-    return arrOut;
+       
+    let arr =  Array.from({length:n});
+    return arr.map( (element,index) => {
+        let innerArr =  Array.from({length:n}).fill(0);
+        innerArr[index] = 1;
+        return innerArr;
+    }  );
 }
 
 /**
