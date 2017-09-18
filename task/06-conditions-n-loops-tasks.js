@@ -82,10 +82,6 @@ function getSumBetweenNumbers(n1, n2) {
 }
 function findSum(n1,n2){
     return n1===n2 ? n1 : n1+findSum(n1+1,n2);
-    // if(n1===n2)
-    //     return n1;
-    // else
-    //     return n1+findSum(n1+1,n2);
 }
 
 
@@ -191,7 +187,13 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    for (var i = 0; i <str.length; i++) {
+        var s=str.charAt(i);
+        if (str.indexOf(s) == i && str.indexOf(s,i+1) == -1) {
+          return s;
+        }
+      }
+      return null;
 }
 
 
@@ -294,7 +296,25 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    let arr = (((ccn.toString()).split('').reverse())).map((x)=>(Number(x)));  
+    for(let i=0; i< arr.length; i++){
+        let p = 0;
+        if(i%2>0){
+            p = arr[i]*2;
+            if(p>9){
+                p=p-9;
+            }
+            sum=sum+p;
+        }
+        if(i%2===0){
+            sum=sum+arr[i];
+        }
+    }
+    if(sum%10===0){
+        return true
+    } else return false;
+
 }
 
 
@@ -439,12 +459,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    let str = '';
-    while (num > 0) {
-        str = str.concat((num % n).toString());
-        num = Math.floor(num / n);
-    }
-    return str.split('').reverse().join('');
+        return num.toString(n);
 }
 
 
@@ -533,7 +548,19 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    function func(pos1, pos2,pos3){
+       return pos1===pos2 && pos2===pos3 && pos1!=undefined;
+    }
+       for(let i = 0; i<3; i++){
+        if(func(position[i][0], position[i][1], position[i][2])) //rows
+            return position[i][0];
+        if(func(position[0][i], position[1][i], position[2][i])) //columns
+            return position[0][i];
+        if(func(position[0][0], position[1][1], position[2][2]))
+            return position[0][0];
+        if(func(position[2][0], position[1][1], position[0][2]))
+            return position[2][0];      
+    }
 }
 
 
