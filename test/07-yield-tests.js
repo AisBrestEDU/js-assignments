@@ -316,6 +316,7 @@ describe('07-yield-tasks', function() {
     });
 
     it.optional('depthTraversalTree should process a wide tree', () => {
+        this.timeout(30000);
         var root = createWideTree();
         var index = 1;
         for(let node of tasks.depthTraversalTree(root)) {
