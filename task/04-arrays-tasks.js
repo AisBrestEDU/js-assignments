@@ -543,9 +543,18 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-    throw new Error('Not implemented');
+    let _map = new Map();
+    
+        array.map(function (value) {
+            if (!_map.has(keySelector(value))) {
+                _map.set(keySelector(value), [valueSelector(value)]);
+            } else {
+                _map.set(keySelector(value), _map.get(keySelector(value)).concat(valueSelector(value)));
+            }
+        });
+    
+        return _map;
 }
-
 
 /**
  * Projects each element of the specified array to a sequence and flattens the resulting sequences into one array.
@@ -559,7 +568,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    return Array.from(arr, childrenSelector).reduce((v, i) => v.concat(i));
+    return Array.from(arr, childrenSelector).reduce((value, index) => value.concat(index));
 }
 
 
@@ -594,6 +603,8 @@ function getElementByIndexes(arr, indexes) {
     return (indexes.length == 3 && arr[indexes[0]][indexes[1]][indexes[2]]) ||
         (indexes.length == 2 && arr[indexes[0]][indexes[1]]) ||
         arr[indexes[0]];
+
+    //return indexes.reduce((accumulator, value)=> accumulator[value],arr);
 }
 
 
