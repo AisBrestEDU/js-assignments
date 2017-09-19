@@ -184,6 +184,13 @@ function isInsideCircle(circle, point) {
  */
 function findFirstSingleChar(str) {
     throw new Error('Not implemented');
+
+    // for (let i = 0; i < str.length; i++) {
+    //     if(str.indexOf(str.charAt(i)) && str.lastIndexOf(str.charAt(i))) {
+    //         return str.charAt(i);
+    //     }
+    // }
+    // return null;
     // let strToArray = str.replace(' ', '').split('');
     // for(let i = 0; i < strToArray.length; i++) {
     //     if(strToArray.indexOf(strToArray[i] == -1)) return strToArray[i];
@@ -312,9 +319,9 @@ function isCreditCardNumber(ccn) {
 function getDigitalRoot(num) {
     let temp = num;
     let result = 0;
-    for(let i = 0; i < temp.toString().length; i++) {
+    for (let i = 0; i < temp.toString().length; i++) {
         result += Number(temp.toString()[i]);
-        if(i == temp.toString().length - 1 && result > 9) {
+        if (i == temp.toString().length - 1 && result > 9) {
             i = -1;
             temp = result;
             result = 0;
@@ -424,6 +431,9 @@ function toNaryString(num, n) {
  */
 function getCommonDirectoryPath(pathes) {
     throw new Error('Not implemented');
+    // pathes.map(path => {
+    //     path.split('/')
+    // }).every(item => item)
 }
 
 

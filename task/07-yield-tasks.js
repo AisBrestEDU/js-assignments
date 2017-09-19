@@ -33,7 +33,16 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    let bottles = 99;
+    while (bottles >= 2) {
+        yield `${bottles} bottles of beer on the wall, ${bottles--} bottles of beer.`;
+        bottles > 1 ? yield `Take one down and pass it around, ${bottles} bottles of beer on the wall.` :
+            yield `Take one down and pass it around, ${bottles} bottle of beer on the wall.`;
+    }
+    yield '1 bottle of beer on the wall, 1 bottle of beer.';
+    yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+    yield 'No more bottles of beer on the wall, no more bottles of beer.';
+    yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
 }
 
 
@@ -47,7 +56,15 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    let fib = [0, 1];
+    let i = 0;
+    while (i < 39) {
+        if (i > 1) {
+            fib[i] = fib[i - 2] + fib[i - 1];
+        }
+        yield fib[i];
+        i++;
+    }
 }
 
 
@@ -146,6 +163,7 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     throw new Error('Not implemented');
+    //return async(generator => {return generator});
 }
 
 
@@ -155,5 +173,5 @@ module.exports = {
     depthTraversalTree: depthTraversalTree,
     breadthTraversalTree: breadthTraversalTree,
     mergeSortedSequences: mergeSortedSequences,
-    async               : async
+    async: async
 };
