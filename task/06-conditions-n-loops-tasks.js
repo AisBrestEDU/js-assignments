@@ -30,7 +30,17 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    let F = 'Fizz';
+    let B = 'Buzz';
+    if(num%3==0 && num%5==0)
+        return F+B;
+    else if (num%3==0)
+        return F;
+    else if (num%5==0)
+        return B;
+    else
+        return num;
+
 }
 
 
@@ -46,8 +56,13 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
-}
+    let factorial = 1;
+    for(let c=1;c<=n;c++)
+        {   
+            factorial = c * factorial;
+        }
+    return factorial;
+    } 
 
 
 /**
@@ -63,7 +78,11 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+   
+    for(let c = n1+1; c<n2;c++){
+        n1 = n1 + c  ;
+    }
+    return n1+n2 ;
 }
 
 
@@ -82,7 +101,10 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    if (a + b > c && a + c > b && b + c > a)
+        return true;
+    else
+        return false;
 }
 
 
@@ -119,7 +141,14 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    let downRect1 = rect1.top+rect1.height;
+    let rightRect1= rect1.left+rect1.width;
+
+  if (downRect1>=rect2.top && rightRect1>=rect2.left )
+    {
+        return true;
+    }
+  else return false;
 }
 
 
@@ -150,7 +179,10 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+
+    if ((Math.pow((point.x-circle.center.x),2)+Math.pow((point.y-circle.center.y),2))<circle.radius*circle.radius)
+        return true;
+    else return false;
 }
 
 
@@ -166,8 +198,14 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
-}
+    for (let i = 0; i < str.length; i++) {
+        let c = str.charAt(i);
+        if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1) {
+          return c;
+        }
+      }
+      return null;
+    }
 
 
 /**
@@ -192,7 +230,20 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    let opening, closing;
+    {
+    if( isStartIncluded == true ) 
+        opening = "[";
+    else
+        opening = "(";}
+    {if( isEndIncluded == true ) 
+        closing = "]";
+    else
+        closing = ")";}
+    {if (a>b)
+    return `${opening}${b}, ${a}${closing}`;
+    else  return `${opening}${a}, ${b}${closing}`;
+    }
 }
 
 
@@ -209,7 +260,11 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+   let reverseString="";
+   for (let i = str.length - 1; i >= 0; i--) { 
+    reverseString += str[i];
+   }
+   return reverseString;
 }
 
 
@@ -226,7 +281,12 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+   let reversedNum = 0;
+    while (num != 0) {
+        reversedNum = reversedNum * 10 + num % 10;
+        num =  Math.floor(num/10);
+    }
+    return reversedNum;
 }
 
 
@@ -251,7 +311,25 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    if (/[^0-9-\s]+/.test(ccn)) return false;
+    
+        
+        var nCheck = 0, nDigit = 0, bEven = false;
+        ccn = ccn.toString(/\D/g, "");
+    
+        for (var n = ccn.length - 1; n >= 0; n--) {
+            var cDigit = ccn.charAt(n),
+                  nDigit = parseInt(cDigit, 10);
+    
+            if (bEven) {
+                if ((nDigit *= 2) > 9) nDigit -= 9;
+            }
+    
+            nCheck += nDigit;
+            bEven = !bEven;
+        }
+    
+        return (nCheck % 10) == 0;
 }
 
 
