@@ -74,8 +74,10 @@ return new RegExp(/.*p.t.*/);
 function getRegexForIPv4() {
    //return new RegExp('([0-1]\d{0,2})|(2\d?)|(2[0-4]\d)|(25[0-5])(\.([0-1]\d{0,2})|(2\d?)|(2[0-4]\d)|(25[0-5])){3}');
    // return new RegExp(/([0-1]?\d{0,2}|2\d?|2[0-4]\d|25[0-5])(\.[0-1]?\d{0,2}|2\d?|2[0-4]\d|25[0-5]){3}/);
-    return new RegExp(/([0-1]\d{0,2}|2[0-4]?\d|25[0-5](\.[0-1]\d{0,2}|2[0-4]?\d|25[0-5]){3})/);
+   // return new RegExp(/([0-1]\d{0,2}|2[0-4]?\d|25[0-5](\.[0-1]\d{0,2}|2[0-4]?\d|25[0-5]){3})/);
     //[0-1]\d{0,2}|2[0-4]?\d|25[0-5](\.[0-1]\d{0,2}|2[0-4]?\d|25[0-5]){3}
+    //return new RegExp(/^([01]\d{0,2}|\d{2}|2[0-4]?\d|25[0-5])(\.[01]\d{0,2}|\d{2}|2[0-4]?\d|25[0-5]){3}$/);
+    return new RegExp(/^(?:25[0-5]|2[0-4]\d|[01]\d{2}|\d{1,2})(?:\.25[0-5]|\.2[0-4]\d|\.[01]\d{2}|\.\d{1,2}){3}$/);
 }
 
 
@@ -94,7 +96,7 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-   throw new Error('Not implemented');
+   return RegExp(/^(?!0{3})\d{3}-(?!0{2})\d{2}-(?!0{4})\d{4}$/);
 }
 
 
@@ -119,7 +121,7 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-   throw new Error('Not implemented');
+    return new RegExp(`^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{${minLength},}$`);
 }
 
 
