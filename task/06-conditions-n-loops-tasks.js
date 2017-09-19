@@ -30,7 +30,11 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    let result = '';
+    if (num % 3 && num % 5) return num;
+    if (!(num % 3)) result = result.concat('Fizz');
+    if (!(num % 5)) result = result.concat('Buzz');
+    return result;
 }
 
 
@@ -46,7 +50,13 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let result = 0;
+    if (n > 0) {
+        result = 1;
+        for (let i = 2; i <= n; i++)
+            result *= i;
+    }
+    return result;
 }
 
 
@@ -63,7 +73,10 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    let result = 0;
+    for (let i = n1; i <= n2; i++)
+        result += i;
+    return result;
 }
 
 
@@ -82,7 +95,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    return (Math.abs(a - b) < c) && (a + b > c);
 }
 
 
@@ -119,7 +132,10 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    return !(   (rect1.top + rect1.height < rect2.top) ||   // bottom < top
+                (rect2.top + rect2.height < rect1.top) ||   
+                (rect1.left + rect1.width < rect2.left) ||  // right < top
+                (rect2.left + rect2.width < rect1.left) );  
 }
 
 
@@ -150,7 +166,10 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+     // x^2 + y^2 < R^2 
+    return  Math.pow((point.x - circle.center.x), 2)
+            + Math.pow((point.y - circle.center.y), 2)
+            < Math.pow(circle.radius, 2);  
 }
 
 
@@ -166,7 +185,25 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    
+    let uniqueChars = Array.from(new Set(str));
+
+    for (let i = 0; i < uniqueChars.length; i++) 
+    {
+        let charAmount = 0;
+        for (let j = 0; j < str.length; j++) 
+        {
+            if (uniqueChars[i] === str[j]) 
+            {
+                charAmount++;
+                if (charAmount > 1)
+                    break;
+            }
+        }
+        if (charAmount === 1)
+            return uniqueChars[i];
+    }
+    return null;
 }
 
 
@@ -192,7 +229,7 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    return ( (isStartIncluded ? '[': '(') + new String(`${a}, ${b}`) + (isEndIncluded? ']': ')') );
 }
 
 
