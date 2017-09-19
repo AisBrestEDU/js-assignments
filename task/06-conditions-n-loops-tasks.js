@@ -30,7 +30,10 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    if (num % 5 == 0 && num % 3 == 0) return 'FizzBuzz';
+    else if(num % 3 == 0) return 'Fizz';
+    else if (num % 5 == 0) return 'Buzz';
+    else return num;
 }
 
 
@@ -46,7 +49,11 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let factorial = 1;
+    for (let i = 1; i <= n; i++){
+        factorial *= i;
+    };
+    return factorial;
 }
 
 
@@ -63,7 +70,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    return ((n2-n1) + 1)*(n2+n1)/2;
 }
 
 
@@ -82,7 +89,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    return (a < b + c && b < a + c && c < a + b);
 }
 
 
@@ -116,10 +123,29 @@ function isTriangle(a,b,c) {
  * 
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
+ * 
+ * Two rectangles do not overlap if one of the following conditions is true.
+ * 1) One rectangle is above top edge of other rectangle. 
+ * 2) One rectangle is on left side of left edge of other rectangle.
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    //looking for top left and bottom right coordinates of rectangles 
+    let l1x = rect1.left;
+    let l1y = rect1.top;
+    let r1x = rect1.width;
+    let r1y = rect1.height;
+
+    let l2x = rect2.left;
+    let l2y = rect2.top;
+    let r2x = rect2.width;
+    let r2y = rect2.heigth;
+
+    if (l1x > r2x || l2x  > r1x)
+        return false;
+    if (r1y < l2y || r2y < l1y)
+        return false;
+    return true;
 }
 
 
@@ -150,7 +176,10 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    //The point lies inside the circle if d < r, where d - the distance between center of circle and point
+    //so we need to look for that distance and than compare it to radius of circle
+    let d = Math.sqrt(Math.pow((point.x - circle.center.x),2) + Math.pow((point.y - circle.center.y), 2));
+    return d < circle.radius;
 }
 
 
@@ -166,7 +195,17 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    for (let i = 0; i < str.length; i++) {
+        if(!(str.slice(i + 1).concat(str.slice(0,i)).includes(str[i]))) {
+            return str[i];
+        }
+    }
+    return null;
+    //also we could use 'find' method of class Array
+    // let result = str.split("").find(function(elem, index, arr){
+    //     return str.includes(elem) && !str.slice(index + 1).concat(str.slice(0, index)).includes(elem) ? elem:null;    
+    // });
+    // return result;
 }
 
 
@@ -192,7 +231,19 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    let min = a < b ? a : b;
+    let max = a > b ? a : b;
+    if (isStartIncluded && isEndIncluded) {
+        return `[${min}, ${max}]`;
+    }
+    else if (isStartIncluded) {
+        return `[${min}, ${max})`;
+    }
+    else if (isEndIncluded) {
+        return `(${min}, ${max}]`;
+    }
+    else return `(${min}, ${max})`;
+
 }
 
 
@@ -209,7 +260,15 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    //through the Array.reverse() method
+    // return str.split("").reverse().join("");
+    // through the cycle
+
+    var reversedString = "";
+    for (let i = str.length - 1; i >= 0 ; i--) {
+        reversedString += str[i];        
+    }
+    return reversedString;
 }
 
 
@@ -226,7 +285,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    return parseInt(reverseString(num.toString()));
 }
 
 
@@ -251,7 +310,14 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    let parsedCcn = ccn.toString();
+    for (let i = 0; i < parsedCcn.length; i++) {
+        let add = (parsedCcn[i] - '0') * (2 - (i + parsedCcn.length) % 2);//determine a multiplier (1 or 2)
+        add -= add > 9 ? 9 : 0;
+        sum += add;
+    }
+    return sum % 10 == 0;
 }
 
 
@@ -270,7 +336,17 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    if (num.toString().length == 1) {
+        return num; 
+    }
+    else {
+        num.toString().split("").forEach(function(value){
+            let parsedValue = parseInt(value);
+            return sum += parsedValue; 
+        });
+        return getDigitalRoot(sum);
+    }
 }
 
 
@@ -296,7 +372,47 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    // let counters = {
+    //     squared : 0,
+    //     curly : 0,
+    //     round : 0,
+    //     angular : 0
+    // };
+
+    // var re = new RegExp(/^[\}\]\)\>]/);
+
+    // var brackets = {
+    //     "]":"[",
+    //     "}":"{",
+    //     ")":"(",
+    //     ">":"<"
+    // };
+
+
+    // if (re.test(str)) return false;
+
+    // str.split("").forEach(function(item, index, str) {
+    //     switch (item) {
+    //         case '[': counters.squared++;break;
+    //         case '{': counters.curly++; break;
+    //         case '(': counters.round++; break;
+    //         case '<': counters.angular++; break;
+    //         case ']': counters.squared--; break;
+    //         case '}': counters.curly--; break;
+    //         case ')': counters.round--; break;
+    //         case '>': counters.angular--; break;
+    //     }
+    // });
+
+
+    // for(let key in counters) {
+    //     if (counters[key] !=0) return false;
+    // }
+
+    // if (str[0] !== brackets[str[str.length - 1]]) return false;
+
+    // return true;
+    throw new Error("Not implemented");
 }
 
 
