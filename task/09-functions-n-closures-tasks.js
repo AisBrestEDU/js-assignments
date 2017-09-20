@@ -25,8 +25,8 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.acos(x))
  *
  */
-function getComposition(f,g) {
-    throw new Error('Not implemented');
+function getComposition(f, g) {
+    return x => f(g(x));
 }
 
 
@@ -47,7 +47,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+    return x => Math.pow(x, exponent);
 }
 
 
@@ -65,6 +65,12 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
+    // return x => {
+    //     [].slice.call(arguments).forEach((elem, index) => {
+
+    //     })
+    // }
+
     throw new Error('Not implemented');
 }
 
@@ -84,7 +90,12 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+    let inputFunc = func;
+    let result;
+    return () => {
+        if (!result) result = inputFunc();
+        return result;
+    };
 }
 
 
@@ -104,7 +115,13 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+    return (() => {
+        for (attempts; attempts > 0; attempts--) {
+            try {
+                return func();
+            } catch (error) {}
+        }
+    })
 }
 
 
@@ -133,6 +150,11 @@ function retry(func, attempts) {
  */
 function logger(func, logFunc) {
     throw new Error('Not implemented');
+    // let inputFunc = func;
+    // let inputLogFunc = logFunc;
+    // return (value) => {
+    //     return eval(`${inputLogFunc}(${inputFunc}(${value}))`);
+    // }
 }
 
 
@@ -171,7 +193,8 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+    let count = startFrom;
+    return () => {return count++;}
 }
 
 
