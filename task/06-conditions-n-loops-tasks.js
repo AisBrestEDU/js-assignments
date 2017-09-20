@@ -533,7 +533,57 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    function Chek(nbr) {
+        if (nbr.length != 3) return false;
+
+        let buff = nbr[0];
+        if (buff != 'X' && buff != '0') return false;
+
+
+        for (let item of nbr) {
+            if (buff != item) return false;
+        }
+        return buff;
+    }
+
+    let buff;
+    let buffarr = new Array(3);
+    let m = position.length;
+
+
+
+    for (let i = 0; i < m; i++) {
+        buff = Chek(position[i]);
+        if (buff) return buff;
+
+        for (let j = 0; j < m; j++) {
+            buffarr[j] = position[j][i];
+        }
+
+        buff = Chek(buffarr);
+        if (buff) return buff;
+    }
+
+    let n = 0;
+    for (let i = 0, j = 0; i < m; i++ , j++) {
+        buffarr[n++] = position[i][j];
+    }
+
+    buff = Chek(buffarr);
+    if (buff) return buff;
+
+    n = 0;
+    for (let i = 0, j = 2; i < m; i++ , j--) {
+        buffarr[n++] = position[i][j];
+    }
+
+    buff = Chek(buffarr);
+    if (buff) return buff;
+
+
+    return undefined;
 }
 
 
