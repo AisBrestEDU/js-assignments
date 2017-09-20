@@ -372,47 +372,13 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    // let counters = {
-    //     squared : 0,
-    //     curly : 0,
-    //     round : 0,
-    //     angular : 0
-    // };
-
-    // var re = new RegExp(/^[\}\]\)\>]/);
-
-    // var brackets = {
-    //     "]":"[",
-    //     "}":"{",
-    //     ")":"(",
-    //     ">":"<"
-    // };
-
-
-    // if (re.test(str)) return false;
-
-    // str.split("").forEach(function(item, index, str) {
-    //     switch (item) {
-    //         case '[': counters.squared++;break;
-    //         case '{': counters.curly++; break;
-    //         case '(': counters.round++; break;
-    //         case '<': counters.angular++; break;
-    //         case ']': counters.squared--; break;
-    //         case '}': counters.curly--; break;
-    //         case ')': counters.round--; break;
-    //         case '>': counters.angular--; break;
-    //     }
-    // });
-
-
-    // for(let key in counters) {
-    //     if (counters[key] !=0) return false;
-    // }
-
-    // if (str[0] !== brackets[str[str.length - 1]]) return false;
-
-    // return true;
-    throw new Error("Not implemented");
+    let n = str.length;
+    while(n) {
+        str = str.replace(/<>|\[]|\{}|\(\)/,"");
+        n--;
+    }
+    
+    return str.length === 0;
 }
 
 
@@ -448,7 +414,47 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let difference = endDate - startDate;
+    
+    const seconds = 1000;
+    const minutes = 60*seconds;
+    const hours = 60*minutes;
+    const days = 24*hours;
+
+
+    if (difference <= 45*seconds) {
+        return "a few seconds ago";
+    }
+    else if(difference <= 90*seconds) {
+        return "a minute ago";
+    }
+    else if(difference <= 45*minutes) {
+        return `${Math.round((difference - 1)/minutes)} minutes ago`;
+    }
+    else if (difference <= 90*minutes) {
+        return "an hour ago";
+    }
+    else if (difference <= 22*hours) {
+        return `${Math.round((difference - 1)/hours)} hours ago`;
+    }
+    else if (difference <= 36*hours) {
+        return "a day ago";
+    }
+    else if (difference <= 25*days) {
+        return `${Math.round((difference - 1)/days)} days ago`;
+    }
+    else if (difference <= 45*days) {
+        return "a month ago";
+    }
+    else if (difference <= 345*days) {
+        return `${Math.round((difference - 1)/(30*days))} months ago`;
+    }
+    else if (difference <= 545*days) {
+        return "a year ago";
+    }
+
+    return `${Math.round((difference - 1)/(365*days))} years ago`;
+
 }
 
 
@@ -472,7 +478,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);    
 }
 
 
@@ -489,7 +495,28 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    var commonPath = "";
+
+    for (let i = 0; i < pathes[0].length; i++) {
+        
+        var isElemPresence = pathes.every(function(value, index, array){
+            return value.indexOf(pathes[0][i], i) === i;
+        });
+
+        if (isElemPresence)  {
+            commonPath += pathes[0][i];
+        } else {
+            if (commonPath.length == 1 || commonPath.length == 0) return commonPath;
+
+            var a1 = commonPath.split("/");
+            a1.pop();
+            a1.shift();
+            commonPath = `/${a1.join("/")}/`;
+            return commonPath == "//" ? "/" : commonPath;
+
+        }
+    }
+
 }
 
 
@@ -512,7 +539,21 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let resultMatrix = [];
+    let innerArray = [];
+    for (let k = 0; k < m1.length; k++) {
+        for (let i = 0; i < m1.length; i++) {
+            let element = 0;
+            
+            for (let j = 0; j < m2.length; j++) {
+                element += m1[k][j]*m2[j][i];
+            }
+            innerArray.push(element);
+        }
+        resultMatrix.push(innerArray);
+        innerArray = [];
+    }
+    return resultMatrix;    
 }
 
 
@@ -547,7 +588,22 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+
+    function func(left,middle,right){
+        return left===middle && middle===right&& left!=undefined;
+    }
+       for(let i = 0; i<3; i++){
+        if(func(position[i][0], position[i][1], position[i][2])) 
+            return position[i][0];
+        if(func(position[0][i], position[1][i], position[2][i])) 
+            return position[0][i];
+        if(func(position[0][0], position[1][1], position[2][2]))
+            return position[0][0];
+        if(func(position[2][0], position[1][1], position[0][2]))
+            return position[2][0];      
+    }
+
+
 }
 
 
