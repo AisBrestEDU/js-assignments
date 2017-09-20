@@ -315,7 +315,7 @@ function isCreditCardNumber(ccn) {
     
         
         var nCheck = 0, nDigit = 0, bEven = false;
-        ccn = ccn.toString(/\D/g, "");
+        ccn = ccn.toString();
     
         for (var n = ccn.length - 1; n >= 0; n--) {
             var cDigit = ccn.charAt(n),
@@ -348,7 +348,18 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    let  result = 0;
+    if (num.toString().length>1){
+        while(num.toString().length>0&& num!=0)
+        {
+            result = result + num%10;
+            num = Math.floor(num/10);
+        }
+        num = 0;
+        num = result%10 + Math.floor(result/10);
+        return num;
+    }
+    else return num;
 }
 
 
@@ -374,7 +385,21 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    let opening = new RegExp(/[\{\[\(\<]/);
+    let closing= new RegExp(/[\}\]\)\>]/);
+    if (str.length%2 != 0)
+        return false;
+    else if ( closing.test(str[0]) || opening.test(str[str.length - 1]) )
+        return false;
+    
+     else
+      {
+        for ( let n=str.length; n>0; n-- ) {
+            str = str.replace(/<>|\[]|\{}|\(\)/, '');
+           }
+           
+         return str.length === 0;
+     }       
 }
 
 
@@ -410,7 +435,24 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let termBetween = endDate - startDate;
+    
+    termBetween = termBetween
+    
+    if(termBetween<=45000) //value at ms 
+        return 'a few seconds ago';
+    else if(termBetween-1<90000) //value at ms      
+        return 'a minute ago';
+    
+    else if(termBetween-1<2700000){  //value at sec
+        return `${Math.round((termBetween-1)/1000/60)} minutes ago`;
+    }
+    else if((termBetween-1)/1000/60<=90){  //value at min
+        return `an hour ago`;
+    }
+    else if(Math.round(termBetween-1/1000/60)<1320){  //value at min
+        return `${Math.round((termBetween-1)/1000/60)}hours ago`;
+    }
 }
 
 
