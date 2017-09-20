@@ -419,7 +419,41 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    function GetShort(strings){
+        let nawmax=99999;
+
+        strings.forEach(function(element) {
+            if(nawmax>element.length) nawmax=element.length;
+        });
+
+        return nawmax;
+    }
+
+    function Check(pathess, i){
+        let org=pathes[0][i];
+        for(let item of pathess){
+            if(item[i]!= org) return false;
+        }
+
+        return true;
+    }
+
+    if(pathes.length==0) return '';
+
+    let str='';
+
+    let max=GetShort(pathes);
+    for(let i=0; i<max; i++){
+        if(Check(pathes, i)){
+            str+=pathes[0][i];
+        }else{break;}
+    }
+
+    for(let i=str.length;i>=0;i--) if(str[i]=='/') {str=str.substring(0,i+1); break;}
+    
+    return str;
 }
 
 
