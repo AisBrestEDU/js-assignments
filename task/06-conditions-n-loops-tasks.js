@@ -58,10 +58,13 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    function factorial(n) {
-  return (n != 1) ? n * factorial(n - 1) : 1;
-}
-    return factorial(n);
+    let a = 1;
+    while (n>1){
+        a = a*n;
+        n--;
+    }
+    return a;
+
 }
 
 
