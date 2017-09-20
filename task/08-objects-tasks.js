@@ -23,8 +23,24 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
-}
+    this.width = width;
+    this.height = height;
+};
+Rectangle.prototype.getArea = function () {
+    return this.width * this.height;
+};
+
+// or using ES6 sugar
+
+// class Rectangle {
+//     constructor(width, height) {
+//         this.width = width;
+//         this.height = height;
+//     }
+//     getArea() {
+//         return this.width * this.height;
+//     };
+// }
 
 
 /**
@@ -38,7 +54,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +70,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.assign(Object.create(proto), JSON.parse(json));
 }
 
 
@@ -107,36 +123,111 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
-
+    
     element: function(value) {
-        throw new Error('Not implemented');
+        if (!this.buffer) {
+            return this.addBuffer(this, value, 0, "0");
+        };
+        if (!this.checkCounters("0")) {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");            
+        };
+        this.checkLog(0);
+        this.buffer += value;        
+        return this;       
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    id: function(value) {  
+        if (!this.buffer) {
+            return this.addBuffer(this, "#" + value, 1, "1");            
+        };
+        if (!this.checkCounters("1")) {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");            
+        };
+        this.checkLog(1);
+        this.buffer += "#" + value;                        
+        return this;
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        if (!this.buffer) {
+            return this.addBuffer(this, "." + value, 2);            
+        };
+        this.checkLog(2);   
+        this.buffer += "." + value;                        
+        return this;
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        if (!this.buffer) {
+            return this.addBuffer(this, "[" + value + "]", 3);            
+        };
+        this.checkLog(3);
+        this.buffer += "[" + value + "]";                        
+        return this;
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        if (!this.buffer) {
+            return this.addBuffer(this, ":" + value, 4);            
+        };
+        this.checkLog(4);
+        this.buffer += ":" + value;                        
+        return this;
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        if (!this.buffer) {
+            return this.addBuffer(this, "::" + value, 5, "2");            
+        }   
+        if (!this.checkCounters("2")) {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
+        };
+        this.checkLog(5);
+        this.buffer += "::" + value;                        
+        return this;
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        if (!this.buffer) {
+            return this.addBuffer(this, selector1.buffer + " " + combinator + " " + selector2.buffer);            
+        };
+        this.buffer += selector1.buffer + " " + combinator + " " + selector2.buffer;                        
+        return this;
     },
 };
-
+    
+    cssSelectorBuilder.__proto__.checkLog = function (log) {
+        if (log < this.log) {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");                        
+        } else {
+            this.log = log;
+        }
+    };
+    cssSelectorBuilder.__proto__.checkCounters = function (el) {
+        this.counters[el] += 1;
+        if (this.counters[el] > 1) {
+            return false;
+        };
+        return true;
+    };
+    cssSelectorBuilder.__proto__.addBuffer = function (self, val, log, incr) {
+        let obj = Object.create(self);
+        obj.buffer = "";
+        obj.buffer += val;   
+        obj.counters = {
+            "0" : 0,
+            "1" : 0,
+            "2" : 0
+        };     
+        if (incr) {
+            obj.counters[incr] += 1;
+        };  
+        obj.log = log;
+        return obj;
+    };
+    cssSelectorBuilder.__proto__.stringify = function () {
+        return this.buffer;
+    };
 
 module.exports = {
     Rectangle: Rectangle,
