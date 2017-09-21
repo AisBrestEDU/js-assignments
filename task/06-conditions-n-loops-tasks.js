@@ -541,7 +541,20 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    const player = ['X','0'];
+    for(let i = 0; i < 2;i++) {
+        if(
+            (position[0][0] == player[i] && position[0][1] == player[i] && position[0][2] == player[i]) ||
+            (position[1][0] == player[i] && position[1][1] == player[i] && position[1][2] == player[i]) ||
+            (position[2][0] == player[i] && position[2][1] == player[i] && position[2][2] == player[i]) ||
+            (position[0][0] == player[i] && position[1][0] == player[i] && position[2][0] == player[i]) ||
+            (position[0][1] == player[i] && position[1][1] == player[i] && position[2][1] == player[i]) ||
+            (position[0][2] == player[i] && position[1][2] == player[i] && position[2][2] == player[i]) ||
+            (position[0][0] == player[i] && position[1][1] == player[i] && position[2][2] == player[i]) ||
+            (position[0][2] == player[i] && position[1][1] == player[i] && position[2][0] == player[i]) 
+        ) return player[i];
+    }
+    return undefined;
 }
 
 
