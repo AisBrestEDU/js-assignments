@@ -135,9 +135,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    var str='';
-    for(var i=0; i<count; i++) str=str+value;
-    return str;
+    return str.repeat(count);
 }
 
 /**
@@ -288,13 +286,9 @@ function encodeToRot13(str) {
 function isString(value) {
     //throw new Error('Not implemented');
 
-    if(value == null){
-        return false;
-    } 
-    else{
-        if((typeof value)=='string') return true;
-        if( value instanceof String) return true;
-    }
+    if((typeof value)=='string') return true;
+    if( value instanceof String) return true;
+
     return false;
 }
 
