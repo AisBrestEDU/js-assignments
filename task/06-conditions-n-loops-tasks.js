@@ -226,7 +226,8 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    return parseInt(Array.from(num.toString()).reverse().join(''));
 }
 
 
@@ -252,6 +253,8 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
     throw new Error('Not implemented');
+
+    
 }
 
 
@@ -276,6 +279,7 @@ function getDigitalRoot(num) {
     num=num.toString();
     while(true){      
         for(let i=0; i<num.length; i++) sum+=parseInt(num[i]);
+
         num=sum.toString();
         if(sum<10) return sum; else sum=0;
     }  
