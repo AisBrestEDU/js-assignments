@@ -33,7 +33,19 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    for(let i=99;i!=2;){
+        yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
+        yield `Take one down and pass it around, ${--i} bottles of beer on the wall.`;
+    }
+
+    yield '2 bottles of beer on the wall, 2 bottles of beer.';
+    yield 'Take one down and pass it around, 1 bottle of beer on the wall.';
+    yield '1 bottle of beer on the wall, 1 bottle of beer.';
+    yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+    yield 'No more bottles of beer on the wall, no more bottles of beer.';
+    yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
 }
 
 
@@ -47,7 +59,19 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    let a=0;
+    let b=1;
+
+    yield a;
+    yield b;
+
+    while(true){
+        yield a+b;
+        b=a+b;
+        a=b-a;
+    }
 }
 
 
@@ -144,7 +168,6 @@ function* mergeSortedSequences(source1, source2) {
             s1=source1Gen.next();
             continue;
         }
-
         if(s1.value > s2.value){
             yield s2.value;
             s2=source2Gen.next();
@@ -162,15 +185,12 @@ function* mergeSortedSequences(source1, source2) {
     while(s1.value!==undefined){
         yield s1.value;       
         s1=source1Gen.next();
-
     }
 
     while(s2.value!==undefined){
         yield s2.value;      
         s2=source2Gen.next();
-
     }
-
 }
 
 /**
