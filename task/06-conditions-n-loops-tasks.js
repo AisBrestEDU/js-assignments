@@ -447,13 +447,31 @@ function timespanToHumanString(startDate, endDate) {
     else if(termBetween-1<2700000){  //value at sec
         return `${Math.round((termBetween-1)/1000/60)} minutes ago`;
     }
-    else if((termBetween-1)/1000/60<=90){  //value at min
+    else if((termBetween-1)/1000/60<90){  //value at min
         return `an hour ago`;
     }
-    else if(Math.round(termBetween-1/1000/60)<1320){  //value at min
-        return `${Math.round((termBetween-1)/1000/60)}hours ago`;
+    else if(termBetween/1000/60<=1320){  //value at min
+        return `${Math.round((termBetween-1)/1000/60/60)} hours ago`;
     }
-}
+    else if(termBetween/1000/60<=2160){  //value at min
+        return `a day ago`;
+    }
+    else if(termBetween/1000/60/60<=600){  //value at hours
+        return `${Math.round((termBetween-1)/1000/60/60/24)} days ago`;
+    }
+    else if(termBetween/1000/60/60/24<=45){  //value at days
+        return `a month ago`;
+    }
+    else if(termBetween/1000/60/60/24<=345){  //value at days
+        return `${Math.round((termBetween-1)/1000/60/60/24/30)} months ago`;
+    }
+    else if(termBetween/1000/60/60/24<=545){  //value at days 
+        return `a year ago`;
+    }
+    else   //value at days 
+        return `${Math.round((termBetween-1)/1000/60/60/24/365)} years ago`;
+    }
+
 
 
 /**
@@ -476,7 +494,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+   return  num.toString(n);
 }
 
 
@@ -493,8 +511,32 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
-}
+  
+    let result = ""; 
+    
+    function wordComplainer(a,b){ 
+        if (a == b && a!=""){ 
+        result = result + "/" + a; 
+            } 
+     else return false
+        }
+        
+        for(let i=pathes.length; i>1;i--){ 
+        let a = pathes[i-2].split('/'); 
+        let b = pathes[i-1].split('/'); 
+        if (a[0]!=b[0]){
+        return ""
+      }
+    
+            
+        for(let i = 0;a.length>i;i++){ 
+        wordComplainer(a[i],b[i]); 
+       
+       } 
+    }
+    
+        return result + "/"; 
+    } 
 
 
 /**
@@ -516,7 +558,18 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    var result = [];
+    for (var i = 0; i < m1.length; i++) {
+        result[i] = [];
+        for (var j = 0; j < m2[0].length; j++) {
+            var sum = 0;
+            for (var k = 0; k < m1[0].length; k++) {
+                sum += m1[i][k] * m2[k][j];
+            }
+            result[i][j] = sum;
+        }
+    }
+    return result;
 }
 
 
@@ -551,11 +604,23 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
-}
+    function func(left,middle,right){
+        return left===middle && middle===right&& left!=undefined;
+     }
+        for(let i = 0; i<3; i++){
+         if(func(position[i][0], position[i][1], position[i][2])) 
+             return position[i][0];
+         if(func(position[0][i], position[1][i], position[2][i])) 
+             return position[0][i];
+         if(func(position[0][0], position[1][1], position[2][2]))
+             return position[0][0];
+         if(func(position[2][0], position[1][1], position[0][2]))
+             return position[2][0];      
+     }
+ }
 
 
-module.exports = {
+ module.exports = {
     getFizzBuzz: getFizzBuzz,
     getFactorial: getFactorial,
     getSumBetweenNumbers: getSumBetweenNumbers,
