@@ -412,7 +412,7 @@ function* mergeSortedSequences(source1, source2) {
  *
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
-function async(generator, yieldValue) {
+function async(generator) {
     generator = generator();
     let next;
     return new Promise(function (resolve, rejected) {
@@ -428,25 +428,6 @@ function async(generator, yieldValue) {
             }
         })(generator);
     })
-}
-
-/**
- * Resolve Promises and take values step by step.
- * 
- * @params {Iterable.<Promise>} generator
- * @return {Promise} Promise with value returned via return 
- *
- * @example
- *   async((function*() {
- *      var a = yield new Promise((resolve)=> setTimeout(()=>resolve(5)));
- *      var b = yield Promise.resolve(6);
- *      return a + b;
- *   }).then(value=>console.log(value))  => 11
- *
- *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
- */
-function async(generator) {
-    throw new Error('Not implemented');
 }
 
 
