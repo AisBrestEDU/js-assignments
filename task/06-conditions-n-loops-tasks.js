@@ -166,7 +166,19 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    let arr=Array.from(str);
+    let a=0;
+
+    for(let itemNaw of arr){
+        for(let itemBuff of arr){
+            if(itemNaw==itemBuff) ++a;
+        }
+
+        if(a==1) return itemNaw; else a=0;
+    }
+
+    return null;
 }
 
 
