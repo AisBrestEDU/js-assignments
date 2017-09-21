@@ -119,7 +119,28 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    function CheckPoint(rect, p){
+        let b1=rect.top;
+        let a1=rect.left;
+        let b2=b1+rect.height;
+        let a2=a1+rect.width;
+
+        return (p.y>=b1 && p.y<=b2 && p.x>=a1 && p.x<=a2);
+    }
+
+    if(CheckPoint(rect1,{x:rect2.left, y:rect2.top})) return true;
+    if(CheckPoint(rect1,{x:rect2.left+rect2.width, y:rect2.top})) return true;
+    if(CheckPoint(rect1,{x:rect2.left, y:rect2.top+rect2.height})) return true;
+    if(CheckPoint(rect1,{x:rect2.left+rect2.width, y:rect2.top+rect2.height})) return true;
+
+    if(CheckPoint(rect2,{x:rect1.left, y:rect1.top})) return true;
+    if(CheckPoint(rect2,{x:rect1.left+rect1.width, y:rect1.top})) return true;
+    if(CheckPoint(rect2,{x:rect1.left, y:rect1.top+rect1.height})) return true;
+    if(CheckPoint(rect2,{x:rect1.left+rect1.width, y:rect1.top+rect1.height})) return true;
+
+    return false;
 }
 
 
