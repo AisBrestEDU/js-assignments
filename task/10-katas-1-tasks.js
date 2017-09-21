@@ -17,8 +17,59 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
+    let res = [],
+        fullCount = 0;
+
+    let pars = {
+        0 : function (c) {
+            return `${c}`
+        },
+        1 : function (c, n, h) {
+            return `${c}b${n}`
+        },
+        2 : function (c, n, h) {
+            return `${c}${h}`
+        },
+        3 : function (c, n, h) {
+            return `${h}b${c}`            
+        },
+        4 : function (c, n, h) {
+            return `${h}`            
+        },
+        5 : function (c, n, h) {
+            return `${h}b${n}`            
+        },
+        6 : function (c, n, h) {
+            return `${n}${h}`            
+        },
+        7 : function (c, n, h) {
+            return `${n}b${c}`
+        }
+    };
+
     var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    sides.forEach(function (val, i) {
+        let sCur = val,
+            sNext = sides[i + 1] ? sides[i + 1] : sides[0],
+            half,
+            hCount = 0,
+            f,
+            abr,
+            az;
+        if (i % 2) {
+            half = sNext + sCur;  
+        } else {
+            half = sCur + sNext;           
+        }
+        while (hCount < 8) {
+            f = pars[hCount]; 
+            abr = f(sCur, sNext, half);
+            res.push({abbreviation : abr, azimuth : fullCount});
+            hCount++;
+            fullCount += 11.25;
+        };
+    }); 
+    return res;
 }
 
 
@@ -55,10 +106,42 @@ function createCompassPoints() {
  *
  *   'nothing to do' => 'nothing to do'
  */
-function* expandBraces(str) {
-    throw new Error('Not implemented');
-}
 
+function* expandBraces(str) { 
+    let res = [];
+    let brCounter = 0;
+    yield* expandBrace(str);
+
+    function expandBrace(str) {
+        brCounter = 0;
+        let brLast = 0;
+        let bTrigger = 0;
+        for (let i = 0, l = str.length; i < l; i++) {
+            if (str[i] == "{") {
+                brLast = i;
+                brCounter++;     
+                bTrigger = 1;    
+            } else if (str[i] == "}") {
+                let parStr = str.slice(brLast + 1, i);     
+                brCounter--;
+                if (brCounter < 0) {
+                    continue;
+                }                
+                bTrigger = 1;        
+                parStr.split(",").forEach(function (val, ii) {
+                    let newStr = str.replace(new RegExp(`{${parStr}}`), val);
+                    expandBrace(newStr);     
+                });            
+            };
+        };
+        if (!bTrigger) {
+            if (res.indexOf(str) == -1) {
+                res.push(str);        
+            }
+        };
+        return res;
+    };
+};
 
 /**
  * Returns the ZigZag matrix
@@ -67,7 +150,7 @@ function* expandBraces(str) {
  * In this task you are asked to implement a simple method to create a zigzag square matrix.
  * See details at https://en.wikipedia.org/wiki/JPEG#Entropy_coding
  * and zigzag path here: https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/JPEG_ZigZag.svg/220px-JPEG_ZigZag.svg.png
- *
+ * 
  * @param {number} n - matrix dimension
  * @return {array}  n x n array of zigzag path
  *
@@ -88,9 +171,47 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
-}
+    let arr = [];
 
+    for (let i = 0; i < n; i++) {
+        arr[i] = new Array(n).fill(0);
+    };
+
+    let x = 0;
+    let y = 0;
+    let side = 1;
+
+    for (let i = 1; i < n * n; i++) {
+        if (side) {
+            y -= 1;
+            x += 1; 
+            if (y < 0 || x >= n) {                            
+                if (y < 0 && x < n) {
+                    y = 0;                             
+                } else {
+                    x = n - 1;
+                    y += 2;
+                };
+                side = 0;
+            }
+        } else {
+            y += 1;
+            x -= 1;  
+            if (x < 0 || y >= n) {           
+                if (x < 0 && y < n) {
+                    x = 0;                          
+                } else {
+                    x += 2;                
+                    y = n - 1;
+                }
+                side = 1;
+            }; 
+        };
+        arr[y][x] = i; 
+    };
+
+   return arr;
+}
 
 /**
  * Returns true if specified subset of dominoes can be placed in a row accroding to the game rules.
@@ -112,10 +233,31 @@ function getZigZagMatrix(n) {
  * [[0,0], [0,1], [1,1], [0,2], [1,2], [2,2], [0,3], [1,3], [2,3], [3,3]] => false
  *
  */
-function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
-}
 
+function canDominoesMakeRow(dominoes) {
+    let last = dominoes.shift()[1];
+
+    let eq = [];
+
+    for (let i = 0, l = dominoes.length; i < l; i++) {
+        if (dominoes[i][0] == last) {         
+            last = dominoes[i][1];
+            dominoes.splice(i, 1);
+            i = -1;
+            l = dominoes.length;
+        } else if (dominoes[i][1] == last) {                     
+            last = dominoes[i][0];
+            dominoes.splice(i, 1);
+            i = -1;
+            l = dominoes.length;
+        };                
+    };
+    if (dominoes.length) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 /**
  * Returns the string expression of the specified ordered list of integers.
@@ -137,8 +279,28 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let acc = [];
+    let last = nums[0];
+    let str = nums[0] + "";
+    for (let i = 1, l = nums.length; i < l; i++) {
+        last++;
+        if (nums[i] == last && !(acc.length < 1 && nums[i + 1] !== last + 1)) {
+                acc.push(last);
+        } else {
+            if (acc.length) {
+                str += "-" + acc[acc.length - 1];                        
+                acc = [];                
+            };
+            str += "," + nums[i];
+            last = nums[i];
+        };
+    };
+    if (acc.length) {
+        str += "-" + acc[acc.length - 1];        
+    };
+    return str;
 }
+
 
 module.exports = {
     createCompassPoints : createCompassPoints,
