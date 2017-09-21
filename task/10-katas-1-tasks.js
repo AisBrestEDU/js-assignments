@@ -234,13 +234,30 @@ function getZigZagMatrix(n) {
  *
  */
 
+//!!! в тесты можно добавить случай вроде [[1,2], [2,1], [2,2]]
+// при таком расположении можно по разному пытатся расставить домино (в разной последовательности) и 
+// в зависимости от этого стока получится или нет (сначало нужно 
+// ставить с одинаковыми значениями с обеих сторон)
+// моя прошлая реализация крашилась на этом моменте, может кто-то так-же не полностью сделает или сделал.
+
 function canDominoesMakeRow(dominoes) {
     let last = dominoes.shift()[1];
-
+    
     let eq = [];
 
+    let idx = 0;
+    
     for (let i = 0, l = dominoes.length; i < l; i++) {
-        if (dominoes[i][0] == last) {         
+        idx = dominoes.find(function (a) {
+            return (a[0] == last && a[1] == last);
+        });
+        idx = dominoes.indexOf(idx);
+        if (idx !== -1) {
+            last = dominoes[idx][0];
+            dominoes.splice(idx, 1);
+            i = -1;
+            l = dominoes.length;
+        } else if (dominoes[i][0] == last) {         
             last = dominoes[i][1];
             dominoes.splice(i, 1);
             i = -1;
