@@ -130,12 +130,11 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
-    var stack = [root];
+    let stack = [root];
     while (stack.length) {
-        var node = stack.shift();
+        let node = stack.pop();
+        if (node.children) stack = node.children.reverse().concat(stack);
         yield node;
-        if (node.children) node.children.forEach(_node => stack.push(_node));
     }
 }
 
@@ -187,6 +186,10 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     throw new Error('Not implemented');
+    // let g = generator();
+    // let f = g.next();
+    // let s = g.next();
+    // return Promise.all([f, s]).then((a, b)=>{return a.value + b.value})
     // let g = generator();
     // return new Promise(function(resolve, reject) {
     //         let a = g.next().value;

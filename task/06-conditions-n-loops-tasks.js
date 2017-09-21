@@ -354,7 +354,14 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    const brackets = '[]{}()<>';
+    let stack = [];
+    for (let i = 0, char; char = str[i]; i++) {
+        let position = brackets.indexOf(char);
+        if (position % 2 == 0) stack.push(position + 1);
+        else if (stack.length == 0 || stack.pop() != position) return false;
+    }
+    return stack.length == 0;
 }
 
 
@@ -390,7 +397,30 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    const milliseconds = (endDate - startDate);
+    const seconds = milliseconds / 1000;
+    const minutes = seconds / 60;
+    const hours = minutes / 60;
+    const days = hours / 24;
+    const months = days / 30;
+    const rounding = Math.pow(10, -8);
+
+    if (days > 546) return `${endDate.getFullYear()-startDate.getFullYear()} years ago`;
+    if (days > 345 && days < 545) return `a year ago`;
+
+    if (days > 25 && days <= 45) return 'a month ago';
+    if (days >= 45 && days <= 345) return `${Math.round(months-rounding)} months ago`;
+
+    if (hours > 22 && hours <= 36) return 'a day ago';
+    if (hours >= 36 && hours <= 25 * 24) return (`${Math.round(days-rounding)} days ago`);
+
+    if (minutes > 45 && minutes <= 90) return 'an hour ago';
+    if (minutes >= 90 && hours <= 22) return `${Math.round(hours-rounding)} hours ago`;
+
+    if (seconds > 45 && seconds <= 90) return 'a minute ago';
+    if (seconds >= 90 && seconds <= 45 * 60) return `${Math.round(minutes-rounding)} minutes ago`;
+
+    if (seconds >= 0 && seconds <= 45) return 'a few seconds ago';
 }
 
 
@@ -431,10 +461,14 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
-    // pathes.map(path => {
-    //     path.split('/')
-    // }).every(item => item)
+    for (let i = 0; i < pathes[0].length; i++) {
+        for (let j = 1; j < pathes.length; j++) {
+            if (pathes[0].charAt(i) !== pathes[j].charAt(i)) {
+                let result = pathes[0].slice(0, i);
+                return result.slice(0, result.lastIndexOf('/') + 1);
+            }
+        }
+    }
 }
 
 
@@ -456,8 +490,23 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
+
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let resultMatrix = [];
+    for (let i = 0; i < m1.length; i++) {
+        resultMatrix[i] = [];
+    }
+
+    for (let i = 0; i < m2[0].length; i++) {
+        for (let j = 0; j < m1.length; j++) {
+            let temp = 0;
+            for (let k = 0; k < m2.length; k++) {
+                temp += m1[j][k] * m2[k][i];
+            }
+            resultMatrix[j][i] = temp;
+        }
+    }
+    return resultMatrix;
 }
 
 

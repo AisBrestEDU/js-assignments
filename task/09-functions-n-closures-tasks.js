@@ -70,8 +70,10 @@ function getPolynom() {
 
     //     })
     // }
-
-    throw new Error('Not implemented');
+    let args = [].slice.call(arguments);
+    return x => {
+        return args.map((element, index) => element * Math.pow(x, (args.length - (++index)))).reduce((prev, curr) => prev + curr);
+    }
 }
 
 
@@ -152,8 +154,9 @@ function logger(func, logFunc) {
     throw new Error('Not implemented');
     // let inputFunc = func;
     // let inputLogFunc = logFunc;
-    // return (value) => {
-    //     return eval(`${inputLogFunc}(${inputFunc}(${value}))`);
+    // return function() {
+    //     let args = [].slice.call(arguments,1);
+    //     return eval(`${inputLogFunc}(${inputFunc}(${args}))`);
     // }
 }
 
@@ -172,7 +175,11 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+    let argsFunc = [].slice.call(arguments,1);
+    return function () {
+        let args = [].slice.call(arguments);
+        return [].slice.call(argsFunc.concat(args)).join('');
+    }
 }
 
 
@@ -194,7 +201,9 @@ function partialUsingArguments(fn) {
  */
 function getIdGeneratorFunction(startFrom) {
     let count = startFrom;
-    return () => {return count++;}
+    return () => {
+        return count++;
+    }
 }
 
 
