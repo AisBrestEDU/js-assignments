@@ -106,9 +106,21 @@ function* getFibonacciSequence() {
  *  depthTraversalTree(node1) => node1, node2, node3, node4, node5, node6, node7, node8
  *
  */
-function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
-}
+function* depthTraversalTree(root){
+    
+    let queue = [];
+    queue.push(root);
+    let store;
+        while(queue.length >0){
+            store = queue.pop();
+            yield store;
+            if (store.children){
+                for(let i=store.children.length-1;i>=0;i--)
+                queue.push(store.children[i]);
+            }
+        }
+ 
+ }
 
 
 /**
@@ -133,7 +145,25 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let queue = new Array();
+    let current;
+    let currentIndex = 0;
+    queue.push(root);
+    
+    
+    while ( (queue.length - currentIndex) !== 0) {
+        current = queue[currentIndex];
+        
+        yield current; 
+
+        if (current.children) {
+            for (let i = 0; i < current.children.length; i++) {
+                queue.push(current.children[i]);
+            }
+        }
+        currentIndex++;
+    }
+    
 }
 
 
@@ -151,8 +181,42 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+     let retrunValue = 0;
+    
+    let source1Gen = source1();
+    let source2Gen = source2();
+    let valueSource1 = source1Gen.next();
+    let valueSource2 = source2Gen.next();
+    
+     while(true){
+         
+         if((valueSource1.value!=undefined && valueSource2.value!=undefined)){
+            retrunValue = Math.min(valueSource1.value,valueSource2.value);
+            yield retrunValue;
+            retrunValue = Math.max(valueSource1.value,valueSource2.value);
+            yield retrunValue;
+         }
+        else if(valueSource1.value===undefined){
+            retrunValue = valueSource2.value;
+            yield retrunValue;
+            
+        }
+        else if(valueSource2.value===undefined) {
+            retrunValue = valueSource1.value;
+            yield retrunValue;
+            
+        } 
+        else
+         break;
+        valueSource1 = source1Gen.next();
+        valueSource2 = source2Gen.next();
+        
+    }
+        
 }
+ 
+
+
 
 /**
  * Resolve Promises and take values step by step.
@@ -170,7 +234,32 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    //throw new Error('Not implemented');
+    let result = 0;
+    
+        let UnbrokablePromise = new Promise((res, rej)=>{
+            let toResult = generator();          
+        if(true){
+           yield 
+           return result = toResult.next(); 
+        }
+        else{
+           let message = "taking values falls";
+        }
+    });
+    		
+		// var ascync = true; 
+		// if (!ascync)
+		// return reject(new Error("не удалось выполнить..."));
+
+	// 	// return resolve(1);
+	// });
+   
+    UnbrokablePromise.then(
+        sucsess => console.log("Now result is: " + result),
+        error => console.log("Error at: " + error.message)
+    )
+    console.log(result = result.toString());
+ 
 }
 
 
