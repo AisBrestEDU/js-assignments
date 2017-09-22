@@ -164,7 +164,26 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    let a=source1();
+    let b=source2();
+
+    while(true){   
+    let s1=a.next().value;
+    // console.log('s1: ',s1);
+    let s2=b.next().value;
+    // console.log('s2: ',s2);
+        if(s1==null) 
+            yield s2;
+        else if(s2==undefined){
+            yield s1;
+        }
+        else{
+            yield Math.min(s1,s2);
+            yield Math.max(s1,s2);
+        }
+    }
+
+    // throw new Error('Not implemented');
 }
 
 /**
