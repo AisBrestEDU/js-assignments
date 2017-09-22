@@ -162,6 +162,7 @@ function getStringsLength(arr) {
  */
 function insertItem(arr, item, index) {
    throw new Error('Not implemented');
+
 }
 
 /**
@@ -175,7 +176,9 @@ function insertItem(arr, item, index) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 function getHead(arr, n) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+
+   return arr.filter((value,index)=>index<n);
 }
 
 
