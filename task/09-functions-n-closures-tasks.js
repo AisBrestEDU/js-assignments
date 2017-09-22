@@ -121,7 +121,7 @@ function retry(func, attempts) {
         for (attempts; attempts > 0; attempts--) {
             try {
                 return func();
-            } catch (error) {}
+            } catch (error) {console.error(error)}
         }
     })
 }

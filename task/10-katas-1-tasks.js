@@ -18,7 +18,7 @@
  */
 function createCompassPoints() {
     throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    var sides = ['N', 'E', 'S', 'W']; // use array of cardinal directions only!
 }
 
 
@@ -88,7 +88,30 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    let result = Array(n);
+
+    for (let i = 0; i < n; i++) {
+        result[i] = [];
+    }
+    for (let element = 0, i = 1, j = 1; element < n * n;) {
+        result[i - 1][j - 1] = element++;
+        if ((i + j) % 2 == 0) {
+            if (j < n)
+                j++;
+            else
+                i += 2;
+            if (i > 1)
+                i--;
+        } else {
+            if (i < n)
+                i++;
+            else
+                j += 2;
+            if (j > 1)
+                j--;
+        }
+    }
+    return result;
 }
 
 
@@ -127,7 +150,7 @@ function canDominoesMakeRow(dominoes) {
  *     The range syntax is to be used only for, and for every range that expands to more than two values.
  *
  * @params {array} nums
- * @return {bool}
+ * @return {string}
  *
  * @example
  *
@@ -137,13 +160,40 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let result = '';
+    let prev = [];
+    nums.forEach((num, index) => {
+        if (prev.length == 0 || prev[prev.length - 1] + 1 == num) {
+            prev.push(num);
+        } else {
+            if (prev.length == 1) {
+                result += `,${prev[0]}`;
+                prev = [num];
+            } else if (prev.length == 2) {
+                result += `,${prev[0]},${prev[1]}`;
+                prev = [num];
+            } else {
+                result += `,${prev[0]}-${prev[prev.length-1]}`;
+                prev = [num];
+            }
+        }
+        if (index == nums.length - 1) {
+            if (prev.length == 1) {
+                result += `,${prev[0]}`;
+            } else if (prev.length == 2) {
+                result += `,${prev[0]},${prev[1]}`;
+            } else {
+                result += `,${prev[0]}-${prev[prev.length-1]}`;
+            }
+        }
+    })
+    return result.replace(/^,/, '');
 }
 
 module.exports = {
-    createCompassPoints : createCompassPoints,
-    expandBraces : expandBraces,
-    getZigZagMatrix : getZigZagMatrix,
-    canDominoesMakeRow : canDominoesMakeRow,
-    extractRanges : extractRanges
+    createCompassPoints: createCompassPoints,
+    expandBraces: expandBraces,
+    getZigZagMatrix: getZigZagMatrix,
+    canDominoesMakeRow: canDominoesMakeRow,
+    extractRanges: extractRanges
 };
