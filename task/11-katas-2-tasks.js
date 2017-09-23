@@ -34,7 +34,35 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    let bankAccountNumber = '';
+    const _0 = [' _ ', '| |', '|_|'];
+    const _1 = ['   ', '  |', '  |'];
+    const _2 = [' _ ', ' _|', '|_ '];
+    const _3 = [' _ ', ' _|', ' _|'];
+    const _4 = ['   ', '|_|', '  |'];
+    const _5 = [' _ ', '|_ ', ' _|'];
+    const _6 = [' _ ', '|_ ', '|_|'];
+    const _7 = [' _ ', '  |', '  |'];
+    const _8 = [' _ ', '|_|', '|_|'];
+    const _9 = [' _ ', '|_|', ' _|'];
+    const _numbers = [_0, _1, _2, _3, _4, _5, _6, _7, _8, _9];
+
+    let bankAccountArray = bankAccount.split('\n').slice(0, -1);
+    let current = ['', '', ''];
+    for (let i = 0; i < bankAccount.length; i++) {
+        current.forEach((part, _index) => {
+            if (part.length > 2) {
+                current[_index] = part.slice(1) + bankAccountArray[_index].charAt(i);
+            } else {
+                current[_index] += bankAccountArray[_index].charAt(i);
+            }
+        });
+        _numbers.forEach((__number, __index) => {
+            if (__number.toString() == current.toString()) bankAccountNumber += __index;
+        });
+    }
+    return parseInt(bankAccountNumber);
 }
 
 
@@ -135,12 +163,12 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
 module.exports = {
-    parseBankAccount : parseBankAccount,
+    parseBankAccount: parseBankAccount,
     wrapText: wrapText,
     PokerRank: PokerRank,
     getPokerHandRank: getPokerHandRank,

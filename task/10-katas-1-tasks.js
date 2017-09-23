@@ -136,7 +136,29 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    let stack = [];
+    stack.push(dominoes.pop());
+    let checkForLooping;
+    while (dominoes.length) {
+        dominoes.forEach((domino, index) => {
+            if (stack[0][0] == domino[0]) {
+                stack.unshift(domino.reverse());
+                dominoes.splice(index, 1);
+            } else if (stack[0][0] == domino[1]) {
+                stack.unshift(domino);
+                dominoes.splice(index, 1);
+            } else if (stack[stack.length - 1][1] == domino[0]) {
+                stack.push(domino);
+                dominoes.splice(index, 1);
+            } else if (stack[stack.length - 1][1] == domino[1]) {
+                stack.push(domino.reverse());
+                dominoes.splice(index, 1);
+            }
+        });
+        if (checkForLooping == dominoes.length) break;
+        checkForLooping = dominoes.length;
+    }
+    return dominoes.length ? false : true;
 }
 
 
