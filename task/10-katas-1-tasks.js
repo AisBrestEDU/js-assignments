@@ -18,7 +18,7 @@
  */
 function createCompassPoints() {
     throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    var sides = ['N', 'E', 'S', 'W'];  // use array of cardinal directions only!
 }
 
 
@@ -88,7 +88,29 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    let matrix = [];
+    let x = 1, y = 1;
+
+    for (let i = 0; i < n; i++) {
+        matrix[i] = [];
+        for (let j = 0; j < n; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+
+    for (let i = 0; i < n * n; i++) {
+        matrix[x - 1][y - 1] = i;
+        if ((x + y) % 2 == 0) {
+            if (y < n) y++;
+            else x += 2;
+            if (x > 1) x--;
+        } else {
+            if (x < n) x++;
+            else y += 2;
+            if (y > 1) y--;
+        }
+    }
+    return matrix;
 }
 
 
@@ -113,7 +135,15 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    let sum = 0;
+
+    for (let i = 0; i < dominoes.length; i++) {
+        for (let j = 0; j < dominoes[i].length; j++) {
+            sum += dominoes[i][j];
+        }
+    }
+
+    return sum % 2 == 0 ? false : true;
 }
 
 
@@ -137,13 +167,23 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    for (let i = 0; i < nums.length; i ++) {
+        let j = i;
+        while (nums[j + 1] - nums[j] == 1) {
+            j++;
+        }
+        if (j != i && j - i > 1) {
+            nums.splice(i, j - i + 1, nums[i] + '-' + nums[j]);
+        }
+    }
+
+    return nums;
 }
 
 module.exports = {
-    createCompassPoints : createCompassPoints,
-    expandBraces : expandBraces,
-    getZigZagMatrix : getZigZagMatrix,
-    canDominoesMakeRow : canDominoesMakeRow,
-    extractRanges : extractRanges
+    createCompassPoints: createCompassPoints,
+    expandBraces: expandBraces,
+    getZigZagMatrix: getZigZagMatrix,
+    canDominoesMakeRow: canDominoesMakeRow,
+    extractRanges: extractRanges
 };
