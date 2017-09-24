@@ -121,7 +121,9 @@ function retry(func, attempts) {
         for (attempts; attempts > 0; attempts--) {
             try {
                 return func();
-            } catch (error) {console.error(error)}
+            } catch (error) {
+                console.error(error);
+            }
         }
     })
 }
@@ -175,7 +177,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    let argsFunc = [].slice.call(arguments,1);
+    let argsFunc = [].slice.call(arguments, 1);
     return function () {
         let args = [].slice.call(arguments);
         return [].slice.call(argsFunc.concat(args)).join('');
