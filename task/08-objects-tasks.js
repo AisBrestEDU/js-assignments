@@ -26,7 +26,7 @@ function Rectangle(width, height) {
     this.width = width;
     this.height = height;
 
-    this.__proto__.getArea = function(){
+    Rectangle.prototype.getArea = function () {
         return width * height;
     }
 }
@@ -60,8 +60,7 @@ function getJSON(obj) {
  */
 function fromJSON(proto, json) {
     let obj = JSON.parse(json);
-    obj.__proto__ = proto;
-    return obj;
+    return Object.setPrototypeOf(obj, proto);
 }
 
 
@@ -122,51 +121,57 @@ const cssSelectorBuilder = {
     pseudoClasses: '',
     pseudoElements: '',
 
-    stringify: function(){
-        let result = this.elems + this.ids + this.classes + this.pseudoClasses + this.pseudoElements;
-        
+    stringify: function () {
+        let result = this.elems + this.ids + this.classes + this.attrs + this.pseudoClasses + this.pseudoElements;
+
         this.elems = '';
         this.ids = '';
         this.classes = '';
+        this.attrs = '';
         this.pseudoClasses = '';
         this.pseudoElements = '';
 
         return result;
     },
-    
 
-    element: function(value) {
+    element: function (value) {
         this.elems = value;
         return this;
     },
 
-    id: function(value) {
+    id: function (value) {
         this.ids = '#' + value;
         return this;
     },
 
-    class: function(value) {
+    class: function (value) {
         this.classes = '.' + value;
         return this;
     },
 
-    attr: function(value) {
+    attr: function (value) {
         this.attrs = '[' + value + ']';
         return this;
     },
 
-    pseudoClass: function(value) {
+    pseudoClass: function (value) {
         this.pseudoClasses = ':' + value;
         return this;
     },
 
-    pseudoElement: function(value) {
+    pseudoElement: function (value) {
         this.pseudoElements = '::' + value;
+        return this;
     },
 
-    combine: function(selector1, combinator, selector2) {
-        let result = selector1.stringify() + combinator + selector2.selector2();
-        return result;
+    combine: function (selector1, combinator, selector2) {
+        // console.log(selector1);
+        // console.log(selector2.stringify());
+
+
+        //let result = selector1
+
+        //return result;
     },
 };
 
