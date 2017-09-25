@@ -67,14 +67,13 @@ function* getFibonacciSequence() {
     yield number1;
     yield number2;
 
-    while(true)
-    {
+    while (true) {
         current = number1 + number2;
         yield current;
         number1 = number2;
         number2 = current;
     }
-    
+
 }
 
 
@@ -147,17 +146,17 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-   
+
     let queue = new Array();
     let current;
     let currentIndex = 0;
     queue.push(root);
-    
-    
-    while ( (queue.length - currentIndex) !== 0) {
+
+
+    while ((queue.length - currentIndex) !== 0) {
         current = queue[currentIndex];
-        
-        yield current; 
+
+        yield current;
 
         if (current.children) {
             for (let i = 0; i < current.children.length; i++) {
@@ -228,10 +227,22 @@ function* mergeSortedSequences(source1, source2) {
  *
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
-function async(generator) {
-    throw new Error('Not implemented');
-}
 
+
+function async(generator) {
+    let promiceGen = generator();
+    function promiseCallback(result)
+    {
+        let promise = promiceGen.next(result);
+        if(promise.done) return promise.value;
+        return promise.value.then(promiseCallback); 
+    }
+    return promiseCallback();
+    
+
+
+   
+}
 
 module.exports = {
     get99BottlesOfBeer: get99BottlesOfBeer,
@@ -239,5 +250,5 @@ module.exports = {
     depthTraversalTree: depthTraversalTree,
     breadthTraversalTree: breadthTraversalTree,
     mergeSortedSequences: mergeSortedSequences,
-    async               : async
+    async: async
 };
