@@ -236,7 +236,7 @@ function* mergeSortedSequences(source1, source2) {
 function async(generator) {
     let result = 0;
     
-        let UnbrokablePromise = new Promise((res, rej)=>{
+        let unbrokablePromise = new Promise((res, rej)=>{
             let toResult = generator();          
         if(true){
            yield 
