@@ -65,7 +65,7 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    let args = [...arguments];
+    let args = Array.from(arguments);
 
     if (args.length == 0) {
         return null;
@@ -188,7 +188,7 @@ function partialUsingArguments(fn) {
     let args = [].slice.call(arguments, 1);
 
     return function () {
-        let params = [...arguments];
+        let params = Array.from(arguments);
         return fn.apply(this, args.concat(params));
     };
 }
