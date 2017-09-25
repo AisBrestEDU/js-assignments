@@ -133,12 +133,12 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     return function () {
-        while (true) {
+        for(let i = 0; i < attempts; i++) {
             try {
                 return func();
             }
             catch (e) {
-                //console.log(e);
+                console.log(e);
             }
         }
     }
