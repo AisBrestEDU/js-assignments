@@ -23,14 +23,14 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    
-        this.width = width;
-        this.height = height,
-        this.__proto__.getArea = () => width * height;
-    
+    this.width = width;
+    this.height = height
 }
 
-var rectangle = new Rectangle(10, 20);
+Rectangle.prototype.getArea = function () {
+    return this.width * this.height;
+}
+
 
 
 /**
