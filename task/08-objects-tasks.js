@@ -25,7 +25,10 @@
 function Rectangle(width, height) {
     this.width = width;
     this.height = height;
-    this.__proto__.getArea = () => { return this.width * this.height };
+}
+
+Rectangle.prototype.getArea = function () {
+    return this.width * this.height
 }
 
 
@@ -126,11 +129,11 @@ const cssSelectorBuilder = {
     checkOrder: function (n) {
         let currentOrder = this.order.slice(n + 1);
 
-        let isOrderRight = currentOrder.some(function(isAdded) {
+        let isOrderRight = currentOrder.some(function (isAdded) {
             return isAdded;
         });
 
-        if(isOrderRight) {
+        if (isOrderRight) {
             throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
         }
 
