@@ -185,19 +185,12 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
-    // let g = generator();
-    // let f = g.next();
-    // let s = g.next();
-    // return Promise.all([f, s]).then((a, b)=>{return a.value + b.value})
-    // let g = generator();
-    // return new Promise(function(resolve, reject) {
-    //         let a = g.next().value;
-    //         let b = g.next().value;
-    //         resolve(a + b);
-    // });
-
-    //return async(generator => {return generator});
+    let iterator = generator();
+    return Promise.resolve(function step(item) {
+        let promise = iterator.next(item);
+        if (promise.done) return promise.value;
+        return promise.value.then(step);
+    }());
 }
 
 

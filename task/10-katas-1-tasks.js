@@ -18,8 +18,21 @@
  */
 function createCompassPoints() {
     throw new Error('Not implemented');
-    var sides = ['N', 'E', 'S', 'W']; // use array of cardinal directions only!
+    // var sides = ['N', 'E', 'S', 'W']; // use array of cardinal directions only!
+    // let t = [Array(7), Array(7), Array(7), Array(7)];
+    // for (let i = 0; i < sides.length; i++) {
+    //     for (let j = 1; j < 7; j+=2) {
+    //         if(i % 2){
+    //             t[i][j] = sides[i].toString() + sides[i+1] ? sides[i+1] : sides[0];
+    //         }else {
+    //             t[i][j] = sides[i].toString().repeat(2)+sides[i+1];
+    //         }
+    //     }
+
+    // }
+    // console.log(t)
 }
+
 
 
 /**
