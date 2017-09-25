@@ -28,7 +28,82 @@
  *   'NULL'      => false 
  */
 function findStringInSnakingPuzzle(puzzle, searchStr) {
-    throw new Error('Not implemented');
+    let puz = puzzle.map(a => a.split(""));
+
+    let stack = [{
+        ways: [],
+        states: []
+    }];
+
+    let idx = 0;
+    let startSearchPos = 0;
+    let line = 0;
+    let searchStrCurPos = 0;
+    let searchStrCurChar;
+
+    let x = 0;
+    let y = 0; 
+    
+    let fin = searchStr.length;
+    let ways = 0;
+
+    for (let i = 0, l = puz.length; i < l; i++) {
+        searchStrCurPos = 1;
+        startSearchPos = 0;
+
+        line = puz[i];
+        idx = line.indexOf(searchStr[0]);
+
+        x = idx;
+        y = i;
+        while(idx != -1) {
+            while (1) {
+                searchStrCurChar = searchStr[searchStrCurPos];
+                if (puz[y - 1]) {
+                    if (puz[y - 1][x] == searchStrCurChar) {
+                        stack[0].ways.push([y - 1, x]);
+                        puz[y][x] = " ";   
+                        stack[0].states.push(puzzle.map(a => a.split("")));
+                    }
+                };
+                if (puz[y + 1]) {
+                    if (puz[y + 1][x] == searchStrCurChar) {
+                        stack[0].ways.push([y + 1, x]); 
+                        puz[y][x] = " ";    
+                        stack[0].states.push(puzzle.map(a => a.split("")));                        
+                    }
+                };
+                if (puz[y][x - 1]) {
+                    if (puz[y][x - 1] == searchStrCurChar) {
+                        stack[0].ways.push([y, x - 1]);   
+                        puz[y][x] = " ";  
+                        stack[0].states.push(puzzle.map(a => a.split("")));                                                
+                    }
+                };
+                if (puz[y][x + 1]) {
+                    if (puz[y][x + 1] == searchStrCurChar) {
+                        stack[0].ways.push([y, x + 1]); 
+                        puz[y][x] = " ";                           
+                        stack[0].states.push(puzzle.map(a => a.split("")));                                                
+                    }
+                };
+                if (stack[0].ways.length == 0) {
+                    idx = line.indexOf(searchStr[idx + 1]);        
+                    break;
+                } else if (stack[0].ways.length >= 1) {
+                    ways = stack[0].ways.pop();
+                    stack[0].states.pop()
+                    y = ways[0];
+                    x = ways[1];  
+                    searchStrCurPos++;
+                    if (searchStrCurPos == fin) {
+                        return true;
+                    }                   
+                };
+            };
+        };
+    };
+    return false;
 }
 
 

@@ -34,7 +34,28 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    let tpls = [
+        " _ | ||_|",
+        "     |  |",
+        " _  _||_ ",
+        " _  _| _|",
+        "   |_|  |",        
+        " _ |_  _|",
+        " _ |_ |_|",         
+        " _   |  |", 
+        " _ |_||_|", 
+        " _ |_| _|"                    
+    ];
+    let cntS = 0;
+    let cntE = 3;
+    let res = "";    
+    let b = bankAccount.split("\n");   
+    for (let i = 0; i < 9; i++) {
+        res += tpls.indexOf(b[0].slice(cntS, cntE) + b[1].slice(cntS, cntE) + b[2].slice(cntS, cntE));   
+        cntS += 3;
+        cntE += 3;        
+    };
+    return +res;
 }
 
 
@@ -63,7 +84,17 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    let arr = text.split(" ");
+    let acc = arr[0];
+    for (let i = 1, l = arr.length; i < l; i++) {
+        if ((acc.length + arr[i].length + 1) > columns) {
+            yield acc;
+            acc = arr[i];
+        } else {
+            acc = acc + " " + arr[i];
+        }
+    };
+    yield acc;
 }
 
 
@@ -100,7 +131,100 @@ const PokerRank = {
 }
 
 function getPokerHandRank(hand) {
-    throw new Error('Not implemented');
+    let vals = {"2" : 2, "3" : 3, "4" : 4, "5" : 5, "6" : 6, "7" : 7, "8" : 8, "9" : 9, "10" : 10, "J" : 11, "Q" : 12, "K" : 13}
+
+    let highCardValue;
+
+    let adtCnt = {
+        "2" : 0,
+        "3" : 0
+    };
+
+    hand.forEach(function(val) {
+        if (val.slice(0, -1) == "2") {
+            adtCnt["2"]++;
+        };  
+        if (val.slice(0, -1) == "3") {
+            adtCnt["3"]++;
+        }; 
+    });
+
+    if (adtCnt["2"] == 1 && adtCnt["3"] == 1) {
+        vals["A"] = 1;
+        highCardValue = "K";
+    } else {
+        vals["A"] = 14;    
+        highCardValue = "A";        
+    }
+
+    hand.sort(function (a, b) {  
+        return vals[a.slice(0, -1)] - vals[b.slice(0, -1)];
+    });
+
+    let flash = [hand[0]];
+    let flashCompare = hand[0].slice(-1);
+    let street = [hand[0]];     
+    let pairs = [[hand[0]], []]; 
+    let firstPairEnd = false;
+    let highCardTrigger = false;
+
+    let valCur = 0;
+    let mCur = "";
+
+    for (let i = 1, l = hand.length; i < l; i++) {
+        valCur = hand[i].slice(0, -1);
+        mCur = hand[i].slice(-1);
+        if (valCur == highCardValue) {
+            highCardTrigger = true;
+        }        
+        if (flash.length == i) {
+            if (mCur == flashCompare) {
+                flash.push(hand[i]);
+            };
+        };
+        if (street.length == i) {
+            if (vals[valCur] == vals[street[i - 1].slice(0, -1)] + 1) {
+                street.push(hand[i]);
+            };
+        };
+        if (valCur == pairs[0][0].slice(0, -1) && !firstPairEnd) {
+            pairs[0].push(hand[i]);
+        } else if (hand[i + 1] && (valCur == hand[i + 1].slice(0, -1) && pairs[0].length > 1)) { 
+            if (!firstPairEnd) {
+                firstPairEnd = true;
+                pairs[1].push(hand[i]);                        
+            }  
+            pairs[1].push(hand[i + 1]);           
+        } else if (pairs[0].length == 1) {
+            pairs[0][0] = hand[i];            
+        }
+    };   
+
+    if ((street.length == hand.length) && (flash.length == hand.length)) {
+        return PokerRank["StraightFlush"];
+    };
+    if (pairs[0].length == 4) {
+        return PokerRank["FourOfKind"];        
+    };
+    if ((pairs[0].length == 3 && pairs[1].length == 2) || (pairs[0].length == 2 && pairs[1].length == 3)) {
+        return PokerRank["FullHouse"];                
+    };
+    if (flash.length == hand.length) {
+        return PokerRank["Flush"];  
+    };
+    if (street.length == hand.length) {
+        return PokerRank["Straight"];          
+    };
+    if (pairs[0].length == 3) {
+        return PokerRank["ThreeOfKind"];                  
+    };
+    if (pairs[0].length == 2 && pairs[1].length == 2) {
+        return PokerRank["TwoPairs"];                          
+    };
+    if (pairs[0].length == 2 || pairs[1].length == 2) {
+        return PokerRank["OnePair"];                                  
+    };
+    return PokerRank["HighCard"];
 }
 
 
@@ -135,9 +259,107 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-   throw new Error('Not implemented');
-}
+    // figure= '+------------+\n'+
+    //         '|            |\n'+
+    //         '|            |\n'+
+    //         '|            |\n'+
+    //         '+------+-----+\n'+
+    //         '|      |     |\n'+
+    //         '|      |     |\n'+
+    //         '+------+-----+\n';
 
+    // figure ='   +-----+     \n'+
+    //         '   |     |     \n'+
+    //         '+--+-----+----+\n'+
+    //         '|             |\n'+
+    //         '|             |\n'+
+    //         '+-------------+\n';
+
+    // figure ='   +--+   \n'+
+    //         '   |  |   \n'+
+    //         '+--+--+--+\n'+
+    //         '|     |  |\n'+
+    //         '+--+--+--+\n'+
+    //         '   |  |   \n'+
+    //         '   +--+   \n';
+
+// figure ='++++\n'+
+//         '++++\n';
+
+    let lines = figure.split("\n");
+    let lineM = figure[0];    
+
+    let rec = "";
+    let line = "";
+    let topLine = "";
+
+    let lineComp = "";
+    let nextTopLine = "";
+
+    for (let i = 0, l = lines.length; i < l; i++) {
+        line = lines[i];
+        if (line.indexOf("-") != -1) {
+            if (topLine !== "") {
+                rec += topLine;
+                console.log(rec + "\n");        
+                yield rec + "\n";
+                rec = "";
+                topLine = "";
+                i = -1;
+                l = lines.length;
+            } else if (topLine === "") {
+                if (lines[i + 1].indexOf("|") == -1) {
+                    break;
+                };
+                topLine = line.match(/\+-+\+/)[0];
+                line = line.replace(/\+-+\+/, "").trim();
+                if (line === "") {
+                    lines.splice(i, 1);
+                    i = -1;
+                    l = lines.length;
+                    rec += topLine + "\n"; 
+                    continue;
+                };
+                lines[i] = "+" + line;
+                nextTopLine = lines[i].match(/\+-+\+/)[0];
+                lineComp = lines[i + 1].trim(); 
+                while(lineComp[topLine.length - 1] !== "|") {
+                    topLine = topLine.slice(0, -1) + "-" + lines[i].match(/\+-+\+/)[0].slice(1); 
+                    lines[i] = lines[i].slice(nextTopLine.length - 1);           
+                }
+                rec += topLine + "\n";                              
+            }
+        } else if (line.indexOf("|") != -1) {
+            rec += line.match(/\| +\|/) + "\n";
+            line = line.replace(/\| +\|/, "");
+            if (line.indexOf("|") === -1) {
+                lines.splice(i, 1);
+                i = -1;
+                l = lines.length;
+            } else {
+                lines[i] = "|" + line;
+            };
+        } else {           
+            if (lineM == lineM.match(/\++/)) {
+                if (line[i + 1] == undefined) {
+                    if (lines[0].length == 1) {
+                        rec += "+".repeat(lines.length - 1) + "\n";
+                        yield rec;
+                        break
+                    };
+                    yield rec;
+                    i = -1;
+                    l = lines.length;
+                    rec = "";
+                    continue;               
+                };
+                rec += "++\n";
+                lines[i] = line.slice(1);
+                continue;
+            };                    
+        }
+    };
+}
 
 module.exports = {
     parseBankAccount : parseBankAccount,

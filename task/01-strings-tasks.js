@@ -294,34 +294,11 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    let coeficient = 1;
-    if (isNaN(+value.slice(0, -1))) {
-        switch(value.slice(0, -1)) {
-            case "J":
-                coeficient = 11;
-                break;
-            case "Q":
-                coeficient = 12;
-                break;
-            case "K":
-                coeficient = 13;
-                break;
-        };
-    } else {
-        coeficient = +value.slice(0, -1);
-    };
-    if (value.slice(-1) == "♣") {
-        return coeficient - 1;
-    };
-    if (value.slice(-1) == "♦") {
-        return coeficient + 12;
-    };
-    if (value.slice(-1) == "♥") {
-        return (coeficient + 25);
-    };
-    if (value.slice(-1) == "♠") {
-        return (coeficient + 38);
-    };
+    let cards = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+    'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+    'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+    'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    return cards.indexOf(value);
 }
 
 
