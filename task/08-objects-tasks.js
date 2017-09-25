@@ -30,6 +30,8 @@ function Rectangle(width, height) {
     
 }
 
+var rectangle = new Rectangle(10, 20);
+
 
 /**
  * Returns the JSON representation of specified object
@@ -112,36 +114,145 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
-
-    element: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    id: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    class: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    attr: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
-};
+const cssSelectorBuilder = (() => {
+    
+        class Combinator {
+            //using this class to combine our css strings
+            constructor(left, combinator, right) {
+                this.left = left;
+                this.combinator = combinator;
+                this.right = right;
+            }
+    
+            stringify() {
+                return `${this.left.stringify()} ${this.combinator} ${this.right.stringify()}`;
+            }
+        }
+    
+    
+        class CssSelector {
+            //define the default values for fields
+            constructor() {
+                this.elementName = null;
+                this.idName = null;
+                this.pseudoElementName = null;
+                this.classArr = [];//will store an array of classes cause we can have more than one class in css string. the same for two below
+                this.attrArr = [];
+                this.pseudoclassArr = [];
+            }
+    
+            //this method will throw new exception if we'll try to pass the value to unique field, like id, element or pseudoelement
+            uniquePropertyError() {
+                throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+            }
+    
+            //this method will throw new exception if we'll try to put elements in wrong order
+            orderingError() {
+                throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+            }
+    
+            //method for passing unique element value to field elementName
+            element(value) {
+                if (this.elementName !== null) {
+                    this.uniquePropertyError();
+                }
+    
+                if (this.idName !== null || this.classArr.length > 0 ||
+                    this.attrArr.length > 0 || this.pseudoclassArr.length > 0 ||
+                    this.pseudoElementName !== null) {
+                    this.orderingError();
+                }
+    
+                this.elementName = value;
+                return this;
+            }
+    
+            //method for passing unique id value to field idName
+            id(value) {
+                if (this.idName !== null) {
+                    this.uniquePropertyError();
+                }
+    
+                if (this.classArr.length > 0 || this.attrArr.length > 0 || this.pseudoclassArr.length > 0 || this.pseudoElementName !== null) {
+                    this.orderingError();
+                }
+    
+                this.idName = value;
+                return this;
+            }
+    
+            //method for passing class value to field className
+            class(value) {
+    
+                if (this.attrArr.length > 0 || this.pseudoclassArr.length > 0 || this.pseudoElementName !== null) {
+                    this.orderingError();
+                }
+    
+                this.classArr.push(value);
+                return this;
+            }
+    
+            //method for passing attr value to field attrName
+            attr(value) {
+                if (this.pseudoclassArr.length > 0 || this.pseudoElementName !== null) {
+                    this.orderingError();
+                }
+    
+                this.attrArr.push(value);
+                return this;
+            }
+    
+            //method for passing pseudoClass value to field pseudoclassName
+            pseudoClass(value) {
+                if (this.pseudoElementName !== null) {
+                    this.orderingError();
+                }
+                this.pseudoclassArr.push(value);
+                return this;
+            }
+    
+            //method for passing unique pseudoElement value to field pseudoElementName
+            pseudoElement(value) {
+    
+                if (this.pseudoElementName !== null) {
+                    this.uniquePropertyError();
+                }
+    
+                this.pseudoElementName = value;
+                return this;
+            }
+    
+            //method for parse all the values of object fields into one string
+            stringify() {
+                let str = this.elementName || '';
+    
+                if (this.idName) {
+                    str += `#${this.idName}`;
+                }
+    
+                this.classArr.forEach(elem => str += `.${elem}`);
+                this.attrArr.forEach(elem => str += `[${elem}]`);
+                this.pseudoclassArr.forEach(elem => str += `:${elem}`);
+    
+                if (this.pseudoElementName) {
+                    str += `::${this.pseudoElementName}`;
+                }
+    
+                return str;
+            }
+    
+        }
+        return {
+            element : value => new CssSelector().element(value),
+            id : value => new CssSelector().id(value),
+            class : value => new CssSelector().class(value),
+            attr : value => new CssSelector().attr(value),
+            pseudoClass : value => new CssSelector().pseudoClass(value),
+            pseudoElement : value => new CssSelector().pseudoElement(value),
+            combine : (...args) => new Combinator(...args)
+        }
+    
+    })();
 
 
 module.exports = {
