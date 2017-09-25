@@ -17,8 +17,64 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    // throw new Error('Not implemented');
+    var sides = ['N', 'E', 'S', 'W'];  // use array of cardinal directions only!
+
+    let azimuths = [];
+    let azimuthDifference = 11.25;
+
+    for (let i = 0; i < 32; i++) {
+        let start = Math.floor(i / 8);
+        let end = start == 3 ? 0 : start + 1;
+
+        let direction;
+
+        if (start % 2 == 0) {
+            direction = sides[start] + sides[end];
+        } else {
+            direction = sides[end] + sides[start];
+        }
+
+
+        let azimuth = {
+            abbreviation: generateAbbreviation(i, direction, start, end),
+            azimuth: azimuthDifference * i
+        }
+
+        azimuths.push(azimuth);
+    }
+
+
+    function generateAbbreviation(i, direction, start, end) {
+        //N, E...
+        if (i % 8 == 0) return sides[start];
+        //NE, SE...
+        if (i % 4 == 0) return direction;
+        //NNE, SSE...
+        if (i % 2 == 0) {
+            if (i % 8 < 4) {
+                return sides[start] + direction;
+            } else {
+                return sides[end] + direction;
+            }
+        }
+        //NbE, EbS
+        if (i % 8 < 4) {
+            if (i % 4 < 2) {
+                return sides[start] + 'b' + sides[end];
+            } else {
+                return direction + 'b' + sides[start];
+            }
+        } else {
+            if (i % 4 < 2) {
+                return direction + 'b' + sides[end];
+            } else {
+                return sides[end] + 'b' + sides[start];
+            }
+        }
+    }
+
+    return azimuths;
 }
 
 
@@ -88,7 +144,27 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    let array = [];
+    for (let i = 0; i < n; i++) {
+        array[i] = [];
+    }
+
+    let i = 1, j = 1;
+    for (let value = 0; value < n * n; value++) {
+        array[i - 1][j - 1] = value;
+
+        if ((i + j) % 2 == 0) {
+            if (j < n) j++;
+            else i += 2;
+            if (i > 1) i--;
+        } else {
+            if (i < n) i++;
+            else j += 2;
+            if (j > 1) j--;
+        }
+    }
+
+    return array;
 }
 
 
@@ -113,7 +189,64 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let row = [];
+    row[0] = dominoes[0][0];
+    row[1] = dominoes[0][1];
+    delete dominoes[0];
+
+    let amountOfNotEmpty;
+
+    do {
+        amountOfNotEmpty = getAmountOfNotEmpty();
+
+        for (let i = 0; i < dominoes.length; i++) {
+            if(!dominoes[i]) continue;
+
+            //I use "delete" instead of "splice" in order to not change the length of "dominoes" array
+            if(placeDomino(i)) {
+                delete dominoes[i];
+            }
+        }
+    } while(amountOfNotEmpty != getAmountOfNotEmpty());
+
+    if(amountOfNotEmpty > 0) return false;
+    else return true;
+
+
+    function getAmountOfNotEmpty() {
+        return dominoes.reduce(function(amount, item, index) {
+            if(dominoes[index]) return ++amount;
+            else return amount; 
+        }, 0);
+    }
+
+    //returns true if domino had been placed successfully, else return false
+    function placeDomino(i) {
+        if(dominoes[i][0] == row[0]) {
+            row.unshift(dominoes[i][0]);
+            row.unshift(dominoes[i][1]);
+
+            return true;
+        } else if(dominoes[i][1] == row[0]) {
+            row.unshift(dominoes[i][1]);
+            row.unshift(dominoes[i][0]);
+        
+            return true;
+        } else if(dominoes[i][0] == row[row.length - 1]) {
+            row.push(dominoes[i][0]);
+            row.push(dominoes[i][1]);
+
+            return true;
+        } else if(dominoes[i][1] == row[row.length - 1]) {
+            row.push(dominoes[i][1]);
+            row.push(dominoes[i][0]);
+
+            return true;
+        }
+
+        return false;
+    }
 }
 
 
@@ -137,13 +270,41 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let result = '';
+    let current = [];
+    current.push(nums[0]);
+
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] - 1 == nums[i - 1]) {
+            current.push(nums[i]);
+        } else {
+            concatString();
+            current.push(nums[i]);
+        }
+    }
+
+    function concatString() {
+        let length = current.length;
+
+        result += result != '' ? ',' : '';
+
+        if (length <= 2) {
+            result += current.join(',');
+        } else {
+            result += `${current[0]}-${current[length - 1]}`;
+        }
+
+        current = [];
+    }
+
+    concatString();
+    return result;
 }
 
 module.exports = {
-    createCompassPoints : createCompassPoints,
-    expandBraces : expandBraces,
-    getZigZagMatrix : getZigZagMatrix,
-    canDominoesMakeRow : canDominoesMakeRow,
-    extractRanges : extractRanges
+    createCompassPoints: createCompassPoints,
+    expandBraces: expandBraces,
+    getZigZagMatrix: getZigZagMatrix,
+    canDominoesMakeRow: canDominoesMakeRow,
+    extractRanges: extractRanges
 };
