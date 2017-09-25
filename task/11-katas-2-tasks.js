@@ -63,7 +63,32 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    let startIndex = 0;
+    let endIndex;
+
+    while(startIndex <= text.length) {
+        let currentIndex = startIndex;
+
+        while(true) {
+            currentIndex = text.indexOf(' ', currentIndex + 1);
+            
+            if(currentIndex == -1) {
+                currentIndex = text.length;
+                
+                if(currentIndex - startIndex < columns) {
+                    endIndex = text.length;
+                    break;
+                }
+            }
+        
+            if(currentIndex - startIndex - 1 >= columns) break;
+            
+            endIndex = currentIndex;
+        }
+
+        yield text.substring(startIndex, endIndex);
+        startIndex = endIndex + 1;
+    }
 }
 
 
