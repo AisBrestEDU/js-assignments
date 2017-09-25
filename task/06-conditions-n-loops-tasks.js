@@ -528,7 +528,25 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+
+    let rowsA = m1.length, colsA = m1[0].length,
+        rowsB = m2.length, colsB = m2[0].length;
+
+    let matrix = [];
+
+
+    for (let i = 0; i < rowsA; i++)
+        matrix[i] = [];
+    for (let k = 0; k < colsB; k++) {
+        for (let i = 0; i < rowsA; i++) {
+            let temp = 0;
+            for (let j = 0; j < rowsB; j++)
+                temp += m1[i][j] * m2[j][k];
+            matrix[i][k] = temp;
+        }
+    }
+
+    return matrix;
 }
 
 
@@ -563,7 +581,20 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    const player = ['X', '0'];
+    for (let i = 0; i < 2; i++) {
+        if (
+            (position[0][0] == player[i] && position[0][1] == player[i] && position[0][2] == player[i]) ||
+            (position[1][0] == player[i] && position[1][1] == player[i] && position[1][2] == player[i]) ||
+            (position[2][0] == player[i] && position[2][1] == player[i] && position[2][2] == player[i]) ||
+            (position[0][0] == player[i] && position[1][0] == player[i] && position[2][0] == player[i]) ||
+            (position[0][1] == player[i] && position[1][1] == player[i] && position[2][1] == player[i]) ||
+            (position[0][2] == player[i] && position[1][2] == player[i] && position[2][2] == player[i]) ||
+            (position[0][0] == player[i] && position[1][1] == player[i] && position[2][2] == player[i]) ||
+            (position[0][2] == player[i] && position[1][1] == player[i] && position[2][0] == player[i])
+        ) return player[i];
+    }
+    return undefined;
 }
 
 
