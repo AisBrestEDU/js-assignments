@@ -203,25 +203,22 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     generator = generator();
+    let a;
+
     return new Promise((res,rej)=>{
-        let a = generator.next();
-        // console.log(a.value);
-        a.value.then(data=>{
-            // console.log(generator.next(data));
-            return generator.next(data);
-        })
-        .then(data=>{
-            return data.value;
-        })
-        .then(data=>{
-            return generator.next(data);
-        })
-        .then(data=>{
-            return res(data.value);
-        })
-        .catch(err=>{
-            return rej(err);
-        })
+        (function func(data){
+            a = generator.next(data);
+            if(!a.done){
+                a.value
+                .then(data=>{
+                    return func(data);
+                })
+                .catch(err=>{
+                    return rej(err);
+                })
+            }
+            else return res(a.value);
+        })()
     })
     // throw new Error('Not implemented');
 }
