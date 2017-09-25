@@ -26,7 +26,10 @@
  *
  */
 function getComposition(f,g) {
-    throw new Error('Not implemented');
+    function composition(x) {
+        return f(g(x));
+    }
+    return composition;
 }
 
 
@@ -47,7 +50,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+    return (x) => Math.pow(x, exponent);
 }
 
 
@@ -65,7 +68,17 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+
+    let arr = Array.from(arguments);
+    function calculatePolynom(x) {
+        if (arr.length === 0)
+            return null;
+        return arr.reduce((result, current, index) => {
+
+            return result + current * Math.pow(x, arr.length - 1 - index);
+        }, 0);
+    }
+    return calculatePolynom;
 }
 
 
@@ -84,7 +97,13 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+    let result = func();
+    function getCachedResult() {
+        return result;
+    }
+    return getCachedResult;
+
+
 }
 
 
@@ -104,7 +123,20 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+    function checkAttempts() {
+        let attempt = 1;
+        while (attempt <= attempts) {
+            try {
+                return func();
+            }
+            catch (e) {
+                // I know, there must be 
+            }
+            attempt++;
+        }
+    }
+    return checkAttempts;
+    //throw new Error('Not implemented');
 }
 
 
@@ -132,7 +164,17 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+
+    function loggerLogic() {
+        let arr = Array.from(arguments);
+        let str = `${func.name}(${JSON.stringify(arr).slice(1, -1)})`;
+        logFunc(str + " starts");
+        let result = func.apply(null, arr);
+        logFunc(str + " ends");
+        return result;
+    }
+    return loggerLogic;
+  
 }
 
 
@@ -150,7 +192,13 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+    let arr = Array.from(arguments).slice(1);
+
+    function concatParialArguments() {
+        let innerArr = Array.from(arguments);
+        return fn.apply(null, arr.concat(innerArr));
+    }
+    return concatParialArguments;
 }
 
 
