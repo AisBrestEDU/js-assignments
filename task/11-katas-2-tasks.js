@@ -34,7 +34,21 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    let arr = [];
+
+    for (let i = 0; i < 27; i++) {
+        if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == '|' && bankAccount[i + 29] == ' ' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == '|' && bankAccount[i + 57] == '_' && bankAccount[i + 58] == '|') { arr.push(0); }
+        else if (bankAccount[i + 1] == ' ' && bankAccount[i + 28] == ' ' && bankAccount[i + 29] == ' ' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == ' ' && bankAccount[i + 57] == ' ' && bankAccount[i + 58] == '|') { arr.push(1); }
+        else if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == ' ' && bankAccount[i + 29] == '_' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == '|' && bankAccount[i + 57] == '_' && bankAccount[i + 58] == ' ') { arr.push(2); }
+        else if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == ' ' && bankAccount[i + 29] == '_' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == ' ' && bankAccount[i + 57] == '_' && bankAccount[i + 58] == '|') { arr.push(3); }
+        else if (bankAccount[i + 1] == ' ' && bankAccount[i + 28] == '|' && bankAccount[i + 29] == '_' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == ' ' && bankAccount[i + 57] == ' ' && bankAccount[i + 58] == '|') { arr.push(4); }
+        else if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == '|' && bankAccount[i + 29] == '_' && bankAccount[i + 30] == ' ' && bankAccount[i + 56] == ' ' && bankAccount[i + 57] == '_' && bankAccount[i + 58] == '|') { arr.push(5); }
+        else if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == '|' && bankAccount[i + 29] == '_' && bankAccount[i + 30] == ' ' && bankAccount[i + 56] == '|' && bankAccount[i + 57] == '_' && bankAccount[i + 58] == '|') { arr.push(6); }
+        else if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == ' ' && bankAccount[i + 29] == ' ' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == ' ' && bankAccount[i + 57] == ' ' && bankAccount[i + 58] == '|') { arr.push(7); }
+        else if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == '|' && bankAccount[i + 29] == '_' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == '|' && bankAccount[i + 57] == '_' && bankAccount[i + 58] == '|') { arr.push(8); }
+        else if (bankAccount[i + 1] == '_' && bankAccount[i + 28] == '|' && bankAccount[i + 29] == '_' && bankAccount[i + 30] == '|' && bankAccount[i + 56] == ' ' && bankAccount[i + 57] == '_' && bankAccount[i + 58] == '|') { arr.push(9); }
+    }
+    return parseInt(arr.join(''));
 }
 
 
@@ -135,12 +149,12 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
 module.exports = {
-    parseBankAccount : parseBankAccount,
+    parseBankAccount: parseBankAccount,
     wrapText: wrapText,
     PokerRank: PokerRank,
     getPokerHandRank: getPokerHandRank,
