@@ -38,12 +38,8 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {     
-    var array = new Array(len) ;
-    array.fill(0);
-    array = array.map((function(value, index) {
-        return index*2+1;
-      }));
-      return array ;
+    let odd = -1;
+    return Array.from({length: len}, () => odd += 2)
      }
     
    
@@ -265,14 +261,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-    var sum=0;
-    arr=arr.map(function(el,index){ 
-        sum = sum + el; 
-        return sum;
-       });
-  return arr;
+    return arr.map((x,i)=>(arr.slice(0, i+1)).reduce((a,b)=>(a+b)));
 }
-
 /**
  * Returns every second item from the specified array:
  * 

@@ -234,33 +234,19 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    let result = 0;
+    let gen = generator();
     
-        let unbrokablePromise = new Promise((res, rej)=>{
-            let toResult = generator();          
-        if(true){
-           yield 
-           return result = toResult.next(); 
-        }
-        else{
-           let message = "taking values falls";
-        }
-    });
-    		
-		// var ascync = true; 
-		// if (!ascync)
-		// return reject(new Error("не удалось выполнить..."));
-
-	// 	// return resolve(1);
-	// });
+       function unbrokeblPromis(value) {
+          let promise = gen.next(value);
    
-    UnbrokablePromise.then(
-        sucsess => console.log("Now result is: " + result),
-        error => console.log("Error at: " + error.message)
-    )
-    console.log(result = result.toString());
- 
-}
+        if(promise.done) {
+               return promise.value;
+          }
+             return promise.value.then(unbrokeblPromis);
+       }
+   
+       return unbrokeblPromis();
+     }
 
 
 module.exports = {
