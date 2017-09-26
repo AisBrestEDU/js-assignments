@@ -135,16 +135,28 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    let sum = 0;
+    let result = [[]];
+    result[0] = dominoes.shift();
+    let count;
 
-    for (let i = 0; i < dominoes.length; i++) {
-        for (let j = 0; j < dominoes[i].length; j++) {
-            sum += dominoes[i][j];
-        }
-    }
+    while (dominoes.length > 0) {
+        dominoes.forEach(function (value, index) {
+            if (result[result.length - 1][1] == dominoes[index][0] && result[result.length - 1][0] != dominoes[index][1]) {
+                result[result.length] = value;
+                dominoes.splice(index, 1);
+            }
+            else if (result[result.length - 1][1] == dominoes[index][1] && result[result.length - 1][0] != dominoes[index][1]) {
+                result[result.length] = value.reverse();
+                dominoes.splice(index, 1);
+            }
+        });
+        if (count == dominoes.length) break;
+        count = dominoes.length;
+    };
 
-    return sum % 2 == 0 ? false : true;
+    return dominoes.length > 0 ? false : true;
 }
+
 
 
 /**
@@ -167,7 +179,7 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    for (let i = 0; i < nums.length; i ++) {
+    for (let i = 0; i < nums.length; i++) {
         let j = i;
         while (nums[j + 1] - nums[j] == 1) {
             j++;
