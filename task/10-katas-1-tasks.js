@@ -17,20 +17,74 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    // var sides = ['N', 'E', 'S', 'W']; // use array of cardinal directions only!
-    // let t = [Array(7), Array(7), Array(7), Array(7)];
-    // for (let i = 0; i < sides.length; i++) {
-    //     for (let j = 1; j < 7; j+=2) {
-    //         if(i % 2){
-    //             t[i][j] = sides[i].toString() + sides[i+1] ? sides[i+1] : sides[0];
-    //         }else {
-    //             t[i][j] = sides[i].toString().repeat(2)+sides[i+1];
-    //         }
-    //     }
+    var sides = ['N', 'E', 'S', 'W']; // use array of cardinal directions only!
+    let t = [Array(7), Array(7), Array(7), Array(7)];
+    for (let i = 0; i < sides.length; i++) {
+        for (let j = 0; j < 7; j++) {
+            if (j == 0) {
+                if (i < 3) {
+                    t[i][j] = `${sides[i]}b${sides[i+1]}`;
+                } else {
+                    t[i][j] = `${sides[i]}b${sides[0]}`;
+                }
+            }
+            if (j == 1) {
+                if (i % 2) {
+                    if (i < 3) {
+                        t[i][j] = `${sides[i]}${sides[i+1]}${sides[i]}`;
+                    } else {
+                        t[i][j] = `${sides[i]}${sides[0]}${sides[i]}`;
+                    }
+                } else {
+                    t[i][j] = sides[i].toString().repeat(2) + sides[i + 1];
+                }
+            }
+            if (j == 2) {
+                t[i][j] = `${t[i][j-1].slice(-2)}b${t[i][j-1].charAt(0)}`;
+            }
+            if (j == 3) {
+                if (i % 2) {
+                    if (i < 3) {
+                        t[i][j] = `${sides[i+1]}${sides[i]}`;
+                    } else {
+                        t[i][j] = `${sides[0]}${sides[i]}`;
+                    }
+                } else {
+                    t[i][j] = `${sides[i]}${sides[i+1]}`;
+                }
+            }
+            if (j == 4) {
+                if (i < 3) {
+                    t[i][j] = `${t[i][j-2].slice(0,3)}${sides[i+1]}`
+                } else {
+                    t[i][j] = `${t[i][j-2].slice(0,3)}${sides[0]}`
+                }
+            }
+            if (j == 5) {
+                if (i < 3) {
+                    t[i][j] = `${sides[i+1]}${t[i][j-2]}`
+                } else {
+                    t[i][j] = `${sides[0]}${t[i][j-2]}`
+                }
+            }
+            if (j == 6) {
+                t[i][j] = t[i][0].split('').reverse().join('');
+            }
+        }
 
-    // }
-    // console.log(t)
+    }
+
+    const abbreviations = [sides[0]].concat(t[0], sides[1], t[1], sides[2], t[2], sides[3], t[3]);
+    let result = [];
+    let azimuth = 0;
+    abbreviations.forEach(abbr => {
+        result.push({
+            abbreviation: abbr,
+            azimuth: azimuth
+        })
+        azimuth += 11.25;
+    })
+    return result;
 }
 
 
