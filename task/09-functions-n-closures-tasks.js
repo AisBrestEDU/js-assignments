@@ -116,6 +116,7 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     throw new Error('Not implemented');
+
 }
 
 
@@ -161,7 +162,15 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    let arg=[]
+    for(let i=1; i<arguments.length;i++) arg[i-1]=arguments[i];
+    return (...r)=>{
+        let arr=arg.concat(r);
+
+        return fn.apply(this,arr);
+    }
 }
 
 
