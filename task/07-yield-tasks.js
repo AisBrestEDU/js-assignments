@@ -241,121 +241,14 @@ function async(generator) {
 
     var itr=generator();
 
-    // return Promise.resolve(function fnc(item){
-    //     let p=itr.next(item);
-    //     if(p.done) return p.value;
-    //     return p.value.then(fnc);
-    // }());
-
-    //     return Promise.resolve(function fnc(item){
-    //         let p;
-    //         let s;
-
-    //         while(true){ 
-    //             p=itr.next(s);
-    //             s=p.value;
-    //             return p.value.then(()=>s);
-    //             if(p.done) break;
-    //         }
-    // }());
-
-    // return Promise.resolve(function fnc(s){
-        
-    //         let p=itr.next(s)
-
-    //         if(p.done) p.value;
-
-    //         return p.value.then(fnc);
-            
-    // }());
-
-            return Promise.resolve(function fnc(s){
-            let p;
-            let pp=Promise.resolve();
-
-            while(true){ 
-                p=itr.next(s);
-                s=p.value;
-                return pp.then(()=>s);
-                if(p.done) break;
-            }
-    }());
-
-    // let buff=itr.next();
-    // let p;
-    // do{
-    //     //yield buff.value;
-    //     buff=itr.next();
-        
-    // }while(buff.done==true)
-
-    // let buff=Promise.resolve();
-    // return Promise.resolve(function fnc(){
-    //     let p=itr.next();
-    //     do{
-    //         //p.value.then((result)=>result);
-    //         buff=buff.then((result)=>{
-    //             return p.itr.next(result).value;
-    //         });
-
-    //     }while(!p.done);
-    // }());
-
-    // var prom = generator();
-
-    // var pr=Promise.resolve();
-
-    // function* ff() {
-    //     let qq=prom.next();
-    //     while(true){
-            
-    //         if(qq===undefined) break;
-    //         qq=prom.next(qq.value);
-    //         yield qq.value;
-    //     }
-    // };
-
-
-    // return pr.then()
-    // .then((result1) => 
-    // { 
-    //     return promices.next(result1).value;
-    // })
-    // .then((result1) => 
-    // { 
-    //     return promices.next(result1).value;
-    // });;
-
-    // var prom = generator();
-    // var arr=new Array();
-    // let buff;
-    // buff=prom.next().value;
-    // arr[0]=buff;
-    // let i=1;
-
-    // while(true){
-    //     buff=prom.next(buff).value;
-    //     if(buff==undefined) break;
-    //     arr[i++]=buff;
-    // }
-
-    // var pr=Promise.resolve();
-
-    // for(let item of arr){
-    //     pr=pr.this(()=>{ return item;})
-    // }
-
-    // return pr;
-
-//     let prm = Promise.resolve((item) => {
-//         let p = 1;
-//         p = itr.next(item);
-//         return p.value;
-//     });
-
-// return prm;
-
-//return Promise.all(generator).then(value=>value);
+    return Promise.resolve(
+        function fnc(item)
+        {
+            let p=itr.next(item);
+            if(p.done) return p.value;
+            return p.value.then(fnc);
+        }()
+    );
 
 }
 
