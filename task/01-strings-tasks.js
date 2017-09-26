@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    return value1+value2;
+    return `${value1}${value2}`;
 }
 
 
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return 'Hello, '+firstName+' '+lastName+'!';
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return (value.substring(7,value.length-1));
+    return value.substring(7,value.length-1);
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    return value.charAt(0);
+    return value[0];
 }
 
 /**
@@ -201,37 +201,14 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-      function topOfRectangle(width){
-         var top = '';
-         for(var i =0 ; i<width-2; i++){
-           top=top+'─';
-         } 
-            return '┌'+top+'┐\n';
-       }  
-      
-        function sidesOfRectangle(width, height){
-         var top ='';
-         var row = '';      
-         var result ='';    
-         for(var i =0 ; i<width-2; i++){
-           top=top+' ';
-         } 
-          result = '│'+top+'│\n';
-          for(var i =0; i<height-2; i++){
-            row = row+result;
-          }
-          return row;
-       }
-      
-        function bottomOfRectangle(width){
-          var top= '';
-         for(var i =0 ; i<width-2; i++){
-           top=top+'─';
-         } 
-        return '└'+top+'┘\n';
-       } 
-      
-     return topOfRectangle(width)+sidesOfRectangle(width, height)+bottomOfRectangle(width);   
+    let top='',
+        bottom='',
+        sides='';
+    top = '┌'+'─'.repeat(width-2)+'┐\n';
+    bottom ='└'+'─'.repeat(width-2)+'┘\n';
+    sides= '│'+' '.repeat(width-2)+'│\n';
+
+    return top+sides.repeat(height-2) + bottom;  
 }
 
 
@@ -251,7 +228,17 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    return str.replace(/[a-zA-Z]/g, function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});
+    let lowerCaseLimit = 97;
+    let upperCaseLimit = 65;
+    let offset = 13;
+    let alphabetSize = 26;
+
+    return str.replace(/[a-z]/ig, (c) => {
+        let limit = c.toUpperCase() === c ? upperCaseLimit : lowerCaseLimit;
+        let resCode = c.charCodeAt(0) - offset;
+
+        return String.fromCharCode(resCode < limit ? resCode + alphabetSize : resCode);
+    });
 }
 
 /**

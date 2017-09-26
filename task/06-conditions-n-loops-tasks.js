@@ -81,10 +81,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    return findSum(n1,n2);
-}
-function findSum(n1,n2){
-    return n1===n2 ? n1 : n1+findSum(n1+1,n2);
+    return (n1+n2)*(n2-n1+1)/2;
 }
 
 
@@ -222,25 +219,23 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-        return a < b ? interval(a, b, isStartIncluded, isEndIncluded) : interval(b, a, isStartIncluded, isEndIncluded);
+    let str='';
+    let buf;
+    if(b<a){
+        buf=b;
+        b=a;
+        a=buf;
     }
-    function interval(a, b, start, end) {
-        if (start && end) {
-            return '['+a+', '+b+']';
-        }
-        else {
-            if (!start && !end) {
-                return '('+a+', '+b+')';
-            }
-            else {
-                if (start && !end) {
-                    return '['+a+', '+b+')';
-                }
-                else {
-                    return '('+a+', '+b+']';
-                }
-            }
-        }
+    if(isStartIncluded)
+        str = '['+a+', ';
+    else
+        str = '('+a+', ';
+
+    if (isEndIncluded)
+        str=str+b+']';
+    else
+        str=str+b+')';
+    return str;
     }
 
 

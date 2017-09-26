@@ -39,7 +39,7 @@ function findElement(arr, value) {
  */
 function generateOdds(len) {
     var a = 1;
-    return Array(len).fill(0).map((x,i)=>(2*i+1));
+    return Array(len).fill(0).map((x,i)=>2*i+1);
 }
 
 
@@ -71,11 +71,7 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-    function find(value){
-        return value>0;
-    }
-    var filtered = arr.filter(find);
-    return filtered;
+    return arr.filter(x=>x>0);
 }
 
 /**
@@ -231,7 +227,7 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-    return arr.map((num) => (num*num));
+    return arr.map(num => num*num);
 }
 
 
@@ -250,7 +246,7 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   return arr.map((x,i)=>(arr.slice(0, i+1)).reduce((a,b)=>(a+b)));
+   return arr.map((x,i)=>arr.slice(0, i+1).reduce((a,b)=>a+b));
 }
 
 /**
@@ -309,12 +305,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-    function compareNumeric(a, b) {
-        if (a < b) return 1;
-        if (a > b) return -1;
-      }            
-    arr.sort(compareNumeric);
-    return arr.slice(0,3);
+    return arr.sort((a,b) => b-a).slice(0,3);
 }
  
  
@@ -479,7 +470,7 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   return Array(n).fill(Array(n).fill(0)).map((x,i)=>((x.map((y,j)=>(i==j)? y=1:y=0))));
+   return Array(n).fill(Array(n).fill(0)).map((x,i)=>x.map((y,j)=>i==j));
 }
 
 /**

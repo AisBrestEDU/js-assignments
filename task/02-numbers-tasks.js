@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return 2*(Math.PI)*radius;
+    return 2*Math.PI*radius;
 }
 
 /**
@@ -127,7 +127,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    return (''+value).charAt((''+value).length-1);
+    return value%10;;
 }
 
 
@@ -160,7 +160,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(Math.pow(a,2)+Math.pow(b,2)+Math.pow(c,2));
+    return Math.hypot(a,b,c);
 }
 
 /**

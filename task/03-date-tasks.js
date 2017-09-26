@@ -56,11 +56,14 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   var year = date.getFullYear();
-   if(year%4>0) return false
-    else if (year%100>0) return true
-        else if( year%400>0) return false
-            else return true;
+    var year = date.getFullYear();
+    if (year % 4 > 0) return false
+    else if (year % 100 > 0) 
+        return true
+    else if (year % 400 > 0) 
+        return false
+    else 
+        return true;
 }
 
 
