@@ -66,23 +66,23 @@ function* wrapText(text, columns) {
     let startIndex = 0;
     let endIndex;
 
-    while(startIndex <= text.length) {
+    while (startIndex <= text.length) {
         let currentIndex = startIndex;
 
-        while(true) {
+        while (true) {
             currentIndex = text.indexOf(' ', currentIndex + 1);
-            
-            if(currentIndex == -1) {
+
+            if (currentIndex == -1) {
                 currentIndex = text.length;
-                
-                if(currentIndex - startIndex < columns) {
+
+                if (currentIndex - startIndex < columns) {
                     endIndex = text.length;
                     break;
                 }
             }
-        
-            if(currentIndex - startIndex - 1 >= columns) break;
-            
+
+            if (currentIndex - startIndex - 1 >= columns) break;
+
             endIndex = currentIndex;
         }
 
@@ -125,7 +125,96 @@ const PokerRank = {
 }
 
 function getPokerHandRank(hand) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    const cards = {
+        'A': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
+        '6': 6,
+        '7': 7,
+        '8': 8,
+        '9': 9,
+        '10': 10,
+        'J': 11,
+        'Q': 12,
+        'K': 13
+    }
+
+    let suits = hand.map(function (card) {
+        return card[card.length - 1];
+    });
+
+    let ranks = hand.map(function (card) {
+        let str = card.substring(0, card.length - 1);
+        return cards[str];
+    });
+
+    let ofKind = nOfKind();
+
+    if(isFlush() && isStraight()) {
+        return PokerRank.StraightFlush;
+    } else if(isFlush()) {
+        return PokerRank.Flush;
+    } else if(isStraight()) {
+        return PokerRank.Straight;
+    } else if(ofKind.includes(4)) {
+        return PokerRank.FourOfKind;
+    } else if(ofKind.includes(3) && ofKind.includes(2)) {
+        return PokerRank.FullHouse;
+    } else if(ofKind.includes(3)) {
+        return PokerRank.ThreeOfKind;
+    } else if(ofKind.indexOf(2) != ofKind.lastIndexOf(2)) {
+        return PokerRank.TwoPairs;
+    } else if(ofKind.includes(2)) {
+        return PokerRank.OnePair;
+    } else return PokerRank.HighCard;   
+
+    function isFlush() {
+        let suit = suits[0];
+
+        return suits.every(function (item) {
+            if (item == suit) return true;
+            else return false;
+        });
+    }
+
+    function isStraight() {
+        ranks.sort((a, b) => { return a > b });
+
+        if(ranks[0] == 1 && ranks[4] == 13) {
+            ranks.shift();
+            ranks.push(14);
+        }
+
+        for (let i = 1; i < ranks.length; i++) {
+            if (ranks[i] != ranks[i - 1] + 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function nOfKind() {
+        let ofKind = [];
+        let checkedItems = [];
+
+        for(let i = 0; i < ranks.length; i++) {
+            let c = ranks.reduce(function(count, item) {
+                if(checkedItems.includes(ranks[i])) return count;
+
+                if(ranks[i] == item) return ++count;
+                else return count;
+            }, 0);
+
+            ofKind.push(c);
+            checkedItems.push(ranks[i]);
+        }
+
+        return ofKind;
+    }
 }
 
 
@@ -160,12 +249,12 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
 module.exports = {
-    parseBankAccount : parseBankAccount,
+    parseBankAccount: parseBankAccount,
     wrapText: wrapText,
     PokerRank: PokerRank,
     getPokerHandRank: getPokerHandRank,
