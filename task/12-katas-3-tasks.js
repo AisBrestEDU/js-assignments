@@ -120,7 +120,21 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
 function* getPermutations(chars) {
-    throw new Error('Not implemented');
+    function permut(chars) {
+        if (chars.length < 2) {
+            return chars;
+        } 
+        let permutations = []; 
+        for (let i = 0, l = chars.length; i < l; i++) {
+            let char = chars[i];
+            var remainingString = chars.slice(0, i) + chars.slice(i + 1, l);
+            for (var subPermutation of permut(remainingString)) {
+                permutations.push(char + subPermutation)
+            };               
+        }
+        return permutations;
+    }
+    yield* permut(chars);
 }
 
 
@@ -140,7 +154,25 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-    throw new Error('Not implemented');
+    let max = Math.max(...quotes);
+    let profit = 0;
+
+    let spend = 0;
+    let items = 0;
+
+    while (quotes.length) { 
+        spend = 0;
+        items = 0;
+        while (quotes[0] != max) {
+            spend += quotes.shift();
+            items++;
+        };
+        quotes.shift();
+        profit += (max * items) - spend;
+        max = Math.max(...quotes); 
+    }  
+    
+    return profit;
 }
 
 
@@ -172,9 +204,8 @@ UrlShortener.prototype = {
     
     decode: function(code) {
         throw new Error('Not implemented');
-    } 
+    }
 }
-
 
 module.exports = {
     findStringInSnakingPuzzle: findStringInSnakingPuzzle,

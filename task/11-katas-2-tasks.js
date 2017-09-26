@@ -259,33 +259,6 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-    // figure= '+------------+\n'+
-    //         '|            |\n'+
-    //         '|            |\n'+
-    //         '|            |\n'+
-    //         '+------+-----+\n'+
-    //         '|      |     |\n'+
-    //         '|      |     |\n'+
-    //         '+------+-----+\n';
-
-    // figure ='   +-----+     \n'+
-    //         '   |     |     \n'+
-    //         '+--+-----+----+\n'+
-    //         '|             |\n'+
-    //         '|             |\n'+
-    //         '+-------------+\n';
-
-    // figure ='   +--+   \n'+
-    //         '   |  |   \n'+
-    //         '+--+--+--+\n'+
-    //         '|     |  |\n'+
-    //         '+--+--+--+\n'+
-    //         '   |  |   \n'+
-    //         '   +--+   \n';
-
-// figure ='++++\n'+
-//         '++++\n';
-
     let lines = figure.split("\n");
     let lineM = figure[0];    
 
@@ -300,8 +273,7 @@ function* getFigureRectangles(figure) {
         line = lines[i];
         if (line.indexOf("-") != -1) {
             if (topLine !== "") {
-                rec += topLine;
-                console.log(rec + "\n");        
+                rec += topLine;       
                 yield rec + "\n";
                 rec = "";
                 topLine = "";
