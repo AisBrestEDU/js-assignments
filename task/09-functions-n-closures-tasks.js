@@ -118,7 +118,7 @@ function retry(func, attempts) {
             catch (err) {
                 attempts--;
                 if (attempts == 0) {
-                    throw new Error("fin");
+                    throw new Error(err.message);
                 }
             };
         };
