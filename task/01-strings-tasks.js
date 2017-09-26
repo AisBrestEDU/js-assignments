@@ -200,28 +200,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let s = "";
-    let row = "│";
-    let rowTop = "┌";
-    let rowBottom = "└";
-
-    let i = 0;
-    for (i = 0; i < width - 2; i++) {
-        row += " ";
-        rowTop += "─";
-        rowBottom += "─";
-    };
-    i = 0;
-    row += "│\n";
-    rowTop += "┐\n";
-    rowBottom += "┘\n";
-    s += rowTop;
-    for (i = 0; i < height - 2; i++) {
-        s += row;
-    };
-    s += rowBottom;
-
-    return s;
+    return "┌" + "─".repeat(width - 2) + "┐\n" + ("│" + " ".repeat(width - 2) + "│" + "\n").repeat(height - 2) + "└" + "─".repeat(width - 2) + "┘\n";
 }
 
 /**

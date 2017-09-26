@@ -114,8 +114,12 @@ function retry(func, attempts) {
         while (attempts) {
             try {
                 return func();
-            } catch (err) {
+            } 
+            catch (err) {
                 attempts--;
+                if (attempts == 0) {
+                    throw new Error("fin");
+                }
             };
         };
     };

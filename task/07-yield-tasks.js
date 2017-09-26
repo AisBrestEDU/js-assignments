@@ -219,21 +219,21 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    generator = generator();
-    let next;
-    return new Promise(function (resolve, rejected) {
-        (function co (generator, yieldValue) {
-            next = generator.next(yieldValue);
+    let gen = generator(),
+        next;
+    return new Promise((resolve, reject) => {
+        (function co(yieldValue) {
+            next = gen.next(yieldValue);
             if (!next.done) {
                 next.value.then(
-                    result => co(generator, result),
-                    err => rejected(err)
-                )
+                    result => co(result),
+                    err => reject(err)
+                );
             } else {
                 resolve(next.value);
             }
-        })(generator);
-    })
+        }()); 
+    }); 
 }
 
 
