@@ -204,8 +204,9 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
+    const length = Math.sqrt(n);
     if (isNaN(n) || !isFinite(n) || n % 1 || n < 2) return false;
-    for (var i = 2; i <= Math.sqrt(n); i++) if (n % i == 0) return false;
+    for (let i = 2; i <= length; i++) if (n % i == 0) return false;
     return true;
 }
 
