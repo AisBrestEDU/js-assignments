@@ -124,7 +124,7 @@ function retry(func, attempts) {
                 return func();
             }
             catch (e) {
-                console.log(e.massage);
+                if (attempts == 1) { throw e; }
             }
             finally {
                 attempts--;
