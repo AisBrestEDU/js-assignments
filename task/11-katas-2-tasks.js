@@ -34,7 +34,41 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+//  such a bad solution :/
+    let numbers = {
+        ' _ | ||_|': 0,
+        '     |  |': 1,
+        ' _  _||_ ': 2,
+        ' _  _| _|': 3,
+        '   |_|  |': 4,
+        ' _ |_  _|': 5,
+        ' _ |_ |_|': 6,
+        ' _   |  |': 7,
+        ' _ |_||_|': 8,
+        ' _ |_| _|': 9
+    }
+
+    let b = bankAccount.split('\n').map(x => x.match(/.{3}/g));
+    let l = b[0].length;
+    let i = 0;
+    let arr = [];
+    let res = [];
+    while (l) {
+        arr.push(b[0][i] + b[1][i] + b[2][i]);
+        i++;
+        l--;
+    }
+
+    let k = 0;
+    while (k < arr.length) {
+        for (let key in numbers) {
+            if (arr[k] === key) {
+                res.push(numbers[key]);
+            }
+        }
+        k++;
+    }
+    return +res.join('');
 }
 
 
@@ -63,7 +97,26 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    while(text.length){
+        let val = columns;
+        
+        if(text.length>val){
+          while(text[val]!==" "){
+            val--;
+          }
+        }
+          
+          yield text.slice(0,val);
+          val++;
+          text = text.slice(val);
+        
+    }
+    
+    // console.log(rows,columns);
+
+    // yield `${text.slice(0,24)}`;
+
+    // throw new Error('Not implemented');
 }
 
 
