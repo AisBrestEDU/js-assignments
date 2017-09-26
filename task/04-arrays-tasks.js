@@ -73,7 +73,6 @@ function doubleArray(arr) {
  */
 function getArrayOfPositives(arr) {
     return arr.filter(item => item > 0);
-
 }
 
 /**
@@ -179,7 +178,9 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-    return arr.filter((item, index) => index >= arr.length - n);
+    return arr.slice(-n);
+    //or
+    //return arr.filter((item, index) => index >= arr.length - n);
 }
 
 

@@ -167,7 +167,6 @@ function isInsideCircle(circle, point) {
     if (Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2) < Math.pow(circle.radius, 2))
         return true;
     else return false;
-
 }
 
 
@@ -186,16 +185,6 @@ function findFirstSingleChar(str) {
     for (let i = 0; i < str.length; i++) {
         if (str.indexOf(str.charAt(i), str.indexOf(str.charAt(i)) + 1) < 0) return str.charAt(i);
     }
-    // for (let i = 0; i < str.length; i++) {
-    //     if(str.indexOf(str.charAt(i)) && str.lastIndexOf(str.charAt(i))) {
-    //         return str.charAt(i);
-    //     }
-    // }
-    // return null;
-    // let strToArray = str.replace(' ', '').split('');
-    // for(let i = 0; i < strToArray.length; i++) {
-    //     if(strToArray.indexOf(strToArray[i] == -1)) return strToArray[i];
-    // }
 }
 
 

@@ -122,7 +122,7 @@ function retry(func, attempts) {
             try {
                 return func();
             } catch (error) {
-                console.error(error);
+                if(attempts == 1) throw error;
             }
         }
     })
