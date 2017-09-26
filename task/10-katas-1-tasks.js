@@ -17,8 +17,47 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    function CompassPoint(abbr, azimuth) {
+        this.abbreviation = abbr;
+        this.azimuth = azimuth;
+    }
+    function getAbbreviation(index)
+    {
+        let first, second, middle;
+        if (index === 0) return sides[0];
+        if (index === 8) return sides[1];
+        if (index === 16) return sides[2];
+        if (index === 24) return sides[3];
+
+        //Finding the range NE, SE, SW or NW
+        if (0 < index && index < 8) { first = 'N'; second = 'E'; middle = 'NE'; }
+        if (8 < index && index < 16) { first = 'E'; second = 'S'; middle = 'SE'; }
+        if (16 < index && index < 24) { first = 'S'; second = 'W'; middle = 'SW'; }
+        if (24 < index && index < 32) { first = 'W'; second = 'N'; middle = 'NW'; }
+
+        let s = index % 8;
+        if (s === 1) { return first + 'b' + second; }
+        if (s === 2) { return first + middle; }
+        if (s === 3) { return middle + 'b' + first; }
+        if (s === 4) { return middle; }
+        if (s === 5) { return middle + 'b' + second; }
+        if (s === 6) { return second + middle; }
+        if (s === 7) { return second + 'b' + first; }
+        return undefined;
+
+
+    }
+
+    
+    var sides = ['N', 'E', 'S', 'W'];  // use array of cardinal directions only!
+    let compasSize = 32;
+    let allSides = Array.from({ length: compasSize });
+    let degreeIncrement = 11.25;
+    sides.push('N');
+
+
+    allSides = allSides.map((current, index) => { return new CompassPoint(getAbbreviation(index), index * degreeIncrement) });
+    return allSides;
 }
 
 

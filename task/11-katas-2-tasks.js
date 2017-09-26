@@ -34,7 +34,36 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    function getDigitString(strArr, position) {
+        let strDigit = '';
+        for (let i = 0; i < strArr.length; i++) {
+            strDigit += strArr[i].slice(position, position + 3);
+        }
+        return strDigit;
+    }
+
+    let alphabetStr =    [' _     _  _     _  _  _  _  _ ',
+                          '| |  | _| _||_||_ |_   ||_||_|',    
+                          '|_|  ||_  _|  | _||_|  ||_| _|'];
+    //Building the Map(key: string, value: integer)
+    //Every digit is 3 char wide
+    let alphbetMap = new Map();
+    for (let i = 0; i < 10; i++) {
+        alphbetMap.set(getDigitString(alphabetStr, i * 3), i);
+    }
+
+    let bankAccountArr = bankAccount.split('\n');
+    bankAccountArr.pop();
+    let result = '';
+
+    for (let i = 0; i < bankAccountArr[0].length; i += 3) {
+        result += alphbetMap.get(getDigitString(bankAccountArr, i));
+    }
+
+    return Number.parseInt(result);
+
+    
+
 }
 
 
@@ -63,7 +92,12 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    //let reg = `[ ].{0,${columns}}(?= )/g`;
+    let reg = /\s(.{0,26})(?= )/g;
+    let textWithSpaces = ` ${text} `;
+    let some = textWithSpaces.match(reg);
+    return some;
+    
 }
 
 
@@ -100,7 +134,70 @@ const PokerRank = {
 }
 
 function getPokerHandRank(hand) {
-    throw new Error('Not implemented');
+    function isFlush(arr) {
+        let m = arr[0].slice(-1);
+        let flush = arr.every( current => current.slice(-1) === m )
+        return (flush ? PokerRank.Flush : PokerRank.HighCard);
+    }
+    function isStraight(arr)
+    {
+
+        //Building Map
+        let valueMap = new Map();
+        for (let i = 2; i <= 10; i++) {
+            valueMap.set(i.toString(), i);
+        }
+        valueMap.set('J', 11);
+        valueMap.set('Q', 12);
+        valueMap.set('K', 13);
+        valueMap.set('A', 14);
+
+        //Sorting
+        let cardsValue = arr.map(current => current.slice(0,-1));
+        cardsValue = cardsValue.sort((a, b) => {
+             return valueMap.get(a) - valueMap.get(b);
+        });
+
+        if(cardsValue.join('') === '2345A')
+            return PokerRank.Straight;
+
+        //Checking sequence
+        for (let i = 1; i < cardsValue.length; i++) {
+            let previous = valueMap.get(cardsValue[i - 1]);
+            let current = valueMap.get(cardsValue[i]);
+            if (previous + 1 !== current) return PokerRank.HighCard;
+        }
+        return PokerRank.Straight;
+    }
+
+    function getRankBasedOnSameCards(arr)
+    {
+        let result = 1;
+        let cardsValue = arr.map(current => current.slice(0,-1));
+        let matchArr = new Array(5).fill(0);
+        for (let i = 0; i < cardsValue.length; i++) {
+            for (let j = 0; j < cardsValue.length; j++) {
+                if (cardsValue[i] === cardsValue[j])
+                    matchArr[i] +=1;
+            }
+        }
+        if (matchArr.includes(4))                           return PokerRank.FourOfKind;
+        if (matchArr.includes(3) && matchArr.includes(2))   return PokerRank.FullHouse;
+        if (matchArr.includes(3))                           return PokerRank.ThreeOfKind;
+
+        let countOfPairs = matchArr.filter(element => element === 2).length;
+        if (countOfPairs === 4)       return PokerRank.TwoPairs;
+        if (countOfPairs === 2)       return PokerRank.OnePair;
+        return PokerRank.HighCard;
+    }
+
+    let flush = isFlush(hand);
+    let straight = isStraight(hand);
+    if (flush && straight) return PokerRank.StraightFlush;
+    let sameCard = getRankBasedOnSameCards(hand);
+
+    return Math.max(flush, straight, sameCard);
+    
 }
 
 
