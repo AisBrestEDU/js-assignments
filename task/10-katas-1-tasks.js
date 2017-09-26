@@ -17,8 +17,54 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
+    class Compass {
+        constructor(abbreviation, azimuth) {
+            this.abbreviation = abbreviation;
+            this.azimuth = azimuth.toFixed(2);
+        }
+    }
     var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    
+    function whatToSplice(i) {
+      if (sides[i + 1] === undefined) {
+        return sides[0] + sides[i];
+      } 
+      else if (i % 2 === 0 && i % 4 !== 0) {
+        return sides[i + 1] + sides[i];
+      }
+      return sides[i] + sides[i + 1];
+    }
+  
+    function whatToSpliceB(i) {
+      if (sides[i].length === 1) {
+        return sides[i] + "b" + (sides[i + 4]? sides[i + 4] : sides[0]);
+      } else if (sides[i].length == 2) {
+        return sides[i] + "b" + (sides[i + 2]? sides[i + 2] : sides[0]);
+      }
+      else if (sides[i].length === 3 && (!sides[i + 1] ? sides[0].length : sides[i + 1].length) === 2){
+        return sides[i + 1] + "b" + sides[i - 2]; 
+      } else {
+        return (!sides[i + 1] ? sides[0] : sides[i + 1]) + "b" + sides[i - 6];
+      }
+    }
+  
+    for (let i = 0; i < 8; i+=2) {
+      sides.splice(i + 1, 0, whatToSplice(i));
+    }
+    for (let i = 0; i < 16; i+=2) {
+      sides.splice(i + 1, 0, whatToSplice(i));
+    }
+    for (let i = 0; i < 32; i+=2) {
+      sides.splice(i + 1, 0, whatToSpliceB(i));
+    }
+    
+    let result = [];
+    let degrees = 0;
+    sides.forEach(value => {
+      result.push(new Compass(value, degrees));
+      degrees += 11.25;
+    });
+    return result;
 }
 
 
@@ -88,7 +134,12 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+//     let matrix = Array.from({length : n});
+//     matrix.fill(Array.from({length : n}));
+    
+    
+//     debugger;
+throw new Error('Not implemented');
 }
 
 
