@@ -172,9 +172,9 @@ function* mergeSortedSequences(source1, source2) {
     // console.log('s1: ',s1);
     let s2=b.next().value;
     // console.log('s2: ',s2);
-        if(s1==null) 
+        if(s1===undefined) 
             yield s2;
-        else if(s2==undefined){
+        else if(s2===undefined){
             yield s1;
         }
         else{

@@ -269,7 +269,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    return +((''+num).split('').reverse().join(''));
+    return reverseString(num.toString());
 }
 
 
@@ -312,7 +312,7 @@ function isCreditCardNumber(ccn) {
     if(sum%10===0){
         return true
     } else return false;
-
+    
 }
 
 
@@ -331,14 +331,12 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    return sum(num);
-}
-function sum(num) {
-    var arr = num.toString().split('').map((x) => (Number(x)));
-    if (arr.length > 2) {
-        return sum(arr.reduce((a, b)=>(a + b)))
+    let sum = num.toString().split('').map(x=>Number(x)).reduce((a,b)=>a+b);
+    if(sum>=10){
+        sum = sum.toString().split('').map(x=>Number(x)).reduce((a,b)=>a+b);
     }
-    return arr.reduce((a, b)=>(a + b));
+    return sum;
+
 }
 
 
@@ -550,8 +548,8 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    function func(pos1, pos2,pos3){
-       return pos1===pos2 && pos2===pos3 && pos1!=undefined;
+    function func(positionFirstRow, positionSecondRow,positionThirdRow){
+       return positionFirstRow===positionSecondRow && positionSecondRow===positionThirdRow && positionFirstRow!=undefined;
     }
        for(let i = 0; i<3; i++){
         if(func(position[i][0], position[i][1], position[i][2])) //rows
