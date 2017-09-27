@@ -92,10 +92,13 @@ describe('09-functions-n-closures-tasks', function() {
         var maxAttemps = 3;
 
         var fn = function() {
-            throw new Error();
+            throw new Error("fulyError");
         }
-
-        assert.throws(tasks.retry(fn, maxAttemps), Error);
+    
+        assert.throws(tasks.retry(fn, maxAttemps), function (err) {
+            assert.equal(err.message, "fulyError", "retry method should throw an initial error");
+            return true;
+        });
     });
 
 
