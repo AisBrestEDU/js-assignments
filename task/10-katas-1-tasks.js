@@ -134,12 +134,26 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-//     let matrix = Array.from({length : n});
-//     matrix.fill(Array.from({length : n}));
-    
-    
-//     debugger;
-throw new Error('Not implemented');
+    let arr = Array.from({ length: n });
+    for (let e = 0; e < n; e++) {
+        arr[e] = Array.from({ length: n });
+    }
+    let i = 1, j = 1;
+    for (let e = 0; e < n * n; e++) {
+        arr[i - 1][j - 1] = e;
+        if ((i + j) % 2 == 0) {
+            // Even stripes
+            if (j < n) j++;
+            else i += 2;
+            if (i > 1) i--;
+        } else {
+            // Odd stripes
+            if (i < n) i++;
+            else j += 2;
+            if (j > 1) j--;
+        }
+    }
+    return arr;
 }
 
 
