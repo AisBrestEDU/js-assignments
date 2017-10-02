@@ -199,13 +199,56 @@ function UrlShortener() {
 UrlShortener.prototype = {
 
     encode: function(url) {
-        throw new Error('Not implemented');
+        let res = "";
+        let fPart = 0;
+        let sPart = 0; 
+        for (let i = 0, l = url.length; i < l; i++) {
+            fPart = this.urlAllowedChars.indexOf(url.charAt(i));
+            if (fPart < 10) {
+                fPart = "0" + fPart;
+            } else {
+                fPart = fPart + "";                
+            };    
+            if (url[i + 1]) {
+                sPart = this.urlAllowedChars.indexOf(url.charAt(i + 1))          
+                if (sPart <= 10) {
+                    sPart = "0" + sPart;
+                } else {
+                    sPart = sPart + "";                
+                };  
+                res += String.fromCodePoint("1" + fPart + sPart);
+                i++;      
+            } else {                
+                res += String.fromCodePoint(fPart);  
+            }
+        }; 
+        return res;
     },
     
     decode: function(code) {
-        throw new Error('Not implemented');
-    }
+        let res = "";
+        let curCode = "";
+        let fPart = 0;
+        let sPart = 0;                  
+        for (let i = 0, l = code.length; i < l; i++) {
+            if ((code[i].codePointAt() + "").length == 2) {
+                res += this.urlAllowedChars.charAt(+code[i].codePointAt());
+                continue;
+            };
+            curCode = (code[i].codePointAt() + "").slice(1);
+            if (curCode.length == 3) {
+                fPart = +("0" + curCode[0]);
+            } else {
+                fPart = +curCode.slice(0, 2);              
+            }
+            sPart = +curCode.slice(-2);                      
+            res += this.urlAllowedChars.charAt(fPart) + this.urlAllowedChars.charAt(sPart);
+        }; 
+        return res;
+    },
+    
 }
+
 
 module.exports = {
     findStringInSnakingPuzzle: findStringInSnakingPuzzle,
