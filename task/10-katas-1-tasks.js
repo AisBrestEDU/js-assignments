@@ -112,7 +112,58 @@ function createCompassPoints() {
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-    throw new Error('Not implemented');
+    let result = [];
+
+    function fillResultArray(s) {
+        let prestr = '';
+        let startIndex = s.indexOf('{');
+        
+        //if there are no braces
+        if (startIndex === -1) {
+            result.push(prestr + s);
+            return;
+        }
+
+        prestr += s.slice(0, startIndex);
+        s = s.slice(startIndex + 1);
+        
+        let bracesAmount = 1;
+        let arr = [];
+        let currentPart = '';
+        
+        while (bracesAmount != 0) {
+            let openBraceIndex = s.indexOf('{') != -1 ? s.indexOf('{') : Infinity;
+            let closeBraceIndex = s.indexOf('}') != -1 ? s.indexOf('}') : Infinity;
+            let commaIndex = s.indexOf(',') != -1 ? s.indexOf(',') : Infinity;
+            
+            if (bracesAmount == 1 && commaIndex < openBraceIndex && commaIndex < closeBraceIndex) {
+                currentPart += s.slice(0, Math.min(openBraceIndex, closeBraceIndex, commaIndex));
+                arr.push(currentPart);
+                currentPart = '';
+            } else {
+                currentPart += s.slice(0, Math.min(openBraceIndex, closeBraceIndex, commaIndex) + 1);
+                
+                if (Math.min(openBraceIndex, closeBraceIndex, commaIndex) != commaIndex) {
+                    if(openBraceIndex < closeBraceIndex) bracesAmount++;  
+                    else bracesAmount--;
+                }
+            }
+            
+            s = s.slice(Math.min(openBraceIndex, closeBraceIndex, commaIndex) + 1);
+        }
+
+        arr.push(currentPart.slice(0, -1));
+        
+        for (let i = 0; i < arr.length; i++) {
+            fillResultArray(prestr + arr[i] + s);
+        }
+    }
+    
+    fillResultArray(str);
+
+    for (let i = 0; i < result.length; i++) {
+        yield result[i];
+    }
 }
 
 
@@ -201,44 +252,44 @@ function canDominoesMakeRow(dominoes) {
         amountOfNotEmpty = getAmountOfNotEmpty();
 
         for (let i = 0; i < dominoes.length; i++) {
-            if(!dominoes[i]) continue;
+            if (!dominoes[i]) continue;
 
             //I use "delete" instead of "splice" in order to not change the length of "dominoes" array
-            if(placeDomino(i)) {
+            if (placeDomino(i)) {
                 delete dominoes[i];
             }
         }
-    } while(amountOfNotEmpty != getAmountOfNotEmpty());
+    } while (amountOfNotEmpty != getAmountOfNotEmpty());
 
-    if(amountOfNotEmpty > 0) return false;
+    if (amountOfNotEmpty > 0) return false;
     else return true;
 
 
     function getAmountOfNotEmpty() {
-        return dominoes.reduce(function(amount, item, index) {
-            if(dominoes[index]) return ++amount;
-            else return amount; 
+        return dominoes.reduce(function (amount, item, index) {
+            if (dominoes[index]) return ++amount;
+            else return amount;
         }, 0);
     }
 
     //returns true if domino had been placed successfully, else return false
     function placeDomino(i) {
-        if(dominoes[i][0] == row[0]) {
+        if (dominoes[i][0] == row[0]) {
             row.unshift(dominoes[i][0]);
             row.unshift(dominoes[i][1]);
 
             return true;
-        } else if(dominoes[i][1] == row[0]) {
+        } else if (dominoes[i][1] == row[0]) {
             row.unshift(dominoes[i][1]);
             row.unshift(dominoes[i][0]);
-        
+
             return true;
-        } else if(dominoes[i][0] == row[row.length - 1]) {
+        } else if (dominoes[i][0] == row[row.length - 1]) {
             row.push(dominoes[i][0]);
             row.push(dominoes[i][1]);
 
             return true;
-        } else if(dominoes[i][1] == row[row.length - 1]) {
+        } else if (dominoes[i][1] == row[row.length - 1]) {
             row.push(dominoes[i][1]);
             row.push(dominoes[i][0]);
 
