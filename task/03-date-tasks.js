@@ -84,7 +84,21 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+
+   let buff=endDate-startDate;
+   let buffD=new Date(buff);
+   let deflt=new Date(0);
+
+   let d=buffD.getDay()-deflt.getDay();
+   let h=buffD.getHours()-deflt.getHours();
+   let m=buffD.getMinutes()-deflt.getMinutes();
+   let s=buffD.getSeconds()-deflt.getSeconds();
+   let ms=buffD.getMilliseconds()-deflt.getMilliseconds();
+
+   function frmt(inpt,dgts){return ("000000" + inpt).slice(-dgts);}
+   
+   return `${frmt(24*d+h,2)}:${frmt(m,2)}:${frmt(s,2)}.${frmt(ms,3)}`;
 }
 
 
