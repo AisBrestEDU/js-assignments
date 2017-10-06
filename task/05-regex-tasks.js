@@ -31,7 +31,7 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-    return new RegExp('\{[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}\}');
+    return new RegExp('\{[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}\}', 'i');
 }
 
 
