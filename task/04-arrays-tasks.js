@@ -224,7 +224,9 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+
+   return arr.reduce((acc,value)=> acc+"\n"+value.toString(),arr.shift().toString());
 }
 
 /**
