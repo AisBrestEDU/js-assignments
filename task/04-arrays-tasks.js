@@ -527,7 +527,9 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+
+   return arr.sort().filter((item,n,a)=>(n==0)? true : (a[n-1]!=item)? true : false).sort();
 }
 
 /**
