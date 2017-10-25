@@ -529,8 +529,6 @@ function getIntervalArray(start, end) {
 function distinct(arr) {
    //throw new Error('Not implemented');
 
-   //return arr.sort().filter((item,n,a)=>(n==0)? true : (a[n-1]!=item)? true : false).sort();
-
    return arr.filter((item,i,a)=>(a.indexOf(item)==i)? true:false);
 }
 
@@ -581,7 +579,9 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+
+    return arr.map(x=>childrenSelector(x)).reduce((acc,v,i,a)=>acc.concat(v));
 }
 
 
