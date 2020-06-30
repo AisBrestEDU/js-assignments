@@ -9,11 +9,13 @@ Another idea is to prepare assignment to cover all standard javascript functions
 And the last idea is to inure trainees to work using unit test and feel uncomfortable when programming without tests.
 
 To start javascript assignments please follow the next steps:
-*  [Fork this repo](#user-content-how-to-fork-this-repo)
-*  [Setup travis-ci to test the commits](#user-content-how-to-setup-travis-ci)
-*  [Setup the work environment](#user-content-how-to-setup-work-environment)
-*  [Implement assignments using TDD fashion](#user-content-how-to-implement-assignments-using-tdd-fashion)
-*  [How to debug tasks](#how-to-debug-tasks)
+- [Javascript Assignments  ![Build Status](https://travis-ci.org/AisBrestEDU/js-assignments)](#javascript-assignments-img-srchttpstravis-ciorgaisbrestedujs-assignmentssvgbranchmaster-altbuild-status)
+  - [How to fork this repo](#how-to-fork-this-repo)
+  - [How to setup travis-ci](#how-to-setup-travis-ci)
+  - [How to setup work environment](#how-to-setup-work-environment)
+  - [How to implement assignments using TDD fashion](#how-to-implement-assignments-using-tdd-fashion)
+  - [How to debug tasks](#how-to-debug-tasks)
+  - [How to debug (beginner's way)](#how-to-debug-beginners-way)
 
 ### How to fork this repo
 * Click the **Fork** button at the top-right corner of this page and the repository will be copied to your own account.
@@ -29,7 +31,7 @@ To start javascript assignments please follow the next steps:
   git commit -m "Update the links"
   git push origin master
 ```
-* Open https://github.com/rolling-scopes-school/js-assignments and test the build icon. Now it will run all tests and update status once you push changes to github. Keep this icon green!
+* Open https://github.com/ritaheav/js-assignments and test the build icon. Now it will run all tests and update status once you push changes to github. Keep this icon green!
 
 
 ### How to setup work environment
@@ -73,7 +75,7 @@ and run the unit tests again. Find one test failed (red). Now it's time to fix i
 * Implement the function by any way and verify your solution by running tests until the failed test become passed (green).
 * Your solution work, but now time to refactor it. Try to make your code as pretty and simple as possible keeping up the test green.
 * Once you can't improve your code and tests are passed you can commit your solution.
-* Push your updates to github server and check if tests passed on [travis-ci](https://travis-ci.org/rolling-scopes-school/js-assignments/builds).
+* Push your updates to github server and check if tests passed on [travis-ci](https://travis-ci.org/ritaheav/js-assignments/builds).
 * If everything is OK you can try to resolve the next task.
 
 ### How to debug tasks
