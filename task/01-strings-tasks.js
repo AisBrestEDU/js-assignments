@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1.concat(value2);
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    let reg = new RegExp(/Hello, (.*)\!/);
+    return value.match(reg)[1];
 }
 
 
@@ -83,9 +84,8 @@ function extractNameFromTemplate(value) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(value) {
-    throw new Error('Not implemented');
-}
+let getFirstChar = (value) => value.match(/^./g)[0];
+
 
 /**
  * Removes a leading and trailing whitespace characters from string.
@@ -98,9 +98,7 @@ function getFirstChar(value) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
-}
+let removeLeadingAndTrailingWhitespaces = (value) => value.trim();
 
 /**
  * Returns a string that repeated the specified number of times.
@@ -113,9 +111,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(value, count) {
-    throw new Error('Not implemented');
-}
+let repeatString = (value, count) => value.repeat(count);
 
 /**
  * Remove the first occurrence of string inside another string
@@ -129,9 +125,7 @@ function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
-}
+let removeFirstOccurrences = (str, value) => str.replace(value, '');
 
 /**
  * Remove the first and last angle brackets from tag string
@@ -144,10 +138,7 @@ function removeFirstOccurrences(str, value) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(str) {
-    throw new Error('Not implemented');
-}
-
+let unbracketTag = (str) => str.replace(/<|>/g, '');
 
 /**
  * Converts all characters of the specified string into the upper case
