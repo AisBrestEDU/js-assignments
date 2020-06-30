@@ -11,8 +11,8 @@
   "devDependencies": {
     "mocha": "^2.3.4"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/Sergey-Starushkim/js-assignments.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sergey-Starushkim/js-assignments.git"
   }
 }
