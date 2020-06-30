@@ -10,7 +10,7 @@
 
 
 /**
- * Returns the result of concatenation of two strings.
+ * й
  *
  * @param {string} value1
  * @param {string} value2
