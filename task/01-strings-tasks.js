@@ -232,7 +232,9 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+ 
+ 
+     throw new Error('Not implemented');
 }
 
 /**
