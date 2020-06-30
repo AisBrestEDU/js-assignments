@@ -72,7 +72,6 @@ function extractNameFromTemplate(value) {
     return value.slice(7, -1);
 }
 
-
 /**
  * Returns a first char of the given string.
  *
