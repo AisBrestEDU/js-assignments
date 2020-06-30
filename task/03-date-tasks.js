@@ -14,7 +14,7 @@
  * For rfc2822 date specification refer to : http://tools.ietf.org/html/rfc2822#page-14
  *
  * @param {string} value
- * @return {date}
+ * @return {Date}
  *
  * @example:
  *    'December 17, 1995 03:24:00'    => Date()
@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+    return new Date(value);
 }
 
 /**
@@ -30,14 +30,14 @@ function parseDataFromRfc2822(value) {
  * For ISO 8601 date specification refer to : https://en.wikipedia.org/wiki/ISO_8601
  *
  * @param {string} value
- * @return {date}
+ * @return {Date}
  *
  * @example :
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+    return new Date(value);
 }
 
 
@@ -56,7 +56,19 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+    if (date.getFullYear() % 4) {
+        return false;
+    }
+
+    if (date.getFullYear() % 100) {
+        return true;
+    }
+
+    if (date.getFullYear() % 400) {
+        return false;
+    }
+
+    return true;
 }
 
 
@@ -76,7 +88,27 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    const myTime = endDate.getTime() - startDate.getTime();
+    let ms = myTime % 1000;
+    const sec = ((myTime - ms) / (1000)) % 60;
+    const min = ((myTime - ms - sec) / (60 * 1000)) % 60;
+    const hour = ((myTime - ms - sec - min) / (60 * 60 * 1000)) % 60;
+
+    if (ms < 100) {
+        ms = `00${ms}`;
+    } else if (ms < 10) {
+        ms = `0${ms}`;
+    }
+
+    const addZero = (number) => {
+        if (number < 10) {
+            return `0${Math.floor(number)}`;
+        }
+
+        return Math.floor(number);
+    };
+
+    return `${addZero(hour)}:${addZero(min)}:${addZero(sec)}.${ms}`;
 }
 
 
@@ -94,7 +126,22 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+
+    if (hours > 12) {
+        hours -= 12;
+    }
+
+    const radHours = (360 / 12) * (hours + minutes / 60);
+    const radMinutes = (360 / 60) * minutes;
+    let res = Math.abs(radHours - radMinutes);
+
+    if (res > 180) {
+        res = 180 - (res - 180);
+    }
+
+    return res * (Math.PI / 180);
 }
 
 
