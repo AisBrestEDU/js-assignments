@@ -56,6 +56,7 @@ function getStringLength(value) {
  */
 function getStringFromTemplate(firstName, lastName) {
    return `Hello, ${firstName} ${lastName}!`;
+   throw new Error('Not implemented');
 }
 
 /**
@@ -69,7 +70,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.replace("Hello, ", '');
+    // return value.replace("Hello, ", '');
+    throw new Error('Not implemented');
 }
 
 
