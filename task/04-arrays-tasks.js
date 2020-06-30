@@ -574,7 +574,8 @@ function group(array, keySelector, valueSelector) {
        item.push(finalOfCities[index])
        superFinalArr.push(item);
    });
-   return  new Map(superFinalArr);
+   var myMap = new Map(superFinalArr);
+   return myMap;
 }
 
 
