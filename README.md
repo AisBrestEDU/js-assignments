@@ -9,7 +9,7 @@ Another idea is to prepare assignment to cover all standard javascript functions
 
 And the last idea is to inure trainees to work using unit test and feel uncomfortable when programming without tests.
 
-To start javascript assignments please follow the next steps:
+To start javascript assignments please follow the next step:
 
 - [Fork this repo](#user-content-how-to-fork-this-repo)
 - [Setup travis-ci to test the commits](#user-content-how-to-setup-travis-ci)
