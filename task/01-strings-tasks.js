@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 + value2;
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    return value.substring(7, value.length - 1);
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value[0];
 }
 
 /**
@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    return value.repeat(count);
 }
 
 /**
@@ -130,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value, '');
 }
 
 /**
@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.substring(1, str.length - 1);
 }
 
 
@@ -160,7 +160,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toUpperCase();
 }
 
 /**
@@ -174,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(';');
 }
 
 /**
@@ -201,7 +201,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    var upper = `┌${'─'.repeat(width - 2)}┐\n`;
+    var bottom = `└${'─'.repeat(width - 2)}┘\n`;
+    var middle = `│${' '.repeat(width - 2)}│\n`;
+
+    return upper + middle.repeat(height - 2) + bottom;
 }
 
 
@@ -221,7 +225,22 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    const shift = 13;
+    var encoded = '';
+    var chars = [...str];
+    for (let i = 0; i < chars.length; i++) {
+        var code = str.charCodeAt(i);
+
+        if (code >= 65 && code <= 90)
+            // lower case
+            code = ((code - 65) + shift) % 26 + 65;
+        else if (code >= 97 && code <= 122)
+            // upper case
+            code = ((code - 97) + shift) % 26 + 97;
+
+        encoded += String.fromCharCode(code);
+    }
+    return encoded;
 }
 
 /**
@@ -238,7 +257,8 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    // handle both primitive type and object cases
+    return typeof value == 'string' || value instanceof String;
 }
 
 
@@ -267,7 +287,41 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    var suit = value.charAt(value.length - 1);
+    // clubs suit by default
+    var suitIndex = 0;
+    switch (suit) {
+        case '♦':
+            suitIndex = 13;
+            break;
+        case '♥':
+            suitIndex = 26;
+            break;
+        case '♠':
+            suitIndex = 39;
+            break;
+    }
+    var rank = value.substring(0, value.length - 1);
+    var rankIndex = 0;
+    switch (rank) {
+        case 'A':
+            rankIndex = 0;
+            break;
+        case 'J':
+            rankIndex = 10;
+            break;
+        case 'Q':
+            rankIndex = 11;
+            break;
+        case 'K':
+            rankIndex = 12;
+            break;
+        default:
+            // number case
+            rankIndex = parseInt(rank, 10) - 1;
+            break;
+    }
+    return suitIndex + rankIndex;
 }
 
 
