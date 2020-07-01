@@ -57,13 +57,14 @@ function parseDataFromIso8601(value) {
  */
 
  
-// function isLeapYear(date) {
+function isLeapYear(date) {
+    throw new Error('Not implemented');
 //    let year = date.getFullYear();
 //    for (let i = 0; i < year.length; i++) {
 //       let sumYear += year[i];
 //       console.log(sumYear)
 //    }
-// }
+}
 
 
 /**
@@ -83,10 +84,11 @@ function parseDataFromIso8601(value) {
  */
 
 
-// function timeSpanToString(startDate, endDate) {
+function timeSpanToString(startDate, endDate) {
+    throw new Error('Not implemented');
 //    let del = Date.parse(endDate) - Date.parse(startDate);
 //    let newDel = new Date(del);
-// }
+}
 
 
 /**
