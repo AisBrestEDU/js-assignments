@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+    return Math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 }
 
 /**
@@ -181,7 +181,7 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    throw new Error('Not implemented');
+    return num / Math.pow(10, pow);
 }
 
 /**
@@ -202,7 +202,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    return n % 2 ? true : false;
+    return n % 2 == 0 ? false : true;
 }
 
 /**
@@ -221,7 +221,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    throw new Error('Not implemented');
+    return Number(value) ? Number(value) : def;
 }
 
 module.exports = {
