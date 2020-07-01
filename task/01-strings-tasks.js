@@ -23,7 +23,6 @@
  */
 function concatenateStrings(value1, value2) {
     return value1 + value2;
-    //throw new Error('Not implemented');
 }
 
 
@@ -39,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
