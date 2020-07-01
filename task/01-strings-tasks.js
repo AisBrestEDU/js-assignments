@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 + value2;
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    return value.slice(7, -1);
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value[0];
 }
 
 /**
@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    return value.repeat(count);
 }
 
 /**
@@ -130,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value, '');
 }
 
 /**
@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.slice(1, str.length - 1);
 }
 
 
@@ -160,7 +160,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toUpperCase();
 }
 
 /**
@@ -174,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+   return str.split(';');
 }
 
 /**
@@ -201,7 +201,10 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let top = '┌' + '─'.repeat(width - 2) + '┐\n';
+    let midle = ('│' + ' '.repeat(width - 2) + '│\n').repeat(height - 2);
+    let bottom = '└' + '─'.repeat(width - 2) + '┘\n';
+    return top + midle + bottom;
 }
 
 
@@ -221,7 +224,7 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+   return str.replace(/[a-z]/gi, val => String.fromCharCode(val.charCodeAt(0) + (val.toLowerCase() <= 'm' ? 13: -13)));
 }
 
 /**
@@ -238,7 +241,11 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+   if (typeof value == 'string' || value instanceof String) {
+       return true;
+   } else {
+       return false;
+   }
 }
 
 
@@ -267,7 +274,47 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let cardSuits = {
+       'clubs': '♣',
+       'diamonds': '♦',
+       'hearts': '♥',
+       'spades': '♠'
+    }
+    let obj1 = {
+      '0': 'A',
+      '1': '2',
+      '2': '3',
+      '3': '4',
+      '4': '5',
+      '5': '6',
+      '6': '7',
+      '7': '8',
+      '8': '9',
+      '9': '10',
+      '10': 'J',
+      '11': 'Q',
+      '12': 'K'
+    }
+
+    let str = value[0];
+
+    for(let key in obj1) {
+        let valObj = obj1[key];
+            if(value.length === 3) {
+            str = value[0] + value[1];
+        }
+        if(str === valObj) {
+            if(value[value.length-1] === cardSuits['clubs']){
+               return +key;
+            } if(value[value.length-1] === cardSuits['diamonds']){
+               return +key + 13;
+            } if(value[value.length-1] === cardSuits['hearts']){
+               return +key + 26;
+            } if(value[value.length-1] === cardSuits['spades']){
+               return +key + 39;
+            }
+        } 
+    }
 }
 
 
