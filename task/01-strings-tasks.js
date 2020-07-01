@@ -201,9 +201,9 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    var upper = `┌${'─'.repeat(width - 2)}┐\n`;
-    var bottom = `└${'─'.repeat(width - 2)}┘\n`;
-    var middle = `│${' '.repeat(width - 2)}│\n`;
+    let upper = `┌${'─'.repeat(width - 2)}┐\n`;
+    let bottom = `└${'─'.repeat(width - 2)}┘\n`;
+    let middle = `│${' '.repeat(width - 2)}│\n`;
 
     return upper + middle.repeat(height - 2) + bottom;
 }
@@ -226,10 +226,10 @@ function getRectangleString(width, height) {
  */
 function encodeToRot13(str) {
     const shift = 13;
-    var encoded = '';
-    var chars = [...str];
+    let encoded = '';
+    let chars = [...str];
     for (let i = 0; i < chars.length; i++) {
-        var code = str.charCodeAt(i);
+        let code = str.charCodeAt(i);
 
         if (code >= 65 && code <= 90)
             // lower case
@@ -287,9 +287,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    var suit = value.charAt(value.length - 1);
+    let suit = value.charAt(value.length - 1);
     // clubs suit by default
-    var suitIndex = 0;
+    let suitIndex = 0;
     switch (suit) {
         case '♦':
             suitIndex = 13;
@@ -301,8 +301,8 @@ function getCardId(value) {
             suitIndex = 39;
             break;
     }
-    var rank = value.substring(0, value.length - 1);
-    var rankIndex = 0;
+    let rank = value.substring(0, value.length - 1);
+    let rankIndex = 0;
     switch (rank) {
         case 'A':
             rankIndex = 0;

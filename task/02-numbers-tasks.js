@@ -188,7 +188,7 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    var precision = 10**pow;
+    let precision = 10**pow;
     return Math.round(num / precision) * precision;
 }
 
@@ -218,7 +218,7 @@ function isPrime(n) {
         return false;
     
     // search for divisors
-    var div = 5;
+    let div = 5;
     while (div * div <= n) {
         if (n % div == 0 || n % (div + 2) == 0)
             return false;

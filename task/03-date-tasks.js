@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-    var year = date.getFullYear();
+    let year = date.getFullYear();
 
     return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
 }
@@ -78,18 +78,18 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-    var interval = endDate - startDate;
+    let interval = endDate - startDate;
 
-    var ms = interval % 1000;
+    let ms = interval % 1000;
     interval = (interval - ms) / 1000;
 
-    var s = interval % 60;
+    let s = interval % 60;
     interval = (interval - s) / 60;
 
-    var m = interval % 60;
+    let m = interval % 60;
     interval = (interval - m) / 60;
 
-    var h = interval;
+    let h = interval;
     
     return `${pad(h, 2)}:${pad(m, 2)}:${pad(s, 2)}.${pad(ms, 3)}`;
 }
@@ -113,11 +113,11 @@ function pad(val, zeros) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    var minutes = date.getUTCMinutes();
-    var hours = date.getUTCHours() % 12;
+    let minutes = date.getUTCMinutes();
+    let hours = date.getUTCHours() % 12;
     // every minute the minute hand travels 6 degrees, the hour handle - 0.5 degrees
     // every hour the hour handle travels 30 degrees
-    var result = Math.abs((hours * 30 + minutes * 0.5) - (minutes * 6));
+    let result = Math.abs((hours * 30 + minutes * 0.5) - (minutes * 6));
     return 2 * Math.PI * Math.min(result, 360 - result) / 360;
 }
 

@@ -235,7 +235,7 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-    var result = [];
+    let result = [];
     // exploit assignment operator return value
     arr.reduce((acc, val, i) => result[i] = acc + val, 0);
     return result;
@@ -578,11 +578,11 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    var reversed = arr.reverse();
-    var m = Math.floor(arr.length / 2);
+    let reversed = arr.reverse();
+    let m = Math.floor(arr.length / 2);
     // in terms of the initial array
-    var tail = reversed.slice(0, m).reverse();
-    var head = reversed.slice(arr.length - m).reverse();
+    let tail = reversed.slice(0, m).reverse();
+    let head = reversed.slice(arr.length - m).reverse();
 
     if (arr.length % 2 == 0)
         return tail.concat(head);
