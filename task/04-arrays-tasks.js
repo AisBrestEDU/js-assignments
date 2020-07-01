@@ -98,7 +98,7 @@ function getArrayOfStrings(arr) {
 
 /**
  * Removes falsy values from the specified array
- * Falsy values: false, null, 0, "", undefined, and NaN.
+ * Falsy values: false, null, 0, "", undefined, and NaN..
  * (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#Description)
  * 
  * @param {array} arr
