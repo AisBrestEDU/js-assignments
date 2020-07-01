@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,12 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   const year = date.getFullYear();
+
+   return year % 4 != 0 ? false
+          : year % 100 != 0 ? true
+          : year % 400 != 0 ? false
+          : true;
 }
 
 
@@ -76,7 +81,26 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   const timespan = endDate - startDate;
+
+   const milliseconds = timespan % 1000;
+   const millisecondsString = milliseconds > 99 ? milliseconds
+                              : milliseconds > 9 ? '0' + milliseconds
+                              : '00' + milliseconds;
+
+   const seconds = Math.floor((timespan / 1000) % 60);
+   const secondsString = seconds > 9 ? seconds
+                         : '0' + seconds;
+
+   const minutes = Math.floor((timespan / (1000 * 60)) % 60);
+   const minutesString = minutes > 9 ? minutes
+                         : '0' + minutes;
+
+   const hours = Math.floor(timespan / (1000 * 60 * 60));
+   const hoursString = hours > 9 ? hours
+                       : '0' + hours;
+
+   return `${hoursString}:${minutesString}:${secondsString}.${millisecondsString}`;
 }
 
 
@@ -94,7 +118,18 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   const hours = date.getUTCHours() % 12;
+   const minutes = date.getUTCMinutes();
+
+   const hoursAngleInDegrees = 0.5 * (60 * hours + minutes);
+   const minutesAngleInDegrees = 6 * minutes;
+
+   let angleBetweenInDegrees = Math.abs(hoursAngleInDegrees - minutesAngleInDegrees);
+   if (angleBetweenInDegrees > 180) {
+      angleBetweenInDegrees = 360 - angleBetweenInDegrees;
+   }
+
+   return angleBetweenInDegrees * Math.PI / 180;
 }
 
 
