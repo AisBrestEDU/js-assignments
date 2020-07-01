@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,15 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+   if (year % 4 != 0) {
+      return false
+   } else if (year % 100 != 0) {
+      return true;
+   } else if (year % 400 != 0) {
+      return false;
+   } else return true;
+
 }
 
 
@@ -76,9 +84,18 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let dif = Math.abs(startDate - endDate);   
+   let millSec = dif % 1000;
+      if(millSec < 10) {millSec = "00" + millSec}
+       else if(millSec > 10 && millSec < 100) {millSec = "0" + millSec}
+   let sec = Math.floor((dif / 1000)) % 60;
+      if(sec < 10) {sec = "0" + sec}
+   let min = Math.floor((dif /1000 / 60)) % 60;
+      if(min < 10) {min = "0" + min}
+   let hours = Math.floor(dif / 1000 / 60 / 60);
+      if(hours < 10) {hours = "0" + hours}
+   return `${hours}:${min}:${sec}.${millSec}`
 }
-
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
@@ -94,14 +111,18 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hour = date.getUTCHours() >= 12 ? date.getUTCHours() - 12 : date.getUTCHours();
+   let min = date.getUTCMinutes();
+   let res = Math.abs(0.5 * (60 * hour - 11 * min));
+   if (res > 180) res = 360 - res;
+   return (Math.PI * res) / 180;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
