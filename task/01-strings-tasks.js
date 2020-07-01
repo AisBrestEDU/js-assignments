@@ -173,8 +173,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    //qwewewe333
-    throw new Error('Not implemented');
+    return str.split(';');
 }
 
 /**
@@ -221,7 +220,11 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    return str.replace(/[A-Za-z]/g, function (c) {
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(
+            "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(c)
+        );
+    });
 }
 
 /**
@@ -240,6 +243,7 @@ function encodeToRot13(str) {
 function isString(value) {
     throw new Error('Not implemented');
 }
+
 
 
 /**
