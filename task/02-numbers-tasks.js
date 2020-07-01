@@ -240,7 +240,7 @@ function toNumber(value, def) {
     if (Number.isNaN(parseFloat(value))
         || value === null
         || value === undefined) return def;
-    return +value;
+    return +value
 }
 
 module.exports = {
