@@ -260,7 +260,7 @@ function isString(value) {
  * Function returns the zero-based index of specified card in the initial deck above.
  * 
  * @param {string} value
- * @return {number}
+ * @return {number} 
  *
  * @example
  *   'A♣' => 0
@@ -271,7 +271,12 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let cards = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+        'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+        'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+        'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    
+        return cards.indexOf(value);
 }
 
 
