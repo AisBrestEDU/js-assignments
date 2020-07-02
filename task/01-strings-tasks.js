@@ -69,7 +69,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    let str = value.replace('Hello, ', '');
+    return str.replace('!', '')
 }
 
 
@@ -201,6 +202,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
+    let str = '';
     for(var i = 1; i <= height; i++) {
         switch (i) {
             case 1:
@@ -254,11 +256,11 @@ function encodeToRot13(str) {
  *   isString([new String('test')]) => true
  */
 function isString(value) {
-    if (typeof value == "undefined") {
+    if (typeof value == "undefined" || value == null) {
         return false
-    } else {
-        return typeof value.valueOf() == 'string' ? true : false
-    }
+    }   else {
+            return typeof value.valueOf() == 'string' ? true : false
+        }
 }
 
 
