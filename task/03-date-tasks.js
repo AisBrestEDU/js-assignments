@@ -1,14 +1,5 @@
 'use strict';
 
-/********************************************************************************************
- *                                                                                          *
- * Plese read the following tutorial before implementing tasks:                             *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates#Date_object
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date    *
- *                                                                                          *
- ********************************************************************************************/
-
-
 /**
  * Parses a rfc2822 string date representation into date value
  * For rfc2822 date specification refer to : http://tools.ietf.org/html/rfc2822#page-14
@@ -22,7 +13,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,9 +28,9 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   const foundDate = new Date(value);
+   return foundDate.getTime();
 }
-
 
 /**
  * Returns true if specified date is leap year and false otherwise
@@ -56,9 +47,18 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
-}
+   const year = date.getFullYear();
 
+   if (year % 4 !== 0) {
+      return false;
+   } else if (year % 100 !== 0) {
+      return true;
+   } else if (year % 400 !== 0) {
+      return false;
+   } else {
+      return true;
+   }
+}
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -76,14 +76,25 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
-}
+   let strDifDate = new Date(endDate - startDate - (3 * 60 * 60 * 1000));
+   const days = strDifDate.getDate();
 
+   const templateDifDateString =
+      `${strDifDate.toTimeString().slice(0, 8)}.${strDifDate.getMilliseconds()}000`.slice(0, 12);
+
+   const templateArray = templateDifDateString.split(':');
+
+   if (days > 1) {
+      templateArray[0] = String(Number(templateArray[0]) + 24 * days - 24)
+   }
+
+   return templateArray.join(':');
+}
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- * 
+ *
  * @param {date} date
  * @return {number}
  *
@@ -94,14 +105,25 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   const hours = (date.getHours() - 3) % 12; // 12 hours
+   const minutes = date.getMinutes();
+
+   const angleByMinutes = minutes * 6; // 360 / 60 - angle per minute
+   const angleByHours = hours * 30 + minutes * 0.5; // 360 / 12 - angle per hour
+
+   let angle = angleByHours > angleByMinutes ?
+      angleByHours - angleByMinutes : angleByMinutes - angleByHours;
+
+   angle = angle > 180 ? 360 - angle : angle;
+
+   return angle * Math.PI / 180;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+    parseDataFromRfc2822,
+    parseDataFromIso8601,
+    isLeapYear,
+    timeSpanToString,
+    angleBetweenClockHands
 };
