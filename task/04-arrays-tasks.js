@@ -71,7 +71,7 @@ function doubleArray(arr) {
  */
 function getArrayOfPositives(arr) {
    let newArr = [];
-   arr.forEach( (item, index) => {
+   arr.map( item => {
        item > 0 ? newArr.push(item) : null
    })
    return newArr;
@@ -90,7 +90,7 @@ function getArrayOfPositives(arr) {
  */
 function getArrayOfStrings(arr) {
    let newArr = [];
-   arr.forEach(item => {
+   arr.map(item => {
       typeof item == 'string' ? newArr.push(item) : null
    })
    return newArr;
@@ -111,7 +111,7 @@ function getArrayOfStrings(arr) {
  */
 function removeFalsyValues(arr) {
    let newArr = [];
-   arr.forEach(item => {
+   arr.map(item => {
       Boolean(item) ? newArr.push(item) : null
    })
    return newArr;
@@ -158,7 +158,7 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-   return arr.splice(index - 1, 0, item)
+   return arr.splice(index, 0, item)
 }
 
 /**
@@ -246,7 +246,12 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   return arr.reduce((sum, current) => sum + current)
+   // return arr.reduce((sum, current) => sum + current)
+   // let newArr = [];
+   // return arr.map((item, index) => {
+   //    arr[index - 1] + arr[index -2]
+   // })
+   throw new Error('Not implemented');
 }
 
 /**
