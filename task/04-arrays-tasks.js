@@ -1,5 +1,7 @@
 'use strict';
 
+const { parseNumberFromString } = require("./02-numbers-tasks");
+
 /*********************************************************************************************
  *                                                                                           *
  * Plese read the following tutorial before implementing tasks:                              *
@@ -22,8 +24,11 @@
  *    ['Array', 'Number', 'string'], 'Date'    => -1 
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
-function findElement(arr, value) {
-   throw new Error('Not implemented');
+function findElement(arr, value) {   
+   if(arr.includes(value))
+      return arr.indexOf(value);
+   else
+      return -1;
 }
 
 /**
@@ -38,7 +43,11 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   throw new Error('Not implemented');
+
+   var tmpArr = Array(len).fill(2);
+   var resultArr =  tmpArr.map((x, i) => i * x + 1)
+   
+   return resultArr;
 }
 
 
@@ -54,7 +63,7 @@ function generateOdds(len) {
  *    [] => [] 
  */
 function doubleArray(arr) {
-   throw new Error('Not implemented');
+   return arr.concat(arr);
 }
 
 
@@ -70,7 +79,8 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-   throw new Error('Not implemented');
+   var positiveArr = arr.filter(function(number){return number>0})
+   return positiveArr;
 }
 
 /**
@@ -85,7 +95,8 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   throw new Error('Not implemented');
+   var filterArr = arr.filter(function(flag) { return typeof(flag) == 'string'; });
+   return filterArr;
 }
 
 /**
@@ -102,7 +113,9 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   throw new Error('Not implemented');
+   
+   var filtered = arr.filter(e =>  e );
+   return filtered;
 }
 
 /**
@@ -116,7 +129,8 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-   throw new Error('Not implemented');
+   var resultArr =  arr.map((x, i) => x.toUpperCase());
+   return resultArr;
 }
 
 
@@ -131,7 +145,8 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-   throw new Error('Not implemented');
+   var resultArr =  arr.map((x, i) => (x = String(x).length));
+   return resultArr;
 }
 
 /**
@@ -146,7 +161,7 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-   throw new Error('Not implemented');
+   return arr.splice(index, 0, item);
 }
 
 /**
@@ -159,8 +174,8 @@ function insertItem(arr, item, index) {
  *    [ 1, 3, 4, 5 ], 2  => [ 1, 2 ]
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
-function getHead(arr, n) {
-   throw new Error('Not implemented');
+function getHead(arr, n) {   
+   return arr.slice(0, n);
 }
 
 
@@ -175,7 +190,7 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-   throw new Error('Not implemented');
+   return arr.slice(arr.length-n, arr.length);
 }
 
 
@@ -200,7 +215,12 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   throw new Error('Not implemented');
+   var csv = arr.map(function(d)
+   {
+      return d.join();
+   }
+   ).join('\n');
+   return csv;
 }
 
 /**
@@ -215,7 +235,7 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-   throw new Error('Not implemented');
+   return arr.map(function(x) { return x*x;});
 }
 
 
@@ -234,7 +254,9 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   throw new Error('Not implemented');
+   var newArray = [];
+   arr.reduce(function(a,b,i) { return newArray[i] = a+b; },0);
+   return newArray;
 }
 
 /**
@@ -249,8 +271,9 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   throw new Error('Not implemented');
+   return arr.filter(function(item, index) { return index%2 != 0;});
 }
+
 
 
 /**
@@ -268,7 +291,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   throw new Error('Not implemented');
+   return arr.flatMap((v, i) => Array.from({ length: i + 1 }).fill(v));
 }
 
 
@@ -286,7 +309,8 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   throw new Error('Not implemented');
+   return arr.sort(function(a, b){return b - a;}).slice(0, 3)
+    
 }
  
  
@@ -304,9 +328,16 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   throw new Error('Not implemented');
+   if(arr.length == 0)
+      return 0;
+   else if(arr.length>0)
+   {
+      var positiv = arr.reduce(function(acc, x) {
+         return (x > 0)&&(typeof(x) != 'string') ? acc + 1 : acc;
+       }, 0);
+      return positiv;
+   }
 }
- 
 /** 
  * Sorts digit names
  * 
@@ -321,7 +352,18 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   throw new Error('Not implemented');
+   
+   var arrNameNumbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+   
+   if(arr.lengh == 0)
+      return arr;
+   else
+   {
+      var xArr = arr.map(function(item) { return arrNameNumbers.indexOf(item);});
+      var xAftersort = xArr.sort(function(a,b) { return a-b; });
+      var result = xAftersort.map(function(item) { return arrNameNumbers[item];});
+      return result;
+   }   
 }
 
 /** 
@@ -337,7 +379,9 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   throw new Error('Not implemented');
+   return arr.reduce(function(sum, x) {
+      return sum+=x;
+    }, 0);
 }
  
 /** 
@@ -353,7 +397,15 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   throw new Error('Not implemented');
+   if(arr.length == 0)
+      return 0;
+   else if(arr.length>0)
+   {
+      var counter = arr.reduce(function(acc, x) {
+         return !Boolean(x) ? acc + 1 : acc;
+       }, 0);
+      return counter;
+   }   
 }
 
 /**
@@ -371,7 +423,10 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-   throw new Error('Not implemented');
+   var count = arr.reduce(function(n, val) {
+      return n + (val === item);
+   }, 0);
+   return count;
 }
 
 /**
@@ -386,7 +441,7 @@ function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-   throw new Error('Not implemented');
+      return arr.join(",");
 }
 
 
@@ -415,9 +470,32 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   throw new Error('Not implemented');
+   return arr.sort(function(a,b) {
+      var country_1 = a.country;
+      var country_2 = b.country; 
+      var city_1 = a.city;
+      var city_2 = b.city;
+      
+      if (country_1 > country_2) 
+      {
+         return 1;
+      }
+      
+      if (country_1 < country_2) 
+      {
+         return -1;
+      }
+      if (city_1 < city_2) 
+      {
+         return -1;
+      }
+      if(city_1 > city_2)
+      {
+         return 1;
+      }
+       return 0;
+     });
 }
-
 /**
  * Creates an indentity matrix of the specified size
  * 
@@ -437,7 +515,12 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   throw new Error('Not implemented');
+   return Array(n).fill(Array(n).fill())
+   .map(function (xs, i) {
+       return xs.map(function (x, j) {
+           return i === j ? 1 : 0;
+       })
+   });
 }
 
 /**
@@ -454,7 +537,8 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   throw new Error('Not implemented');
+    
+   return new Array(end + 1 - start).fill().map((d, i) => i + start);;
 }
 
 /**
@@ -469,7 +553,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   throw new Error('Not implemented');
+    return [...new Set(arr)];
 }
 
 /**
@@ -503,7 +587,15 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   throw new Error('Not implemented');
+   
+   var group_to_values = array.reduce(function (obj, item) {
+      obj[keySelector(item)] = obj[keySelector(item)] || [];
+      obj[keySelector(item)].push(valueSelector(item));
+      return obj;
+    }, {});
+   
+    return Object.keys(group_to_values).map(key => [ key, group_to_values[key]]);
+    
 }
 
 
@@ -519,7 +611,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    throw new Error('Not implemented');
+   return arr.flatMap(childrenSelector);
 }
 
 
@@ -536,7 +628,18 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
+   
+   var len = indexes.length;
+   
+   // it's a stupid decision i know
+   if(len == 1)
+      var res = arr[indexes[0]];
+   if(len == 2)
+      var res = arr[indexes[0]][indexes[1]];
+   if(len == 3)
+      var res = arr[indexes[0]][indexes[1]][indexes[2]];
+
+      return res;
 }
 
 
@@ -559,7 +662,37 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+
+   if(arr.length%2 > 0)
+   {
+      if(arr.length == 1)
+         return arr;
+      else if(arr.length == 3)
+         return arr.reverse();
+      else
+      {
+         var firstArrOdd = arr.slice(Math.round(arr.length/2));
+         var mediumOdd = arr.slice(Math.floor(arr.length/2), -(Math.floor(arr.length/2)));
+         var secondArrOdd = arr.slice(0, -(Math.round(arr.length/2)));
+         var resultOdd = firstArrOdd.concat(mediumOdd , secondArrOdd);
+         return resultOdd;
+      }
+   }
+   else if(arr.length%2 == 0)
+   {
+      if(arr.length == 2)
+      {
+         return arr.reverse();
+      }      
+      else{
+         var firstArrEven = arr.slice((0, arr.length/2));
+         var secondArrEven = arr.slice(0, -(arr.length/2));
+         var result = firstArrEven.concat(secondArrEven);
+         return result;
+      }
+      
+   }
+
 }
 
 
