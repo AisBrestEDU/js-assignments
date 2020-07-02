@@ -418,35 +418,25 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    let time = {}, result = '';
-    time.second = 1000;
-    time.minute = 60*time.second;
-    time.hour   = 60*time.minute;
-    time.day    = 24*time.hour;
-    time.month  = 30*time.day;
-    time.year   = 12*time.month;
-    let interval = new Date(endDate) - new Date(startDate);
-    let map = new Map();
-    map.set(45*time.second, 'a few seconds ago');
-    map.set(90*time.second, 'a minute ago');
-    map.set(45*time.minute, getTime(interval/time.minute)+' minutes ago');
-    map.set(90*time.minute, 'an hour ago');
-    map.set(22*time.hour, getTime(interval/time.hour) + ' hours ago');
-    map.set(36*time.hour, 'a day ago');
-    map.set(25*time.day, getTime(interval/time.day)+' days ago');
-    map.set(45*time.day, 'a month ago');
-    map.set(345*time.day, getTime(interval/time.month)+' months ago');
-    map.set(545*time.day, 'a year ago');
-    function getTime(time){
-        if (time * 10 % 10 <= 5) return Math.floor(time);
-        else return Math.ceil(time);
+    const minute = 60, hour = 60 * minute, day = 24*hour, month = 30*day, year = 365*day;
+    var delta = (endDate - startDate) / 1000;
+
+    function myRound(num) {
+        if (num - Math.floor(num) > 0.5) return Math.round(num);
+        return Math.floor(num);   
     }
-    for (let [key, value] of map.entries()) {
-        if (interval <= key) {
-            return value;
-        }
-    }
-    return getTime(interval/time.year)+' years ago';
+
+    if (delta <= 45) return 'a few seconds ago';
+    if (delta <= 90) return 'a minute ago';
+    if (delta <= 45 * minute) return `${myRound(delta / minute)} minutes ago`;
+    if (delta <= 90 * minute) return 'an hour ago';
+    if (delta <= 22 * hour) return `${myRound(delta / hour)} hours ago`;
+    if (delta <= 36 * hour) return 'a day ago';
+    if (delta <= 25 * day) return `${myRound(delta / day)} days ago`;
+    if (delta <= 45 * day) return 'a month ago';
+    if (delta <= 345 * day) return `${myRound(delta / month)} months ago`;
+    if (delta <= 545 * day) return 'a year ago';
+    return `${myRound(delta / year)} years ago`;
 }
 
 
