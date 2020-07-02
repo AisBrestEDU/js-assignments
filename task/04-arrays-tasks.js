@@ -23,7 +23,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 function findElement(arr, value) {
-   return arr.indexOf(value);
+   throw new Error('Not implemented');
 }
 
 /**
@@ -270,7 +270,7 @@ function getSecondItems(arr) {
 function propagateItemsByPositionIndex(arr) {
    throw new Error('Not implemented');
 }
- 
+
 
 /** 
  * Returns the 3 largest numbers from the specified array
@@ -519,7 +519,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
@@ -536,8 +536,8 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   throw new Error('Not implemented');
-};
+    throw new Error('Not implemented');
+}
 
 
 /**
@@ -559,7 +559,7 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 

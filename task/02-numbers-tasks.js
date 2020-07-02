@@ -89,7 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    throw new Error('Not implemented'); 
+    throw new Error('Not implemented');
 }
 
 
@@ -183,6 +183,7 @@ function getParallelipidedDiagonal(a,b,c) {
 function roundToPowerOfTen(num, pow) {
     throw new Error('Not implemented');
 }
+
 /**
  * Returns true is the number is prime; otherwise false.
  * See: https://en.wikipedia.org/wiki/Primality_test

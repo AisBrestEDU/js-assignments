@@ -126,7 +126,7 @@ function repeatString(value, count) {
  *
  * @example
  *   'To be or not to be', 'not'  => 'To be or to be'
- *   npm test ./test/01-strings-tests.js => 'I like legs',
+ *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
@@ -204,6 +204,7 @@ function getRectangleString(width, height) {
     throw new Error('Not implemented');
 }
 
+
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
@@ -268,6 +269,7 @@ function isString(value) {
 function getCardId(value) {
     throw new Error('Not implemented');
 }
+
 
 module.exports = {
     concatenateStrings: concatenateStrings,

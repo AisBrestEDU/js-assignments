@@ -55,7 +55,7 @@ function parseDataFromIso8601(value) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(date) {;
+function isLeapYear(date) {
    throw new Error('Not implemented');
 }
 
@@ -80,7 +80,6 @@ function timeSpanToString(startDate, endDate) {
 }
 
 
-
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
@@ -95,7 +94,7 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
