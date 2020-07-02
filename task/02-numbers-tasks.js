@@ -38,8 +38,10 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    const p = 3.14;
-    return 2 * p * radius;
+    const p = 3.1415926535897932;
+    let result = 0;
+    result = 2 * p * radius;
+    return result;
     // throw new Error('Not implemented');
 }
 
@@ -56,8 +58,8 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return (value1 + value2) / 2;
-    // throw new Error('Not implemented');
+   
+    throw new Error('Not implemented');
 }
 
 /**
