@@ -1,6 +1,6 @@
 'use strict';
 
-const { parseNumberFromString } = require("./02-numbers-tasks");
+//const { parseNumberFromString } = require("./02-numbers-tasks");
 
 /*********************************************************************************************
  *                                                                                           *
