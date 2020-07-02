@@ -135,7 +135,8 @@ function angleBetweenClockHands(date) {
    if(hour > 12)
       hour-=12;
    var ans = Math.abs((hour * 30 + minute * 0.5) - (minute * 6))
-   return Math.min(360-ans,ans)*Math.PI/180;   
+   var res = Math.min(360-ans,ans)*Math.PI/180; 
+   return res;   
    
 }
 
