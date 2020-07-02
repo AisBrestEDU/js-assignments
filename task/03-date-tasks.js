@@ -77,40 +77,17 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-
-   let ms = endDate.getMilliseconds() -  startDate.getMilliseconds();
-   let sec = endDate.getSeconds() -  startDate.getSeconds();
-   let min = endDate.getMinutes() -  startDate.getMinutes();
-   let hour = endDate.getHours() -  startDate.getHours();
-
+   let ms = endDate.getMilliseconds() - startDate.getMilliseconds();
+   let sec = endDate.getSeconds() - startDate.getSeconds();
+   let min = endDate.getMinutes() - startDate.getMinutes();
+   let hour = endDate.getHours() - startDate.getHours();
 
    let dateDiff = (endDate-startDate)-ms-sec*1000-min*1000*60-hour*1000*60*60;
-   const msInDay=86400000;
+   const msInDay = 86400000;
    let days = dateDiff/msInDay;
-   hour=hour+days*24;
+   hour = hour+days*24;
 
-   // Before ECMAScript 2017
-
-   // if (hour<10){
-   //    hour="0"+hour;
-   // }
-   // if (min<10){
-   //    min="0"+min;
-   // }
-   // if (sec<10){
-   //    sec="0"+sec;
-   // }
-   // if (ms<10){
-   //    ms="00"+ms;
-   // } else if (ms<100){
-   //    ms="0"+ms;
-   // }
-   // return hour+":"+min+":"+sec+"."+ms;
-
-
-   // ECMAScript 2017
-   return String(hour).padStart(2,'0')+":"+String(min).padStart(2,'0')+":"+String(sec).padStart(2,'0')+"."+String(ms).padStart(3,'0');
-   
+   return String(hour).padStart(2,'0')+":"+String(min).padStart(2,'0')+":"+String(sec).padStart(2,'0')+"."+String(ms).padStart(3,'0');   
 }
 
 
