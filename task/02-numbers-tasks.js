@@ -54,8 +54,9 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
  /* global BigInt */
-function getAverage(value1, value2) {
-    return (BigInt(value1) + BigInt(value2)) / BigInt(2);
+function getAverage(a, b) {
+    throw new Error('Not implemented');
+    //return (a / 2) + (b / 2) + (((a % 2) + (b % 2)) / 2);
 }
 
 /**
