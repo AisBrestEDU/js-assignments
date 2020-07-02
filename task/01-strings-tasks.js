@@ -69,7 +69,6 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    // return value.replace("Hello, ", '');
     throw new Error('Not implemented');
 }
 
@@ -202,7 +201,19 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    for(var i = 1; i <= height; i++) {
+        switch (i) {
+            case 1:
+                str += "┌" + "─".repeat(width-2) + "┐" + "\n";
+                break;
+            case height:
+                str += "└" + "─".repeat(width-2) + "┘" + "\n";
+                break; 
+            default: 
+                str += "│" + " ".repeat(width-2) + "│" + "\n";
+        }        
+    }
+    return str;
 }
 
 
@@ -222,7 +233,11 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    let input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    let index     = x => input.indexOf(x);
+    let translate = x => index(x) > -1 ? output[index(x)] : x;
+    return str.split('').map(translate).join('');
 }
 
 /**
