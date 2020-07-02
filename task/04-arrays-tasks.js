@@ -589,8 +589,6 @@ function swapHeadAndTail(arr) {
 }
 
 
-
-
 module.exports = {
 	findElement: findElement,
 	generateOdds: generateOdds,
