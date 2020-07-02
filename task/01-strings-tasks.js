@@ -239,7 +239,22 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+
+    return str
+        .split('')
+        .map((el) => {
+            if (el === ' ') {
+                return ' ';
+            } else if (el === '!') {
+                return '!';
+            } else if (el === '?') {
+                return '?';
+            }
+            return output[input.indexOf(el)];
+        })
+        .join('');
 }
 
 /**
@@ -256,7 +271,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    return typeof value === 'string' || value instanceof String;
 }
 
 /**
@@ -284,8 +299,68 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    const cards = [
+        'A♣',
+        '2♣',
+        '3♣',
+        '4♣',
+        '5♣',
+        '6♣',
+        '7♣',
+        '8♣',
+        '9♣',
+        '10♣',
+        'J♣',
+        'Q♣',
+        'K♣',
+        'A♦',
+        '2♦',
+        '3♦',
+        '4♦',
+        '5♦',
+        '6♦',
+        '7♦',
+        '8♦',
+        '9♦',
+        '10♦',
+        'J♦',
+        'Q♦',
+        'K♦',
+        'A♥',
+        '2♥',
+        '3♥',
+        '4♥',
+        '5♥',
+        '6♥',
+        '7♥',
+        '8♥',
+        '9♥',
+        '10♥',
+        'J♥',
+        'Q♥',
+        'K♥',
+        'A♠',
+        '2♠',
+        '3♠',
+        '4♠',
+        '5♠',
+        '6♠',
+        '7♠',
+        '8♠',
+        '9♠',
+        '10♠',
+        'J♠',
+        'Q♠',
+        'K♠'
+    ];
+    return cards.forEach((element, index) => {
+        if (element === value) {
+            return index;
+        }
+    });
 }
+
+console.log(getCardId('A♣'));
 
 module.exports = {
     concatenateStrings: concatenateStrings,
