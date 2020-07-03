@@ -39,15 +39,7 @@ function findElement(arr, value) {
  */
 function generateOdds(len) {
 
-   let arr = [];
-   let value = 1;
-
-   for (let i = 1; i <= len; i++){
-      arr.push(value);
-      value += 2;
-   }
-
-   return arr;
+   throw new Error('Not implemented');
 }
 
 
