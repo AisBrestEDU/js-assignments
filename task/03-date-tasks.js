@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+    return Date.parse(value);
 }
 
 
@@ -56,7 +56,16 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+    date = date.getFullYear();
+    if (date%4 !== 0) {
+        return false;
+    } else if (date%100 !== 0) {
+        return true;
+    } else if (date%400 !== 0) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 
@@ -76,7 +85,15 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    let hours = endDate.getHours() - startDate.getHours();
+    const days = endDate.getDay() - startDate.getDay();
+    if (days > 0) {
+        hours += 24 * days;
+    }
+    const minutes = endDate.getMinutes() - startDate.getMinutes();
+    const seconds = endDate.getSeconds() - startDate.getSeconds();
+    const milliseconds = endDate.getMilliseconds();
+   return `${hours > 9 ? hours : `0${hours}`}:${minutes > 9 ? minutes : `0${minutes}`}:${seconds > 9 ? seconds : `0${seconds}`}.${milliseconds > 0 ? milliseconds : `000`}`
 }
 
 
@@ -94,7 +111,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let hour = date.getUTCHours();
+    let minutes = date.getUTCMinutes();
+    hour = hour > 12 ? hour - 12 : hour;
+    let getDegreeAngle = 0.5 * (60 * hour - 11 * minutes);
+    let getRadianAngle = Math.abs((getDegreeAngle > 180 ? getDegreeAngle - 180 : getDegreeAngle) * Math.PI / 180);
+    return getRadianAngle;
 }
 
 
