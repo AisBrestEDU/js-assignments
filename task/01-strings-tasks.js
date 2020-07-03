@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return "Hello, " + `${firstName}` + " " + `${lastName}` + "!";
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.split('').splice(7, value.length - 8).join('');
+    return value.replace('Hello, ', '').replace('!', '');
 }
 
 
@@ -114,13 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    let str = '';
-
-    for (let i = 0; i < count; i += 1) {
-        str += value;
-    }
-
-    return str;
+    return value.repeat(count);
 }
 
 /**
