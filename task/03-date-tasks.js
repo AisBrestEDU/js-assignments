@@ -22,7 +22,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+  
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +38,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+  
+   return Date.parse(value);
 }
 
 
@@ -56,8 +58,17 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+   
+let year = new Date(date).getFullYear();
+if(!(year %4 ==0) ) return false;
+else if (!(year %100 ==0)) return true;
+else if (!(year % 400 == 0)) return false;
+else return true;   
+
 }
+  
+   
 
 
 /**
@@ -76,7 +87,31 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+
+   let difference = new Date(endDate - startDate) ;   
+
+   let day = difference.getUTCDate();   
+
+   let hours = difference.getUTCHours();
+     if(day >1) {hours = hours +24;      
+        hours.toString();  } 
+     if(hours<10) { hours = '0'+hours; }  
+      
+   let minut = difference.getMinutes().toString() ;
+   if(minut<10){  minut = '0'+ minut; }
+ 
+
+   let second = difference.getSeconds().toString();
+   if(second <10){second = '0'+second; }
+
+  let milisec = difference.getMilliseconds().toString();   
+   if(milisec <100){milisec = '0' + milisec;}
+   if (milisec <10) milisec = '0' + milisec;
+
+   let fon  = hours+':' + minut +':'+second +'.'+ milisec;
+
+   return  fon ;
 }
 
 
@@ -93,8 +128,16 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+function angleBetweenClockHands(date) {  
+ 
+ let grad = 0.5 *( 60 * date.getUTCHours()  -  11 *date.getMinutes()) ;
+ if(grad > 360) { grad = grad -360;}
+ if(grad >180 ) { grad = 360 - grad ;}
+
+
+ let spisal = Math.PI/180*grad; 
+
+ return spisal ;
 }
 
 
