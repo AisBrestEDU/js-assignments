@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+	return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+	return new Date(value);
 }
 
 
@@ -56,7 +56,15 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+	if ( !(date.getFullYear() % 400) ) {
+		return true;
+	} else if ( !(date.getFullYear() % 100) ) {
+		return false;
+	} else if ( !(date.getFullYear() % 4) ) {
+		return true;
+	}
+
+	return false;
 }
 
 
@@ -76,7 +84,37 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+	let spanDate = new Date(endDate - startDate),
+			spanDay = endDate.getDay() - startDate.getDay();
+
+	let formatHours = spanDate.getUTCHours(),
+			formatMinutes = spanDate.getUTCMinutes(),
+			formatSeconds = spanDate.getUTCSeconds(),
+			formatMilliseconds = spanDate.getUTCMilliseconds();
+
+	if(spanDay) {
+		formatHours += spanDay * 24;
+	}
+
+	if (formatHours < 10) {
+		formatHours = '0' + formatHours;
+	}
+
+	if (formatMinutes < 10) {
+		formatMinutes = '0' + formatMinutes;
+	}
+
+	if (formatSeconds < 10) {
+		formatSeconds = '0' + formatSeconds;
+	}
+
+	if (formatMilliseconds < 10) {
+		formatMilliseconds = '00' + formatMilliseconds;
+	} else if (formatMilliseconds < 100) {
+		formatMilliseconds = '0' + formatMilliseconds;
+	}
+
+	return `${formatHours}:${formatMinutes}:${formatSeconds}.${formatMilliseconds}`;
 }
 
 
@@ -94,7 +132,16 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+	let hours = date.getUTCHours(),
+			minutes = date.getUTCMinutes();
+
+	let degrees = Math.abs((60 * hours - 11 * minutes)/2);
+
+	while (degrees > 180) {
+		degrees = Math.abs(360 - degrees);
+	}
+	
+	return degrees * Math.PI / 180;
 }
 
 
