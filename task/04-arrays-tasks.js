@@ -280,13 +280,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-	return arr.reduce(
-		(acc, elem, ind) =>
-			// eslint-disable-next-line implicit-arrow-linebreak
-			acc.concat(Array.from({ length: ind + 1 }, () => elem)),
-		// eslint-disable-next-line comma-dangle
-		[],
-	);
+	return arr.reduce((acc, elem, ind) => acc.concat(Array.from({ length: ind + 1 }, () => elem)), []);
 }
 
 /**
