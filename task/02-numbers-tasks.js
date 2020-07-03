@@ -9,7 +9,6 @@
  *                                                                                          *
  ********************************************************************************************/
 
-
 /**
  * Returns an area of a rectangle given by width and heigth.
  *
@@ -22,9 +21,8 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    throw new Error('Not implemented');
+	return width * height;
 }
-
 
 /**
  * Returns a circumference of circle given by radius.
@@ -38,7 +36,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    throw new Error('Not implemented');
+	return 2 * Math.PI * radius;
 }
 
 /**
@@ -54,7 +52,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    throw new Error('Not implemented');
+	return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -73,7 +71,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+	return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
 /**
@@ -89,12 +87,12 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    throw new Error('Not implemented');
+	return -b / a;
 }
 
-
 /**
- * Returns an angle (in radians) between two vectors given by xi and yi, coordinates in Cartesian plane
+ * Returns an angle (in radians) between two vectors given by xi and yi,
+ * coordinates in Cartesian plane.
  * See details https://en.wikipedia.org/wiki/Euclidean_vector#Representations
  *
  * @param {number} x1
@@ -111,7 +109,11 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+	const vectorMultiplication = x1 * x2 + y1 * y2;
+	const valueVector1 = Math.sqrt(x1 ** 2 + y1 ** 2);
+	const valueVector2 = Math.sqrt(x2 ** 2 + y2 ** 2);
+	const cosAngle = vectorMultiplication / (valueVector1 * valueVector2);
+	return Math.acos(cosAngle);
 }
 
 /**
@@ -127,9 +129,9 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    throw new Error('Not implemented');
+	const strValue = value.toFixed();
+	return +strValue[strValue.length - 1];
 }
-
 
 /**
  * Returns a number by given string representation.
@@ -143,7 +145,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    throw new Error('Not implemented');
+	return +value;
 }
 
 /**
@@ -159,8 +161,8 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(a,b,c) {
-    throw new Error('Not implemented');
+function getParallelipidedDiagonal(a, b, c) {
+	return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -169,7 +171,7 @@ function getParallelipidedDiagonal(a,b,c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *  
+ *
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -181,7 +183,8 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    throw new Error('Not implemented');
+	const powerOfTen = 10 ** pow;
+	return Math.round(num / powerOfTen) * powerOfTen;
 }
 
 /**
@@ -190,7 +193,7 @@ function roundToPowerOfTen(num, pow) {
  *
  * @param {number} n
  * @return {bool}
- * 
+ *
  * @example:
  *   4 => false
  *   5 => true
@@ -202,7 +205,12 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    throw new Error('Not implemented');
+	for (let i = 2; i < n; i += 1) {
+		if (n % i === 0) {
+			return false;
+		}
+	}
+	return n > 1;
 }
 
 /**
@@ -221,20 +229,24 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    throw new Error('Not implemented');
+	const valueToNumber = Number(value);
+	if (valueToNumber) {
+		return valueToNumber;
+	}
+	return def;
 }
 
 module.exports = {
-    getRectangleArea: getRectangleArea,
-    getCicleCircumference: getCicleCircumference,
-    getAverage: getAverage,
-    getDistanceBetweenPoints: getDistanceBetweenPoints,
-    getLinearEquationRoot: getLinearEquationRoot,
-    getAngleBetweenVectors: getAngleBetweenVectors,
-    getLastDigit: getLastDigit,
-    parseNumberFromString: parseNumberFromString,
-    getParallelipidedDiagonal: getParallelipidedDiagonal,
-    roundToPowerOfTen: roundToPowerOfTen,
-    isPrime: isPrime,
-    toNumber: toNumber
+	getRectangleArea: getRectangleArea,
+	getCicleCircumference: getCicleCircumference,
+	getAverage: getAverage,
+	getDistanceBetweenPoints: getDistanceBetweenPoints,
+	getLinearEquationRoot: getLinearEquationRoot,
+	getAngleBetweenVectors: getAngleBetweenVectors,
+	getLastDigit: getLastDigit,
+	parseNumberFromString: parseNumberFromString,
+	getParallelipidedDiagonal: getParallelipidedDiagonal,
+	roundToPowerOfTen: roundToPowerOfTen,
+	isPrime: isPrime,
+	toNumber: toNumber,
 };

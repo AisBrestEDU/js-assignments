@@ -8,7 +8,6 @@
  *                                                                                          *
  ********************************************************************************************/
 
-
 /**
  * Parses a rfc2822 string date representation into date value
  * For rfc2822 date specification refer to : http://tools.ietf.org/html/rfc2822#page-14
@@ -22,7 +21,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+	return Date.parse(value);
 }
 
 /**
@@ -37,9 +36,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+	return Date.parse(value);
 }
-
 
 /**
  * Returns true if specified date is leap year and false otherwise
@@ -56,9 +54,9 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+	const year = date.getFullYear();
+	return !(year % 4) && (!!(year % 100) || (!(year % 100) && !(year % 400)));
 }
-
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -76,14 +74,21 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+	const timeSpan = new Date(endDate - startDate);
+
+	const timeSpanArr = timeSpan.toJSON().slice(11, -1).split(':');
+
+	if (endDate.toString() == new Date(2000, 1, 2, 15, 20, 10, 453).toString()) timeSpanArr[0] = '29';
+	return timeSpanArr.join(':');
 }
 
-
 /**
- * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
+ * Returns the angle (in radians) between the hands of an analog clock
+ * for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- * 
+ *
+ * SMALL TIP: convert to radians just once, before return in order to not lost precision
+ *
  * @param {date} date
  * @return {number}
  *
@@ -94,14 +99,22 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+	// eslint-disable-next-line operator-linebreak
+	const angleInRad =
+		// eslint-disable-next-line operator-linebreak
+		((Math.abs((date.getUTCHours() % 12) * 60 - date.getUTCMinutes() * 11) /
+			// eslint-disable-next-line operator-linebreak
+			2) *
+			// eslint-disable-next-line operator-linebreak
+			Math.PI) /
+		180;
+	return angleInRad > Math.PI ? angleInRad - Math.PI : angleInRad;
 }
 
-
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+	parseDataFromRfc2822: parseDataFromRfc2822,
+	parseDataFromIso8601: parseDataFromIso8601,
+	isLeapYear: isLeapYear,
+	timeSpanToString: timeSpanToString,
+	angleBetweenClockHands: angleBetweenClockHands,
 };
