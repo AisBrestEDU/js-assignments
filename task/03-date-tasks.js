@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let getOnlyYear = date.getFullYear();
+   return  (getOnlyYear % 100 === 0) ? (getOnlyYear % 400 === 0) : (getOnlyYear % 4 === 0);
 }
 
 
@@ -76,7 +77,24 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+
+   let differenceBetweenTheDate = endDate - startDate;
+
+   let milliseconds  = differenceBetweenTheDate % 1000;
+   differenceBetweenTheDate = (differenceBetweenTheDate - milliseconds) / 1000;
+
+   let seconds = differenceBetweenTheDate % 60;
+   differenceBetweenTheDate = (differenceBetweenTheDate - seconds) / 60;
+
+   let minutes = differenceBetweenTheDate % 60;
+   let hours = (differenceBetweenTheDate - minutes) / 60;
+
+   return addZeros(hours, 2) + ':' + addZeros(minutes, 2) + ':' + addZeros(seconds, 2) + '.' + addZeros(milliseconds, 3);
+  
+   function addZeros(input, length) {
+      let inputToString = String(input);
+      return ("0").repeat(length - inputToString.length) + inputToString;
+  }
 }
 
 
@@ -94,7 +112,19 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let getHourse = 0.5 * (date.getUTCHours() * 60 + date.getUTCMinutes());
+   let getMinutes = 6 * date.getUTCMinutes();
+   let angleResultCount = Math.abs(getHourse - getMinutes);
+
+   if(angleResultCount > 360)
+   {
+      angleResultCount -= 360
+   }
+
+   angleResultCount = Math.min(angleResultCount, 360 - angleResultCount);
+
+   let resultCOuntAngle = ((Math.PI * angleResultCount) / 180) < 0 ? -((Math.PI * angleResultCount) / 180) : ((Math.PI * angleResultCount) / 180);
+   return resultCOuntAngle;
 }
 
 
