@@ -278,13 +278,10 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   let res = [];
-   return arr.map((value, key) => {
-      res = [value];
-      res.length = key + 1;
-      res.fill(value);
-      return res;
-   }).flat();
+   return arr.reduce((acc, currentValue, index) => {
+      const fillArr = new Array(index + 1).fill(currentValue);
+      return acc.concat(fillArr);
+   }, []);
 }
 
 
@@ -435,10 +432,19 @@ function toStringList(arr) {
  */
 function sortCitiesArray(arr) {
    return arr.sort((a, b) => {
-      if (a.country > b.country) return 1;
-      if (a.country < b.country) return -1;
+      if (a.country > b.country) {
+         return 1;
+      }
+      if (a.country < b.country) {
+         return -1;
+      }
       if (a.country === b.country) {
-         if (a.city < b.city) return -1;
+         if (a.city > b.city) {
+            return 1;
+         }
+         if (a.city < b.city) {
+            return -1;
+         }
       }
       return 0;
    });
@@ -574,7 +580,11 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   return arr.map((el) => [...childrenSelector(el)]).flat();
+   return arr.reduce((acc, currentValue) => {
+      const newCurrentValue = childrenSelector(currentValue);
+      acc.push(...newCurrentValue);
+      return acc;
+   }, []);
 }
 
 
