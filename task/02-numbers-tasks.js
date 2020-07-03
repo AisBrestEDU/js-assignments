@@ -89,10 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    if (a === Infinity || a === 0)
-    return Infinity
-    else
-    return ((0 - b) / a);
+            return -b/a  
 }
 
 
@@ -114,7 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+    return Math.acos(x1*x2 + y1*y2);
 }
 
 /**
@@ -130,7 +127,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    throw new Error('Not implemented');
+    return Number(value.toString().slice(-1));
 }
 
 
@@ -146,7 +143,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    throw new Error('Not implemented');
+    return +value
 }
 
 /**
@@ -163,7 +160,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    throw new Error('Not implemented');
+    return Math.sqrt(a*a + b*b + c*c);
 }
 
 /**
@@ -184,7 +181,7 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    throw new Error('Not implemented');
+    return Math.round(num / Math.pow(10, pow)) * Math.pow(10, pow);
 }
 
 /**
@@ -205,7 +202,9 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    throw new Error('Not implemented');
+    for(let i = 2, s = Math.sqrt(n); i <= s; i++)
+        if(n % i === 0) return false; 
+    return n !== 1;
 }
 
 /**
@@ -224,7 +223,11 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    throw new Error('Not implemented');
+    if (value instanceof Number || +value)
+    {
+        return value   
+    }
+        return def
 }
 
 module.exports = {
