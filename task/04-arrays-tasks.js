@@ -270,11 +270,13 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-    return arr.map((v, i) => {
+    var newArr = [];
+    arr.map((v, i) => {
         var a = new Array(i + 1);
         a.fill(v);
-        return a;
-    }).flat();
+        newArr.push(...a);
+    });
+    return newArr;
 }
 
 
@@ -547,7 +549,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    return arr.map(v => childrenSelector(v)).flat();
+    return arr.reduce((p, c) => p.concat(childrenSelector(c)), []);
 }
 
 
