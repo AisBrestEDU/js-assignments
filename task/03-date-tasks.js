@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,11 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   const year = date.getFullYear();
+   return year % 4 !== 0 ?
+      false : year % 100 !== 0 ?
+         true : year % 400 !== 0 ?
+            false : true;
 }
 
 
@@ -76,7 +80,16 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    let diffHours = (endDate.getDay() - startDate.getDay()) * 24 + endDate.getHours() - startDate.getHours();
+    let diffMinutes = endDate.getMinutes() - startDate.getMinutes();
+    let diffSeconds = endDate.getSeconds() - startDate.getSeconds();
+    let diffMilliseconds = endDate.getMilliseconds() - startDate.getMilliseconds();
+    if (diffHours < 10) diffHours = '0' + diffHours;
+    if (diffMinutes < 10) diffMinutes = '0' + diffMinutes;
+    if (diffSeconds < 10) diffSeconds = '0' + diffSeconds;
+    if (diffMilliseconds < 100 && diffMilliseconds >= 10) diffMilliseconds = '0' + diffMilliseconds;
+    if (diffMilliseconds < 10) diffMilliseconds = '00' + diffMilliseconds;
+    return `${diffHours}:${diffMinutes}:${diffSeconds}.${diffMilliseconds}`;
 }
 
 
@@ -94,7 +107,11 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   const utcDate = new Date(date);
+   let clockAngle = Math.abs(0.5 * (60 * utcDate.getUTCHours() - 11 * utcDate.getUTCMinutes()));
+   clockAngle = clockAngle > 360 ? Math.abs(clockAngle - 360) : clockAngle;
+   const resultAngle = clockAngle > 180 ? 360 - clockAngle : clockAngle;
+   return resultAngle * Math.PI / 180;
 }
 
 
