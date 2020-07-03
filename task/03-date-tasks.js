@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = new Date(date).getFullYear();
+   return (!(year%4) && (year%100!==0) || !(year%400));
 }
 
 
@@ -76,10 +77,15 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let hours, result; let deltaDate = new Date(endDate - startDate);
+   if(new Date(startDate).getUTCDay()!=new Date(endDate).getUTCDay()){
+      hours = deltaDate.getUTCDay()+24*(new Date(endDate).getUTCDay()-new Date(startDate).getUTCDay());
+      result = hours+":"+deltaDate.toISOString().slice(14,23);
+   }else{
+      result = deltaDate.toISOString().slice(11,23);
+   }
+   return result;
 }
-
-
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
@@ -94,7 +100,10 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hours = date.getUTCHours() % 12;
+   let minutes = date.getUTCMinutes();
+   let angle = Math.abs(0.5 * (60 * hours - 11 * minutes)) * Math.PI / 180 ;
+   return angle > Math.PI ? angle - Math.PI : angle;
 }
 
 
