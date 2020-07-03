@@ -426,13 +426,7 @@ function toStringList(arr) {
  *    ]
  */
 function sortCitiesArray(arr) {
-	return arr.sort(
-		(a, b) =>
-			// eslint-disable-next-line implicit-arrow-linebreak
-			a.country.charCodeAt(0) - b.country.charCodeAt(0) ||
-			// eslint-disable-next-line comma-dangle
-			a.city.charCodeAt(0) - b.city.charCodeAt(0),
-	);
+	return arr.sort((a, b) => a.country.charCodeAt(0) - b.country.charCodeAt(0) || a.city.charCodeAt(0) - b.city.charCodeAt(0));
 }
 /**
  * Creates an indentity matrix of the specified size
@@ -453,13 +447,7 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
-	return Array.from(
-		{ length: n },
-		(elem1, ind1) =>
-			// eslint-disable-next-line implicit-arrow-linebreak
-			Array.from({ length: n }, (elem, ind) => ind === ind1),
-		// eslint-disable-next-line function-paren-newline
-	);
+	return Array.from({ length: n }, (elem1, ind1) => Array.from({ length: n }, (elem, ind) => ind === ind1));
 }
 
 /**
@@ -491,7 +479,6 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-	// eslint-disable-next-line arrow-body-style
 	return arr.reduce((acc, elem) => {
 		return acc.indexOf(elem) >= 0 ? acc : acc.concat(elem);
 	}, []);
@@ -529,7 +516,6 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
 	return array.reduce((acc, elem) => {
-		// eslint-disable-next-line no-unused-expressions
 		acc.has(keySelector(elem)) ? acc.set(keySelector(elem), acc.get(keySelector(elem)).concat([valueSelector(elem)])) : acc.set(keySelector(elem), Array(valueSelector(elem)));
 		return acc;
 	}, new Map());
