@@ -387,34 +387,29 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    let time = {};
-    time.second = 1000;
-    time.minute = 60 * time.second;
-    time.hour = 60 * time.minute;
-    time.day = 24 * time.hour;
-    time.month = 30 * time.day;
-    time.year = 12 * time.month;
+    let seconds = (endDate - startDate - 0.001) / 1000, 
+        minutes = seconds / 60,
+        hours = minutes / 60,
+        days = hours / 24,
+        months = days / 30,
+        years = months / 12;
 
-    let diff = new Date(endDate) - new Date(startDate);
+    if (days > 545) return Math.round(years) + ' years ago';
+    if (days > 345) return 'a year ago';
 
-    let map = new Map();
-    map.set(45 * time.second, 'a few seconds ago');
-    map.set(90 * time.second, 'a minute ago'); map.set(45 * time.minute, Time(diff / time.minute) + ' minutes ago');
-    map.set(90 * time.minute, 'an hour ago'); map.set(22 * time.hour, Time(diff / time.hour) + ' hours ago');
-    map.set(36 * time.hour, 'a day ago'); map.set(25 * time.day, Time(diff / time.day) + ' days ago');
-    map.set(45 * time.day, 'a month ago'); map.set(345 * time.day, Time(diff / time.month) + ' months ago');
-    map.set(545 * time.day, 'a year ago');
+    if (days > 45) return Math.round(months) + ' months ago';
+    if (days > 25) return 'a month ago';
 
-    function Time(time){
-        if (time * 10 % 10 <= 5) return Math.floor(time);
-        else return Math.ceil(time);
-    }
+    if (hours > 36) return Math.round(days) + ' days ago';
+    if (hours > 22) return 'a day ago';
 
-    for (let [key, value] of map.entries()) {
-        if (diff <= key) return value;
-    }
+    if (minutes > 90) return Math.round(hours) + ' hours ago';
+    if (minutes > 45) return 'an hour ago';
+    
+    if (seconds > 90) return Math.round(minutes) + ' minutes ago';
+    if (seconds > 45) return 'a minute ago';
 
-    return Time(diff / time.year) + ' years ago';
+    return 'a few seconds ago'; 
 }
 
 
