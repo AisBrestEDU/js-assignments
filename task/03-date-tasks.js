@@ -88,9 +88,10 @@ function timeSpanToString(startDate, endDate) {
       (endDate.getMinutes() - startDate.getMinutes()),
       (endDate.getSeconds() - startDate.getSeconds()),
       (endDate.getMilliseconds() - startDate.getMilliseconds()));
+
    date = dateInHours.toISOString();
 
-   var strDate = date.substring(11, date.length - 1);
+   var strDate = new String(date.substring(11, date.length - 1));
    var hours = Number(strDate.substring(0, 2)) + daysHours;
    strDate = strDate.replace(/[0-9]{2}/, hours < 10 ? '0' + hours : hours);
    return strDate;
@@ -111,7 +112,7 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   var d = Math.abs(((date.getHours() - 3) + date.getMinutes() / 60) * 30 - 6 * date.getMinutes())
+   var d = Math.abs(((date.getHours() - 3) + date.getMinutes() / 60) * 30 - 6 * date.getMinutes());
    if (date.getHours() - 3 == 15 && date.getMinutes() == 0 || date.getHours() - 3 == 9 && date.getMinutes() == 0)
       return Math.PI / 2;
    else if (date.getHours() - 3 == 18)
@@ -119,7 +120,7 @@ function angleBetweenClockHands(date) {
    else if (d <= 180)
       return (d * Math.PI) / 180;
    else if (d > 180 && d < 360) {
-      return ((360 - d) * Math.PI) / 180
+      return ((360 - d) * Math.PI) / 180;
    }
 }
 
