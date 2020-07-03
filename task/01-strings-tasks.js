@@ -228,7 +228,14 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    var zLower = 'z'.charCodeAt(0);
+    var zUpper = 'Z'.charCodeAt(0);
+    return str.replace(/[a-zA-Z]/g, (c) => {
+        var c0 = c.charCodeAt(0);
+        return String.fromCharCode(
+            c0 + 13 <= (c > c.toUpperCase() ? zLower : zUpper) ? c0 + 13 : c0 - 13
+        );
+    });
 }
 
 /**
