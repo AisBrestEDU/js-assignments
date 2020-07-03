@@ -54,8 +54,7 @@ function generateOdds(len) {
  *    [] => [] 
  */
 function doubleArray(arr) {
-   throw new Error('Not implemented');
-   
+   throw new Error('Not implemented');   
 }
 
 
@@ -203,6 +202,7 @@ function getTail(arr, n) {
 function toCsvText(arr) {
    throw new Error('Not implemented');
 }
+
 /**
  * Transforms the numeric array into the according array of squares:
  *   f(x) = x * x
@@ -288,7 +288,6 @@ function propagateItemsByPositionIndex(arr) {
 function get3TopItems(arr) {
    throw new Error('Not implemented');
 }
-
  
  
 /**  
@@ -354,8 +353,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   throw new Error('Not implemented');
-   
+   throw new Error('Not implemented');  
 }
 
 /**
@@ -521,7 +519,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
@@ -538,7 +536,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
@@ -561,7 +559,7 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 

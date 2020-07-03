@@ -239,7 +239,6 @@ function encodeToRot13(str) {
  */
 function isString(value) {
     throw new Error('Not implemented');
-    
 }
 
 
