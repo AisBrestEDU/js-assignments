@@ -1,5 +1,7 @@
 'use strict';
 
+const { convertToUpperCase } = require("./01-strings-tasks");
+
 /********************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -22,7 +24,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value)
 }
 
 /**
@@ -37,7 +39,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value)
 }
 
 
@@ -56,7 +58,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   const year = date.getFullYear()
+   return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)
 }
 
 
@@ -76,7 +79,12 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   const ms = endDate - startDate
+   const hours =  Math.floor(ms / (1000 * 60 * 60))
+   const min = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60))
+   const sec = Math.floor((ms % (1000 * 60))/(1000))
+   const sss = Math.floor(ms % 1000)
+   return  `${hours < 10 ? '0' + hours : hours}:${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}.${sss < 100 ? sss < 10 ? '00'+sss : '0'+sss: sss}`
 }
 
 
@@ -94,7 +102,13 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   const hourAngle = 30 * date.getUTCHours() % 12
+   const minAngle = 6 * date.getUTCMinutes()
+   const hourMinAngle = 0.5 * date.getUTCMinutes()
+
+   let res =  Math.abs(hourAngle - minAngle + hourMinAngle)
+   res = res > 180 ? res - 180 : res
+   return res * Math.PI / 180
 }
 
 
