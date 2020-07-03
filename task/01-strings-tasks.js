@@ -250,10 +250,13 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    const one = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    const base = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-    const obj = one.split('').reduce((acc, n, i) => ({ ...acc, [n]: base.split('')[i] }), {});
-    return str.split('').map((el) => (obj.hasOwnProperty(el) ? obj[el] : el)).join('');
+    const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ?!';
+    const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm ?!';
+    let result = '';
+    for (let i = 0; i < str.length; i += 1) {
+        result += output[input.indexOf(str[i])];
+    }
+    return result;
 }
 
 /**
