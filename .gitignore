@@ -38,4 +38,4 @@ node_modules
 .idea
 .vs/slnx.sqlite
 .vs/slnx.sqlite-journal
-package-lock.json
+
