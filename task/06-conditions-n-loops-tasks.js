@@ -217,7 +217,12 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    //return str.split('').reverse().join('');
+    var result = '';
+    for (var i = str.length - 1; i >= 0; --i) {
+        result += str[i];
+    }
+    return result;
 }
 
 
@@ -234,6 +239,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
+
     throw new Error('Not implemented');
 }
 
