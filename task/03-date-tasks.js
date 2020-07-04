@@ -22,8 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   var date = new Date();
-   return date(value)
+    return new Date(value);
 }
 
 /**
@@ -38,8 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   var date = new Date();
-   return date.toISOString(value)
+    return new Date(value);
 }
 
 

@@ -252,18 +252,20 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   return arr.map((Element, index) => {
+   var array = [];
+   arr.map((Element, index) => {
       if(index === 0){
          value = Element;
-         return Element;
+         return array.push(Element);
       }
       else
       {
          Element += value;
          value = Element;
-         return Element;
+         return array.push(Element);
       }
   });
+  return array;
 }
 
 /**
@@ -675,14 +677,12 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   var tail = arr.slice(-(arr.length / 2 ));
-   var head = arr.slice(0, (arr.length / 2 ));
-   if(arr.length % 2 != 0 && arr.length > 1){
-      array = [...tail, arr[Math.floor(arr.length / 2)], ...head];
-      return array;
+   var head = arr.slice(0, arr.length / 2);
+   var tail = arr.slice(arr.length / 2 + arr.length % 2);
+   if (arr.length % 2 === 1) {
+       tail.push(arr[(arr.length - 1) / 2]);
    }
-   array = [...tail, ...head];
-   return array;
+   return tail.concat(head);
 }
 
 

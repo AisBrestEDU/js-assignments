@@ -174,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    return str.replace(";");
+    return str.replace(";", ", ");
 }
 
 /**
@@ -225,7 +225,17 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    var encoded = '';
+    for (var i = 0; i < str.length; i++) {
+       encoded += encode(str[i]);
+    }
+    return encoded;
+
+    function encode(c) {
+        var input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        var output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+        return input.indexOf(c) === -1 ? c : output[input.indexOf(c)];
+    }
 }
 
 /**
