@@ -54,7 +54,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    var res = ((BigInt(value1)+BigInt(value2))/BigInt(2));
+    let res = value1/2 + value2/2;
    return res;
 }
 
