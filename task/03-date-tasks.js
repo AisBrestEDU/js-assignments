@@ -22,7 +22,9 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return new Date(value).valueOf();
+   
 }
 
 /**
@@ -37,7 +39,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return new Date(value).valueOf();
 }
 
 
@@ -56,7 +59,21 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   let d = new Date(date).getFullYear();
+   if( d % 4 != 0){
+      return false;
+   }else 
+      if(d % 100 == 0){
+         if(d % 400 == 0){
+            return true;
+         }
+         else
+            return false;
+      }
+      else{
+         return true;
+      }
 }
 
 
@@ -76,7 +93,32 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   
+   let t = endDate -startDate;
+   let h = Math.floor(t / 3600000);
+   t = t - (h * 3600000);
+   let m = Math.floor(t / 60000);
+   t = t - (m * 60000 );
+   let s = Math.floor(t / 1000);
+   t = t - (s * 1000);   
+   let hs = h.toString(); let ms = m.toString(); let ss = s.toString(); let ts = t.toString();
+   if(hs.length != 2){
+      hs = '0' + hs;
+   };
+   if(ms.length != 2){
+      ms = '0' + ms;
+   };
+   if(ss.length != 2){
+      ss = '0' + ss;
+   };
+   if(ts.length != 3){
+      for(let i = ts.length; i < 3; i++){
+         ts = '0' + ts;
+      }
+   };
+
+   return `${hs}:${ms}:${ss}.${ts}`;
 }
 
 
@@ -94,7 +136,34 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   //  throw new Error('Not implemented');
+   let pi = Math.PI;
+   let tableR = new Map();
+      tableR.set(0, 0);
+      tableR.set(30, pi/6);
+      tableR.set(45, pi/4);
+      tableR.set(60, pi/3);
+      tableR.set(90, pi/2);
+      tableR.set(180, pi);
+   
+   let d = new Date(date);
+   let h = d.getUTCHours();
+   if(h>=12){
+      h -= 12;      
+   }
+   let m = d.getUTCMinutes();
+   let hh = 0.5 * (60 * h + m);
+   let mh = 6 * m;
+   let ang = Math.abs(hh - mh);  
+   if(ang > 180)
+      ang -= 180;
+   let resR = tableR.get(Math.abs(ang));
+   if(resR == null && resR == undefined){
+      return ang*pi/180
+   }
+   else
+
+   return resR;
 }
 
 

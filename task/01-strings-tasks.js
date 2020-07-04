@@ -22,7 +22,8 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return value1 + value2;
 }
 
 
@@ -38,7 +39,8 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +57,8 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return "Hello, " + firstName + ' ' + lastName + '!';
 }
 
 /**
@@ -69,8 +72,14 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    // #first
+    // let reg = new RegExp("Hello, ")
+    // value.split(reg);
+    // #sec
+    return value.slice(7, value.length-1);
 }
+
 
 
 /**
@@ -84,7 +93,8 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return value.substr(0, 1);
 }
 
 /**
@@ -99,7 +109,8 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +125,8 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return value.repeat(count);
 }
 
 /**
@@ -130,7 +142,8 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return str.replace(value, '');
 }
 
 /**
@@ -145,7 +158,11 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return str
+        .replace("<", '')
+        .replace(">", '')
+        .replace("/>", '');
 }
 
 
@@ -160,7 +177,8 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    return str.toUpperCase();
 }
 
 /**
@@ -174,7 +192,9 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    
+    return str.split(';');
 }
 
 /**
@@ -201,7 +221,32 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let s = '';
+    
+    for(let i = 0; i < height; i++){
+        for(let j = 0; j < width; j++){
+            if(i == 0 && j == 0)
+                s += '┌';
+            if(i == 0 && j > 0 && j < width-1)
+                s += '─';
+            if(i == 0 && j == width-1)
+                s += '┐';
+            if(i > 0 && i < height-1 && (j == 0 || j == width-1)){
+                s += '│';}            
+            if(i == height -1 && j == 0)
+                s += '└';
+            if(i == height -1 && j == width-1)
+                s += '┘';
+            if(i == height -1 && j > 0 && j < width-1)
+                s += '─';   
+            if(i > 0 && j > 0 && i < height-1 && j < width-1)
+                s += ' ';
+        }
+        s += '\n';
+    }
+
+    return s;
 }
 
 
@@ -221,7 +266,41 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
+    let s = '';
+    let alph = new Map();    
+    let alphabet = new Map();
+        alph.set('a' , 'n')
+            .set('b' , 'o')
+            .set('c' , 'p')
+            .set('d' , 'q')
+            .set('e' , 'r')
+            .set('f' , 's')
+            .set('g' , 't')
+            .set('h' , 'u')
+            .set('i' , 'v')
+            .set('j' , 'w')
+            .set('k' , 'x')
+            .set('l' , 'y')
+            .set('m' , 'z');       
+
+        for(let [i, j] of alph){
+            alphabet.set(i, j);
+             alphabet.set(i.toUpperCase(), j.toUpperCase())
+             alphabet.set(j, i);
+             alphabet.set(j.toUpperCase(), i.toUpperCase())            
+        }
+
+        for(let a of str){
+            let symb = alphabet.get(a);
+            if(symb == null){
+                s += a;
+            }
+            else
+                s += symb;
+        }    
+    
+    return s;
 }
 
 /**
@@ -238,7 +317,14 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+   
+    if(typeof value == "string"){
+        return true;
+    }
+    if (typeof value == "object" && value != null && value != undefined){
+        return typeof value[0] == "string"
+    }
+    return false;
 }
 
 
@@ -267,8 +353,21 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let cards = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+    'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+    'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+    'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+
+    let dict = new Map();
+
+    for(let i = 0; i < cards.length; i++){
+        dict.set(cards[i], i);
+    }
+
+    return dict.get(value);
 }
+
+
 
 
 module.exports = {
