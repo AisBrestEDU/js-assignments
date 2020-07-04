@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   return date.getFullYear() % 4 == 0 && date.getFullYear() % 100 != 0 || date.getFullYear() % 400 == 0;
 }
 
 
@@ -76,8 +76,26 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let difference = (endDate - startDate);
+   let days = Math.floor(difference / (1000 * 60 * 60 * 24));
+   difference -= days * (1000 * 60 * 60 * 24);
+   let hours = Math.floor(difference / (1000 * 60 * 60));
+   difference -= hours * (1000 * 60 * 60);
+   let minutes = Math.floor(difference / (1000 * 60));
+   difference -= minutes * 1000 * 60;
+   let seconds = Math.floor(difference / 1000);
+   let msec = difference - seconds * 1000;
+
+   return joinZeros(24 * days + hours, 'HH') + ':' + joinZeros(minutes, 'mm') + ':' + joinZeros(seconds, 'ss') + '.' + joinZeros(msec, 'sss');
 }
+
+function joinZeros(number, needLength) {
+   const zero = '0';
+   while (String(number).length < needLength.length) {
+      number = zero + number;
+   }
+   return number;
+ }
 
 
 /**
@@ -94,7 +112,14 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hours = date.getUTCHours();
+   let min = date.getMinutes();
+   
+   let hoursAngle = (0.5 * (hours * 60 + min)) % 360;
+   let minAngle = 6 * min;
+   let difference = Math.abs(hoursAngle - minAngle);
+
+   return Math.min(360 - difference, difference) * Math.PI / 180;
 }
 
 
