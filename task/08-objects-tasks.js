@@ -42,6 +42,7 @@ Rectangle.prototype.getArea = function () {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
+
     return JSON.stringify(obj);
 }
 
@@ -219,18 +220,18 @@ const cssSelectorBuilder = {
 
     stringify() {
         if (this.value) return this.value;
-    
+
         let value = '';
-    
+
         if (this.elValue) value += this.elValue;
         if (this.idValue) value += this.idValue;
         if (this.classValue) value += this.classValue;
         if (this.attrValue) value += this.attrValue;
         if (this.pCValue) value += this.pCValue;
         if (this.pEValue) value += this.pEValue;
-    
+
         return value;
-      },
+    },
 };
 
 
