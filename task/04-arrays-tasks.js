@@ -608,7 +608,6 @@ function group(array, keySelector, valueSelector) {
  */
 function selectMany(arr, childrenSelector) {
     let array = [];
-    array = arr.flatMap(childrenSelector);
     const concat = (x, y) => x.concat(y)
     const flatMap = (f, xs) => xs.map(f).reduce(concat, []);
 
@@ -617,6 +616,8 @@ function selectMany(arr, childrenSelector) {
             return flatMap(f, this)
         }
     }
+    array = arr.flatMap(childrenSelector);
+
     return array;
 }
 
