@@ -518,9 +518,13 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   let map = new Map()
-   array.map((curr, index, array)=> map.has(keySelector(array[index])) ? map.get(keySelector(array[index])).push(valueSelector(array[index])) : map.set(keySelector(array[index]), [valueSelector(array[index])]))
-   return map
+   let group = array.reduce(function (obj, item) {
+      obj[keySelector(item)] = obj[keySelector(item)] || []
+      obj[keySelector(item)].push(valueSelector(item))
+      return obj
+    }, {})
+
+    return Object.keys(group).map(key => [ key, group[key]])
 }
 
 
