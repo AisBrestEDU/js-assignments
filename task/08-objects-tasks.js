@@ -110,141 +110,120 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
-function CssSelectorBuilder() {
-    this.data = {
-        element: null,
-        id: null,
-        class: [],
-        attr: [],
-        pseudoClass: [],
-        pseudoElement: null
-    }
+function Selector() {
+    this._element = null
+    this._id = null
+    this._class = []
+    this._attr = []
+    this._pseudoClass = []
+    this._pseudoElement = null
 
-    this.currentStage = 0
+    this._currentStage = 0
 }
 
-CssSelectorBuilder.prototype = {
-    checkStage(stageIndex) {
-        if (stageIndex < this.currentStage) {
-            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
-        }
-
-        this.currentStage = stageIndex
-    },
-
-    element(value) {
-        if (this.data.element) {
-            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
-        }
-
-        this.checkStage(0)
-        this.data.element = value
-        return this
-    },
-
-    id(value) {
-        if (this.data.id) {
-            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
-        }
-
-        this.checkStage(1)
-        this.data.id = value
-        return this
-    },
-
-    class(value) {
-        this.checkStage(2)
-        this.data.class.push(value)
-        return this
-    },
-
-    attr(value) {
-        this.checkStage(3)
-        this.data.attr.push(value)
-        return this
-    },
-
-    pseudoClass(value) {
-        this.checkStage(4)
-        this.data.pseudoClass.push(value)
-        return this
-    },
-
-    pseudoElement(value) {
-        if (this.data.pseudoElement) {
-            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
-        }
-
-        this.checkStage(5)
-        this.data.pseudoElement = value
-        return this
-    },
-
-    _stringifyItem(items, before = '', after = '') {
-        if (items === [] || items === null) {
-            return ''
-        }
-
-        if (!Array.isArray(items)) {
-            return before + items + after
-        }
-
-        return items.reduce((previousValue, currentValue) => previousValue + before + currentValue + after, '')
-    },
-
-    stringify() {
-        let result = this._stringifyItem(this.data.element)
-        result += this._stringifyItem(this.data.id, '#')
-        result += this._stringifyItem(this.data.class, '.')
-        result += this._stringifyItem(this.data.attr, '[', ']')
-        result += this._stringifyItem(this.data.pseudoClass, ':')
-        result += this._stringifyItem(this.data.pseudoElement, '::')
-        return result
+Selector.prototype.checkStage = function(stageIndex) {
+    if (stageIndex < this._currentStage) {
+        throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
     }
+
+    this._currentStage = stageIndex
 }
+
+Selector.prototype.element = function(value) {
+    if (this._element) {
+        throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
+    }
+
+    this.checkStage(0)
+    this._element = value
+    return this
+}
+
+Selector.prototype.id = function(value) {
+    if (this._id) {
+        throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
+    }
+
+    this.checkStage(1)
+    this._id = value
+    return this
+}
+
+Selector.prototype.class = function(value) {
+    this.checkStage(2)
+    this._class.push(value)
+    return this
+}
+
+Selector.prototype.attr = function(value) {
+    this.checkStage(3)
+    this._attr.push(value)
+    return this
+}
+
+Selector.prototype.pseudoClass = function(value) {
+    this.checkStage(4)
+    this._pseudoClass.push(value)
+    return this
+}
+
+Selector.prototype.pseudoElement = function(value) {
+    if (this._pseudoElement) {
+        throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
+    }
+
+    this.checkStage(5)
+    this._pseudoElement = value
+    return this
+}
+
+Selector.prototype._stringifyItem = function(items, before = '', after = '') {
+    if (items === [] || items === null) {
+        return ''
+    }
+
+    if (!Array.isArray(items)) {
+        return before + items + after
+    }
+
+    return items.reduce((previousValue, currentValue) => previousValue + before + currentValue + after, '')
+}
+
+Selector.prototype.stringify = function() {
+    let result = this._stringifyItem(this._element)
+    result += this._stringifyItem(this._id, '#')
+    result += this._stringifyItem(this._class, '.')
+    result += this._stringifyItem(this._attr, '[', ']')
+    result += this._stringifyItem(this._pseudoClass, ':')
+    result += this._stringifyItem(this._pseudoElement, '::')
+    return result
+}
+
 
 function SelectorCombiner(selector1, combiner, selector2) {
-    this.data = {
-        selector1: selector1,
-        combiner: combiner,
-        selector2: selector2
-    }
+    this.selector1 = selector1
+    this.combiner = combiner
+    this.selector2 = selector2
 }
 
-SelectorCombiner.prototype = {
-    stringify() {
-        return `${this.data.selector1.stringify()} ${this.data.combiner} ${this.data.selector2.stringify()}`
-    }
+SelectorCombiner.prototype.stringify = function() {
+    return `${this.selector1.stringify()} ${this.combiner} ${this.selector2.stringify()}`
 }
+
 const cssSelectorBuilder = {
+    element: value => new Selector().element(value),
 
-    element: function(value) {
-        return new CssSelectorBuilder().element(value)
-    },
+    id: value => new Selector().id(value),
 
-    id: function(value) {
-        return new CssSelectorBuilder().id(value)
-    },
+    class: value => new Selector().class(value),
 
-    class: function(value) {
-        return new CssSelectorBuilder().class(value)
-    },
+    attr: value => new Selector().attr(value),
 
-    attr: function(value) {
-        return new CssSelectorBuilder().attr(value)
-    },
+    pseudoClass: value => new Selector().pseudoClass(value),
 
-    pseudoClass: function(value) {
-        return new CssSelectorBuilder().pseudoClass(value)
-    },
+    pseudoElement: value => new Selector().pseudoElement(value),
 
-    pseudoElement: function(value) {
-        return new CssSelectorBuilder().pseudoElement(value)
-    },
-
-    combine: function(selector1, combinator, selector2) {
-        return new SelectorCombiner(selector1, combinator, selector2)
-    },
+    combine: (selector1, combinator, selector2) =>  new SelectorCombiner(selector1, combinator, selector2),
 };
 
 
