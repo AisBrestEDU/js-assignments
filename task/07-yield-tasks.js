@@ -8,7 +8,6 @@
  *                                                                                          *
  ********************************************************************************************/
 
-
 /**
  * Returns the lines sequence of "99 Bottles of Beer" song:
  *
@@ -33,9 +32,19 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+  for (let i = 0; i < 97; i++) {
+    yield `${99 - i} bottles of beer on the wall, ${99 - i} bottles of beer.`;
+    yield `Take one down and pass it around, ${
+      98 - i
+    } bottles of beer on the wall.`;
+  }
+  yield `2 bottles of beer on the wall, 2 bottles of beer.`;
+  yield 'Take one down and pass it around, 1 bottle of beer on the wall.';
+  yield `1 bottle of beer on the wall, 1 bottle of beer.`;
+  yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+  yield 'No more bottles of beer on the wall, no more bottles of beer.';
+  yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
 }
-
 
 /**
  * Returns the Fibonacci sequence:
@@ -47,9 +56,15 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+  let f1 = 0;
+  let f2 = 1;
+  while (true) {
+    let current = f1;
+    f1 = f2;
+    f2 = f1 + current;
+    yield current;
+  }
 }
-
 
 /**
  * Traverses a tree using the depth-first strategy
@@ -82,9 +97,17 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+  let arr = [root];
+  let node;
+  while ((node = arr.pop())) {
+    if (node.children) {
+      for (let i = node.children.length - 1; i >= 0; i--) {
+        arr.push(node.children[i]);
+      }
+    }
+    yield node;
+  }
 }
-
 
 /**
  * Traverses a tree using the breadth-first strategy
@@ -108,9 +131,20 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+  let queue = [root];
+  let it = 0;
+  while (it < queue.length) {
+    let tmp = queue[it];
+    yield tmp;
+    it++;
+    if (tmp.children) {
+      let child = tmp.children;
+      for (let i = 0; i < child.length; i++) {
+        queue.push(child[i]);
+      }
+    }
+  }
 }
-
 
 /**
  * Merges two yield-style sorted sequences into the one sorted sequence.
@@ -126,14 +160,35 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+  let s1 = source1();
+  let s2 = source2();
+  let v1 = s1.next().value;
+  let v2 = s2.next().value;
+
+  while (v1 !== undefined || v2 !== undefined) {
+    if (v1 !== undefined && v2 !== undefined) {
+      if (v1 < v2) {
+        yield v1;
+        v1 = s1.next().value;
+      } else {
+        yield v2;
+        v2 = s2.next().value;
+      }
+    } else if (v1 !== undefined) {
+      yield v1;
+      v1 = s1.next().value;
+    } else if (v2 !== undefined) {
+      yield v2;
+      v2 = s2.next().value;
+    }
+  }
 }
 
 /**
  * Resolve Promises and take values step by step.
- * 
+ *
  * @params {Iterable.<Promise>} generator
- * @return {Promise} Promise with value returned via return 
+ * @return {Promise} Promise with value returned via return
  *
  * @example
  *   async((function*() {
@@ -145,15 +200,23 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
+  let it = generator();
+  function validate(res) {
+    if (res.done) {
+      return Promise.resolve(res.value);
+    }
+    return Promise.resolve(res.value).then((res) => {
+      return validate(it.next(res));
+    });
+  }
+  return validate(it.next());
 }
 
-
 module.exports = {
-    get99BottlesOfBeer: get99BottlesOfBeer,
-    getFibonacciSequence: getFibonacciSequence,
-    depthTraversalTree: depthTraversalTree,
-    breadthTraversalTree: breadthTraversalTree,
-    mergeSortedSequences: mergeSortedSequences,
-    async               : async
+  get99BottlesOfBeer: get99BottlesOfBeer,
+  getFibonacciSequence: getFibonacciSequence,
+  depthTraversalTree: depthTraversalTree,
+  breadthTraversalTree: breadthTraversalTree,
+  mergeSortedSequences: mergeSortedSequences,
+  async: async,
 };
