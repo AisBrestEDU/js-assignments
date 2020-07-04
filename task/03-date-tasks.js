@@ -136,18 +136,18 @@ function ConvertHMS(value, countNull) {
  */
 function angleBetweenClockHands(date) {
     var dateWork = new Date(date);
-    var h = dateWork.getHours() - 3;
+    var h = dateWork.getHours();
     var m = dateWork.getMinutes();
 
-    if (dateWork.getHours() === 0){
-        h = 21
-    }
-    else if (dateWork.getHours() === 1 ){
-        h = 22;
-    }
-    else if (dateWork.getHours() === 2 ){
-        h = 23;
-    }
+    //if (dateWork.getHours() === 0){
+      //  h = 21
+    //}
+    //else if (dateWork.getHours() === 1 ){
+      //  h = 22;
+    //}
+    //else if (dateWork.getHours() === 2 ){
+      //  h = 23;
+    //}
 
     if (h <0 || m < 0 || h >12 || m > 60){
         h -= 12;
