@@ -289,8 +289,17 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(value) {
-    throw new Error('Not implemented');
+function getCardId(value) { 
+
+    let str = "A♣,2♣,3♣,4♣,5♣,6♣,7♣,8♣,9♣,10♣,J♣,Q♣,K♣,A♦,2♦,3♦,4♦,5♦,6♦,7♦,8♦,9♦,10♦,J♦,Q♦,K♦,A♥,2♥,3♥,4♥,5♥,6♥,7♥,8♥,9♥,10♥,J♥,Q♥,K♥,A♠,2♠,3♠,4♠,5♠,6♠,7♠,8♠,9♠,10♠,J♠,Q♠,K♠"
+    let str1 = str.split(',');
+    let num = 0;
+    for (let i = 0; i < str1.length; i++){
+        if(str1[i] === value){
+            num = i;
+        }
+    } 
+    return num;
 }
 
 
