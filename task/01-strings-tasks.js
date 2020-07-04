@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return `Hello, ${firstName} ${lastName}`;
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.substr(7);
+    return value.substring(7, value.length -1);
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    return value.charAt[0];
+    return value[0];
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    return value.replace(count);
+    return value.repeat(count);
 }
 
 /**
@@ -201,11 +201,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let topLine = '┌' + '─'.repeat(width + 2) + '┐' + '\n';
-    let centrLine = '└' + '─'.repeat(width + 2) + '┘' + '\n';
-    let bottomLine = `│${' '.repeat(width + 2)}│\n`;
+    let topLine = '┌' + '─'.repeat(width -2) + '┐' + '\n';
+    let centrLine = '└' + '─'.repeat(width -2) + '┘' + '\n';
+    let bottomLine = `│${' '.repeat(width -2)}│\n`;
 
-    return topLine + bottomLine.repeat(height + 2) + centrLine;
+    return topLine + bottomLine.repeat(height - 2) + centrLine;
 }
 
 
