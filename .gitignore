@@ -36,3 +36,6 @@ node_modules
 # Editors crap
 .vscode
 .idea
+.vs/slnx.sqlite
+.vs/slnx.sqlite-journal
+package-lock.json
