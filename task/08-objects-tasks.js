@@ -116,11 +116,11 @@ const cssSelectorBuilder = {
     element: function (value) {
         if (this.elVal) 
             throw new Error(
-                'Element, id and pseudo-element should not occur more then one time inside the selector',
+                'Element, id and pseudo-element should not occur more then one time inside the selector'
             )
         if (this.idVal) {
             throw new Error(
-                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
             )
         }
         const copVal = { ...this }
@@ -136,12 +136,12 @@ const cssSelectorBuilder = {
     id: function (value) {
         if (this.idVal) 
             throw new Error(
-                'Element, id and pseudo-element should not occur more then one time inside the selector',
+                'Element, id and pseudo-element should not occur more then one time inside the selector'
             )
         if (this.classVal || this.peVal) 
             throw new Error(
-                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
-            );
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+            )
         const copVal = { ...this }
         copVal.idVal = ''
         copVal.idVal += `#${value}`
@@ -151,7 +151,7 @@ const cssSelectorBuilder = {
     class: function(value) {
         if (this.attrVal) 
             throw new Error(
-                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
             )
         const copVal = { ...this }
         if(copVal.classVal)
@@ -166,7 +166,7 @@ const cssSelectorBuilder = {
     attr: function(value) {
         if (this.pcVal) 
             throw new Error(
-                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
             )
         const copVal = { ...this }
         copVal.attrVal = '';
@@ -177,7 +177,7 @@ const cssSelectorBuilder = {
     pseudoClass: function(value) {
         if (this.peVal) 
             throw new Error(
-                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
             );
         const copVal = { ...this }
         if(copVal.pcVal)
@@ -196,7 +196,7 @@ const cssSelectorBuilder = {
     pseudoElement: function(value) {
         if (this.peVal) 
             throw new Error(
-                'Element, id and pseudo-element should not occur more then one time inside the selector',
+                'Element, id and pseudo-element should not occur more then one time inside the selector'
             )
         const copVal = { ...this }
         if(copVal.peVal){
