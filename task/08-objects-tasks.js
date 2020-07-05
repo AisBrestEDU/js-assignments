@@ -117,19 +117,19 @@ const cssSelectorBuilder = {
         if (this.elVal) 
             throw new Error(
                 'Element, id and pseudo-element should not occur more then one time inside the selector'
-            )
+            );
         if (this.idVal) {
             throw new Error(
                 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
-            )
+            );
         }
-        const copVal = { ...this }
+        const copVal = {...this};
         if(copVal.elVal)
-            return 'Error!'  
+            return 'Error!'; 
         else{
-            copVal.elVal = ''
-            copVal.elVal += `${value}`
-            return copVal
+            copVal.elVal = '';
+            copVal.elVal += `${value}`;
+            return copVal;
         }
     },
 
@@ -137,14 +137,14 @@ const cssSelectorBuilder = {
         if (this.idVal) 
             throw new Error(
                 'Element, id and pseudo-element should not occur more then one time inside the selector'
-            )
+            );
         if (this.classVal || this.peVal) 
             throw new Error(
                 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
-            )
-        const copVal = { ...this }
-        copVal.idVal = ''
-        copVal.idVal += `#${value}`
+            );
+        const copVal = {...this}
+        copVal.idVal = '';
+        copVal.idVal += `#${value}`;
         return copVal;
     },
 
