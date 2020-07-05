@@ -260,14 +260,6 @@ function getSecondItems(arr) {
    return arr.filter((item, index) => index % 2 != 0);
 }
 
-Object.defineProperty(Array.prototype, 'flat', {
-   value: function(depth = 1) {
-     return this.reduce(function (flat, toFlatten) {
-       return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
-     }, []);
-   }
-});
-
 /**
  * Propagates every item in sequence its position times
  * Returns an array that consists of: one first item, two second items, tree third items etc. 
@@ -283,7 +275,7 @@ Object.defineProperty(Array.prototype, 'flat', {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   return arr.map((item, ind) => new Array(ind + 1).fill(item)).flat();
+   return arr.map((item, ind) => new Array(ind + 1).fill(item)).reduce((r, a) => r.concat(a), []);
 }
 
 
@@ -568,7 +560,7 @@ function selectMany(arr, childrenSelector) {
       {
          res = res.concat(childrenSelector(item));
       });
-   res = res.flat();
+   res = res.reduce((r, a) => r.concat(a), []);
    return res;
 }
 //console.log(selectMany([[1, 2], [3, 4], [5, 6]], (x) => x));
