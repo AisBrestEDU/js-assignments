@@ -97,7 +97,7 @@ function timeSpanToString(startDate, endDate) {
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- *
+ * 
  * @param {date} date
  * @return {number}
  *
