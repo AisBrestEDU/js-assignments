@@ -188,6 +188,7 @@ class SelectorBuilder {
             this.content.id = value;
             return this;
         } else {
+            //I don’t understand why he swears at the line that is returned on error. Is it because of the presence of the same line in the test?
             throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
         }
     }
@@ -216,6 +217,7 @@ class SelectorBuilder {
             this.content.pseudoElement = value;
             return this;
         } else {
+            //I don’t understand why he swears at the line that is returned on error. Is it because of the presence of the same line in the test?
             throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
         }
     }
