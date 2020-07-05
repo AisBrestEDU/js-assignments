@@ -23,7 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+}
+
+Rectangle.prototype.getArea = function () {
+    return this.width * this.height
 }
 
 
@@ -38,7 +43,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj)
 }
 
 
@@ -54,7 +59,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto)
 }
 
 
@@ -108,34 +113,141 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
-    element: function(value) {
-        throw new Error('Not implemented');
+    element: function (value) {
+        return new SelectorBuilderClass().element(value);
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    id: function (value) {
+        return new SelectorBuilderClass().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilderClass().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilderClass().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilderClass().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilderClass().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return selector1.combine(combinator,selector2);
     },
 };
+class SelectorBuilderClass{
+    constructor() {
+        this.layers = new Array(6).fill(false);
+        this.stack = [];
+        this.contains = {
+            element: undefined,
+            id: undefined,
+            classes: [],
+            attributes: [],
+            pseudoClasses: [],
+            pseudoElement: undefined
+        };
+    }
+    justifyLayer(layer) {
+        let cur = this.layers.slice(layer + 1)
+
+        const layerAdded = (layerAdded) => layerAdded
+        
+        let isR = cur.some(layerAdded)
+
+        if (isR) 
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element')
+
+        this.layers[layer] = true
+    }
+
+    element(value) {
+        this.justifyLayer(0);
+        if (this.contains.element === undefined) {
+            this.contains.element = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+
+    id(value) {
+        this.justifyLayer(1);
+        if (this.contains.id === undefined) {
+            this.contains.id = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+
+    class(value) {
+        this.justifyLayer(2);
+        
+        this.contains.classes.push(value);
+        return this;
+    }
+
+    attr(value) {
+        this.justifyLayer(3);
+        this.contains.attributes.push(value);
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.justifyLayer(4);
+        this.contains.pseudoClasses.push(value);
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.justifyLayer(5);
+        if (this.contains.pseudoElement === undefined) {
+            this.contains.pseudoElement = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+
+    combine(combinator, combinable) {
+        this.stack.push({combinator: combinator, element: combinable});
+        return this;
+    }
+
+    stringify() {
+        return (  
+            (this.contains.element !== undefined ? 
+             this.contains.element : '') +
+
+            (this.contains.id !== undefined ? 
+            '#' + this.contains.id : '') +
+
+            (this.contains.classes.length ? 
+            '.' + this.contains.classes.join('.') : '') +
+            
+            (this.contains.attributes.length ? 
+            this.contains.attributes.map(elem => `[${elem}]`).join('') : '') +
+
+            (this.contains.pseudoClasses.length ? 
+            ':' + this.contains.pseudoClasses.join(':') : '') +
+
+            (this.contains.pseudoElement !== undefined ? 
+            '::' + this.contains.pseudoElement : '') +
+
+            (this.stack.length ? 
+            this.stack.map(elem => ` ${elem.combinator} ` + elem.element.stringify()).join('') : '')
+        
+        )
+    }
+};
+
 
 
 module.exports = {
