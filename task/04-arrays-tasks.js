@@ -509,7 +509,7 @@ function getIntervalArray(start, end) {
 function distinct(arr) {
    let uniqueArr = [];
    arr.filter(cur => {
-      if (!uniqueArr.includes(cur)) uniqueArr.push(cur);
+      if (uniqueArr.indexOf(cur) === -1) uniqueArr.push(cur);
    });
    return uniqueArr;
 }
@@ -573,7 +573,11 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   return arr.flatMap(childrenSelector);
+   let array = [];
+   arr.map(cur => {
+      array.push(...childrenSelector(cur));
+   });
+   return array;
 }
 
 
