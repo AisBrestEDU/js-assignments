@@ -80,25 +80,12 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   var date = new Date();
-   var dateInHours = new Date();
-   var daysHours = (endDate.getDay() - startDate.getDay()) * 24;
-   dateInHours.setHours(
-      ((endDate.getHours() - startDate.getHours()) + 3),
-      (endDate.getMinutes() - startDate.getMinutes()),
-      (endDate.getSeconds() - startDate.getSeconds()),
-      (endDate.getMilliseconds() - startDate.getMilliseconds()));
-
-   date = dateInHours.toISOString();
-
-   var strDate = date.substring(11, date.length - 1);
-   var hours = Number(strDate.substring(0, 2)) + daysHours;
-   strDate = strDate.replace(/[0-9]{2}/, hours < 10 ? '0' + hours : hours);
-   return strDate;
-}
-function n0(value, count) {
-   value = value.toString();
-   return '0'.repeat(count - value.length) + value;
+   var rez = endDate - startDate;
+   let h = Math.trunc(rez / 3600000 % 100).toString().padStart(2, '0');
+   let m = Math.trunc(rez / 60000 % 60).toString().padStart(2, '0');
+   let s = Math.trunc(rez / 1000 % 60).toString().padStart(2, '0');
+   let ms = Math.trunc(rez % 1000).toString().padStart(3, '0');
+   return (h + ':' + m + ':' + s + '.' + ms);
 }
 
 
