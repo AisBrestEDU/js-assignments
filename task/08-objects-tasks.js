@@ -23,7 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+}
+
+Rectangle.prototype.getArea = function () {
+    return this.width * this.height
 }
 
 
@@ -38,7 +43,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj)
 }
 
 
@@ -54,7 +59,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto)
 }
 
 
@@ -108,33 +113,129 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
-    element: function(value) {
-        throw new Error('Not implemented');
+    element: function (value) {
+        if (this.elVal) 
+            throw new Error(
+                'Element, id and pseudo-element should not occur more then one time inside the selector',
+            )
+        if (this.idVal) {
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            )
+        }
+        const copVal = { ...this }
+        if(copVal.elVal)
+            return 'Error!'  
+        else{
+            copVal.elVal = ''
+            copVal.elVal += `${value}`
+            return copVal
+        }
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    id: function (value) {
+        if (this.idVal) 
+            throw new Error(
+                'Element, id and pseudo-element should not occur more then one time inside the selector',
+            )
+        if (this.classVal || this.peVal) 
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            );
+        const copVal = { ...this }
+        copVal.idVal = ''
+        copVal.idVal += `#${value}`
+        return copVal;
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        if (this.attrVal) 
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            )
+        const copVal = { ...this }
+        if(copVal.classVal)
+          copVal.classVal += `.${value}`
+        else {
+          copVal.classVal = ''
+          copVal.classVal += `.${value}`
+        }
+        return copVal
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        if (this.pcVal) 
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            )
+        const copVal = { ...this }
+        copVal.attrVal = '';
+        copVal.attrVal += `[${value}]`
+        return copVal
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        if (this.peVal) 
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            );
+        const copVal = { ...this }
+        if(copVal.pcVal)
+        {
+            copVal.pcVal += `:${value}`
+            return copVal
+        }
+        else
+        {
+            copVal.pcVal = `:${value}`
+            return copVal
+        }
+        
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        if (this.peVal) 
+            throw new Error(
+                'Element, id and pseudo-element should not occur more then one time inside the selector',
+            )
+        const copVal = { ...this }
+        if(copVal.peVal){
+            return copVal
+        }
+        else{
+            copVal.peVal = '';
+            copVal.peVal += `::${value}`
+            return copVal
+        }      
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        const copVal = { ...this }
+        const combVal = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`
+        if(copVal.value)
+            copVal.value += combVal
+        else{
+            copVal.value = '';
+            copVal.value += combVal
+        }
+        return copVal
     },
+
+    stringify() {
+        if (this.value) 
+          return this.value;
+
+        let outputStr = '';
+
+        if (this.elVal) outputStr += this.elVal;
+        if (this.idVal) outputStr += this.idVal;
+        if (this.classVal) outputStr += this.classVal;
+        if (this.attrVal) outputStr += this.attrVal;
+        if (this.pcVal) outputStr += this.pcVal;
+        if (this.peVal) outputStr += this.peVal;
+
+        return outputStr;
+    }
 };
 
 
