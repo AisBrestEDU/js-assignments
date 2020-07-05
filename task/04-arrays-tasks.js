@@ -16,7 +16,7 @@
  * @param {array} arr
  * @param {any} value
  * @return {number}
- *
+ * 
  * @example
  *    ['Ace', 10, true], 10    => 1 
  *    ['Array', 'Number', 'string'], 'Date'    => -1 
@@ -49,9 +49,9 @@ function generateOdds(len) {
  * @return {array}
  * 
  * @example
- *    ['Ace', 10, true]  => ['Ace', 10, true,   'Ace', 10, true]
+ *    ['Ace', 10, true]  => ['Ace', 10, true,   'Ace', 10, true]  
  *    [0, 1, 2, 3, 4, 5] => [0, 1, 2, 3, 4, 5,   0, 1, 2, 3, 4, 5]
- *    [] => []
+ *    [] => [] 
  */
 function doubleArray(arr) {
    return arr.concat(arr)
@@ -67,7 +67,7 @@ function doubleArray(arr) {
  * @example
  *    [ 0, 1, 2, 3, 4, 5 ] => [ 1, 2, 3, 4, 5 ]
  *    [-1, 2, -5, -4, 0] => [ 2 ]
- *    [] => []
+ *    [] => [] 
  */
 function getArrayOfPositives(arr) {
    return arr.filter(value => value > 0)
@@ -122,10 +122,10 @@ function getUpperCaseStrings(arr) {
 
 /**
  * Returns the array of string lengths from the specified string array.
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *    [ '', 'a', 'bc', 'def', 'ghij' ]  => [ 0, 1, 2, 3, 4 ]
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
@@ -138,9 +138,9 @@ function getStringsLength(arr) {
  * Inserts the item into specified array at specified index
  * 
  * @param {array} arr
- * @param {any} item 
+ * @param {any} item
  * @param {number} index 
- *
+ * 
  * @example
  *    [ 1, 3, 4, 5 ], 2, 1  => [ 1, 2, 3, 4, 5 ]
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
@@ -221,7 +221,7 @@ function toArrayOfSquares(arr) {
 
 /**
  * Transforms the numeric array to the according moving sum array:
- *     f[n] = x[0] + x[1] + x[2] +...+ x[n]
+ *     f[n] = x[0] + x[1] + x[2] +...+ x[n] 
  *  or f[n] = f[n-1] + x[n]
  * 
  * @param {array} arr
@@ -230,7 +230,7 @@ function toArrayOfSquares(arr) {
  * Example :
  *   [ 1, 1, 1, 1, 1 ]        => [ 1, 2, 3, 4, 5 ]
  *   [ 10, -10, 10, -10, 10 ] => [ 10, 0, 10, 0, 10 ]
- *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
+ *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0] 
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
@@ -260,7 +260,7 @@ function getSecondItems(arr) {
  * 
  * @param {array} arr 
  * @return {array}
- *
+ * 
  * @example :
  *  [] => []
  *  [ 1 ] => [ 1 ]
@@ -298,7 +298,7 @@ function get3TopItems(arr) {
  
 /**  
  * Returns the number of positive numbers from specified array
- *
+ * 
  * @param {array} arr
  * @return {number}
  * 
@@ -320,10 +320,10 @@ function getPositivesCount(arr) {
  
 /** 
  * Sorts digit names
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *   [] => []
  *   [ 'nine','one' ]                 => [ 'one', 'nine' ]
@@ -363,8 +363,8 @@ function sortDigitNamesByNumericOrder(arr) {
 function getItemsSum(arr) {
    return arr.reduce((sum, currentValue) => sum += currentValue, 0)
 }
-
-/**
+ 
+/** 
  * Returns the number of all falsy value in the specified array
  * 
  * @param {array} arr
@@ -457,7 +457,7 @@ function sortCitiesArray(arr) {
  *          [[1,0,0,0,0],
  *           [0,1,0,0,0],
  *     5 =>  [0,0,1,0,0],
- *           [0,0,0,1,0],   
+ *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
@@ -599,7 +599,7 @@ function getElementByIndexes(arr, indexes) {
  *
  *   [ 1, 2 ]  => [ 2, 1 ] 
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]   
- *
+ * 
  */
 function swapHeadAndTail(arr) {
    const half = Math.floor(arr.length / 2)
