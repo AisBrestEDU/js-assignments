@@ -116,16 +116,8 @@ function n0(value, count) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   var d = Math.abs(((date.getHours() - 3) + date.getMinutes() / 60) * 30 - 6 * date.getMinutes());
-   if (date.getHours() - 3 == 15 && date.getMinutes() == 0 || date.getHours() - 3 == 9 && date.getMinutes() == 0)
-      return Math.PI / 2;
-   else if (date.getHours() - 3 == 18)
-      return Math.PI;
-   else if (d <= 180)
-      return (d * Math.PI) / 180;
-   else if (d > 180 && d < 360) {
-      return ((360 - d) * Math.PI) / 180;
-   }
+   var a = Math.abs((date.getHours() * 60 + date.getMinutes() + date.getTimezoneOffset() - date.getMinutes() * 12) / 2) % 360;
+   return (a <= 180 ? a : 360 - a) / 180 * Math.PI;
 }
 
 
