@@ -207,10 +207,9 @@ function getTail(arr, n) {
  */
 function toCsvText(arr) {
    return arr
-      .map((item, index) => {
-         return (index !== arr.length - 1) ? `${item.join()}\n` : item.join()
-      })
-      .join('');
+      .map(item => `${item.join()}\n`)
+      .join('')
+      .slice(0, -1)
 }
 
 /**
