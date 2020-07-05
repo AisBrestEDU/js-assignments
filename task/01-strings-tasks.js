@@ -102,7 +102,6 @@ function getFirstChar(value) {
  */
 function removeLeadingAndTrailingWhitespaces(value) {
     return value.trim();
-    // throw new Error('Not implemented');
 }
 
 /**
@@ -211,12 +210,11 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(width, height) {
-   
+function getRectangleString(width, height) {   
     return `┌${"─".repeat(width - 2)}┐\n${("│" + " ".repeat(width - 2)
      + "│\n").repeat(height - 2)}└${"─".repeat(width - 2)}┘\n`;
 }
-    // throw new Error('Not implemented');
+   
 
 
 
