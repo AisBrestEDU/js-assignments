@@ -1,5 +1,14 @@
 'use strict';
 
+/********************************************************************************************
+ *                                                                                          *
+ * Plese read the following tutorial before implementing tasks:                             *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates#Date_object
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date    *
+ *                                                                                          *
+ ********************************************************************************************/
+
+
 /**
  * Parses a rfc2822 string date representation into date value
  * For rfc2822 date specification refer to : http://tools.ietf.org/html/rfc2822#page-14
@@ -32,6 +41,7 @@ function parseDataFromIso8601(value) {
    return foundDate.getTime();
 }
 
+
 /**
  * Returns true if specified date is leap year and false otherwise
  * Please find algorithm here: https://en.wikipedia.org/wiki/Leap_year#Algorithm
@@ -59,6 +69,7 @@ function isLeapYear(date) {
       return true;
    }
 }
+
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -91,10 +102,11 @@ function timeSpanToString(startDate, endDate) {
    return templateArray.join(':');
 }
 
+
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- *
+ * 
  * @param {date} date
  * @return {number}
  *
@@ -121,9 +133,9 @@ function angleBetweenClockHands(date) {
 
 
 module.exports = {
-    parseDataFromRfc2822,
-    parseDataFromIso8601,
-    isLeapYear,
-    timeSpanToString,
-    angleBetweenClockHands
+    parseDataFromRfc2822: parseDataFromRfc2822,
+    parseDataFromIso8601: parseDataFromIso8601,
+    isLeapYear: isLeapYear,
+    timeSpanToString: timeSpanToString,
+    angleBetweenClockHands: angleBetweenClockHands
 };

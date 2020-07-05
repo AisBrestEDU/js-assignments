@@ -1,5 +1,14 @@
 'use strict';
 
+/********************************************************************************************
+ *                                                                                          *
+ * Plese read the following tutorial before implementing tasks:                             *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String  *
+ *                                                                                          *
+ ********************************************************************************************/
+
+
+
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -15,6 +24,7 @@
 function concatenateStrings(value1, value2) {
     return value1 + value2;
 }
+
 
 /**
  * Returns the length of given string.
@@ -62,6 +72,7 @@ function extractNameFromTemplate(value) {
     return value.slice(7, value.length - 1);
 }
 
+
 /**
  * Returns a first char of the given string.
  *
@@ -108,7 +119,7 @@ function repeatString(value, count) {
 
 /**
  * Remove the first occurrence of string inside another string
- *
+ * 
  * @param {string} str
  * @param {string} value
  * @return {string}
@@ -136,6 +147,7 @@ function removeFirstOccurrences(str, value) {
 function unbracketTag(str) {
     return str.slice(1, str.length - 1);
 }
+
 
 /**
  * Converts all characters of the specified string into the upper case
@@ -202,6 +214,7 @@ function getRectangleString(width, height) {
     return rectangleString;
 }
 
+
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
@@ -246,25 +259,26 @@ function isString(value) {
     return typeof value === 'string' || value instanceof String;
 }
 
+
 /**
  * Returns playid card id.
- *
+ * 
  * Playing cards inittial deck inclides the cards in the following order:
- *
+ * 
  *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
  *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
  *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
  *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
- *
+ * 
  * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
  * Function returns the zero-based index of specified card in the initial deck above.
- *
+ * 
  * @param {string} value
  * @return {number}
  *
  * @example
  *   'A♣' => 0
- *   '2♣' => 1
+ *   '2♣' => 1 
  *   '3♣' => 2
  *     ...
  *   'Q♠' => 50
@@ -283,19 +297,19 @@ function getCardId(value) {
 
 
 module.exports = {
-    concatenateStrings,
-    getStringLength,
-    getStringFromTemplate,
-    extractNameFromTemplate,
-    getFirstChar,
-    removeLeadingAndTrailingWhitespaces,
-    repeatString,
-    removeFirstOccurrences,
-    unbracketTag,
-    convertToUpperCase,
-    extractEmails,
-    getRectangleString,
-    encodeToRot13,
-    isString,
-    getCardId
+    concatenateStrings: concatenateStrings,
+    getStringLength: getStringLength,
+    getStringFromTemplate: getStringFromTemplate,
+    extractNameFromTemplate: extractNameFromTemplate,
+    getFirstChar: getFirstChar,
+    removeLeadingAndTrailingWhitespaces: removeLeadingAndTrailingWhitespaces,
+    repeatString: repeatString,
+    removeFirstOccurrences: removeFirstOccurrences,
+    unbracketTag: unbracketTag,
+    convertToUpperCase: convertToUpperCase,
+    extractEmails: extractEmails,
+    getRectangleString: getRectangleString,
+    encodeToRot13: encodeToRot13,
+    isString: isString,
+    getCardId: getCardId
 };

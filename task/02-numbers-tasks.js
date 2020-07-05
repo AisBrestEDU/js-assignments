@@ -1,5 +1,15 @@
 'use strict';
 
+/********************************************************************************************
+ *                                                                                          *
+ * Plese read the following tutorial before implementing tasks:                             *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates          *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number  *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math    *
+ *                                                                                          *
+ ********************************************************************************************/
+
+
 /**
  * Returns an area of a rectangle given by width and heigth.
  *
@@ -14,6 +24,7 @@
 function getRectangleArea(width, height) {
     return width * height;
 }
+
 
 /**
  * Returns a circumference of circle given by radius.
@@ -169,7 +180,7 @@ function getParallelipidedDiagonal(a,b,c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *
+ *  
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -190,7 +201,7 @@ function roundToPowerOfTen(num, pow) {
  *
  * @param {number} n
  * @return {bool}
- *
+ * 
  * @example:
  *   4 => false
  *   5 => true
@@ -231,16 +242,16 @@ function toNumber(value, def) {
 }
 
 module.exports = {
-    getRectangleArea,
-    getCicleCircumference,
-    getAverage,
-    getDistanceBetweenPoints,
-    getLinearEquationRoot,
-    getAngleBetweenVectors,
-    getLastDigit,
-    parseNumberFromString,
-    getParallelipidedDiagonal,
-    roundToPowerOfTen,
-    isPrime,
-    toNumber
+    getRectangleArea: getRectangleArea,
+    getCicleCircumference: getCicleCircumference,
+    getAverage: getAverage,
+    getDistanceBetweenPoints: getDistanceBetweenPoints,
+    getLinearEquationRoot: getLinearEquationRoot,
+    getAngleBetweenVectors: getAngleBetweenVectors,
+    getLastDigit: getLastDigit,
+    parseNumberFromString: parseNumberFromString,
+    getParallelipidedDiagonal: getParallelipidedDiagonal,
+    roundToPowerOfTen: roundToPowerOfTen,
+    isPrime: isPrime,
+    toNumber: toNumber
 };
