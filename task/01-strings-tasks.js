@@ -225,31 +225,10 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    const codes = Array.from(str).map(el => {
-        const code = el.charCodeAt();
-        // for big letters
-        if (code >= 65 && code <= 90) {
-            if (code + 13 > 90) {
-                let symbolsLeft = 13 - (90 - code);
-                return 64 + symbolsLeft;
-            }
-            return code + 13;
-        //for small letters    
-        } else if (code >= 97 && code <= 122) {
-            if (code + 13 > 122) {
-                let symbolsLeft = 13 - (122 - code);
-                return 96 + symbolsLeft;
-            }
-            return code + 13;
-        //for symbols    
-        } else if ((code >= 32 && code <= 90) || (code >= 58 && code <= 64)) {
-            return code;
-        } else {
-            return code + 13;
-        }
-    });
+    const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
 
-    return codes.map(c => String.fromCharCode(c)).join('');
+    return str.replace(/[A-Za-z]/g, char => input.charAt(output.indexOf(char)));
 }
 
 /**
