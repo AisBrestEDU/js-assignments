@@ -188,7 +188,12 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    for (var i = 0; i < str.length; ++i) {
+        if (str.indexOf(str[i]) === i && str.lastIndexOf(str[i]) === i) {
+            return str[i];
+        }
+    }
+    return null;
 }
 
 
