@@ -91,10 +91,14 @@ function timeSpanToString(startDate, endDate) {
 
    date = dateInHours.toISOString();
 
-   var strDate = new String(date.substring(11, date.length - 1));
+   var strDate = date.substring(11, date.length - 1);
    var hours = Number(strDate.substring(0, 2)) + daysHours;
    strDate = strDate.replace(/[0-9]{2}/, hours < 10 ? '0' + hours : hours);
    return strDate;
+}
+function n0(value, count) {
+   value = value.toString();
+   return '0'.repeat(count - value.length) + value;
 }
 
 
