@@ -30,7 +30,9 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+   return num % 3 === 0 && num % 5 === 0 ? 'FizzBuzz' : 
+    num % 3 === 0 ? 'Fizz' :
+    num % 5 === 0 ? 'Buzz' : num;
 }
 
 
@@ -46,7 +48,12 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let k = 1;
+    if (n === 0) return 1;
+    for (let i = 1; i <= n; i++) {
+        k *= i;
+    }
+    return k;
 }
 
 
@@ -63,7 +70,11 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    for (let i = n1; i <= n2; i++) {
+        sum += i;
+    }
+    return sum;
 }
 
 
@@ -82,7 +93,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    return (a + b > c) && (a + c > b) && (b + c > a);
 }
 
 
@@ -119,7 +130,7 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    return rect2.top < rect1.top + rect1.height && rect2.left < rect1.left + rect1.width; 
 }
 
 
@@ -150,7 +161,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    return Math.sqrt((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2) < circle.radius;
 }
 
 
@@ -166,7 +177,7 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    return [...str].find((el, _, arr) => arr.indexOf(el) === arr.lastIndexOf(el)) || null;
 }
 
 
@@ -192,7 +203,9 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    let start = isStartIncluded ? isStartIncluded = '[' : isStartIncluded = '(';
+    let end = isEndIncluded ? isEndIncluded = ']' : isEndIncluded = ')';
+    return a < b ? `${start}${a}, ${b}${end}` : `${start}${b}, ${a}${end}`;
 }
 
 
@@ -209,7 +222,11 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    let result = '';
+    for (let i = str.length - 1; i >= 0; i--) {
+        result += str[i];
+    }
+    return result;
 }
 
 
@@ -226,7 +243,12 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    let str = String(num);
+    let result = '';
+    for (let i = str.length - 1; i >= 0; i--) {
+        result += str[i];
+    }
+    return Number(result);
 }
 
 
@@ -251,7 +273,18 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let strCcn = String(ccn);
+    const arr = [];
+    for (let i = 0; i < strCcn.length; i++) {
+        if (i % 2 === 0) {
+            let num = Number(strCcn[i]) * 2;
+            num > 9 ? arr.push(num - 9) : arr.push(num);
+        } else {
+            arr.push(Number(strCcn[i]));
+        }
+    }
+    const result = arr.reduce((acc, el) => acc + el, 0);
+    return result % 10 === 0;
 }
 
 
@@ -270,7 +303,18 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    const str = String(num);
+    let sumOfNum = (function (str) {
+       let sum = 0;
+       for (let i = 0; i < str.length; i++) {
+          sum += Number(str[i]);
+       }
+       return sum;
+    }(str));
+    if (sumOfNum < 9) return sumOfNum;
+    else {
+       return getDigitalRoot(sumOfNum);
+    }
 }
 
 
@@ -296,7 +340,26 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    if (str.length % 2 !== 0) return false;
+    let dict = {
+        '[': ']',
+        '(': ')',
+        '{': '}',
+        '<': '>',
+    };
+    let arr = [];
+    let key;
+    for (let i = 0; i < str.length; i++) {
+        key = str[i]
+        if (dict[key]) {
+            arr.push(key);
+        } else {
+            if (key != dict[arr.pop()]) {
+                return false;
+            }
+        }
+    }
+    return !arr.length;
 }
 
 
