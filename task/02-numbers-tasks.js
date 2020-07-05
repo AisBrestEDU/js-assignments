@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    throw new Error('Not implemented');
+  return width * height;
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    throw new Error('Not implemented');
+  return 2 * Math.PI * radius;
 }
 
 /**
@@ -54,7 +54,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    throw new Error('Not implemented');
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -73,7 +73,10 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+  return Math.sqrt(
+    Math.pow(x2 - x1, 2)
+    + Math.pow(y2 - y1, 2)
+  );
 }
 
 /**
@@ -89,7 +92,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    throw new Error('Not implemented');
+  return  -(b / a);
 }
 
 
@@ -111,7 +114,31 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+  let scalarProduct = x1 * x2 + y1 * y2;
+
+  let moduleA = Math.abs(
+    Math.sqrt(
+      Math.pow(x1, 2)
+      + Math.pow(y1, 2)
+    )
+  );
+
+  let moduleB = Math.abs(
+    Math.sqrt(
+      Math.pow(x2, 2)
+      + Math.pow(y2, 2)
+    )
+  );
+
+  let corner = scalarProduct / (moduleA * moduleB);
+
+  if (corner === 1) {
+    return 0;
+  } else if (corner === 0) {
+    return Math.PI / 2;
+  } else {
+    return Math.PI;
+  }
 }
 
 /**
@@ -127,7 +154,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    throw new Error('Not implemented');
+  value += '';
+  return parseInt(value[value.length - 1]);
 }
 
 
@@ -143,7 +171,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    throw new Error('Not implemented');
+  return parseFloat(value);
 }
 
 /**
@@ -159,8 +187,12 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(a,b,c) {
-    throw new Error('Not implemented');
+function getParallelipidedDiagonal(a, b, c) {
+  return Math.sqrt(
+    Math.pow(a, 2)
+    + Math.pow(b, 2)
+    + Math.pow(c, 2)
+  );
 }
 
 /**
@@ -169,7 +201,7 @@ function getParallelipidedDiagonal(a,b,c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *  
+ *
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -181,7 +213,16 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    throw new Error('Not implemented');
+  let result = 0;
+
+  let powNum = Math.pow(10, pow);
+  result = Math.round(num / powNum)
+
+  for (let i = 0; i < pow; i += 1) {
+    result += '0';
+  }
+
+  return result;
 }
 
 /**
@@ -190,7 +231,7 @@ function roundToPowerOfTen(num, pow) {
  *
  * @param {number} n
  * @return {bool}
- * 
+ *
  * @example:
  *   4 => false
  *   5 => true
@@ -202,7 +243,17 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    throw new Error('Not implemented');
+  if (n === 1) {
+    return false;
+  }
+
+  for (let i = 2; i * i <= n; i += 1) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -221,20 +272,32 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    throw new Error('Not implemented');
+  if (value === null) {
+    return def;
+  }
+
+  if (typeof value === 'object') {
+    return value.toString();
+  }
+
+  if (isFinite(value)) {
+    return value;
+  } else {
+    return def;
+  }
 }
 
 module.exports = {
-    getRectangleArea: getRectangleArea,
-    getCicleCircumference: getCicleCircumference,
-    getAverage: getAverage,
-    getDistanceBetweenPoints: getDistanceBetweenPoints,
-    getLinearEquationRoot: getLinearEquationRoot,
-    getAngleBetweenVectors: getAngleBetweenVectors,
-    getLastDigit: getLastDigit,
-    parseNumberFromString: parseNumberFromString,
-    getParallelipidedDiagonal: getParallelipidedDiagonal,
-    roundToPowerOfTen: roundToPowerOfTen,
-    isPrime: isPrime,
-    toNumber: toNumber
+  getRectangleArea: getRectangleArea,
+  getCicleCircumference: getCicleCircumference,
+  getAverage: getAverage,
+  getDistanceBetweenPoints: getDistanceBetweenPoints,
+  getLinearEquationRoot: getLinearEquationRoot,
+  getAngleBetweenVectors: getAngleBetweenVectors,
+  getLastDigit: getLastDigit,
+  parseNumberFromString: parseNumberFromString,
+  getParallelipidedDiagonal: getParallelipidedDiagonal,
+  roundToPowerOfTen: roundToPowerOfTen,
+  isPrime: isPrime,
+  toNumber: toNumber
 };
