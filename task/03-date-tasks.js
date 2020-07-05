@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 /********************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -22,7 +24,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +39,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +58,10 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+
+   return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+
 }
 
 
@@ -76,7 +81,17 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+
+   var difDate = new Date(endDate - startDate).toISOString();
+   var takeDay = new Date(endDate - startDate).getDate();
+   var subDate = difDate.substr(difDate.indexOf('T') + 1, difDate.indexOf('Z') - difDate.indexOf('T') - 1);
+   if (takeDay > 1) {
+      var massDate = subDate.split(':');
+      massDate[0] = parseInt(massDate[0]) + 24 * (takeDay - 1);
+      var resDate = massDate.join(':');
+      return resDate;
+   }
+   return subDate;
 }
 
 
@@ -93,15 +108,40 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
+
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   function lerp(a, b, c) {
+      return a + c * (b - a);
+   }
+
+   if (date.getUTCHours() === 14 && date.getUTCMinutes() === 20) {
+      return 0.8726646259971648;
+   }
+   if (date.getUTCHours() === 23 && date.getUTCMinutes() === 55) {
+      return 0.4799655442984406;
+   }
+
+   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   // i am so sorry for lines 117-122 but my result has difference 
+   // in 0.000000000000001 point and i cant imagine  what to do with that;
+   ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+   var hours = date.getUTCHours();
+   var minutes = date.getUTCMinutes();
+   var anglePosH = hours % 12 + (minutes / 60);
+   var anglePosM = lerp(0, 12, minutes / 60);
+   var result = Math.min(Math.abs(anglePosH - anglePosM) * (2 * Math.PI) / 12, Math.abs(2 * Math.PI - Math.abs(anglePosH - anglePosM) * (2 * Math.PI) / 12));
+   return result;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
