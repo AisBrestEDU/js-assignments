@@ -78,23 +78,20 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   /*
+   let diffDays = endDate.getDay() - startDate.getDay();
    let diffHours = endDate.getHours() - startDate.getHours();
-   if (diffHours < 10) diffHours = '0' + diffHours;
-
    let diffMinutes = endDate.getMinutes() - startDate.getMinutes();
-   if (diffMinutes < 10) diffMinutes = '0' + diffMinutes;
-   
    let diffSeconds = endDate.getSeconds() - startDate.getSeconds();
-   if (diffSeconds < 10) diffSeconds = '0' + diffSeconds;
-   
    let diffMilliSeconds = endDate.getMilliseconds() - startDate.getMilliseconds();
+
+   if (diffDays > 0) diffHours = diffHours + (diffDays * 24);
+   if (diffHours < 10) diffHours = '0' + diffHours;
+   if (diffMinutes < 10) diffMinutes = '0' + diffMinutes;
+   if (diffSeconds < 10) diffSeconds = '0' + diffSeconds;
    if (diffMilliSeconds < 10) diffMilliSeconds = '00' + diffMilliSeconds;
-   else if(diffMilliSeconds < 100) diffMilliSeconds = '0' + diffMilliSeconds;
-   
+   else if (diffMilliSeconds < 100) diffMilliSeconds = '0' + diffMilliSeconds;
+
    return diffHours + ':' + diffMinutes + ':' + diffSeconds + '.' + diffMilliSeconds;
-   */
-   throw new Error('Not implemented');
 }
 
 
@@ -112,14 +109,24 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+
+   let hours = date.getUTCHours();
+   let minutes = date.getUTCMinutes();
+
+   if (hours > 12) hours = hours - 12;
+
+   let angle = Math.abs(0.5 * (60 * hours - 11 * minutes));
+
+   if (angle > 180) angle = Math.abs(360 - angle);
+
+   return (Math.PI / 180) * angle;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
