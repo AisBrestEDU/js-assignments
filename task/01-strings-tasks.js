@@ -251,7 +251,31 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    var newStr = '';
+    var utfSymbol = 0;
+
+    for (let i = 0; i < str.length; i++){
+        if (str.charCodeAt(i) > 77 && str.charCodeAt(i) < 91){
+            utfSymbol = str.charCodeAt(i) - 13;
+            newStr += String.fromCharCode(utfSymbol);
+        }
+        else if(str.charCodeAt(i) > 64 && str.charCodeAt(i) < 78){
+            utfSymbol = str.charCodeAt(i) + 13;
+            newStr += String.fromCharCode(utfSymbol);  
+        }
+        else if(str.charCodeAt(i) > 96 && str.charCodeAt(i) < 110){
+            utfSymbol = str.charCodeAt(i) + 13;
+            newStr += String.fromCharCode(utfSymbol);
+        }
+        else if(str.charCodeAt(i) > 109 && str.charCodeAt(i) < 123){
+            utfSymbol = str.charCodeAt(i) - 13;
+            newStr += String.fromCharCode(utfSymbol);
+        }
+        else {
+            newStr += str.charAt(i);
+        }
+    }
+    return newStr;
 }
 
 /**
