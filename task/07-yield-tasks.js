@@ -201,12 +201,14 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     let iterator = generator();
-
+    
     async function run(value) 
     {
         let promise = iterator.next(value);
         console.log(promise)
-        return promise.done ? promise.value : promise.value.then(run);
+        
+        if(promise.done) return promise.value;
+        return promise.value.then(run);
     }
 
     return run();
