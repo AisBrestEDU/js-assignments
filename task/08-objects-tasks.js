@@ -23,7 +23,11 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+}
+Rectangle.prototype.getArea = function () {
+    return this.width * this.height;
 }
 
 
@@ -38,7 +42,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +58,10 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    let obj = JSON.parse(json);
+    let args = Object.values(obj);
+    
+    return new proto.constructor(...args);
 }
 
 
@@ -106,35 +113,75 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+class CssBuilder {
+    constructor() {
+        this.result = '';
+    }
+    
+    element(value) {
+        this.error(1);
+        this.result = this.result + value;
+        return this;
+    }
+
+    id(value) {
+        this.error(2);
+        this.result = this.result + '#' + value;
+        return this;
+    }
+
+    class(value) {
+        this.error(3);
+        this.result = this.result + '.' + value;
+        return this;
+    }
+
+    attr(value) {
+        this.error(4);
+        this.result = this.result + '[' + value + ']';
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.error(5);
+        this.result = this.result + ':' + value;
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.error(6);
+        this.result = this.result + '::' + value;
+        return this;
+    }
+
+    combine(selector1, combinator, selector2) {
+        this.result = selector1.result + ' ' + combinator + ' ' + selector2.result;
+        return this;
+    }
+
+    stringify() {
+        return this.result;
+    }
+
+    error(value) {
+        if (value < this.value) {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+        if (value === this.value && [1, 2, 6].includes(value)) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+        this.value = value;
+    }
+}
+
 const cssSelectorBuilder = {
-
-    element: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    id: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    class: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    attr: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
+    element: (value) => new CssBuilder().element(value),
+    id: (value) => new CssBuilder().id(value),
+    class: (value) => new CssBuilder().class(value),
+    attr: (value) => new CssBuilder().attr(value),
+    pseudoClass: (value) => new CssBuilder().pseudoClass(value),
+    pseudoElement: (value) => new CssBuilder().pseudoElement(value),
+    combine: (selector1, combinator, selector2) => new CssBuilder().combine(selector1, combinator, selector2),
 };
 
 
