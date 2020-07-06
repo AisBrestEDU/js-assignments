@@ -249,8 +249,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   var ar = [];
-   var amount = arr.reduce((sum, index) => {
+   let ar = [];
+   let amount = arr.reduce((sum, index) => {
       ar.push(sum);
       return sum + index;
    });
@@ -293,7 +293,7 @@ function getSecondItems(arr) {
  */
 function propagateItemsByPositionIndex(arr) {
    return arr.map((element, index) => {
-      var array = new Array(index + 1);
+      let array = new Array(index + 1);
       return array.fill(element)
    }
    ).reduce((element, index) => {
@@ -336,7 +336,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   var count = 0;
+   let count = 0;
    arr.map(n => (typeof n == 'number' && n > 0) ? count++ : '');
    return count;
 }
@@ -355,7 +355,7 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   var element = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+   let element = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
    return arr.sort((a, b) => {
       return element.indexOf(a) - element.indexOf(b);
    });
@@ -392,7 +392,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   var arr1 = arr.filter((element) => {
+   let arr1 = arr.filter((element) => {
       if (typeof element != ![])
          return element;
    });
@@ -571,7 +571,7 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   var map = new Map();
+   let map = new Map();
    array.map((item) => {
       map.set(
          keySelector(item),
@@ -637,12 +637,12 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   var alen = arr.length;
-   var a = arr.length;
+   let alen = arr.length;
+   let a = arr.length;
    if (arr.length === 1)
       return arr.splice(0);
-   var head = arr.splice(0, alen / 2);
-   var tail;
+   let head = arr.splice(0, alen / 2);
+   let tail;
    if (a % 2 !== 0)
       tail = arr.splice(1, alen);
    else

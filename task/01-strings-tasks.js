@@ -132,7 +132,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    var index = str.indexOf(value);
+    let index = str.indexOf(value);
     if (index == -1) {
         return str;
     }
@@ -208,20 +208,20 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    var topLeft = '┌';
-    var topRight = '┐';
-    var botLeft = '└';
-    var botRight = '┘';
-    var horizon = '─';
-    var vertical = '│';
-    var inner = ' ';
-    var breakN = '\n';
-    var firstLine = topLeft + horizon.repeat(width - 2) + topRight + breakN;
-    var laststLine = botLeft + horizon.repeat(width - 2) + botRight + breakN;
-    var medLine = vertical + inner.repeat(width - 2) + vertical + breakN;
+    let topLeft = '┌';
+    let topRight = '┐';
+    let botLeft = '└';
+    let botRight = '┘';
+    let horizon = '─';
+    let vertical = '│';
+    let inner = ' ';
+    let breakN = '\n';
+    let firstLine = topLeft + horizon.repeat(width - 2) + topRight + breakN;
+    let laststLine = botLeft + horizon.repeat(width - 2) + botRight + breakN;
+    let medLine = vertical + inner.repeat(width - 2) + vertical + breakN;
 
-    var str = '';
-    for (var h = 0; h < height; h++) {
+    let str = '';
+    for (let h = 0; h < height; h++) {
         if (h == 0) {
             str += firstLine;
         }
@@ -301,9 +301,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    var suits = ["♣", "♦", "♥", "♠"];
-    var values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-    var id = -1;
+    let suits = ["♣", "♦", "♥", "♠"];
+    let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    let id = -1;
     for (let s = 0; s < suits.length; s++) {
         const suit = suits[s];
         for (let v = 0; v < values.length; v++) {

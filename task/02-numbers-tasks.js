@@ -111,7 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0   -0.46364760900080615
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    var angle = Math.atan2(y2, x2) - Math.atan2(y1, x1);
+    let angle = Math.atan2(y2, x2) - Math.atan2(y1, x1);
     if (angle == -Math.PI) return -angle;
     else if (angle <= 0) return 0;
     return angle;
@@ -205,7 +205,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    var i;
+    let i;
     if (n == 1)
         return false;
     for (i = 2; i <= Math.sqrt(n); i++) {
