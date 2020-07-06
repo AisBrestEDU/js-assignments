@@ -104,7 +104,6 @@ function angleBetweenClockHands(date) {
     let parsedDate = new Date(date)
     let h = parsedDate.getUTCHours();
     let m = parsedDate.getUTCMinutes();
-    // let hAngle = 0.5 * (h * 60 + m);
     let hourAngle = 0.5 * (parsedDate.getUTCHours() * 60 + parsedDate.getUTCMinutes());
     let minuteAngle = parsedDate.getUTCMinutes() * 6;
     let resultAngle = Math.abs(hourAngle - minuteAngle) ;

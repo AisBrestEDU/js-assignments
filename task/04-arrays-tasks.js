@@ -68,7 +68,6 @@ function doubleArray(arr) {
 function getArrayOfPositives(arr) {
    let result = arr.filter(i => i > 0);
    return result;
-   // return arr.filter(t => t > 0);
 }
 /**
  * Returns the array with strings only in the specified array (in original order)
@@ -83,7 +82,6 @@ function getArrayOfPositives(arr) {
  */
 function getArrayOfStrings(arr) {
    let result = arr.filter(i => typeof (i) === "string");
-   // return arr.filter(t => isNaN(t));
    return result;
 }
 /**
@@ -227,7 +225,7 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
    let tempSum = 0;
-   let result = arr.map(i => (tempSum += i)); //not sure
+   let result = arr.map(i => (tempSum += i));
    return result;
 }
 /**
@@ -264,7 +262,6 @@ function propagateItemsByPositionIndex(arr)
 {
    let result =  arr.reduce(
        (element, current, index)=>{
-          //Creating an array of length equal to index+1
           [...Array(index+1)].map(item => element[element.length] = current)
           return element
        },
@@ -380,7 +377,7 @@ function getFalsyValuesCount(arr) {
  */
 function findAllOccurences(arr, item) {
    let result = arr.filter(i => i === item)
-   return result.length;;
+   return result.length;
 }
 /**
  * Concatenates all elements from specified array into single string with ',' delimeter
@@ -513,7 +510,8 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   let result = array.reduce((prev, current) => prev.set(keySelector(current), (prev.get(keySelector(current)) || []).concat(valueSelector(current))), new Map());
+   let result = array.reduce((prev, current) => prev.set(keySelector(current), (prev.get(keySelector(current))
+       || []).concat(valueSelector(current))), new Map());
    return result;
 }
 /**
@@ -572,13 +570,10 @@ function swapHeadAndTail(arr) {
       return result;
    }
    let halfLength = Math.floor(arr.length/2);
-   let anewTail;
-   let anewHead;
    let result;
-   let middleElement;
-   anewTail = arr.slice(0, halfLength);
-   anewHead = arr.slice(arr.length-halfLength, arr.length);
-   middleElement = arr[halfLength];
+   let anewTail = arr.slice(0, halfLength);
+   let anewHead = arr.slice(arr.length-halfLength, arr.length);
+   let middleElement = arr[halfLength];
    if (halfLength*2 === arr.length) {result =anewHead.concat(anewTail)}
    else{result = (anewHead.concat(middleElement)).concat(anewTail)}
    console.log(result);

@@ -102,7 +102,6 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    //var temp = Math.atan2(x2-x1, y2-y1);
     let dotProduct = x1 * x2 + y1 * y2;
     let firstModule = ((x1**2 + y1**2)**(1/2));
     let secondModule = ((x2**2 + y2**2)**(1/2));
@@ -124,9 +123,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
 function getLastDigit(value) {
     let stringValue = value.toLocaleString();
     let valueRank = stringValue.length;
-    let temp = Number(stringValue.charAt(valueRank - 1));
-    return temp;
-    // return stringValue.split("") [length]
+    let result = Number(stringValue.charAt(valueRank - 1));
+    return result;
 }
 /**
  * Returns a number by given string representation.
@@ -156,7 +154,6 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-    // Формула нахождения длины диагонали: квадрат диагонали равен сумме квадратов трех измерений параллелограмма.
     return (a ** 2 + b ** 2 + c ** 2) ** (1 / 2);
 }
 /**
@@ -179,8 +176,6 @@ function getParallelipidedDiagonal(a, b, c) {
 function roundToPowerOfTen(num, pow) {
     let numAsString = num.toLocaleString();
     let result =Math.round(num/10**pow) *(10**pow);
-    let deductiblePart = Number(numAsString.substring(numAsString.length - pow, numAsString.length));
-    // return num - deductiblePart;
     return result;
 }
 /**
