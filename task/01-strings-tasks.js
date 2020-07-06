@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 + value2;
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    return value.slice(7, -1);
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value[0];
 }
 
 /**
@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    return value.repeat(count);
 }
 
 /**
@@ -130,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value, "") ;
 }
 
 /**
@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.slice(1, -1);
 }
 
 
@@ -160,7 +160,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toLocaleUpperCase();
 }
 
 /**
@@ -174,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(";");
 }
 
 /**
@@ -201,7 +201,13 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    
+    let line = '─'.repeat(width - 2);
+    let space = ' '.repeat(width - 2);
+
+    return  `┌${line}┐\n`+ 
+            `│${space}│\n`.repeat(height - 2) +
+            `└${line}┘\n`;
 }
 
 
@@ -221,7 +227,12 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    
+    let input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    let index     = x => input.indexOf(x);
+    let translate = x => index(x) > -1 ? output[index(x)] : x;
+    return str.split('').map(translate).join('');
 }
 
 /**
@@ -238,7 +249,11 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    
+    if(typeof value === 'string' || value instanceof String)
+        return true;
+
+    return false;
 }
 
 
@@ -267,7 +282,22 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let suits = ['♣','♦','♥','♠'];
+    let rangs = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    
+    let cardArray = [];
+    let index = 0;
+
+    for(let suit = 0; suit < suits.length; suit++)
+    {
+        for(let rang = 0; rang < rangs.length; rang++)
+        {
+            cardArray[index] = `${rangs[rang]}${suits[suit]}`;
+            index++;
+        }
+    }
+
+    return cardArray.indexOf(value);
 }
 
 
