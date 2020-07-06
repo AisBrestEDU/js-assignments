@@ -36,8 +36,9 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(value) {
-   Date.parse(value);
+function parseDataFromIso86012(value) {
+   var parts = value.match(/\d+/g);
+   return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
 }
 
 
