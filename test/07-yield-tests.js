@@ -315,8 +315,8 @@ describe('07-yield-tasks', function() {
         if (index-1<MAX_NODE_COUNT) assert.fail(index-1, MAX_NODE_COUNT,`sequence length should be equal to ${MAX_NODE_COUNT}`);
     });
 
+    this.timeout(30000);
     it.optional('depthTraversalTree should process a wide tree', () => {
-        this.timeout(30000);
         var root = createWideTree();
         var index = 1;
         for(let node of tasks.depthTraversalTree(root)) {
