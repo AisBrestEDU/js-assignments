@@ -454,7 +454,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   throw new Error('Not implemented');
+   return Array.from(new Array(end - start + 1), (x, i) => i + start);
 }
 
 /**
@@ -470,8 +470,6 @@ function getIntervalArray(start, end) {
  */
 function distinct(arr) {
    return Array.from(new Set(arr));
-
-   //throw new Error('Not implemented');
 }
 
 /**
