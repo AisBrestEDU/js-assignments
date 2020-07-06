@@ -22,6 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
+   return new Date(value);
    throw new Error('Not implemented');
 }
 
@@ -37,6 +38,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
+   return new Date(value);
    throw new Error('Not implemented');
 }
 
@@ -56,6 +58,11 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
+   let year = date.getFullYear();
+   if (year % 4 !== 0 ) return false;
+   else if (year % 100 !== 0) return true;
+   else if (year % 400 !== 0) return false;
+   else return true;
    throw new Error('Not implemented');
 }
 
@@ -76,6 +83,15 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
+   let res = endDate - startDate;
+   let hours = Math.floor(res / 3600000);
+   let min = Math.floor((res - hours*3600000)/60000);
+   let sec = Math.floor((res - hours*3600000 - min*60000)/1000);
+   let milisec = res - hours*3600000 - min*60000 -sec*1000;
+
+   return `${hours < 10 ? '0'+ hours : hours}:${min < 10 ? '0' + min : min}:${sec<10?'0'+sec:
+   sec}.${milisec < 10 ?'00'+ milisec : (milisec < 100 ? '0' + milisec : milisec)}`;
+
    throw new Error('Not implemented');
 }
 
@@ -94,6 +110,15 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
+   let h = date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours();
+   let m = date.getUTCMinutes();
+   // let hAng = h * Math.PI/6 + Math.PI/360 * m;
+   // let mAng = m * Math.PI/30;
+   // return Math.abs(hAng - mAng) > Math.PI ? Math.abs(hAng - mAng) - Math.PI : Math.abs(hAng - mAng);
+   let hAng = h * 30 + 0.5 * m;
+   let mAng = m * 6;
+   let res = Math.abs(hAng - mAng) > 180 ? Math.abs(hAng - mAng) - 180 : Math.abs(hAng - mAng);
+   return res*Math.PI/180;
     throw new Error('Not implemented');
 }
 
