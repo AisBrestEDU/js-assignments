@@ -49,11 +49,15 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
+    function factorial(num) {
+        if (num === 0 || num === 1)
+          return 1;
+        for (var i = num - 1; i >= 1; i--) {
+          num *= i;
+        }
+        return num;
+    }
     return factorial(n);
-}
-
-function factorial(n) {
-    return (n != 1) ? n * factorial(n - 1) : 1;
 }
 
 /**
@@ -251,8 +255,8 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    const revers = n.toString().split('').reverse().join('');
-    return Math.sign(n) * parseInt(revers);
+    const revers = num.toString().split('').reverse().join('');
+    return Math.sign(num) * parseInt(revers);
 }
 
 
