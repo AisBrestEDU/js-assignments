@@ -200,7 +200,7 @@ function roundToPowerOfTen(num, pow) {
 
     if (pow > 0) {
 
-        let denomenator = 10 ** pow;
+        let denomenator = Math.pow(10, pow);
         let devidedNumber = num / denomenator;
 
         devidedNumber = Math.round(devidedNumber);
