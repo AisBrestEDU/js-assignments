@@ -8,31 +8,31 @@ describe('03-date-tasks', function() {
 
     it.optional('parseDataFromRfc2822 should parse rfc2822 string into a date value', function () {
         assert.equal(
-            new Date(1995, 11, 17, 3, 24, 0).valueOf(),
-            tasks.parseDataFromRfc2822('December 17, 1995 03:24:00').valueOf()
+            tasks.parseDataFromRfc2822('December 17, 1995 03:24:00').valueOf(),
+            new Date(1995, 11, 17, 3, 24, 0).valueOf()
         );
 
         assert.equal(
-            1453816082000,
-            tasks.parseDataFromRfc2822('Tue, 26 Jan 2016 13:48:02 GMT').valueOf()
+            tasks.parseDataFromRfc2822('Tue, 26 Jan 2016 13:48:02 GMT').valueOf(),
+            1453816082000
         );
 
         assert.equal(
-            895370400000,
-            tasks.parseDataFromRfc2822('Sun, 17 May 1998 03:00:00 GMT+0100').valueOf()
+            tasks.parseDataFromRfc2822('Sun, 17 May 1998 03:00:00 GMT+0100').valueOf(),
+            895370400000
         );
     });
 
 
     it.optional('parseDataFromIso8601 should parse ISO 8601 string into a date value', function () {
         assert.equal(
-            1453219657000,
-            tasks.parseDataFromIso8601('2016-01-19T16:07:37+00:00').valueOf()
+            tasks.parseDataFromIso8601('2016-01-19T16:07:37+00:00').valueOf(),
+            1453219657000
         );
 
         assert.equal(
-            1453190857000,
-            tasks.parseDataFromIso8601('2016-01-19T08:07:37Z').valueOf()
+            tasks.parseDataFromIso8601('2016-01-19T08:07:37Z').valueOf(),
+            1453190857000
         );
     });
 
@@ -90,8 +90,8 @@ describe('03-date-tasks', function() {
             }
         ].forEach(data => {
             assert.equal(
-                data.expected,
-                tasks.timeSpanToString(data.startDate, data.endDate)
+                tasks.timeSpanToString(data.startDate, data.endDate),
+                data.expected
             );
         });
 

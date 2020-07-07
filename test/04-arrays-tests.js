@@ -24,8 +24,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.findElement(data.arr, data.value);
             assert.equal(
-                data.expected,
                 actual,
+                data.expected,
                 `Index of '${data.value}' inside of [${data.arr}] = ${data.expected}, but actually ${actual}`
             );
         });
@@ -49,8 +49,8 @@ describe('04-arrays-tasks', function() {
             } 
         ].forEach(data => {
             assert.deepEqual(
-                data.expected,
-                tasks.generateOdds(data.len)
+                tasks.generateOdds(data.len),
+                data.expected
             );
         });
     });
@@ -71,8 +71,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.doubleArray(data.arr);
             assert.deepEqual(
-                data.expected,
                 actual,
+                data.expected,
                 `The result of doubling [${data.arr}] is not correct`
             );
         });
@@ -94,8 +94,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getArrayOfPositives(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -116,8 +116,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getArrayOfStrings(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -138,8 +138,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.removeFalsyValues(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -171,8 +171,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.findAllOccurences(data.arr, data.item);
             assert.equal(
-                data.expected,
                 actual,
+                data.expected,
                 `Number of occurences of ${JSON.stringify(data.item)} in ${JSON.stringify(data.arr)} is ${data.expected}, but actually ${actual})`
             );
         });
@@ -191,8 +191,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getUpperCaseStrings(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -210,8 +210,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getStringsLength(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -233,8 +233,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             tasks.insertItem(data.arr, data.item, data.index);
             assert.deepEqual(
-                data.expected,
-                data.arr
+                data.arr,
+                data.expected
             );
         });
     });
@@ -253,8 +253,8 @@ describe('04-arrays-tasks', function() {
             }
         ].forEach(data => {
             assert.deepEqual(
-                data.expected,
-                tasks.getHead(data.arr, data.n)
+                tasks.getHead(data.arr, data.n),
+                data.expected
             );
         });
     });
@@ -273,8 +273,8 @@ describe('04-arrays-tasks', function() {
             }
         ].forEach(data => {
             assert.deepEqual(
-                data.expected,
-                tasks.getTail(data.arr, data.n)
+                tasks.getTail(data.arr, data.n),
+                data.expected
             );
         });
     });
@@ -301,8 +301,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.toCsvText(data.arr);
             assert.equal(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -320,8 +320,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.toArrayOfSquares(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -345,8 +345,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getMovingSum(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -367,8 +367,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getSecondItems(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -395,8 +395,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.propagateItemsByPositionIndex(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -423,8 +423,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.get3TopItems(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -451,8 +451,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getPositivesCount(data.arr);
             assert.equal(
-                data.expected,
                 actual,
+                data.expected,
                 `Test failed for argument [${data.arr}]`
             );
         });
@@ -483,8 +483,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.sortDigitNamesByNumericOrder(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -505,8 +505,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getItemsSum(data.arr);
             assert.deepEqual(
-                data.expected,
                 actual,
+                data.expected,
                 `Test failed for [${data.arr}]`
             );
         });
@@ -531,8 +531,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getFalsyValuesCount(data.arr);
             assert.deepEqual(
-                data.expected,
                 actual,
+                data.expected,
                 `Test failed for [${data.arr}]`
             );
         });
@@ -554,8 +554,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.toStringList(data.arr);
             assert.equal(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -630,8 +630,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.sortCitiesArray(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -657,8 +657,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getIdentityMatrix(data.n);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -693,8 +693,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getIntervalArray(data.start, data.end);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -718,8 +718,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.distinct(data.arr);
             assert.deepEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -765,8 +765,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.group(data.arr, data.keySelector, data.valueSelector);
             assert.deepEqual(
-                Array.from(data.expected),
-                Array.from(actual)
+                Array.from(actual),
+                Array.from(data.expected)
             );
         });
     });
@@ -790,8 +790,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.selectMany(data.arr, data.childrenSelector);
             assert.deepStrictEqual(
-                data.expected,
-                actual
+                actual,
+                data.expected
             );
         });
     });
@@ -815,8 +815,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.getElementByIndexes(data.arr, data.indexes);
             assert.equal(
-                data.expected,
                 actual,
+                data.expected,
                 `getElementByIndexes(${JSON.stringify(data.arr)}, ${JSON.stringify(data.indexes)}) returns an incorrect result. Expected ${data.expected}, but actual ${actual}`
             );
         });
@@ -844,8 +844,8 @@ describe('04-arrays-tasks', function() {
         ].forEach(data => {
             var actual = tasks.swapHeadAndTail(Array.from(data.arr));
             assert.deepEqual(
-                data.expected,
                 actual,
+                data.expected,
                 `The result of swaping head and tail [${data.arr}] is not correct`
             );
         });

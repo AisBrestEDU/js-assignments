@@ -124,8 +124,8 @@ describe('12-katas-3-tasks', function() {
             var encoded = urlShortener.encode(data);
             var actual = urlShortener.decode(encoded);
             assert.equal(
-                data,
                 actual,
+                data,
                 `urlShortener.encode for "${data}" returns "${encoded}" but decode returns "${actual}"`
             );
         });
