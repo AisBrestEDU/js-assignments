@@ -108,33 +108,140 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
   element: function (value) {
-    throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().element(value);
   },
 
   id: function (value) {
-    throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().id(value);
   },
 
   class: function (value) {
-    throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().class(value);
   },
 
   attr: function (value) {
-    throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().attr(value);
   },
 
   pseudoClass: function (value) {
-    throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().pseudoClass(value);
   },
 
   pseudoElement: function (value) {
-    throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().pseudoElement(value);
   },
 
   combine: function (selector1, combinator, selector2) {
-    throw new Error('Not implemented');
+    return selector1.combine(combinator, selector2);
   },
 };
+
+class MySuperBaseElementSelector {
+  constructor() {
+    this.elementValue = '';
+    this.idValue = '';
+    this.classValue = [];
+    this.attrValue = [];
+    this.pseudoClassValue = [];
+    this.pseudoElementValue = '';
+    this.output = [
+      this.elementValue,
+      this.idValue,
+      this.classValue,
+      this.attrValue,
+      this.pseudoClassValue,
+      this.pseudoElementValue,
+    ];
+    this.combinator = '';
+    this.selector = '';
+  }
+
+  static get duplicateUsageError() {
+    return new Error(
+      'Element, id and pseudo-element should not occur more then one time inside the selector'
+    );
+  }
+
+  static get orderError() {
+    return new Error(
+      'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+    );
+  }
+
+  element(value) {
+    if (this.elementValue !== '')
+      throw MySuperBaseElementSelector.duplicateUsageError;
+    if (!this.checkOrder(0)) throw MySuperBaseElementSelector.orderError;
+    this.elementValue = value;
+    this.output[0] = this.elementValue;
+    return this;
+  }
+
+  id(value) {
+    if (this.idValue !== '')
+      throw MySuperBaseElementSelector.duplicateUsageError;
+    if (!this.checkOrder(1)) throw MySuperBaseElementSelector.orderError;
+    this.idValue = `#${value}`;
+    this.output[1] = this.idValue;
+    return this;
+  }
+
+  class(value) {
+    if (!this.checkOrder(2)) throw MySuperBaseElementSelector.orderError;
+    this.classValue.push(`.${value}`);
+    this.output[2] = this.classValue;
+    return this;
+  }
+
+  attr(value) {
+    if (!this.checkOrder(3)) throw MySuperBaseElementSelector.orderError;
+    this.attrValue.push(`[${value}]`);
+    this.output[3] = this.attrValue;
+    return this;
+  }
+
+  pseudoClass(value) {
+    if (!this.checkOrder(4)) throw MySuperBaseElementSelector.orderError;
+    this.pseudoClassValue.push(`:${value}`);
+    this.output[4] = this.pseudoClassValue;
+    return this;
+  }
+
+  pseudoElement(value) {
+    if (this.pseudoElementValue !== '')
+      throw MySuperBaseElementSelector.duplicateUsageError;
+    this.pseudoElementValue = `::${value}`;
+    this.output[5] = this.pseudoElementValue;
+    return this;
+  }
+
+  combine(combinator, selector) {
+    this.combinator = combinator;
+    this.selector = selector.stringify();
+    return this;
+  }
+
+  stringify() {
+    return (
+      this.output
+        .map((val) => {
+          return Array.isArray(val) ? val.join('') : val;
+        })
+        .join('') +
+      (this.combinator !== '' ? ` ${this.combinator} ` : '') +
+      this.selector
+    );
+  }
+
+  checkOrder(position) {
+    for (let i = position + 1; i < this.output.length; i++) {
+      if (this.output[i].length > 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
 
 module.exports = {
   Rectangle: Rectangle,
