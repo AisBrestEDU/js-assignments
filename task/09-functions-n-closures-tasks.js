@@ -151,13 +151,21 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    return (...args) => {
-        logFunc(`${func.name}(${args.map(arg => JSON.stringify(arg))}) starts`);
-        const result = func(...args);
-        logFunc(`${func.name}(${args.map(arg => JSON.stringify(arg))}) ends`);
+    let result = function() {
 
-        return result;
+        let arrBuff = [].slice.call(arguments);
+        let strForAdd = JSON.stringify(arrBuff);
+
+        strForAdd = strForAdd.slice(1,-1);
+
+        strForAdd = func.name + `(${strForAdd})`;
+        logFunc(`${strForAdd} starts`);
+        let res = func.apply(this, arrBuff);
+        logFunc(`${strForAdd} ends`);
+
+        return res;
     }
+    return result;
 }
 
 
