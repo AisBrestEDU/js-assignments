@@ -134,10 +134,10 @@ function* breadthTraversalTree(root) {
     while (tree.length > 0) {
         root = tree.shift();
         yield root;
-        if (typeof root.children != 'undefined') //continue;
-            for (let childs of root.children)
-                tree.push(childs);
-    }
+        if (typeof root.children != 'undefined')
+            for (let item of root.children)
+                tree.push(item);
+    };
 }
 
 
