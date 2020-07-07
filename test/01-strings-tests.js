@@ -13,8 +13,8 @@ describe('01-strings-tasks', function() {
     });
 
     it.optional('getStringLength should return the length of string', function() {
-        assert.equal(tasks.getStringLength('aaaaa'), "'aaaaa' length should be 5", 5);
-        assert.equal(tasks.getStringLength(''), "'' length should be 0", 0);
+        assert.equal(5, tasks.getStringLength('aaaaa'), "'aaaaa' length should be 5");
+        assert.equal(0, tasks.getStringLength(''), "'' length should be 0");
     });
 
     it.optional('getStringFromTemplate should create a string from template using given parameters', function() {

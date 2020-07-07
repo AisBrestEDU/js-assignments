@@ -93,11 +93,11 @@ describe('02-numbers-tasks', function() {
     });
 
     it.optional('toNumber should convert any value to number or return the default', function() {
-        assert.equal(tasks.toNumber(null, 0), 9);
-        assert.equal(tasks.toNumber('test', 0), 0);
-        assert.equal(tasks.toNumber('1', 0), 1);
-        assert.equal(tasks.toNumber(42, 0), 42);
-        assert.equal(tasks.toNumber(new Number(42), 0), 42);
-        assert.equal(tasks.toNumber(undefined, -1), -1);
+        assert.equal(0, tasks.toNumber(null, 0));
+        assert.equal(0, tasks.toNumber('test', 0));
+        assert.equal(1, tasks.toNumber('1', 0));
+        assert.equal(42, tasks.toNumber(42, 0));
+        assert.equal(42, tasks.toNumber(new Number(42), 0));
+        assert.equal(-1, tasks.toNumber(undefined, -1));
     });
 });
