@@ -23,7 +23,9 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = () => this.width * this.height
 }
 
 
@@ -38,7 +40,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +56,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -108,33 +110,69 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
+    current: '',
+
     element: function(value) {
-        throw new Error('Not implemented');
+        return this.createObject(0, value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return this.createObject(1, value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return this.createObject(2, value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return this.createObject(3, value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return this.createObject(4, value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return this.createObject(5, value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        let object = Object.create(cssSelectorBuilder);
+        object.current = `${selector1.current} ${combinator} ${selector2.current}`;
+        return object;
     },
+
+    stringify: function() {
+        return this.current;
+    },
+
+    createObject: function(key, value) {
+        this.checkError(key);
+        let object = Object.create(cssSelectorBuilder);
+        object.current = `${this.current}${this.getValueWithSelector(key, value)}`;
+        object.key = key;
+        return object;
+    },
+
+    getValueWithSelector: function(key, value) {
+        switch(key) {
+            case 0: return `${value}`;
+            case 1: return `#${value}`;
+            case 2: return `.${value}`;
+            case 3: return `[${value}]`;
+            case 4: return `:${value}`;
+            case 5: return `::${value}`;
+        }
+    },
+
+    checkError: function(key) {
+        if(key === this.key && (key === 0 || key === 1 || key === 5)) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+        if(key < this.key) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+    }
 };
 
 
