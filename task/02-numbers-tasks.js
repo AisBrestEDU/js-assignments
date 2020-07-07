@@ -143,7 +143,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    return value*1;
+    return Number(value);
 }
 
 /**
@@ -223,8 +223,7 @@ function isPrime(num) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (value == Number(value)) return Number(value);
-    else return def;
+    return !isNaN(Number(value)) ? Number(value) : def;
 }
 
 module.exports = {

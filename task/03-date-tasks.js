@@ -56,9 +56,9 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   if (date.getFullYear() % 4 != 0) return false;
-   else if (date.getFullYear() % 100 != 0) return true;
-   else if (date.getFullYear() % 400 != 0) return false;
+   if (date.getFullYear() % 4 !== 0) return false;
+   else if (date.getFullYear() % 100 !== 0) return true;
+   else if (date.getFullYear() % 400 !== 0) return false;
    else return true;
 }
 
@@ -79,19 +79,11 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-
-    function xx (t, x) {
-        x = x || 2
-        return ('00'+t).slice(-x)
-    }
-
-    let ms = (endDate - startDate) % 1000;
-    let s = ((endDate - startDate) - ms) / 1000;
-    let secs = s % 60;
-    s = (s - secs) / 60;
-    let mins = s % 60;
-    let hrs =  (s - mins) / 60;
-    return xx(hrs) + ':' + xx(mins) + ':' + xx(secs) + '.' + xx(ms, 3);
+    let hours = `0${parseInt((endDate - startDate) / 3600000)}`.slice(-2);
+    let mins = `0${endDate.getMinutes() - startDate.getMinutes()}`.slice(-2);
+    let secs = `0${endDate.getSeconds() - startDate.getSeconds()}`.slice(-2);
+    let msecs = `00${endDate.getMilliseconds() - startDate.getMilliseconds()}`.slice(-3);
+    return `${hours}:${mins}:${secs}.${msecs}`;
 }
 
 
