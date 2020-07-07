@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 + value2;
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return new String(`Hello, ${firstName} ${lastName}!`);
 }
 
 /**
@@ -69,7 +69,9 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    let temp = value.replace(' ', '');
+    let ln = 'Hello,'.length;
+    return temp.substring(ln, temp.length - 1);
 }
 
 
@@ -84,7 +86,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value.charAt(0);
 }
 
 /**
@@ -99,7 +101,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +116,17 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    let retString = '';
+
+    if (eval(count) > 0) {
+        for (var i = 0; i < count; i++) {
+            retString += value;
+        }
+    }
+    else
+        retString = value;
+
+    return retString;
 }
 
 /**
@@ -130,7 +142,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value, '').replace('  ', ' ');
 }
 
 /**
@@ -145,7 +157,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.match(/<(.*?)>/)[1];
 }
 
 
@@ -160,7 +172,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toUpperCase();
 }
 
 /**
@@ -174,7 +186,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.match(/[-.\w]+@([\w-]+\.)+[\w-]+/g);
 }
 
 /**
@@ -201,7 +213,49 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let pseudograhicString = '';
+
+    if (width == 0 || height == 0)
+        return pseudograhicString;
+
+    for (let h_index = 0; h_index < height; h_index++) {
+        if (h_index == height-1) {
+            for (let w_index = 0; w_index < width; w_index++) {
+                if (w_index == 0)
+                    pseudograhicString += '└';
+                if (w_index == width - 1)
+                    pseudograhicString += '┘\n';
+                if (w_index != 0 && w_index != width - 1)
+                    pseudograhicString += '─';
+
+            }
+        }
+
+        if (h_index == 0) {
+            for (let w_index = 0; w_index < width; w_index++) {
+                if (w_index == 0)
+                    pseudograhicString += '┌';
+                if (w_index == width - 1)
+                    pseudograhicString += '┐\n';
+                if (w_index != 0 && w_index != width - 1)
+                    pseudograhicString += '─';
+
+            }           
+        }
+
+        if (h_index != 0 && h_index != height - 1) {
+            for (let w_index = 0; w_index < width; w_index++) {
+                if (w_index == 0)
+                    pseudograhicString += '│';
+                if (w_index == width - 1)
+                    pseudograhicString += '│\n';
+                if (w_index != 0 && w_index != width - 1)
+                    pseudograhicString += ' ';
+            }
+        }
+    }
+
+    return pseudograhicString;
 }
 
 
@@ -221,7 +275,29 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    let initAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let otherAlphabet = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    let retString = '';
+    let Match = false;
+
+    if (str == '')
+        return retString;
+
+    for (let i = 0; i < str.length; i++) {
+        for (let j = 0; j < initAlphabet.length; j++) {
+            if (str[i] == initAlphabet[j]) {
+                retString += otherAlphabet[j];
+                Match = true;//We have a match
+            }           
+        }
+
+        if (!Match) 
+            retString += str[i];//We have no match                   
+
+        Match = false;
+    }
+
+    return retString;
 }
 
 /**
@@ -238,7 +314,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    return (typeof value === "string" || value instanceof String);
 }
 
 
@@ -267,7 +343,22 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let playCardID = -1;//-1 will be returned if 'value' is not a play card
+    let playCards = [
+    'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'
+                    ];
+
+    for (let i = 0; i < playCards.length; i++) {
+        if (value == playCards[i]) {
+            playCardID = i;
+            break;
+        }
+    }
+
+    return playCardID;
 }
 
 
