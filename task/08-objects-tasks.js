@@ -23,7 +23,11 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+}
+Rectangle.prototype.getArea = function() {
+    return this.width * this.height;
 }
 
 
@@ -38,7 +42,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +58,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -109,33 +113,98 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new Css().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new Css().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new Css().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new Css().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new Css().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new Css().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return new Css().combine(selector1, combinator, selector2);
     },
 };
+
+class Css {
+    constructor() {
+        this.path = '';
+        this.doubleEl = this.doubleId = this.doublePsEl = null;
+        this.sequence = 0;
+    }
+
+    element(value) {
+        this.doubleError(this.doubleEl);
+        this.sequenceError(1);
+        this.doubleEl = true;
+        this.path += `${value}`;
+        return this;
+    }
+    id(value) {
+        this.doubleError(this.doubleId);
+        this.sequenceError(2);
+        this.doubleId = true;
+        this.path += `#${value}`;
+        return this;
+    }
+    class(value) {
+        this.sequenceError(3);
+        this.path += `.${value}`;
+        return this;
+    }
+    attr(value) {
+        this.sequenceError(4);
+        this.path += `[${value}]`;
+        return this;
+    }
+    pseudoClass(value) {
+        this.sequenceError(5);
+        this.path += `:${value}`;
+        return this;
+    }
+    pseudoElement(value) {
+        this.doubleError(this.doublePsEl);
+        this.sequenceError(6);
+        this.doublePsEl = true;
+        this.path += `::${value}`;
+        return this;
+    }
+    combine(selector1, combinator, selector2) {
+        this.path += `${selector1.path} ${combinator} ${selector2.path}`;
+        return this;
+    }
+
+    stringify() {
+        return this.path;
+    }
+
+    doubleError(double) {
+        if (double) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+    sequenceError(num) {
+        if (this.sequence > num) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        this.sequence = num;
+    }
+}
 
 
 module.exports = {
