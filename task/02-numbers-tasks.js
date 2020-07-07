@@ -54,10 +54,12 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    if((value2 + value1)/2 >= Number.MAX_VALUE)
-        return Number.MAX_VALUE+1;
-    else
+    if((value2 + value1)/2 >= Number.MAX_VALUE) {
+        return Number.MAX_VALUE + 1;
+    } 
+    else {
         return (value2 + value1)/2;
+    } 
 }
 
 /**
@@ -231,10 +233,12 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if(typeof +value == 'number' && !isNaN(+value))
+    if(typeof +value === 'number' && !isNaN(+value)) {
         return +value;
-    else
+    }  
+    else {
         return def;
+    }  
 }
 
 module.exports = {

@@ -70,7 +70,7 @@ function getStringFromTemplate(firstName, lastName) {
  */
 function extractNameFromTemplate(value) {
     const separators = [' ', '///,', '///!', '!'];
-    var arr = value.split(new RegExp(separators.join("|")));
+    let arr = value.split(new RegExp(separators.join("|")));
     return `${arr[1]} ${arr[2]}`;
 }
 
@@ -203,7 +203,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    var dashSymbol = '─'.repeat(width-2);
+    let dashSymbol = '─'.repeat(width-2);
     return `┌${dashSymbol}┐\n` + `│${' '.repeat(width-2)}│\n`.repeat(height - 2) + `└${dashSymbol}┘\n`;
 }
 
@@ -224,9 +224,29 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    return str.replace(/[a-zA-Z]/g, function (c) {
-        return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
+    let encryptStr = str.split('');
+    let encryptedStr;
+    encryptedStr = encryptStr.map((symb) => {
+        if (symb.charCodeAt() >= 65 && symb.charCodeAt() <= 90) {
+            if(symb.charCodeAt() + 13 > 90) {
+                return String.fromCharCode(65 + symb.charCodeAt() + 13 - 91)
+            }
+            else {
+                return String.fromCharCode(symb.charCodeAt() + 13);
+            } 
+        } 
+        else {
+            if (symb.charCodeAt() >= 97 && symb.charCodeAt() <= 122) {
+                if(symb.charCodeAt() + 13 > 122) {
+                    return String.fromCharCode(97 + symb.charCodeAt() + 13 - 123)
+                }
+                else {
+                    return String.fromCharCode(symb.charCodeAt() + 13);
+                } 
+            } else return symb;
+        }
     });
+    return encryptedStr.join('');
 }
 
 /**
@@ -243,10 +263,12 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if (typeof value === 'string' || value instanceof String)
+    if (typeof value === 'string' || value instanceof String) {
         return true;
-    else
+    }
+    else {
         return false;
+    }
 }
 
 
