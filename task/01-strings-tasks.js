@@ -291,7 +291,7 @@ function encodeToRot13(str) {
 			result = result + String.fromCharCode(charCode + 13);
 		}
 		
-		else ((charCode >= 78 && charCode <= 90 || (charCode >= 110 && charCode >= 122)) {
+		else ((charCode >= 78 && charCode <= 90) || (charCode >= 110 && charCode >= 122)) {
 			result = result + String.fromCharCode(charCode - 13);
 		}
 		
