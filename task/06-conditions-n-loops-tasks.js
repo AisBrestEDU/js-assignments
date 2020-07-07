@@ -346,11 +346,11 @@ function isBracketsBalanced(str) {
   for (let i = 0; i < str.length; i++) {
     if (openBrackets.includes(str[i])) {
       tempBuffer.push(openBrackets.indexOf(str[i]));
-    } else if (closeBrackets[tempBuffer.pop()] !== str[i]) {
+    } else if (tempBuffer.length === 0 || closeBrackets[tempBuffer.pop()] !== str[i]) {
       return false;
     }
   }
-  return tempBuffer.length === 0;
+  return !tempBuffer.length;
 }
 
 
