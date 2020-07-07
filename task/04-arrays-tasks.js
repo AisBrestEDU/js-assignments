@@ -715,7 +715,7 @@ function getElementByIndexes(arr, indexes) {
     let start = true;
     let i;
 
-    return indexes.reduce((prev, curr,) => {
+    return indexes.reduce((prev, curr) => {
         if (start) {
             start = false;
 
