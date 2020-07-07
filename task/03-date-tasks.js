@@ -56,7 +56,10 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-    throw new Error('Not implemented');
+   if (date.getFullYear() % 4 !== 0) return false;
+   else if (date.getFullYear() % 100 !== 0) return true;
+   else if (date.getFullYear() % 400 !== 0) return false;
+   else return true;
 }
 
 
@@ -76,7 +79,11 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let hours = `0${parseInt((endDate - startDate) / 3600000)}`.slice(-2);
+    let mins = `0${endDate.getMinutes() - startDate.getMinutes()}`.slice(-2);
+    let secs = `0${endDate.getSeconds() - startDate.getSeconds()}`.slice(-2);
+    let msecs = `00${endDate.getMilliseconds() - startDate.getMilliseconds()}`.slice(-3);
+    return `${hours}:${mins}:${secs}.${msecs}`;
 }
 
 
