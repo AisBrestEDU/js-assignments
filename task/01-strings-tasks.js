@@ -136,7 +136,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    let start = str.indexOf(value) - 1;
+    let start = str.indexOf(value);
 	let end = start + value.length;
 	
 	return str.substr(0, start) + str.substr(end);
@@ -155,8 +155,8 @@ function removeFirstOccurrences(str, value) {
  */
 function unbracketTag(str) {
 
-    if (str.charAt(0) === '<' && str.charAt(str.length - 1) === '>') {
-		return str.substr(1, -1);
+    if (str.charAt(0) === `<` && str.charAt(str.length - 1) === `>`) {
+		return str.slice(1, -1);
 	}
 }
 
@@ -248,15 +248,15 @@ function getRectangleString(width, height) {
 		let borderLine = ``;
 		let middleLine = ``;
 		 
-		for (i = 2; i < width; i++) {
+		for (let i = 2; i < width; i++) {
 			borderLine = borderLine + `─`;
 			middleLine = middleLine + ` `;
 		}
 		 
 		let str = `${topLeftAngle}${borderLine}${topRightAngle}`;
 		 
-		for (i = 2; i < height; i++) {
-			str = str + `│${middleLine}│`;
+		for (let i = 2; i < height; i++) {
+			str = str + `│${middleLine}│\n`;
 		}
 		 
 		str = str + `${bottomLeftAngle}${borderLine}${bottomRightAngle}`;
@@ -284,14 +284,14 @@ function getRectangleString(width, height) {
 function encodeToRot13(str) {
     let result = "";
 	
-	for (i = 0; i < str.length; i++) {
+	for (let i = 0; i < str.length; i++) {
 		let charCode = str.charCodeAt(i);
 		
-		if ((charCode >= 65 && charCode <= 77) || (charCode >= 97 && charCode >= 109)) {
+		if ((charCode >= 65 && charCode <= 77) || (charCode >= 97 && charCode <= 109)) {
 			result = result + String.fromCharCode(charCode + 13);
 		}
 		
-		else ((charCode >= 78 && charCode <= 90) || (charCode >= 110 && charCode >= 122)) {
+		else if ((charCode >= 78 && charCode <= 90) || (charCode >= 110 && charCode <= 122)) {
 			result = result + String.fromCharCode(charCode - 13);
 		}
 		
