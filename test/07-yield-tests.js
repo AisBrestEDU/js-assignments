@@ -221,8 +221,8 @@ describe('07-yield-tasks', function() {
         }
 
         assert.equal(
-            expected.length,
             lineNo,
+            expected.length,
             'Lines count is incorrect:'
         );
     });
