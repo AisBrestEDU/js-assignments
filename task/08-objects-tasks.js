@@ -23,7 +23,9 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = () => this.width * this.height;
 }
 
 
@@ -38,7 +40,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +56,10 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    const obj = JSON.parse(json);
+    const values = Object.values(obj);
+
+    return new proto.constructor(...values);
 }
 
 
@@ -105,35 +110,98 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
+class Selector {
+    result = '';
+    selectorNumbers = [];
 
+    element(value) {
+        this.result += value;
+        this.checkSelector(1);
+        return this;
+    }
+
+    id(value) {
+        this.result += '#' + value;
+        this.checkSelector(2);
+        return this;
+    }
+
+    class(value) {
+        this.result += '.' + value;
+        this.checkSelector(3);
+        return this;
+    }
+
+    attr(value) {
+        this.result += `[${value}]`;
+        this.checkSelector(4);
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.result += ':' + value;
+        this.checkSelector(5);
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.result += '::' + value;
+        this.checkSelector(6);
+        return this;
+    }
+
+    combine(selector1, combinator, selector2) {
+        this.result = selector1.result + ' ' + combinator + ' ' + selector2.result;
+        return this;
+    }
+
+    stringify() {
+        return this.result;
+    }
+
+    isRepeted(number) {
+        return this.selectorNumbers.indexOf(number) !== this.selectorNumbers.lastIndexOf(number)
+    }
+
+    checkSelector(number) {
+        this.selectorNumbers.push(number);
+
+        if (this.isRepeted(1) || this.isRepeted(2) || this.isRepeted(6)) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+        if (this.selectorNumbers.toString() !== this.selectorNumbers.sort().toString()) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+    }
+}
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return new Selector().combine(selector1, combinator, selector2);
     },
 };
 
