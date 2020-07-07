@@ -183,21 +183,9 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    let result = function() {
-
-        let arrBuff = [].slice.call(arguments);
-        let strForAdd = JSON.stringify(arrBuff);
-
-        strForAdd = strForAdd.slice(1,-1);
-
-        strForAdd = func.name + `(${strForAdd})`;
-        logFunc(`${strForAdd} starts`);
-        let res = func.apply(this, arrBuff);
-        logFunc(`${strForAdd} ends`);
-
-        return res;
-    }
-    return result;
+    let firstFuncValues = (Array.from(arguments)).slice(1);
+    
+    return fn.bind(null, ...firstFuncValues);
 }
 
 
