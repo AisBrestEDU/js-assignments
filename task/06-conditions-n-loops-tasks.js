@@ -314,7 +314,7 @@ function getDigitalRoot(num) {
       i = Math.floor(i / 10);
     }
   }
-  return num;
+  return i;
 }
 
 
