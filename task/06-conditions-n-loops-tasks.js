@@ -350,7 +350,7 @@ function isBracketsBalanced(str) {
       return false;
     }
   }
-  return !tempBuffer.length;
+  return tempBuffer.length === 0;
 }
 
 
