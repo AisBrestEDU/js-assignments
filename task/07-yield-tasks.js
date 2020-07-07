@@ -132,11 +132,11 @@ function* depthTraversalTree(root) {
 function* breadthTraversalTree(root) {
     let tree = [root];
     while (tree.length > 0) {
-        let branch = tree.shift();
-        yield branch;
-        if (!branch.children) continue;
-        for (let childs of branch.children)
-            tree.push(childs);
+        root = tree.shift();
+        yield root;
+        if (typeof root.children != 'undefined') //continue;
+            for (let childs of root.children)
+                tree.push(childs);
     }
 }
 
