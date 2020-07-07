@@ -65,7 +65,7 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    return (x) => [...arguments].reverse().reduce((y, el, i) => y += el * x ** i);
+    return (x) => [...arguments].reverse().reduce((y, el, i) => y += el * Math.pow(x, i));
 }
 
 
