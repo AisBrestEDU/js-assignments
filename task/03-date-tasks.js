@@ -8,6 +8,7 @@
  *                                                                                          *
  ********************************************************************************************/
 
+
 /**
  * Parses a rfc2822 string date representation into date value
  * For rfc2822 date specification refer to : http://tools.ietf.org/html/rfc2822#page-14
@@ -24,6 +25,7 @@ function parseDataFromRfc2822(value) {
 	return Date.parse(value);
 }
 
+
 /**
  * Parses an ISO 8601 string date representation into date value
  * For ISO 8601 date specification refer to : https://en.wikipedia.org/wiki/ISO_8601
@@ -38,6 +40,7 @@ function parseDataFromRfc2822(value) {
 function parseDataFromIso8601(value) {
 	return Date.parse(value);
 }
+
 
 /**
  * Returns true if specified date is leap year and false otherwise
@@ -57,6 +60,7 @@ function isLeapYear(date) {
 	const year = date.getFullYear();
 	return !(year % 4) && (!!(year % 100) || (!(year % 100) && !(year % 400)));
 }
+
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -82,13 +86,11 @@ function timeSpanToString(startDate, endDate) {
 	return timeSpanArr.join(':');
 }
 
+
 /**
- * Returns the angle (in radians) between the hands of an analog clock
- * for the specified Greenwich time.
+ * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- *
- * SMALL TIP: convert to radians just once, before return in order to not lost precision
- *
+ * 
  * @param {date} date
  * @return {number}
  *
@@ -111,10 +113,11 @@ function angleBetweenClockHands(date) {
 	return angleInRad > Math.PI ? angleInRad - Math.PI : angleInRad;
 }
 
+
 module.exports = {
-	parseDataFromRfc2822: parseDataFromRfc2822,
-	parseDataFromIso8601: parseDataFromIso8601,
-	isLeapYear: isLeapYear,
-	timeSpanToString: timeSpanToString,
-	angleBetweenClockHands: angleBetweenClockHands,
+    parseDataFromRfc2822: parseDataFromRfc2822,
+    parseDataFromIso8601: parseDataFromIso8601,
+    isLeapYear: isLeapYear,
+    timeSpanToString: timeSpanToString,
+    angleBetweenClockHands: angleBetweenClockHands
 };
