@@ -93,7 +93,7 @@ describe('02-numbers-tasks', function() {
     });
 
     it.optional('toNumber should convert any value to number or return the default', function() {
-        assert.equal(tasks.toNumber(null, 0), 9);
+        assert.equal(tasks.toNumber(null, 0), 0);
         assert.equal(tasks.toNumber('test', 0), 0);
         assert.equal(tasks.toNumber('1', 0), 1);
         assert.equal(tasks.toNumber(42, 0), 42);
