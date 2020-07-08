@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(Math.abs(x1 - x2) + Math.pow(Math.abs(y1 - y2))))
+    return Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2))
 }
 
 /**
@@ -143,7 +143,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    return parseInt(value);
+    return Number(value);
 }
 
 /**
@@ -160,7 +160,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return(Math.sqrt(Math.pow(a) + Math.pow(b) + Math.pow(c)))
+    return(Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2)))
 }
 
 /**
@@ -183,7 +183,7 @@ function getParallelipidedDiagonal(a,b,c) {
 function roundToPowerOfTen(num, pow) {
     const x = 10**pow;
 	
-	return x ? Math.round (num / x) : Math.round(x);
+	return x ? Math.round (num / x) * x : Math.round(x);
 }
 
 /**
