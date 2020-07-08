@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -55,8 +55,19 @@ function parseDataFromIso8601(value) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
+
+ 
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+    if(!(year % 4 == 0)) {
+        return false;
+    } else  if (!(year % 100 == 0)) {
+                return true;
+            } else  if ((year % 400 == 0)) {
+                        return true;
+                    } else {
+                            return false;
+                        }
 }
 
 
@@ -75,8 +86,21 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
+
+
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    let days = endDate.getDay() - startDate.getDay();
+    let hours = endDate.getHours() - startDate.getHours();
+    let min = endDate.getMinutes() - startDate.getMinutes();
+    let sec = endDate.getSeconds() - startDate.getSeconds();
+    let ms = endDate.getMilliseconds() - startDate.getMilliseconds();
+    days == 1 ? hours += 24 : null;
+    hours = hours < 10 ? '0' + hours : hours;
+    min = min < 10 ? '0' + min : min;
+    sec = sec < 10 ? '0' + sec : sec;
+    ms = ms < 10 ? '0' + '0' + ms : ms;
+    ms = ms >= 10 && ms < 100 ? '0' + ms : ms;
+    return `${hours}:${min}:${sec}.${ms}`;
 }
 
 
@@ -94,7 +118,13 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let grad = 0.5 * (60 * date.getUTCHours() - 11 * date.getUTCMinutes());
+    while (grad > 180) {
+        grad = 360 - grad;
+        grad = grad < 0 ? -grad : grad;
+    }
+    let total = grad;
+    return Math.PI / 180 * total;
 }
 
 
