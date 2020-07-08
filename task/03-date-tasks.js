@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,20 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   const year = date.getFullYear();
+   if (year % 4 !== 0) {
+      return false;
+   }
+
+   if (year % 100 !== 0) {
+      return true;
+   }
+
+   if (year % 400 !== 0) {
+      return false;
+   }
+
+   return true;
 }
 
 
@@ -76,7 +89,40 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   const twoDigFormat = (num) => {
+      return num < 10 ? `0${num}` : `${num}`
+   }
+
+   const threeDigFormat = (num) => { 
+      if (num < 10) {
+         return `00${num}`;
+      }
+
+      if (num > 10 && num < 100) {
+         return `0${num}`;
+      } else {
+         return num;
+      }
+   }
+   
+   const timespan = endDate.getTime() - startDate.getTime();
+
+   let millisec = Math.abs(timespan);
+   const days = Math.floor(millisec / (1000 * 60 * 60 * 24));
+   millisec -= days * (1000 * 60 * 60 * 24);
+
+   let hours = Math.floor(millisec / (1000 * 60 * 60));
+   millisec -= hours * (1000 * 60 * 60);
+   
+   const minutes = Math.floor(millisec / (1000 * 60));
+   millisec -= minutes * (1000 * 60);
+   
+   const sec = Math.floor(millisec / (1000));
+   millisec -= sec * (1000);
+   hours = days * 24 + hours;
+
+   const result = `${twoDigFormat(hours)}:${twoDigFormat(minutes)}:${twoDigFormat(sec)}.${threeDigFormat(millisec)}`
+   return result;
 }
 
 
@@ -94,7 +140,15 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hours = date.getUTCHours();
+   const min = date.getMinutes();
+   hours = hours % 12;
+   const minP = 0.5 * min;
+   const hourP = 30 * hours;
+   const minAng = 6 * min;
+   const angle = Math.abs(minP + hourP - minAng);
+   const result = angle > 180 ? 360 - angle : angle;
+   return result * (Math.PI / 180);
 }
 
 
