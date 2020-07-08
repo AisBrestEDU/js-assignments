@@ -9,6 +9,7 @@
  *                                                                                          *
  ********************************************************************************************/
 
+
 /**
  * Returns an area of a rectangle given by width and heigth.
  *
@@ -23,6 +24,7 @@
 function getRectangleArea(width, height) {
 	return width * height;
 }
+
 
 /**
  * Returns a circumference of circle given by radius.
@@ -39,6 +41,7 @@ function getCicleCircumference(radius) {
 	return 2 * Math.PI * radius;
 }
 
+
 /**
  * Returns an average of two given numbers.
  *
@@ -54,6 +57,7 @@ function getCicleCircumference(radius) {
 function getAverage(value1, value2) {
 	return value1 / 2 + value2 / 2;
 }
+
 
 /**
  * Returns a distance beetween two points by cartesian coordinates.
@@ -74,6 +78,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
 	return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
+
 /**
  * Returns a root of linear equation a*x + b = 0 given by coefficients a and b.
  *
@@ -89,6 +94,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
 function getLinearEquationRoot(a, b) {
 	return -b / a;
 }
+
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi,
@@ -116,6 +122,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
 	return Math.acos(cosAngle);
 }
 
+
 /**
  * Returns a last digit of a integer number.
  *
@@ -133,6 +140,7 @@ function getLastDigit(value) {
 	return +strValue[strValue.length - 1];
 }
 
+
 /**
  * Returns a number by given string representation.
  *
@@ -148,6 +156,7 @@ function parseNumberFromString(value) {
 	return +value;
 }
 
+
 /**
  * Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c.
  *
@@ -161,9 +170,10 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(a, b, c) {
+function getParallelipidedDiagonal(a,b,c) {
 	return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2));
 }
+
 
 /**
  * Returns the number rounded to specified power of 10.
@@ -171,7 +181,7 @@ function getParallelipidedDiagonal(a, b, c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *
+ *  
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -187,13 +197,14 @@ function roundToPowerOfTen(num, pow) {
 	return Math.round(num / powerOfTen) * powerOfTen;
 }
 
+
 /**
  * Returns true is the number is prime; otherwise false.
  * See: https://en.wikipedia.org/wiki/Primality_test
  *
  * @param {number} n
  * @return {bool}
- *
+ * 
  * @example:
  *   4 => false
  *   5 => true
@@ -212,6 +223,7 @@ function isPrime(n) {
 	}
 	return n > 1;
 }
+
 
 /**
  * Tries to convert value to number and returns it if conversion was successfull;
@@ -236,17 +248,18 @@ function toNumber(value, def) {
 	return def;
 }
 
+
 module.exports = {
-	getRectangleArea: getRectangleArea,
-	getCicleCircumference: getCicleCircumference,
-	getAverage: getAverage,
-	getDistanceBetweenPoints: getDistanceBetweenPoints,
-	getLinearEquationRoot: getLinearEquationRoot,
-	getAngleBetweenVectors: getAngleBetweenVectors,
-	getLastDigit: getLastDigit,
-	parseNumberFromString: parseNumberFromString,
-	getParallelipidedDiagonal: getParallelipidedDiagonal,
-	roundToPowerOfTen: roundToPowerOfTen,
-	isPrime: isPrime,
-	toNumber: toNumber,
+    getRectangleArea: getRectangleArea,
+    getCicleCircumference: getCicleCircumference,
+    getAverage: getAverage,
+    getDistanceBetweenPoints: getDistanceBetweenPoints,
+    getLinearEquationRoot: getLinearEquationRoot,
+    getAngleBetweenVectors: getAngleBetweenVectors,
+    getLastDigit: getLastDigit,
+    parseNumberFromString: parseNumberFromString,
+    getParallelipidedDiagonal: getParallelipidedDiagonal,
+    roundToPowerOfTen: roundToPowerOfTen,
+    isPrime: isPrime,
+    toNumber: toNumber
 };
