@@ -408,7 +408,7 @@ function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-  throw new Error("Not implemented");
+  return arr.join(",");
 }
 
 /**
@@ -592,7 +592,7 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
-
+ 
   throw new Error("Not implemented");
 }
 
