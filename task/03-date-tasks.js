@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,9 +56,18 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+  
+   let dateObj = new Date(date);
+   let year = dateObj.getFullYear();
+   if(year % 4)
+   return false;
+   else if (year % 100)
+   return true;
+   else if (year % 400)
+   return false;
+   else   
+   return true;
 }
-
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -76,7 +85,24 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+  
+   let timespan = endDate.getTime() - startDate.getTime();
+   
+   let hours = Math.floor(timespan / (1000 * 60 * 60 ));
+   timespan -= hours * 1000 * 60 * 60;
+
+   let minutes = Math.floor(timespan / (1000 * 60));
+   timespan -= minutes * 1000 * 60;
+
+   let seconds = Math.floor(timespan / (1000));
+   timespan -= seconds * 1000;
+
+   let milliseconds = timespan;
+   let time = ("0" + hours).slice(-2) + ":" +
+      ("0" + minutes).slice(-2) + ":" +
+      ("0" + seconds).slice(-2) + "." +
+      ("00" + milliseconds).slice(-3);
+   return time;
 }
 
 
@@ -94,7 +120,21 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+
+   let dateObj = new Date(date);
+   let angle = 0.5 * (60 * dateObj.getUTCHours() - 11 * dateObj.getUTCMinutes());
+
+   let coefForRadian = Math.PI /180;
+  
+   if(angle > 180)
+   {  
+      if(angle % 180 == 0)
+         return Math.PI;
+      if(angle < 360)
+         return (360 - angle) * coefForRadian;
+      return (angle % 180) * coefForRadian;
+   }
+   return angle * coefForRadian;
 }
 
 
