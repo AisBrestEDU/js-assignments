@@ -17,8 +17,34 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    const sides = ['N','E','S','W'];  
+    let side = 0;
+    while(side < sides.length) {
+        const s1 = sides[side];
+        const s2 = sides[(side + 1) % sides.length];
+        if((sides.length - side) % 2 == 0) sides.splice(side + 1, 0, s1 + s2);
+        else sides.splice(side + 1, 0, s2 + s1);
+        side = side + 2;
+    }
+    side = 0;
+    while(side < sides.length){
+        const s1 = sides[side];
+        const s2 = sides[(side + 1) % sides.length];
+        if(s1.length < s2.length) sides.splice(side + 1, 0, s1 + s2);
+        else sides.splice(side + 1, 0, s2 + s1);
+        side = side + 2;
+    }
+    side = 0;
+    while(side < sides.length){
+        const s1 = sides[side];
+        const s2 = sides[(side + 1) % sides.length];
+        if(s1.length < s2.length) sides.splice(side + 1, 0, s1 + 'b' + s2.replace(new RegExp(s1, 'g'), ''));
+        else sides.splice(side + 1, 0, s2 + 'b' + s1.replace(new RegExp(s2, 'g'), ''));
+        side = side + 2;
+    }
+    return sides.map(function(current, currentIndex){
+        return { abbreviation : current,   azimuth : currentIndex * 11.25 };
+    });
 }
 
 
