@@ -79,7 +79,14 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let dif = endDate - startDate,
+       date = new Date(),
+       hour = Math.floor(dif / 3.6e6),
+       min = Math.floor((dif - hour * 3.6e6) / 6e4),
+       sec = Math.floor((dif - hour * 3.6e6 - min * 6e4) / 1e3),
+       msec = dif - hour * 3.6e6 - min * 6e4 - sec * 1e3;
+   return ('0' + hour).slice(-2) + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2) + '.' + (msec + '00').slice(0, 3);
+   //throw new Error('Not implemented');
 }
 
 
@@ -97,7 +104,31 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let map = new Map(),
+       date2 = new Date(date),
+       hour = date2.getUTCHours();
+
+   if (hour >= 12) hour -= 12;
+
+   map.set(0, 0)
+      .set(30, Math.PI / 6)
+      .set(45, Math.PI / 4)
+      .set(60, Math.PI / 3)
+      .set(90, Math.PI / 2)
+      .set(180, Math.PI);
+
+   let min = date2.getUTCMinutes(),
+       hour2 = 0.5 * (60 * hour + min),
+       mih = 6 * min,
+       ang = Math.abs(hour2 - mih);
+   
+   if (ang > 180) ang -= 180;
+   
+   let res = map.get(Math.abs(ang));
+   
+   if (res == null && res == undefined) return ang * Math.PI / 180 
+   else return res;
+   //throw new Error('Not implemented');
 }
 
 
