@@ -25,7 +25,7 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.acos(x))
  *
  */
-function getComposition(f,g) {
+function getComposition(f, g) {
     return x => f(g(x));
 }
 
@@ -111,13 +111,19 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
+    let attempt = 0;
     return function main() {
         let result;
-        for (let i = 0; i < attempts; i += 1) {
+        for (let i = 0; i < attempts; i++) {
             try {
                 result = func();
-            } catch (e) {
-                throw e;
+            } catch (err) {
+                if (attempt < attempts) {
+                    attempt++;
+                    result = main();
+                } else {
+                    throw err;
+                }
             }
         }
         return result;
@@ -175,7 +181,7 @@ function logger(func, logFunc) {
 function partialUsingArguments(fn) {
     //https://codeburst.io/creating-partially-applied-functions-in-javascript-1f623a56d055
     const args = Array.from(arguments).slice(1);
-    return function() {
+    return function () {
         return fn.apply(null, args.concat(Array.from(arguments)));
     };
 }
