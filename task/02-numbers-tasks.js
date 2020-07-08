@@ -246,7 +246,6 @@ function toNumber(value, def) {
 	return def;
 }
 
-
 module.exports = {
     getRectangleArea: getRectangleArea,
     getCicleCircumference: getCicleCircumference,
