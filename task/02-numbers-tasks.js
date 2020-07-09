@@ -161,7 +161,6 @@ function parseNumberFromString(value) {
  */
 function getParallelipidedDiagonal(a,b,c) {
     throw new Error('Not implemented');
-
 }
 
 /**
