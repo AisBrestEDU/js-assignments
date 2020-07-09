@@ -76,8 +76,8 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    var sum = 0;
-    for (var i = n1; i <= n2; i++) {
+    let sum = 0;
+    for (let i = n1; i <= n2; i++) {
         sum += i;
     }
     return sum;
@@ -209,8 +209,8 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    var min = Math.min(a, b);
-    var max = Math.max(a, b);
+    let min = Math.min(a, b);
+    let max = Math.max(a, b);
     return `${isStartIncluded ? '[' : '('}${min}, ${max}${isEndIncluded ? ']' : ')'}`;
 }
 
@@ -271,8 +271,8 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
     ccn = String(ccn);
-    var length = ccn.length;
-    var sum = 0;
+    let length = ccn.length;
+    let sum = 0;
     let doubleNumber = false;
     for (let i = length - 1; i >= 0; i--) {
         let tempNumber = +ccn[i];
@@ -302,7 +302,7 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    var sum = 0;
+    let sum = 0;
     while (num) {
         sum += num % 10;
         num = Math.floor(num / 10);
@@ -443,8 +443,8 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    for (var i = 0; i < pathes[0].length; i++) {
-        for (var j = 1; j < pathes.length; j++) {
+    for (let i = 0; i < pathes[0].length; i++) {
+        for (let j = 1; j < pathes.length; j++) {
             if (pathes[0][i] !== pathes[j][i]) {
                 let commonPath = pathes[0].substring(0, i);
                 return commonPath.substring(0, commonPath.lastIndexOf('/') + 1);
@@ -473,13 +473,13 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    var r1 = m1.length, c1 = m1[0].length, c2 = m2[0].length;
-    var m = new Array(r1);
-    for (var r = 0; r < r1; r++) {
+    let r1 = m1.length, c1 = m1[0].length, c2 = m2[0].length;
+    let m = new Array(r1);
+    for (let r = 0; r < r1; r++) {
         m[r] = new Array(c2);
-        for (var c = 0; c < c2; c++) {
+        for (let c = 0; c < c2; c++) {
             m[r][c] = 0;
-            for (var i = 0; i < c1; i++) {
+            for (let i = 0; i < c1; i++) {
                 m[r][c] += m1[r][i] * m2[i][c];
             }
         }
@@ -525,8 +525,8 @@ function evaluateTicTacToePosition(position) {
         }
         return undefined;
     }
-    for (var i = 0; i < 3; i++) {
-        var winner = check(position[i][0], position[i][1], position[i][2]);
+    for (let i = 0; i < 3; i++) {
+        let winner = check(position[i][0], position[i][1], position[i][2]);
         if (winner !== undefined) {
             return winner;
         }
