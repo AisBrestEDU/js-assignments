@@ -34,15 +34,15 @@
  */
 function* get99BottlesOfBeer() {
     let i = 99;
-    let checkBottles = (i) =>
-    {
+    let checkBottles = (i) => {
         return i == 1 ? "bottle" : "bottles";
     }
-    while (i > 0)
-    {
+
+    while (i > 0) {
         yield `${i} ${checkBottles(i)} of beer on the wall, ${i} ${checkBottles(i)} of beer.`;
         yield `Take one down and pass it around, ${--i == 0 ? `no more` : i} ${checkBottles(i)} of beer on the wall.`;
     }
+
     yield "No more bottles of beer on the wall, no more bottles of beer.";
     yield "Go to the store and buy some more, 99 bottles of beer on the wall.";
 }
@@ -61,8 +61,7 @@ function* getFibonacciSequence() {
     let preview = 0;
     let next = 1;
 
-    while(true)
-    {
+    while(true) {
         let current = preview;
         preview = next;
         next += current;
@@ -105,15 +104,12 @@ function* getFibonacciSequence() {
 function* depthTraversalTree(root) {
     let nodes = [root];
 
-    while(nodes.length > 0)
-    {
+    while(nodes.length > 0) {
         let node = nodes[nodes.length - 1];
         yield node;
         nodes.pop();
-        if(node.children)
-        {
-            for(let i of node.children.reverse())
-            {
+        if(node.children) {
+            for(let i of node.children.reverse()) {
                 nodes.push(i);
             }
         }
@@ -146,14 +142,11 @@ function* breadthTraversalTree(root) {
     let nodes = [root];
     let index = 0
 
-    while((nodes.length - index) > 0)
-    {
+    while((nodes.length - index) > 0) {
         let node = nodes[index];
         yield node;
-        if(node.children)
-        {
-            for(let i of node.children)
-            {
+        if(node.children) {
+            for(let i of node.children) {
                 nodes.push(i);
             }
         }
@@ -178,8 +171,8 @@ function* breadthTraversalTree(root) {
 function* mergeSortedSequences(source1, source2) {
     source1 = source1();
     source2 = source2();
-    while(true)
-    {
+
+    while(true) {
         let s1 = source1.next();
         let s2 = source2.next();
         if(s1.done) yield s2.value;
@@ -208,10 +201,8 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     let gen = generator();
-    function nextValue(result)
-    {
-        if (result.done)
-        {
+    function nextValue(result) {
+        if (result.done) {
             return result.value;
         }
         return result.value.then(res => nextValue(gen.next(res)));
