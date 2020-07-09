@@ -23,7 +23,11 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = function() {
+        return this.width * this.height;
+    }
 }
 
 
@@ -38,7 +42,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +58,9 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    let obj = JSON.parse(json);
+    obj.__proto__ = proto;
+    return obj;
 }
 
 
@@ -109,33 +115,185 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new BaseSelector(new Element(value));
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new BaseSelector(new Id(value, null));
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new BaseSelector(new Class(value, null));
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new BaseSelector(new Attribute(value, null));
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new BaseSelector(new PseudoClass(value, null));
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new BaseSelector(new PseudoElement(value, null));
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return new Combination(selector1, combinator, selector2);
     },
 };
+
+class Combination{
+    constructor(selector1, combinator, selector2) {
+        this.data = selector1.stringify() + ` ${combinator} ` + selector2.stringify();
+    }
+    stringify(){
+        return this.data;
+    }
+}
+
+class BaseSelector{
+    constructor(selector) {
+        this.prevSelector = selector;
+        this.definitions = ['Element', 'Id', 'Class', 'Attribute', 'PseudoClass', 'PseudoElement']
+    }
+    element(value) {
+        if (this.definitions.indexOf(this.prevSelector.constructor.name) == this.definitions.indexOf('Element')){
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
+        } else {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+        return this;
+    }
+    id(value){
+        if (this.definitions.indexOf(this.prevSelector.constructor.name) < this.definitions.indexOf('Id')){
+            this.prevSelector = new Id(value, this.prevSelector);
+        } else if (this.definitions.indexOf(this.prevSelector.constructor.name) == this.definitions.indexOf('Id')){
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
+        } else {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+        return this;
+    }
+    class(value){
+        if (this.definitions.indexOf(this.prevSelector.constructor.name) <= this.definitions.indexOf('Class')){
+            this.prevSelector = new Class(value, this.prevSelector);
+        } else {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+        return this;
+    }
+    attr(value){
+        if (this.definitions.indexOf(this.prevSelector.constructor.name) <= this.definitions.indexOf('Attribute')){
+            this.prevSelector = new Attribute(value, this.prevSelector);
+        } else {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+        return this;
+    }
+    pseudoClass(value){
+        if (this.definitions.indexOf(this.prevSelector.constructor.name) <= this.definitions.indexOf('PseudoClass')){
+            this.prevSelector = new PseudoClass(value, this.prevSelector);
+        } else {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+        return this;
+    }
+    pseudoElement(value){
+        if (this.definitions.indexOf(this.prevSelector.constructor.name) < this.definitions.indexOf('PseudoElement')){
+            this.prevSelector = new PseudoElement(value, this.prevSelector);
+        } else if (this.definitions.indexOf(this.prevSelector.constructor.name) == this.definitions.indexOf('PseudoElement')){
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
+        } else {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+        return this;
+    }
+    stringify() {
+        return this.prevSelector.stringify();
+    }
+}
+
+class Element{
+    constructor(value) {
+        this.data = value;
+        //this.name = 'Element';
+    }
+    stringify() {
+        return this.data;
+    }
+}
+
+class Id{
+    constructor(value, prevSelector) {
+        this.data = value;
+        this.prevSelector = prevSelector;
+        //this.name = 'Id';
+    }
+    stringify() {
+        if (this.prevSelector){
+        return this.prevSelector.stringify()+ '#' + this.data;
+        }
+        else return '#'+this.data;
+    }
+}
+
+class Class{
+    constructor(value, prevSelector) {
+        this.data = value;
+        this.prevSelector = prevSelector;
+        //this.name = 'Class';
+    }
+    stringify() {
+        if (this.prevSelector){
+        return this.prevSelector.stringify()+ '.' + this.data;
+        }
+        else return '.' +this.data;
+    }
+}
+
+
+class Attribute{
+    constructor(value, prevSelector) {
+        this.data = value;
+        this.prevSelector = prevSelector;
+        //this.name = 'Attribute';
+    }
+    stringify() {
+        if (this.prevSelector){
+        return this.prevSelector.stringify()+ '[' + this.data+']';
+        }
+        else return '[' + this.data+']';
+    }
+    
+}
+
+class PseudoClass{
+    constructor(value, prevSelector) {
+        this.data = value;
+        this.prevSelector = prevSelector;
+    }
+    stringify() {
+        if (this.prevSelector){
+        return this.prevSelector.stringify()+ ':' + this.data;
+        }
+        else return ':' +this.data;
+    }
+}
+
+class PseudoElement{
+    constructor(value, prevSelector) {
+        this.data = value;
+        this.prevSelector = prevSelector;
+    }
+    stringify() {
+        if (this.prevSelector){
+        return this.prevSelector.stringify()+ '::' + this.data;
+        }
+        else return '::' +this.data;
+    }
+}
+
 
 
 module.exports = {
