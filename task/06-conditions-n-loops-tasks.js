@@ -134,23 +134,7 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    let minRect1x = rect1.left,
-        minRect1y = rect1.top,
-        maxRect1x = rect1.left + rect1.width,
-        maxRect1y = rect1.top + rect1.height,
-        minRect2x = rect2.left,
-        minRect2y = rect2.top,
-        maxRect2x = rect2.left + rect2.width,
-        maxRect2y = rect2.top + rect2.height,
-        r1LeftOfr2 = maxRect1x < minRect2x,
-        r1RightOfr2 = minRect1x > maxRect2x,
-        r1Abover2 = minRect1y > maxRect2y,
-        r1Belowr2 = maxRect1y < minRect2y;
-
-    return !( r1LeftOfr2 || r1RightOfr2 || r1Abover2 || r1Belowr2 );
-
-    
-    //return (( ( rect1.top < (rect2.top + rect2.height)) && ((rect1.top + rect1.height) > rect2.top) ) || (((rect1.width + rect1.left) < rect2.left) && (rect1.left > (rect2.left+ rect2.width))))
+    return !( rect1.left + rect1.width < rect2.left || rect1.left > rect2.left + rect2.width || rect1.top > rect2.top + rect2.height || rect1.top + rect1.height < rect2.top );
     
     //throw new Error('Not implemented');
 }
@@ -183,7 +167,9 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    return ((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 <= (circle.radius - 0.00001) ** 2);
+    
+    //throw new Error('Not implemented');
 }
 
 
