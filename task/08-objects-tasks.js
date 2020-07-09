@@ -23,7 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width,
+    this.height = height,
+
+  Rectangle.prototype.getArea = function() {
+    return this.width * this.height;
+  }
 }
 
 
@@ -38,7 +43,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+  return JSON.stringify(obj);
 }
 
 
@@ -54,7 +59,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+  return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -109,34 +114,113 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+      return new ElementSelector().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+      return new ElementSelector().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+      return new ElementSelector().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+      return new ElementSelector().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+      return new ElementSelector().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+      return new ElementSelector().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+      return new ElementSelector().combine(selector1, combinator, selector2);
     },
 };
 
+class ElementSelector {
+  constructor() {
+    this.selector = '';
+    this.index = 0;
+  }
+
+  element(name) {
+    if ( this.index === 1 ) {
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    } else if ( this.index > 1 ) {
+      throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+    
+    this.selector = `${this.selector}${name}`;
+    this.index = 1;
+    return this;
+  }
+
+  id(name) {
+    if ( this.index === 2 ) {
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    } else if (this.index > 2 ) {
+      throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    this.selector = `${this.selector}#${name}`;
+    this.index = 2;
+    return this;
+  }
+
+  class(name) {
+    if (this.index > 3 ) {
+      throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    this.selector = `${this.selector}.${name}`;
+    this.index = 3;
+    return this;
+  }
+
+  attr(name) {
+    if (this.index > 4 ) {
+      throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    this.selector = `${this.selector}[${name}]`;
+    this.index = 4;
+    return this;
+  }
+
+  pseudoClass(name) {
+    if (this.index > 5 ) {
+      throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    this.selector = `${this.selector}:${name}`;
+    this.index = 5;
+    return this;
+  }
+
+  pseudoElement(name) {
+    if ( this.index === 6 ) {
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    }
+    
+    this.selector = `${this.selector}::${name}`;
+    this.index = 6;
+    return this;
+  }
+
+  combine(selector1, combinator, selector2) {
+    this.selector = `${selector1.selector} ${combinator} ${selector2.selector}`;
+    return this;
+  }
+
+  stringify() {
+    return this.selector;
+  }
+}
 
 module.exports = {
     Rectangle: Rectangle,
