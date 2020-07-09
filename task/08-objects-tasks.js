@@ -23,10 +23,14 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    return this;
 }
 
-
+Rectangle.prototype.getArea = function(){
+    return this.height*this.width;
+}
 /**
  * Returns the JSON representation of specified object
  *
@@ -38,7 +42,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +58,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -109,33 +113,153 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilder().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilder().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilder().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilder().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilder().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new SelectorBuilder().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return selector1.chain(combinator, selector2);
     },
 };
+
+let stages = Object.freeze({
+    element: 0,
+    id: 1,
+    class: 2,
+    attr: 3,
+    pseudoClass: 4,
+    pseudoElement: 5
+});
+
+class SelectorBuilder {
+    constructor() {
+        this.stage = stages.element;
+        this.follow = [];
+        this.content = {
+            element: undefined,
+            id: undefined,
+            classes: [],
+            attributes: [],
+            pseudoClasses: [],
+            pseudoElement: undefined
+        };
+    }
+
+    element(value) {
+        if (this.stage > stages.element) {
+            throw new Error('Selector parts should be arranged in the following ' +
+                'order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+
+        if (this.content.element === undefined) {
+            this.content.element = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element ' +
+                'should not occur more then one time inside the selector');
+        }
+    }
+
+    id(value) {
+        if (this.stage > stages.id) {
+            throw new Error('Selector parts should be arranged in the following ' +
+                'order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        this.stage = stages.id;
+
+        if (this.content.id === undefined) {
+            this.content.id = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element ' +
+                'should not occur more then one time inside the selector');
+        }
+    }
+
+    class(value) {
+        if (this.stage > stages.class) {
+            throw new Error('Selector parts should be arranged in the following ' +
+                'order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        this.stage = stages.class;
+
+        this.content.classes.push(value);
+        return this;
+    }
+
+    attr(value) {
+        if (this.stage > stages.attr) {
+            throw new Error('Selector parts should be arranged in the following ' +
+                'order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        this.stage = stages.attr;
+
+        this.content.attributes.push(value);
+        return this;
+    }
+
+    pseudoClass(value) {
+        if (this.stage > stages.pseudoClass) {
+            throw new Error('Selector parts should be arranged in the following ' +
+                'order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        this.stage = stages.pseudoClass;
+
+        this.content.pseudoClasses.push(value);
+        return this;
+    }
+
+    pseudoElement(value) {
+        if (this.stage > stages.pseudoElement) {
+            throw new Error('Selector parts should be arranged in the following ' +
+                'order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        this.stage = stages.pseudoElement;
+
+        if (this.content.pseudoElement === undefined) {
+            this.content.pseudoElement = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element ' +
+                'should not occur more then one time inside the selector');
+        }
+    }
+
+    stringify() {
+        return (this.content.element !== undefined ? this.content.element : '') +
+            (this.content.id !== undefined ? '#' + this.content.id : '') +
+            (this.content.classes.length ? '.' + this.content.classes.join('.') : '') +
+            (this.content.attributes.length ? this.content.attributes.map(elem => `[${elem}]`).join('') : '') +
+            (this.content.pseudoClasses.length ? ':' + this.content.pseudoClasses.join(':') : '') +
+            (this.content.pseudoElement !== undefined ? '::' + this.content.pseudoElement : '') +
+            (this.follow.length ?
+                this.follow.map(elem => ` ${elem.combinator} ` + elem.element.stringify()).join('') : '');
+    }
+
+    chain(combinator, chainable) {
+        this.follow.push({combinator: combinator, element: chainable});
+        return this;
+    }
+}
 
 
 module.exports = {
