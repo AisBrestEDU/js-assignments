@@ -30,7 +30,12 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    if (num % 3 == 0 && num % 5 == 0) return 'FizzBuzz'
+        else if(num % 3 == 0) return 'Fizz'
+            else if(num % 5 == 0) return 'Buzz'
+                else return num;
+    
+    //throw new Error('Not implemented');
 }
 
 
@@ -46,7 +51,11 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let fac = 1;
+    for (let i = 1; i <= n; i++) fac *= i;
+    return fac;
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -63,7 +72,10 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    for (let i = n1; i <= n2; i++) sum +=i;
+    return sum;
+    //throw new Error('Not implemented');
 }
 
 
@@ -82,7 +94,10 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a) return false
+        else return true;
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -119,7 +134,25 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    let minRect1x = rect1.left,
+        minRect1y = rect1.top,
+        maxRect1x = rect1.left + rect1.width,
+        maxRect1y = rect1.top + rect1.height,
+        minRect2x = rect2.left,
+        minRect2y = rect2.top,
+        maxRect2x = rect2.left + rect2.width,
+        maxRect2y = rect2.top + rect2.height,
+        r1LeftOfr2 = maxRect1x < minRect2x,
+        r1RightOfr2 = minRect1x > maxRect2x,
+        r1Abover2 = minRect1y > maxRect2y,
+        r1Belowr2 = maxRect1y < minRect2y;
+
+    return !( r1LeftOfr2 || r1RightOfr2 || r1Abover2 || r1Belowr2 );
+
+    
+    //return (( ( rect1.top < (rect2.top + rect2.height)) && ((rect1.top + rect1.height) > rect2.top) ) || (((rect1.width + rect1.left) < rect2.left) && (rect1.left > (rect2.left+ rect2.width))))
+    
+    //throw new Error('Not implemented');
 }
 
 
