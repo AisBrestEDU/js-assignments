@@ -123,7 +123,7 @@ function angleBetweenClockHands(date) {
 	const x = (y2 * x1) - (x2 * y1);
 	const y = (x2 * x1) + (y2 * y1);
  	
-	return Math.atan2(x, y);
+	return Math.abs(Math.atan2(x, y));
 }
 
 
