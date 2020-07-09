@@ -115,15 +115,9 @@ function angleBetweenClockHands(date) {
 	const hourHandPosition = ((dateParsed.getHours() % 12) / 6 * Math.PI) + dateParsed.getMinutes() / 360 * Math.PI;
 	const minuteHandPosition = dateParsed.getMinutes() / 30 * Math.PI;
 	
-	const x1 = Math.cos(hourHandPosition);
-	const x2 = Math.cos(minuteHandPosition);
-	const y1 = Math.sin(hourHandPosition);
-	const y2 = Math.sin(minuteHandPosition);
+	const angle = hourHandPosition - minuteHandPosition;
 	
-	const x = (y2 * x1) - (x2 * y1);
-	const y = (x2 * x1) + (y2 * y1);
- 	
-	return Math.abs(Math.atan2(x, y));
+	return angle > Math.PI ? Math.PI * 2 - angle : angle;
 }
 
 
