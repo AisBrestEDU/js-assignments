@@ -81,17 +81,17 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   const timeSpan = Math.abs(new Date(endDate - startDate).valueOf());
+   const timeSpan = new Date(endDate - startDate);
 	
-   const msec = timeSpan % 1000;
-   const sec = ((timeSpan - msec) / 1000) % 60;
-   const m = ((((timeSpan - msec) / 1000) - sec) / 60) % 60;
-   const h = (((timeSpan - msec) / 1000) - m) / 60;
+   let mseconds = timeSpan.getMilliseconds();
+   let seconds = timeSpan.getSeconds();
+   let minutes = timeSpan.getMinutes();
+   let hours = (((((Math.abs(timeSpan.valueOf()) - mseconds) / 1000) - seconds) / 60) - minutes) / 60;
 	
-   const hours = ('0' + h).slice(-2);
-   const minutes = ('0' + m).slice(-2);
-   const seconds = ('0' + sec).slice(-2);
-   const mseconds = ('00' + msec).slice(-3);
+   hours = ('0' + hours).slice(-2);
+   minutes = ('0' + minutes).slice(-2);
+   seconds = ('0' + seconds).slice(-2);
+   mseconds = ('00' + mseconds).slice(-3);
 	
    return `${hours}:${minutes}:${seconds}.${mseconds}`;
 }
@@ -115,7 +115,12 @@ function angleBetweenClockHands(date) {
 	const hourHandPosition = ((dateParsed.getHours() % 12) / 6 * Math.PI) + dateParsed.getMinutes() / 360 * Math.PI;
 	const minuteHandPosition = dateParsed.getMinutes() / 30 * Math.PI;
 	
-	return Math.abs(hourHandPosition - minuteHandPosition);
+	const x1 = Math.cos(hourHandPosition);
+	const x2 = Math.cos(minuteHandPosition);
+	const y1 = Math.sin(hourHandPosition);
+	const y2 = Math.sin(minuteHandPosition);
+	
+	return atan2(y2 * x1 ‒ x2 * y1, x2 * x1 + y2 * y1)
 }
 
 
