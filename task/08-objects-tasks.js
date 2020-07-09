@@ -23,7 +23,11 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = function() {
+        return this.width * this.height;
+    }
 }
 
 
@@ -38,7 +42,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +58,9 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    let obj = JSON.parse(json);
+    obj.__proto__ = proto;
+    return obj;
 }
 
 
@@ -106,34 +112,148 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+class MySuperBaseSelector {
+    constructor(value) {
+        this.occurenceArray = [];
+        this.orderArray = [];
+
+        if (value === undefined) {
+            this.str = '';
+        } else {
+            this.str = value;
+        }
+    }
+
+    stringify() {
+        return this.str;
+    }
+
+    validateOccurence(value) {
+        if ([1, 2, 6].indexOf(value) != -1 && this.occurenceArray.indexOf(value) != -1) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        } else {
+            this.occurenceArray.push(value);
+        }
+    }
+
+    validateOrder(value) {
+        if (this.orderArray.length > 0 && this.orderArray[this.orderArray.length - 1] > value) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        } else {
+            this.orderArray.push(value);
+        }
+    }
+
+    element(value) {
+        this.str += `${value}`;
+        this.validateOccurence(1);
+        this.validateOrder(1);
+        return this;
+    }
+
+    id(value) {
+        this.str += `#${value}`;
+        this.validateOccurence(2);
+        this.validateOrder(2);
+        return this;
+    }
+
+    class(value) {
+        this.str += `.${value}`;
+        this.validateOrder(3);
+        return this;
+    }
+
+    attr(value) {
+        this.str += `[${value}]`;
+        this.validateOrder(4);
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.str += `:${value}`;
+        this.validateOrder(5);
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.str += `::${value}`;
+        this.validateOccurence(6);
+        this.validateOrder(6);
+        return this;
+    }
+}
+
+class MySuperBaseElementSelector extends MySuperBaseSelector {
+    constructor(value) {
+        super();
+        this.element(value);
+    }
+}
+
+class MySuperBaseIdSelector extends MySuperBaseSelector {
+    constructor(value) {
+        super();
+        this.id(value);
+    }
+}
+
+class MySuperBaseClassSelector extends MySuperBaseSelector {
+    constructor(value) {
+        super();
+        this.class(value);
+    }
+}
+
+class MySuperBaseAttrSelector extends MySuperBaseSelector {
+    constructor(value) {
+        super();
+        this.attr(value);
+    }
+}
+
+class MySuperBasePseudoClassSelector extends MySuperBaseSelector {
+    constructor(value) {
+        super();
+        this.pseudoClass(value);
+    }
+}
+
+class MySuperBasePseudoElementSelector extends MySuperBaseSelector {
+    constructor(value) {
+        super();
+        this.pseudoElement(value);
+    }
+}
+
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperBaseElementSelector(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperBaseIdSelector(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperBaseClassSelector(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperBaseAttrSelector(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperBasePseudoClassSelector(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperBasePseudoElementSelector(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return new MySuperBaseSelector(`${selector1.str} ${combinator} ${selector2.str}`);
     },
 };
 
