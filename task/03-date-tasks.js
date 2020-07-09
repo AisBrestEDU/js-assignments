@@ -120,7 +120,10 @@ function angleBetweenClockHands(date) {
 	const y1 = Math.sin(hourHandPosition);
 	const y2 = Math.sin(minuteHandPosition);
 	
-	return atan2(y2 * x1 ‒ x2 * y1, x2 * x1 + y2 * y1)
+	const x = (y2 * x1) - (x2 * y1);
+	const y = (x2 * x1) + (y2 * y1);
+ 	
+	return Math.atan2(x, y);
 }
 
 
