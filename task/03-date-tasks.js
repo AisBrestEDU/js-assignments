@@ -112,14 +112,14 @@ function timeSpanToString(startDate, endDate) {
 function angleBetweenClockHands(date) {
 	const dateParsed = new Date(date);
 	
-	const hourHandPosition = ((dateParsed.getHours() % 12) / 6 * Math.PI) + dateParsed.getMinutes() / 360 * Math.PI;
-	const minuteHandPosition = dateParsed.getMinutes() / 30 * Math.PI;
+	let angle = Math.abs(0.5 * (60 * (dateParsed.getHours() % 12) - 11 * dateParsed.getMinutes()));
 	
-	const angle = Math.abs(hourHandPosition - minuteHandPosition);
+	if (angle > 180) {
+		angle = 360 - angle;
+	}
 	
-	return angle > Math.PI ? Math.PI * 2 - angle : angle;
+	return angle * Math.PI / 180;
 }
-
 
 module.exports = {
     parseDataFromRfc2822: parseDataFromRfc2822,
