@@ -23,7 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width,
+    this.height = height,
+
+    Rectangle.prototype.getArea = function() {
+        return this.width * this.height;
+    }
 }
 
 
@@ -38,7 +43,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +59,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -107,33 +112,72 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
+    result: '',
 
     element: function(value) {
-        throw new Error('Not implemented');
+        this.error(1);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.key = 1;
+        obj.result = this.result + value;
+        return obj;
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        this.error(2);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.key = 2;
+        obj.result = this.result + '#' + value;
+        return obj;
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        this.error(3);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.key = 3;
+        obj.result = this.result + '.' + value;
+        return obj;
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        this.error(4);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.key = 4;
+        obj.result = this.result + '[' + value + ']';
+        return obj;
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        this.error(5);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.key = 5;
+        obj.result = this.result + ':' + value;
+        return obj;
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        this.error(6);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.key = 6;
+        obj.result = this.result + '::' + value;
+        return obj;
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        let obj = Object.create(cssSelectorBuilder);
+        obj.result = selector1.result + ' ' + combinator + ' ' + selector2.result;
+        return obj;
+    },
+
+    stringify: function() {
+        return this.result;
+    },
+
+    error: function(key2) {
+        if (this.key > key2) {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        } else if (this.key == key2 && (key2 == 1 || key2 == 2 || key2 == 6)) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
     },
 };
 
@@ -144,3 +188,4 @@ module.exports = {
     fromJSON: fromJSON,
     cssSelectorBuilder: cssSelectorBuilder
 };
+
