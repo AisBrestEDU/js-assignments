@@ -26,7 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    throw new Error('Not implemented');
+  return x => f(g(x));
 }
 
 
@@ -47,7 +47,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+  return x => x**exponent;
 }
 
 
@@ -65,7 +65,9 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+  return x => Array.from(arguments)
+                   .reverse()
+                   .reduce((acc, cur, i) => acc + cur * x**(i), null);
 }
 
 
@@ -84,7 +86,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+  let cache = func();
+  return () => cache;
 }
 
 
@@ -104,7 +107,18 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+  return () => {
+    while(attempts--) {
+      
+      try {
+        return func();
+
+      } catch(err) {
+        if(!attempts) throw err;
+      }
+
+    }
+  };
 }
 
 
@@ -132,7 +146,15 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+  return (...args) => {
+    let logString = `${func.name}(${JSON.stringify(args).slice(1, -1)})`;
+
+    logFunc(`${logString} starts`);
+    let res = func(...args);
+    logFunc(`${logString} ends`);
+  
+    return res;
+  }
 }
 
 
@@ -149,8 +171,8 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args) {
+  return (...newArgs) => fn(...args, ...newArgs); 
 }
 
 
@@ -171,7 +193,8 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+  let id = startFrom;
+  return () => id++;
 }
 
 
