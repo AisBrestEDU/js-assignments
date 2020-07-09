@@ -81,7 +81,14 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   const timeSpan = new Date(endDate - startDate);
+	
+   const hours = ('0' + timeSpan.getHours()).slice(-2);
+   const minutes = ('0' + timeSpan.getMinutes()).slice(-2);
+   const seconds = ('0' + timeSpan.getSeconds()).slice(-2);
+   const mseconds = ('00' + timeSpan.getMilliseconds()).slice(-3);
+	
+   return `${hours}:${minutes}:${seconds}.${mseconds}`;
 }
 
 
@@ -99,7 +106,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+	const dateParsed = new Date(date);
+	
+	const hourHandPosition = ((dateParsed.getHours() % 12) / 6 * Math.PI) + dateParsed.getMinutes() / 360 * Math.PI;
+	const minuteHandPosition = dateParsed.getMinutes() / 30 * Math.PI;
+	
+	return Math.abs(hourHandPosition - minuteHandPosition);
 }
 
 
