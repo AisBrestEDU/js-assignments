@@ -22,10 +22,15 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(width, height) {
-    throw new Error('Not implemented');
+class Rectangle {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+    getArea () {
+        return this.width*this.height
+    }
 }
-
 
 /**
  * Returns the JSON representation of specified object
@@ -38,7 +43,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj)
 }
 
 
@@ -54,10 +59,8 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+     return Object.assign(Object.create(proto), JSON.parse(json))
 }
-
-
 /**
  * Css selectors builder
  *
@@ -106,36 +109,75 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+class Selector {
+  constructor(value) {
+    this.selector = "";
+    this.order = 0;
+    this.exception1 = "Element, id and pseudo-element should not occur more then one time inside the selector";
+    this.exception2 = "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
+  }
+  
+  element(value) {
+    this.checkOrder(1);
+    this.selector += value;
+        return this;
+  }
+  
+  id(value) {
+    this.checkOrder(2);
+    this.selector += "#" + value;
+        return this;
+  }
+  
+  class(value) {
+    this.checkOrder(3);
+    this.selector +=  "." +value;
+        return this;
+  }
+  
+  attr(value) {
+    this.checkOrder(4);
+    this.selector += "[" + value + "]";
+        return this;
+  }
+  
+  pseudoClass(value) {
+    this.checkOrder(5);
+    this.selector +=  ":" + value;
+        return this;
+  }
+  
+  pseudoElement(value) {
+    this.checkOrder(6);
+    this.selector += "::" + value;
+        return this;
+  }
+  
+  combine(selector1, combinator, selector2) {
+    this.selector = selector1.stringify() + " " + combinator + " " + selector2.stringify();
+        return this;
+  }
+  
+  stringify() {
+        return this.selector;
+  }
+  
+  checkOrder(order) {
+    if (order == this.order && [1,2,6].includes(order)) throw this.exception1;
+        if (order < this.order) throw this.exception2;
+    this.order = order;
+  }
+}
+
 const cssSelectorBuilder = {
-
-    element: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    id: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    class: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    attr: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
-};
+    element (value)  {return new Selector().element(value)},
+        id (value) {return  new Selector().id(value)},
+         class (value) {return new Selector().class(value)},
+             attr (value) {return new Selector().attr(value)},
+                 pseudoClass (value) {return new Selector().pseudoClass(value)},
+                     pseudoElement (value) {return new Selector().pseudoElement(value)},
+                         combine (selector1, combinator, selector2) {return new Selector().combine(selector1, combinator, selector2)}
+}
 
 
 module.exports = {
