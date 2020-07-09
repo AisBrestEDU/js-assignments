@@ -31,7 +31,7 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-    var pt = '[0-9a-f]';
+    let pt = '[0-9a-f]';
     return new RegExp(`{${pt}{8}-${pt}{4}-${pt}{4}-${pt}{4}-${pt}{12}}`, 'i');
 }
 
