@@ -54,6 +54,7 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
+   // throw new Error('Not implemented');
    return new RegExp('p.t');
 }
 
@@ -92,7 +93,8 @@ function getRegexForIPv4() {
  *                                   '0S4-H1-HACK'
  * @return {RegExp}
  */
-function getRegexForSSN() {
+function getRegexForSSN(){
+   // throw new Error('Not implemented');
    return new RegExp("^(?!0{3}|6{3}|9[0-9]{2})[0-9]{3}-(?!0{2})[0-9]{2}-(?!0{4})[0-9]{4}$");
 }
 
