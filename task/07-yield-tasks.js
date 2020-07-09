@@ -215,7 +215,7 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     let gen = generator();
-    let resolver = async (res) => {
+    let resolver = async res => {
         if (res.done) {
             const result = await Promise.resolve(res.value);
             return result;
