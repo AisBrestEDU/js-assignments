@@ -33,7 +33,7 @@
  *
  */
 function* get99BottlesOfBeer() {
-    for (var i = 99; i > 2; i--) {
+    for (let i = 99; i > 2; i--) {
         yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
         yield `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`;
     }
@@ -56,8 +56,8 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    var fn1 = 0;
-    var fn2 = 1;
+    let fn1 = 0;
+    let fn2 = 1;
     while (true) {
         yield fn1;;
         [fn1, fn2] = [fn2, fn1 + fn2];
@@ -184,15 +184,12 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     let seq = generator();
-
     function getResult(obj) {
         if (!obj.done) {
             return obj.value.then(x => getResult(seq.next(x)));
         }
-
         return obj.value;
     }
-
     return getResult(seq.next());
 }
 
