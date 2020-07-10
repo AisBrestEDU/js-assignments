@@ -45,8 +45,6 @@ function generateOdds(len) {
       iter += 2;
       return iter;
    });
-
-
    return arr;
 }
 
@@ -63,7 +61,6 @@ function generateOdds(len) {
  *    [] => [] 
  */
 function doubleArray(arr) {
-
    return arr.concat(arr);
 }
 
@@ -142,7 +139,6 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-
    var resArr = arr.map((elem) => {
       return elem.toUpperCase();
    });

@@ -59,9 +59,7 @@ function parseDataFromIso8601(value) {
  */
 function isLeapYear(date) {
    let year = date.getFullYear();
-
    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
-
 }
 
 
@@ -81,7 +79,6 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-
    var difDate = new Date(endDate - startDate).toISOString();
    var takeDay = new Date(endDate - startDate).getDate();
    var subDate = difDate.substr(difDate.indexOf('T') + 1, difDate.indexOf('Z') - difDate.indexOf('T') - 1);
@@ -110,31 +107,12 @@ function timeSpanToString(startDate, endDate) {
  */
 
 function angleBetweenClockHands(date) {
-   function lerp(a, b, c) {
-      return a + c * (b - a);
-   }
-
-   if (date.getUTCHours() === 14 && date.getUTCMinutes() === 20) {
-      return 0.8726646259971648;
-   }
-   if (date.getUTCHours() === 23 && date.getUTCMinutes() === 55) {
-      return 0.4799655442984406;
-   }
-
-   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   // i am so sorry for lines 117-122 but my result has difference 
-   // in 0.000000000000001 point and i cant imagine  what to do with that;
-   ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-   var hours = date.getUTCHours();
-   var minutes = date.getUTCMinutes();
-   var anglePosH = hours % 12 + (minutes / 60);
-   var anglePosM = lerp(0, 12, minutes / 60);
-   var result = Math.min(Math.abs(anglePosH - anglePosM) * (2 * Math.PI) / 12, Math.abs(2 * Math.PI - Math.abs(anglePosH - anglePosM) * (2 * Math.PI) / 12));
-   return result;
+   var hourAngle = 30 * (date.getUTCHours() % 12)
+   var minAngle = 6 * date.getUTCMinutes()
+   var hourMinAngle = 0.5 * date.getUTCMinutes()
+   let res =  Math.abs(hourAngle - minAngle + hourMinAngle)
+   res = res > 180 ? res - 180 : res
+   return res * Math.PI / 180
 }
 
 
