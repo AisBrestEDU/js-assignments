@@ -56,8 +56,10 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-    var leapYear = require('leap-year')
-    return leapYear(date)
+   let year =new Date(date).getUTCFullYear()
+    if (year%4!=0|| year%100==0&&year%400!=0 ){return false}
+    else {return true}
+
 }
 
 
@@ -108,7 +110,22 @@ function angleBetweenClockHands(date) {
     if(result>180){result=360-result}
     return result*Math.PI/180
 }
-
+if (!String.prototype.padStart) {
+    String.prototype.padStart = function padStart(targetLength,padString) {
+        targetLength = targetLength>>0; //floor if number or convert non-number to 0;
+        padString = String(padString || ' ');
+        if (this.length > targetLength) {
+            return String(this);
+        }
+        else {
+            targetLength = targetLength-this.length;
+            if (targetLength > padString.length) {
+                padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+            }
+            return padString.slice(0,targetLength) + String(this);
+        }
+    };
+}
 
 module.exports = {
     parseDataFromRfc2822: parseDataFromRfc2822,
