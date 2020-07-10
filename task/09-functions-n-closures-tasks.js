@@ -171,11 +171,18 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    function res(...x) { //rest param: x[0],...
+    /*function res(...x) { //rest param: x[0],...
         let len = `${JSON.stringify(x)}`.length;
         logFunc(`${func.name}(${JSON.stringify(x).substring(1, len - 1)}) starts`);
         let result = func(...x);//spred operator
         logFunc(`${func.name}(${JSON.stringify(x).substring(1, len - 1)}) ends`);
+        return result;
+    }*/
+    function res() {
+        let len = `${JSON.stringify([...arguments])}`.length;
+        logFunc(`${func.name}(${JSON.stringify([...arguments]).substring(1, len - 1)}) starts`);
+        let result = func(...arguments);//spred operator
+        logFunc(`${func.name}(${JSON.stringify([...arguments]).substring(1, len - 1)}) ends`);
         return result;
     }
     return res;
