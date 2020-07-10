@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-	return width * height;
+    throw new Error('Not implemented');
 }
 
 
@@ -38,9 +38,8 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-	return 2 * Math.PI * radius;
+    throw new Error('Not implemented');
 }
-
 
 /**
  * Returns an average of two given numbers.
@@ -55,9 +54,8 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-	return value1 / 2 + value2 / 2;
+    throw new Error('Not implemented');
 }
-
 
 /**
  * Returns a distance beetween two points by cartesian coordinates.
@@ -75,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-	return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    throw new Error('Not implemented');
 }
 
 /**
@@ -91,7 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-	return -b / a;
+    throw new Error('Not implemented');
 }
 
 
@@ -113,13 +111,8 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-	const vectorMultiplication = x1 * x2 + y1 * y2;
-	const valueVector1 = Math.sqrt(Math.pow(x1, 2) + Math.pow(y1, 2));
-	const valueVector2 = Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2));
-	const cosAngle = vectorMultiplication / (valueVector1 * valueVector2);
-	return Math.acos(cosAngle);
+    throw new Error('Not implemented');
 }
-
 
 /**
  * Returns a last digit of a integer number.
@@ -134,8 +127,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-	const strValue = value.toFixed();
-	return +strValue[strValue.length - 1];
+    throw new Error('Not implemented');
 }
 
 
@@ -151,9 +143,8 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-	return +value;
+    throw new Error('Not implemented');
 }
-
 
 /**
  * Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c.
@@ -169,9 +160,8 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-	return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2));
+    throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the number rounded to specified power of 10.
@@ -191,10 +181,8 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-	const powerOfTen = Math.pow(10, pow);
-	return Math.round(num / powerOfTen) * powerOfTen;
+    throw new Error('Not implemented');
 }
-
 
 /**
  * Returns true is the number is prime; otherwise false.
@@ -214,14 +202,8 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-	for (let i = 2; i < n; i += 1) {
-		if (n % i === 0) {
-			return false;
-		}
-	}
-	return n > 1;
+    throw new Error('Not implemented');
 }
-
 
 /**
  * Tries to convert value to number and returns it if conversion was successfull;
@@ -239,11 +221,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-	const valueToNumber = Number(value);
-	if (valueToNumber) {
-		return valueToNumber;
-	}
-	return def;
+    throw new Error('Not implemented');
 }
 
 module.exports = {
