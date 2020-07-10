@@ -516,10 +516,8 @@ function getIdentityMatrix(n) {
 function getIntervalArray(start, end) {
 	const array = [start];
 	
-	if (array.length < end) {
-		const arrayHead = getIntervalArray(len-1);
-		
-		return arrayHead.concat(array);
+	if (start < end) {
+		return array.concat(getIntervalArray(start + 1, end));
 	}
 	
 	return array;
