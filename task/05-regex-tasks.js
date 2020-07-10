@@ -31,7 +31,8 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-   throw new Error('Not implemented');
+   var s = '[\\da-fA-F]';
+   return new RegExp(`^\\{${s}{8}-${s}{4}-${s}{4}-${s}{4}-${s}{12}\\}$`, 'i');
 }
 
 
