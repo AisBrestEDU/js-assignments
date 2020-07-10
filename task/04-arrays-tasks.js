@@ -77,7 +77,7 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-   var posArr = [];
+   const posArr = [];
    arr.map((elem) => {
       if (elem > 0) {
          posArr.push(elem);
@@ -98,7 +98,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   var resArr = [];
+   const resArr = [];
    arr.map((elem) => {
       if (typeof (elem) === "string")
          resArr.push(elem);
@@ -120,7 +120,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   var resArr = [];
+   const resArr = [];
    arr.map((elem) => {
       if (elem)
          resArr.push(elem);
@@ -139,7 +139,7 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-   var resArr = arr.map((elem) => {
+   const resArr = arr.map((elem) => {
       return elem.toUpperCase();
    });
    return resArr;
@@ -157,7 +157,7 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-   var resArr = arr.map((elem) => {
+   const resArr = arr.map((elem) => {
       return elem.length;
    });
    return resArr;
@@ -246,7 +246,7 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-   var resArr = arr.map((elem) => {
+   const resArr = arr.map((elem) => {
       return elem * elem;
    });
    return resArr;
@@ -268,8 +268,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   var prev = 0;
-   var resArr = arr.map((elem) => {
+   let prev = 0;
+   const resArr = arr.map((elem) => {
 
       let res = prev + elem;
       prev = res;
@@ -290,7 +290,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   var resArr = [];
+   const resArr = [];
    arr.map((elem, index) => {
       if (index % 2 != 0) {
          resArr.push(elem);
@@ -315,9 +315,9 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   var resArr = [];
+   const resArr = [];
    if (arr.length > 0) {
-      var loopArr = [''];
+      let loopArr = [''];
 
       loopArr = arr.map((elem) => {
          loopArr.map(() => {
