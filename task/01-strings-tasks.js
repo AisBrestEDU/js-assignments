@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+	return value1 + value2;
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+	return value.length;
 }
 
 /**
@@ -55,8 +55,9 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+	return `Hello, ${firstName} ${lastName}!`;
 }
+
 
 /**
  * Extracts a name from template string 'Hello, First_Name Last_Name!'.
@@ -69,7 +70,9 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+	const arrayValue = value.split('');
+	arrayValue.pop();
+	return arrayValue.splice(7).join('');
 }
 
 
@@ -84,8 +87,9 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+	return value.split('').splice(0, 1);
 }
+
 
 /**
  * Removes a leading and trailing whitespace characters from string.
@@ -99,8 +103,9 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+	return value.trim();
 }
+
 
 /**
  * Returns a string that repeated the specified number of times.
@@ -114,8 +119,9 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+	return value.repeat(count);
 }
+
 
 /**
  * Remove the first occurrence of string inside another string
@@ -130,8 +136,9 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+	return str.replace(value, '');
 }
+
 
 /**
  * Remove the first and last angle brackets from tag string
@@ -145,7 +152,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+	return str.replace(/[<>]/g, '');
 }
 
 
@@ -160,8 +167,9 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+	return str.toUpperCase();
 }
+
 
 /**
  * Extracts e-mails from single string with e-mails list delimeted by semicolons
@@ -174,8 +182,9 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+	return str.split(';');
 }
+
 
 /**
  * Returns the string representation of rectangle with specified width and height
@@ -201,7 +210,22 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+	const symbol1 = '─';
+	const symbol2 = '│';
+	const symbol3 = '┌';
+	const symbol4 = '┐';
+	const symbol5 = '└';
+	const symbol6 = '┘';
+	const symbol7 = ' ';
+
+	if (width < 2 || height < 2) {
+		return false;
+	}
+	const topLine = `${symbol3}${symbol1.repeat(width - 2)}${symbol4}\n`;
+	const midLine = `${symbol2}${symbol7.repeat(width - 2)}${symbol2}\n`;
+	const botLine = `${symbol5}${symbol1.repeat(width - 2)}${symbol6}\n`;
+
+	return topLine + midLine.repeat(height - 2) + botLine;
 }
 
 
@@ -221,8 +245,19 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+	const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+	let result = '';
+
+	str.split('').forEach((element) => {
+		if (!input[input.indexOf(element)]) {
+			result += element;
+		} else result += output[input.indexOf(element)];
+	});
+
+	return result;
 }
+
 
 /**
  * Returns true if the value is string; otherwise false.
@@ -238,7 +273,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+	return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -267,7 +302,62 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+	const cards = [
+		'A♣',
+		'2♣',
+		'3♣',
+		'4♣',
+		'5♣',
+		'6♣',
+		'7♣',
+		'8♣',
+		'9♣',
+		'10♣',
+		'J♣',
+		'Q♣',
+		'K♣',
+		'A♦',
+		'2♦',
+		'3♦',
+		'4♦',
+		'5♦',
+		'6♦',
+		'7♦',
+		'8♦',
+		'9♦',
+		'10♦',
+		'J♦',
+		'Q♦',
+		'K♦',
+		'A♥',
+		'2♥',
+		'3♥',
+		'4♥',
+		'5♥',
+		'6♥',
+		'7♥',
+		'8♥',
+		'9♥',
+		'10♥',
+		'J♥',
+		'Q♥',
+		'K♥',
+		'A♠',
+		'2♠',
+		'3♠',
+		'4♠',
+		'5♠',
+		'6♠',
+		'7♠',
+		'8♠',
+		'9♠',
+		'10♠',
+		'J♠',
+		'Q♠',
+		'K♠',
+	];
+
+	return cards.indexOf(value);
 }
 
 
