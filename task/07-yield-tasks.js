@@ -33,7 +33,18 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    let bottles = 99;
+    while (bottles > 2) {
+        yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`;
+        yield `Take one down and pass it around, ${bottles - 1} bottles of beer on the wall.`;
+        bottles--;
+    }
+    yield '2 bottles of beer on the wall, 2 bottles of beer.';
+    yield 'Take one down and pass it around, 1 bottle of beer on the wall.';
+    yield '1 bottle of beer on the wall, 1 bottle of beer.';
+    yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+    yield `No more bottles of beer on the wall, no more bottles of beer.`;
+    yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
 }
 
 
@@ -47,7 +58,12 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    let a = 0, b = 1, num;
+    while (true) {
+        yield num = a;
+        a = b;
+        b = num + a;
+    }
 }
 
 
@@ -82,7 +98,15 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    yield root;
+    const stack = [...root.children.reverse()];
+    while(stack.length) {
+        const node = stack.pop();
+        yield node;
+        if (node.hasOwnProperty("children")) {
+			stack.push(...node.children.reverse());
+		}
+    }
 }
 
 
@@ -108,7 +132,15 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    yield root;
+    const stack = [...root.children.reverse()];
+    while(stack.length) {
+        const node = stack.pop();
+        yield node;
+        if (node.hasOwnProperty("children")) {
+			stack.unshift(...node.children.reverse());
+		}
+    }
 }
 
 
@@ -126,7 +158,34 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    let source1Generator = source1(),
+        source2Generator = source2(),
+        source1Value = source1Generator.next(),
+        source2Value = source2Generator.next();
+    
+    while (!source1Value.done || !source2Value.done) {
+        if (source1Value.value < source2Value.value) {
+            yield source1Value.value;
+            source1Value = source1Generator.next();
+        } else {
+            yield source2Value.value;
+            source2Value = source2Generator.next();
+        }
+
+        if (source1Value.done) {
+            while (!source2Value.done) {
+                yield source2Value.value;
+                source2Value = source2Generator.next();
+            }
+        }
+
+        if (source2Value.done) {
+            while (!source1Value.done) {
+                yield source1Value.value;
+                source1Value = source1Generator.next();
+            }
+        }
+    }
 }
 
 /**
@@ -145,7 +204,17 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
+    let gen = generator();
+    let resolver = async response => {
+        if (response.done) {
+            const result = await Promise.resolve(response.value);
+            return result;
+        } 
+
+        const result = await Promise.resolve(response.value);
+        return resolver(gen.next(result));
+    }
+    return resolver(gen.next());
 }
 
 
