@@ -59,13 +59,17 @@ function isLeapYear(date) {
   
    let dateObj = new Date(date);
    let year = dateObj.getFullYear();
-   if(year % 4)
-   return false;
-   else if (year % 100)
-   return true;
-   else if (year % 400)
-   return false;
-   else   
+   
+   if(year % 4){
+      return false;
+   }
+   else if (year % 100){
+      return true;
+   }
+   else if (year % 400){
+      return false;
+   }
+     
    return true;
 }
 
@@ -102,6 +106,7 @@ function timeSpanToString(startDate, endDate) {
       ("0" + minutes).slice(-2) + ":" +
       ("0" + seconds).slice(-2) + "." +
       ("00" + milliseconds).slice(-3);
+
    return time;
 }
 
@@ -126,14 +131,17 @@ function angleBetweenClockHands(date) {
 
    let coefForRadian = Math.PI /180;
   
-   if(angle > 180)
-   {  
-      if(angle % 180 == 0)
+   if(angle > 180){  
+      if(angle % 180 == 0){
          return Math.PI;
-      if(angle < 360)
+      }
+      else if(angle < 360){
          return (360 - angle) * coefForRadian;
+      }
+         
       return (angle % 180) * coefForRadian;
    }
+
    return angle * coefForRadian;
 }
 

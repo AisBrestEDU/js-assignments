@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt((x2 - x1) ** 2  + (y2 - y1) ** 2);
+    return Math.hypot((x2 - x1),(y2 - y1));
 }
 
 /**
@@ -162,7 +162,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
+    return Math.hypot(a, b, c);
 }
 
 /**
@@ -183,10 +183,12 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    if(pow == 0)
-    return num;
+    if(pow == 0){
+        return num;
+    }
 
     let number = num / (10 ** pow);
+
     return  Math.round(number) * 10 ** pow;
 }
 
@@ -211,10 +213,10 @@ function isPrime(n) {
 
     let divider = 0;
 
-    for(let i = 1; i <= Math.sqrt(n); i++)
-    {
-        if(n % i == 0)
-        divider += 1;
+    for(let i = 1; i <= Math.sqrt(n); i++){
+        if(n % i == 0){
+            divider += 1;
+        }
     }
 
     return divider == 1;
@@ -237,11 +239,11 @@ function isPrime(n) {
  */
 function toNumber(value, def) {
 
-    if(Number.isNaN(Number.parseFloat(value)))
+    if(Number.isNaN(Number.parseFloat(value))){
         return def;
-    else 
-        return Number.parseFloat(value);
-       
+    }
+ 
+    return Number.parseFloat(value);
 }
 
 module.exports = {
