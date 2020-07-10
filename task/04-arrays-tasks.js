@@ -449,7 +449,7 @@ function sortCitiesArray(arr) {
  * @return {array}
  * 
  * @example
- *     1  => [[1]]
+ *     1  => [[1]]ы
  *  
  *     2 => [[1,0],
  *           [0,1]]
@@ -499,11 +499,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   let newArr = [];
-   let rubbish = [];
-   arr.map((e) => newArr.includes(e) ? rubbish.push(e) : newArr.push(e));
-   return newArr;
-
+   return arr.sort((a, b) => a - b).filter((x, i, a) => a[i + 1] != a[i]);
 }
 
 /**
