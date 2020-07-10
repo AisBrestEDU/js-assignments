@@ -23,7 +23,13 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width
+    this.height = height
+    Rectangle.prototype.getArea = function getArea(){
+        return width * height
+    }
+
+    return this
 }
 
 
@@ -38,7 +44,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj)
 }
 
 
@@ -54,8 +60,8 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
-}
+    return Object.setPrototypeOf(JSON.parse(json), proto)
+}   
 
 
 /**
@@ -106,34 +112,146 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+class CombineSelector{
+    constructor (elem1, combinator,elem2){
+        this.fullName = `${elem1.fullName} ${combinator} ${elem2.fullName}`
+    }
+
+    stringify(){
+        return this.fullName
+    }
+}
+
+class SelectorsBuilder{
+
+    static multipleDeclarationErrorText = "Element, id and pseudo-element should not occur more then one time inside the selector"
+    static wrongOrderErrorMessage = "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element"
+
+    constructor(name){
+        this.elementName = ""
+        this.idName = ""
+        this.classes = []
+        this.attrName = ""
+        this.pseudoClasses = []
+        this.pseudoElementName = ""
+    }
+
+    get fullName(){
+        return `${this.elementName}${this.idName}${this.classes.join("")}${this.attrName}${this.pseudoClasses.join("")}${this.pseudoElementName}`
+    }
+
+    element(name){
+        if(!this.elementName){
+            if(!this.checkValues(this.idName)){
+                throw new Error(SelectorsBuilder.wrongOrderErrorMessage)
+            }
+            this.elementName = name
+            return this
+        }
+        
+        throw new Error(SelectorsBuilder.multipleDeclarationErrorText)
+    }
+
+    id(name){
+        if(!this.idName){
+            if(!this.checkValues(this.classes, this.pseudoElementName)){
+                throw new Error(SelectorsBuilder.wrongOrderErrorMessage)
+            }
+            this.idName = `#${name}`
+            return this
+        }
+        
+        throw new Error(SelectorsBuilder.multipleDeclarationErrorText)
+    }
+
+    class(name){
+        if(!this.checkValues(this.attrName)){
+            throw new Error(SelectorsBuilder.wrongOrderErrorMessage)
+        }
+        this.classes.push(`.${name}`)
+        return this
+    }
+
+    attr(name){
+        if(!this.checkValues(this.pseudoClasses)){
+            throw new Error(SelectorsBuilder.wrongOrderErrorMessage)    
+        }
+        this.attrName = `[${name}]`
+        return this
+    }
+
+    pseudoClass(name){
+        if(!this.checkValues(this.pseudoElementName)){
+            throw new Error(SelectorsBuilder.wrongOrderErrorMessage)
+        }
+        this.pseudoClasses.push(`:${name}`)
+        return this
+    }
+
+    pseudoElement(name){
+        if(!this.pseudoElementName){
+            this.pseudoElementName = `::${name}`
+            return this
+        }
+        
+        throw new Error(SelectorsBuilder.multipleDeclarationErrorText)
+    }
+
+    checkValues(...args){
+        for(let arg of args){
+            if((arg && !Array.isArray(arg)) || (Array.isArray(arg) && arg.length)){
+                return false
+            }
+        }
+
+        return true
+    }
+
+    stringify(){
+        return this.fullName
+    }
+}
+
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        const element = new SelectorsBuilder(value)
+        element.element(value)
+        return element
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        const idElement = new SelectorsBuilder("")
+        idElement.id(value)
+        return idElement
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        const classElement = new SelectorsBuilder("")
+        classElement.class(value)
+        return classElement
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        const attrElement = new SelectorsBuilder("")
+        attrElement.attr(value)
+        return attrElement
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        const pseudoClassElement = new SelectorsBuilder("")
+        pseudoClassElement.pseudoClass(value)
+        return pseudoClassElement
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        const pseudoElement = new SelectorsBuilder("")
+        pseudoElement.pseudoElement(value)
+        return pseudoElement
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return new CombineSelector(selector1, combinator, selector2)
     },
 };
 
