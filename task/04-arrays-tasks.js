@@ -280,7 +280,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   var a = new Array()
+   let a = new Array()
    arr.map((item,index,arr)=>{
       a = a.concat(new Array(index+ 1).fill(item))
       return item
@@ -377,7 +377,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   var sum = 0;
+   let sum = 0;
    arr.map(item =>{
       sum = sum + item
    })
@@ -525,7 +525,7 @@ function sortCitiesArray(arr) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   var arr = new Array(end - start + 1).fill()
+   let arr = new Array(end - start + 1).fill()
    return arr.map((item,index) =>{
       return start + index
    })
@@ -577,7 +577,7 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   var map = new Map();
+   let map = new Map();
     array.map(el => new Array(keySelector(el), valueSelector(el))).map((el) => {
         if (map.has(el[0])) {
             map.set(el[0], map.get(el[0]).concat(el[1]));
@@ -646,9 +646,9 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   var length = arr.length;
-   var first = arr.slice(0, (length / 2 | 0));
-   var second = arr.slice(-(length / 2 | 0));
+   let length = arr.length;
+   let first = arr.slice(0, (length / 2 | 0));
+   let second = arr.slice(-(length / 2 | 0));
    if (length == 1)
        return arr;
    else if (length % 2 == 0)
