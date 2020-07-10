@@ -69,12 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    let valueMass = value.split(' ');
-    function delSym(str) {
-        var ars = str.replace(/[^A-Za-zА-Яа-яЁё]/g, "");
-        return ars;
-    }
-    return `${delSym(valueMass[1])} ${delSym(valueMass[2])}`;
+    return value.substring(7, value.length - 1);
 }
 
 
@@ -150,8 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    var ars = str.replace(/[^A-Za-zА-Яа-яЁё]/g, "");
-    return ars;
+    return str.slice(1, str.length - 1);
 }
 
 
@@ -230,10 +224,10 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    var input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    var output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-    var index = x => input.indexOf(x);
-    var translate = x => index(x) > -1 ? output[index(x)] : x;
+    const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    const index = x => input.indexOf(x);
+    const translate = x => index(x) > -1 ? output[index(x)] : x;
     return str.split('').map(translate).join('');
 }
 
@@ -251,17 +245,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    function type(value) {
-        var regex = /^\[object (\S+?)\]$/;
-        var matches = Object.prototype.toString.call(value).match(regex) || [];
-        return (matches[1] || 'undefined').toLowerCase();
-    }
-    if (type(value) === "string") {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -290,7 +274,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    var mass = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    const mass = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
         'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
         'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
         'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];

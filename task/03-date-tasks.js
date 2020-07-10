@@ -79,13 +79,13 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   var difDate = new Date(endDate - startDate).toISOString();
-   var takeDay = new Date(endDate - startDate).getDate();
-   var subDate = difDate.substr(difDate.indexOf('T') + 1, difDate.indexOf('Z') - difDate.indexOf('T') - 1);
+   const difDate = new Date(endDate - startDate).toISOString();
+   const takeDay = new Date(endDate - startDate).getDate();
+   const subDate = difDate.substr(difDate.indexOf('T') + 1, difDate.indexOf('Z') - difDate.indexOf('T') - 1);
    if (takeDay > 1) {
-      var massDate = subDate.split(':');
+      const massDate = subDate.split(':');
       massDate[0] = parseInt(massDate[0]) + 24 * (takeDay - 1);
-      var resDate = massDate.join(':');
+      const resDate = massDate.join(':');
       return resDate;
    }
    return subDate;
@@ -107,9 +107,9 @@ function timeSpanToString(startDate, endDate) {
  */
 
 function angleBetweenClockHands(date) {
-   var hourAngle = 30 * (date.getUTCHours() % 12)
-   var minAngle = 6 * date.getUTCMinutes()
-   var hourMinAngle = 0.5 * date.getUTCMinutes()
+   const hourAngle = 30 * (date.getUTCHours() % 12)
+   const minAngle = 6 * date.getUTCMinutes()
+   const hourMinAngle = 0.5 * date.getUTCMinutes()
    let res =  Math.abs(hourAngle - minAngle + hourMinAngle)
    res = res > 180 ? res - 180 : res
    return res * Math.PI / 180

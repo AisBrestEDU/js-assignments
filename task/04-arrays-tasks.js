@@ -39,9 +39,9 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   var iter = -1;
-   var elements = new Array(len).fill(0);
-   var arr = elements.map(() => {
+   let iter = -1;
+   const elements = new Array(len).fill(0);
+   const arr = elements.map(() => {
       iter += 2;
       return iter;
    });
@@ -356,7 +356,6 @@ function get3TopItems(arr) {
       }).splice(3);
       return arr;
    }
-
    return arr;
 }
 
@@ -375,17 +374,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   var counter = 0;
-   if (arr.length > 0) {
-      arr.map((elem) => {
-         if (elem > 0 && typeof (elem) === "number") {
-            counter++;
-         }
-      });
-      return counter;
-   }
-   return counter;
-
+   return arr.filter((el) => (typeof el === 'number' ? el > 0 : 0)).length;
 }
 
 /** 
