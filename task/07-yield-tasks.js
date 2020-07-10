@@ -194,13 +194,13 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     const generate = generator();
-    const resolver = async response => {
-        if (response.done) {
-            const result = await Promise.resolve(response.value);
+    const resolver = async res => {
+        if (res.done) {
+            const result = await Promise.resolve(res.value);
             return result;
         } 
 
-        const result = await Promise.resolve(response.value);
+        const result = await Promise.resolve(res.value);
         return resolver(generate.next(result));
     }
     return resolver(generate.next());
