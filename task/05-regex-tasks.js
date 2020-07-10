@@ -119,7 +119,8 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-   throw new Error('Not implemented');
+   var s = '[A-Za-z0-9]';
+   return new RegExp(`^(?=${s}*[a-z])(?=${s}*[A-Z])(?=${s}*\\d)${s}{${minLength},}$`);
 }
 
 
