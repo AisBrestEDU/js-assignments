@@ -34,7 +34,7 @@
  *
  */
 function* get99BottlesOfBeer() {
-    var bottleNum = 99;
+    let bottleNum = 99;
     while (true) {
 
         yield `${bottleNum} bottles of beer on the wall, ${bottleNum} bottles of beer.`;
