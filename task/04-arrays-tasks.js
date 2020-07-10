@@ -38,7 +38,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   var res = new Array(len).fill(0)
+   let res = new Array(len).fill(0)
       .map((_, ind) => 2*ind+1);
    return res;
 }
@@ -311,7 +311,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   var res = 0;
+   let res = 0;
    arr.map(item => { if (Number.isInteger(item) && item > 0) { res++; } });
    return res;
 }
@@ -330,7 +330,7 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   var digits = ['zero','one','two','three','four','five','six','seven','eight','nine'];
+   let digits = ['zero','one','two','three','four','five','six','seven','eight','nine'];
    return arr.sort((a,b) => (digits.indexOf(a) - digits.indexOf(b)));
 }
 
@@ -347,7 +347,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   var sum = 0;
+   let sum = 0;
    arr.map(item => sum += item);
    return sum;
 }
@@ -481,8 +481,8 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   var res = new Array(end - start + 1).fill(0);
-   var i = start;
+   let res = new Array(end - start + 1).fill(0);
+   let i = start;
    return res.map(() => {return i++;});
 }
 
@@ -532,7 +532,7 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   var map = new Map();
+   let map = new Map();
    array.map(elem => {
       map.set(
          keySelector(elem), (map.get(keySelector(elem)) === undefined ? 
@@ -555,7 +555,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   var res = [];        
+   let res = [];        
    arr.map(item => 
       {
          res = res.concat(childrenSelector(item));
@@ -579,7 +579,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   var res = [...arr];
+   let res = [...arr];
    indexes.map(ind => res = res[ind]);
    return res;
 }
@@ -604,8 +604,8 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   var res;
-   var len = arr.length;
+   let res;
+   let len = arr.length;
    if (len == 1) {return arr;}
    if (len % 2==0) {
       res = arr.slice(len/2, len);

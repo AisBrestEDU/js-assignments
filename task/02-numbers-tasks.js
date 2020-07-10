@@ -111,7 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    var cos_fi = 
+    let cos_fi = 
     (x1*x2 + y1*y2) / 
     (Math.sqrt(Math.pow(x1,2) + Math.pow(y1,2)) * Math.sqrt(Math.pow(x2,2) + Math.pow(y2,2)));
     return Math.acos(cos_fi);
@@ -184,7 +184,7 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    var powers = Math.pow(10,pow);
+    let powers = Math.pow(10,pow);
     return Math.round(num/powers)*powers;
 }
 
@@ -206,7 +206,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    for (var i = 2; i < n; i++) {
+    for (let i = 2; i < n; i++) {
         if (n % i == 0) {return false;}
     }
     return true;
@@ -228,7 +228,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    var res = parseInt(value, 10);
+    let res = parseInt(value, 10);
     if (isNaN(res)) {return def;}
     return res;
 }

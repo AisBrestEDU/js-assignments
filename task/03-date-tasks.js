@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   var year = date.getFullYear();
+   let year = date.getFullYear();
    if (year % 4 != 0) { return false; }
    else if (year % 100 != 0) { return true; }
    else if (year % 400 != 0) { return false; }
@@ -81,11 +81,11 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   var dif = new Date(endDate).getTime() - new Date(startDate).getTime();
-   var hours = parseInt(dif / (1000 * 60 * 60)) + '';
+   let dif = new Date(endDate).getTime() - new Date(startDate).getTime();
+   let hours = parseInt(dif / (1000 * 60 * 60)) + '';
    if (hours.length == 1) { hours = '0' + hours; }
-   var isoStr = (new Date(dif)).toISOString();
-   var afterHours = isoStr.substring(13, 23);
+   let isoStr = (new Date(dif)).toISOString();
+   let afterHours = isoStr.substring(13, 23);
    return hours + afterHours;
 }
 
@@ -104,10 +104,10 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   var H = new Date(date).getUTCHours();
-   var M = new Date(date).getUTCMinutes();
-   var res =   (0.5 * Math.abs(60*H-11*M)) % 360;
-   var degInRad = Math.PI / 180;
+   let H = new Date(date).getUTCHours();
+   let M = new Date(date).getUTCMinutes();
+   let res =   (0.5 * Math.abs(60*H-11*M)) % 360;
+   let degInRad = Math.PI / 180;
    if (res > 180) {
       return degInRad*(360 - res);
    }

@@ -71,7 +71,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    var strings = value.split(/[, !]+/);
+    let strings = value.split(/[, !]+/);
     return `${strings[1]} ${strings[2]}`;
 }
 
@@ -118,8 +118,8 @@ function removeLeadingAndTrailingWhitespaces(value) {
  */
 function repeatString(value, count) {
     if (count == 0) { return ''; }
-    var res = value;
-    for (var i = 1; i <= count - 1; i++) {
+    let res = value;
+    for (let i = 1; i <= count - 1; i++) {
         res += value;
     }
     return res;
@@ -139,7 +139,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    var index = str.indexOf(value);
+    let index = str.indexOf(value);
 	if (index === -1) {
 		return str;
 	}
@@ -216,7 +216,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    var res;
+    let res;
     res = getTop(width);
     res += getMiddle(width, height);
     res += getBottom(width);
@@ -227,13 +227,12 @@ function getTop(w){
 }
 function getMiddle(w,h) {
     if (h == 2) {return "";}
-    var middleLayer = '│' + repeatString(' ', w - 2) + '│\n';
+    let middleLayer = '│' + repeatString(' ', w - 2) + '│\n';
     return repeatString(middleLayer, h - 2);
 }
 function getBottom(w) {
     return '└' + repeatString('─', w - 2) + '┘\n';
 }
-console.log(getRectangleString(2,2));
 
 
 
@@ -254,11 +253,11 @@ console.log(getRectangleString(2,2));
  *
  */
 function encodeToRot13(str) {
-    var str1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    var str2 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-    var res = '';
-    for (var i = 0; i < str.length; i++) {
-        var ind = str2.indexOf(str[i]);
+    let str1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let str2 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    let res = '';
+    for (let i = 0; i < str.length; i++) {
+        let ind = str2.indexOf(str[i]);
         if (ind == -1) { res += str[i];}
         else { res += str1[ind]; }
     }
@@ -308,8 +307,8 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    var sumCoef = 'A234567891JQK'.indexOf(value[0]);
-    var multCoef = '♣♦♥♠'.indexOf(value[value.length - 1]);
+    let sumCoef = 'A234567891JQK'.indexOf(value[0]);
+    let multCoef = '♣♦♥♠'.indexOf(value[value.length - 1]);
     return 13 * multCoef + sumCoef;
 }
 
