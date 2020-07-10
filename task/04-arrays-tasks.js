@@ -1,6 +1,5 @@
 'use strict';
 
-
 /*********************************************************************************************
  *                                                                                           *
  * Plese read the following tutorial before implementing tasks:                              *
@@ -10,7 +9,7 @@
  *                                                                                           *
  *********************************************************************************************/
 
-
+ 
 /**
  * Returns an index of the specified element in array or -1 if element is not found
  * 
@@ -358,8 +357,8 @@ function get3TopItems(arr) {
    }
    return arr;
 }
-
-
+ 
+ 
 /**  
  * Returns the number of positive numbers from specified array
  * 
