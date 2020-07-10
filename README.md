@@ -1,4 +1,4 @@
-[![2reek](http://brest.rollingscopes.com/images/logo_rs_text.svg)](http://brest.rollingscopes.com/)
+[![Brest Rolling Scopes](http://brest.rollingscopes.com/images/logo_rs_text.svg)](http://brest.rollingscopes.com/)
 #Brest Rolling Scopes School
 ## Javascript Assignments  [![Build Status](https://travis-ci.org/AisBrestEDU/js-assignments.svg?branch=master)](https://travis-ci.org/AisBrestEDU/js-assignments)
 
