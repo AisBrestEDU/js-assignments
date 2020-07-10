@@ -56,13 +56,13 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    var fnF = 0;
-    var fnS = 1;
+    let fnF = 0;
+    let fnS = 1;
     while (true) {
-        var current = fnF;
+        let current = fnF;
         fnF = fnS;
         fnS = current + fnF;
-        var reset = yield current;
+        let reset = yield current;
         if (reset) {
             fnF = 0;
             fnS = 1;
@@ -102,11 +102,11 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    var nodes = [root];
-    for (var i = 0; i < nodes.length; i++) {
+    let nodes = [root];
+    for (let i = 0; i < nodes.length; i++) {
         yield nodes[i];
         if ('children' in nodes[i]) {
-            for (var j = 0; j < nodes[i].children.length; j++) {
+            for (let j = 0; j < nodes[i].children.length; j++) {
                 nodes.splice(i + 1 + j, 0, nodes[i].children[j]);
             }
         }
@@ -136,11 +136,11 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    var nodes = [root];
-    for (var i = 0; i < nodes.length; i++) {
+    let nodes = [root];
+    for (let i = 0; i < nodes.length; i++) {
         yield nodes[i];
         if ('children' in nodes[i]) {
-            for (var j = 0; j < nodes[i].children.length; j++) {
+            for (let j = 0; j < nodes[i].children.length; j++) {
                 nodes.push(nodes[i].children[j]);
             }
         }
@@ -162,10 +162,10 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    var src1, src2;
+    let src1, src2;
     src1 = source1();
     src2 = source2();
-    var i, j;
+    let i, j;
     i = src1.next().value;
     j = src2.next().value;
     while (true) {
@@ -206,7 +206,7 @@ function* mergeSortedSequences(source1, source2) {
 function async(generator) {
     let g = generator();
     return Promise.resolve(function step(v) {
-         var res = g.next(v);
+         let res = g.next(v);
          if (res.done)
              return res.value;
          return res.value.then(step);
