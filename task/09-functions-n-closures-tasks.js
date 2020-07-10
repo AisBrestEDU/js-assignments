@@ -86,7 +86,7 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    var a = func()
+    let a = func()
     return () => a 
 }
 
@@ -108,7 +108,7 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     return () => {
-        var er;
+        let er;
         while (attempts >= 0) {
             try {
                 return func();
