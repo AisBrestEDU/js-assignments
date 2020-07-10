@@ -81,7 +81,7 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   var rez = endDate - startDate;
+    let rez = endDate - startDate;
     let h = Math.trunc(rez / 3600000 % 100).toString().padStart(2, '0');
     let m = Math.trunc(rez / 60000 % 60).toString().padStart(2, '0');
     let s = Math.trunc(rez / 1000 % 60).toString().padStart(2, '0');
@@ -104,9 +104,9 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   var hoursArrow = 0.5 * (60 * (date.getUTCHours() % 12) + date.getUTCMinutes());
-   var minutesArrow = 6 * date.getUTCMinutes();
-   var angle = Math.abs(hoursArrow - minutesArrow);
+   let hoursArrow = 0.5 * (60 * (date.getUTCHours() % 12) + date.getUTCMinutes());
+   let minutesArrow = 6 * date.getUTCMinutes();
+   let angle = Math.abs(hoursArrow - minutesArrow);
    if (angle > 180) {
        angle = 360 - angle;
    }
