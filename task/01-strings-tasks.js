@@ -99,14 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    while (value.startsWith(' ') || value.startsWith('\t')) {
-        value = value.substr(1);
-    }
-    while (value.endsWith(' ') || value.endsWith('\t')) {
-        value = value.slice(0, -1);
-    }
-
-    return value;
+    return value.trim()
 }
 
 /**
@@ -121,12 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    let newValue = '';
-    for (let i = 1; i <= count; i++) {
-        newValue += value;
-    }
-
-    return newValue;
+    return value.repeat(count);
 }
 
 /**
