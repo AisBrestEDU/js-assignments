@@ -58,11 +58,11 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-	var rez = 1;
-    for (var i = 2; i <= n; i++) {
-        rez *= i;
-    }
-    return rez;
+	let rez = 1;
+    	for (let i = 2; i <= n; i++) {
+        	rez *= i;
+    	}
+    	return rez;
     //throw new Error('Not implemented');
 }
 
@@ -80,8 +80,8 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-	var rez = 0;
-    for (var i = n1; i <= n2; i++) {
+	let rez = 0;
+    for (let i = n1; i <= n2; i++) {
         rez += i;
     }
     return rez;
@@ -201,12 +201,12 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-	var rez = null;
-    var temp = null;
-    for (var i = 0; i < str.length; i++) {
-        var symb = str[i];
+	let rez = null;
+    let temp = null;
+    for (let i = 0; i < str.length; i++) {
+        let symb = str[i];
         temp = symb;
-        for (var j = 0; j < str.length; j++) {
+        for (let j = 0; j < str.length; j++) {
             if ((str[j] == symb) && (j != i)) {
                 temp = null;
             }
@@ -292,8 +292,8 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-	var ret = "";
-    for (var i = str.length - 1; i >= 0; i--) {
+	let ret = "";
+    for (let i = str.length - 1; i >= 0; i--) {
         ret += str[i];
     }
     return ret;
@@ -314,9 +314,9 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-	var str = String(num);
-    var ret = "";
-    for (var i = str.length - 1; i >= 0; i--) {
+	let str = String(num);
+    let ret = "";
+    for (let i = str.length - 1; i >= 0; i--) {
         ret += str[i];
     }
     return Number(ret);
@@ -345,12 +345,12 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-	var str = String(ccn);
-    var sum = Number(str[str.length - 1]);
-    var nDigits = str.length;
-    var parity = nDigits % 2;
-    for (var i = 0; i < (nDigits - 1); i++) {
-        var digit = Number(str[i]);
+	let str = String(ccn);
+    let sum = Number(str[str.length - 1]);
+    let nDigits = str.length;
+    let parity = nDigits % 2;
+    for (let i = 0; i < (nDigits - 1); i++) {
+        let digit = Number(str[i]);
         if (i % 2 == parity)
             digit = digit * 2;
         if (digit > 9)
@@ -378,9 +378,9 @@ function isCreditCardNumber(ccn) {
  */
 function getDigitalRoot(num) {
 	while (num > 9) {
-        var sum = 0;
-        var str = String(num);
-        for (var i = 0; i < str.length; i++) {
+        let sum = 0;
+        let str = String(num);
+        for (let i = 0; i < str.length; i++) {
             sum += Number(str[i]);
         }
         num = sum;
@@ -470,8 +470,8 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-	var interval = endDate - startDate;
-    var seconds = (interval / 1000), minutes = (interval / 60000), hours = (interval / 3600000), days = (interval / 86400000);
+	let interval = endDate - startDate;
+    let seconds = (interval / 1000), minutes = (interval / 60000), hours = (interval / 3600000), days = (interval / 86400000);
     if (seconds <= 45) {
         return 'a few seconds ago';
     } else if (seconds <= 90) {
@@ -519,7 +519,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-	var ret = "";
+	let ret = "";
     while (num >= n) {
         ret += String(num % n);
         num = (num / n | 0);
@@ -544,13 +544,13 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-	var dirs = Array(pathes.length);
-    for (var i = 0; i < pathes.length; i++) {
+	let dirs = Array(pathes.length);
+    for (let i = 0; i < pathes.length; i++) {
         dirs[i] = pathes[i].split('/');
     }
-    var commonDir = '';
-    for (var i = 0; i < dirs[0].length; i++) {
-        for (var j = 1; j < dirs.length; j++) {
+    let commonDir = '';
+    for (let i = 0; i < dirs[0].length; i++) {
+        for (let j = 1; j < dirs.length; j++) {
             if (dirs[0][i] != dirs[j][i]) {
                 return commonDir;
             }
@@ -581,15 +581,15 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-	var rowsM1 = m1.length, colsM1 = m1[0].length, rowsM2 = m2.length, colsM2 = m2[0].length, ret = [];
+	let rowsM1 = m1.length, colsM1 = m1[0].length, rowsM2 = m2.length, colsM2 = m2[0].length, ret = [];
     if (colsM1 != rowsM2) 
         return false;
-    for (var i = 0; i < rowsM1; i++)
+    for (let i = 0; i < rowsM1; i++)
         ret[i] = [];
-    for (var k = 0; k < colsM2; k++) {
-        for (var i = 0; i < rowsM1; i++) {
-            var tempEl = 0;
-            for (var j = 0; j < rowsM2; j++) tempEl += m1[i][j] * m2[j][k];
+    for (let k = 0; k < colsM2; k++) {
+        for (let i = 0; i < rowsM1; i++) {
+            let tempEl = 0;
+            for (let j = 0; j < rowsM2; j++) tempEl += m1[i][j] * m2[j][k];
             ret[i][k] = tempEl;
         }
     }
@@ -629,13 +629,13 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-	var ret = undefined;
+	let ret = undefined;
     if ((position[0][0] == position[1][1]) && (position[1][1] == position[2][2]) && (position[0][0] != undefined))
         return position[0][0];
     else if ((position[2][0] == position[1][1]) && (position[1][1] == position[0][2]) && (position[2][0] != undefined))
         return position[2][0];
     else {
-        for (var i = 0; i < position.length; i++) {
+        for (let i = 0; i < position.length; i++) {
             if ((position[i][0] == position[i][1]) && (position[i][1] == position[i][2]) && (position[i][0] != undefined))
                 return position[i][2];
             if ((position[0][i] == position[1][i]) && (position[1][i] == position[2][i]) && (position[0][i] != undefined))
