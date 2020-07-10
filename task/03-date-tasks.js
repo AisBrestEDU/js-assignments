@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +56,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   date.setDate(date.getDate() + 29);
+   return (date.getDate() == 1) ? true : false;
 }
 
 
@@ -76,7 +77,21 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let milliseconds = endDate.getTime() - startDate.getTime();
+
+   let hours = milliseconds / (1000 * 3600);
+   let absoluteHours = Math.floor(hours);
+   let h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
+
+   let minutes = (hours - absoluteHours) * 60;
+   let absoluteMinutes = Math.floor(minutes);
+   let m = absoluteMinutes > 9 ? absoluteMinutes : '0' + absoluteMinutes;
+
+   let seconds = ((minutes - absoluteMinutes) * 60).toFixed(3);
+   let s = seconds > 9 ? seconds : '0' + seconds;
+
+
+   return h + ':' + m + ':' + s;
 }
 
 
@@ -94,14 +109,23 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hours = date.getUTCHours();
+   hours = (hours > 6 && hours < 12) ? hours - 6 : hours;
+   hours = (hours > 12) ? hours - 12 : hours;
+   hours = (hours > 6 && hours < 10) ? hours - 6 : hours;
+
+   let seconds = date.getUTCSeconds() / 60;
+
+   let minutes = date.getUTCMinutes() + seconds;
+   minutes = (minutes >= 60) ? minutes - 60 : minutes;
+
+   return Math.abs((0.5 * (Math.PI / 180)) * (60 * hours - 11 * minutes));
 }
 
-
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
