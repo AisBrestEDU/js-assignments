@@ -8,6 +8,7 @@
  *                                                                                                *
  **************************************************************************************************/
 
+
 /**
  * Returns the 'Fizz','Buzz' or an original number using the following rules:
  * 1) return original number
@@ -35,6 +36,7 @@ function getFizzBuzz(num) {
 	return num % 5 === 0 ? 'Buzz' : num;
 }
 
+
 /**
  * Returns the factorial of the specified integer n.
  *
@@ -56,6 +58,7 @@ function getFactorial(n) {
 	return n * getFactorial(n - 1);
 }
 
+
 /**
  * Returns the sum of integer numbers between n1 and n2 (inclusive).
  *
@@ -71,6 +74,7 @@ function getFactorial(n) {
 function getSumBetweenNumbers(n1, n2) {
 	return ((n2 + n1) / 2) * (n2 - n1 + 1);
 }
+
 
 /**
  * Returns true, if a triangle can be built with the specified sides a,b,c and false in any other ways.
@@ -90,26 +94,27 @@ function isTriangle(a, b, c) {
 	return a < b + c && b < a + c && c < a + b;
 }
 
+
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
- * Each rectangle representing by object
+ * Each rectangle representing by object 
  *  {
  *     top: 5,
  *     left: 5,
  *     width: 20,
  *     height: 10
  *  }
- *
+ * 
  *  (5;5)
- *     -------------
- *     |           |
+ *     -------------  
+ *     |           | 
  *     |           |  height = 10
- *     -------------
- *        width=20
- *
+ *     ------------- 
+ *        width=20    
+ * 
  * NOTE: Please use canvas coordinate space (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#The_grid),
  * it differs from Cartesian coordinate system.
- *
+ * 
  * @param {object} rect1
  * @param {object} rect2
  * @return {bool}
@@ -117,32 +122,33 @@ function isTriangle(a, b, c) {
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top: 5, left: 5, width: 20, height: 20 }    =>  true
- *
+ * 
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
- *
+ *  
  */
 function doRectanglesOverlap(rect1, rect2) {
 	return rect2.top < rect1.top + rect1.height && rect2.left < rect1.left + rect1.width ? true : false;
 }
 
+
 /**
  * Returns true, if point lies inside the circle, otherwise false.
- * Circle is an object of
+ * Circle is an object of 
  *  {
  *     center: {
- *       x: 5,
+ *       x: 5,       
  *       y: 5
- *     },
+ *     },        
  *     radius: 20
  *  }
- *
- * Point is object of
+ * 
+ * Point is object of 
  *  {
  *     x: 5,
  *     y: 5
  *  }
- *
+ * 
  * @param {object} circle
  * @param {object} point
  * @return {bool}
@@ -150,11 +156,12 @@ function doRectanglesOverlap(rect1, rect2) {
  * @example:
  *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
- *
+ *   
  */
 function isInsideCircle(circle, point) {
 	return Math.sqrt(Math.pow(circle.center.x - point.x, 2) + Math.pow(circle.center.y - point.y, 2)) < circle.radius;
 }
+
 
 /**
  * Returns the first non repeated char in the specified strings otherwise returns null.
@@ -181,6 +188,7 @@ function findFirstSingleChar(str) {
 	}
 	return null;
 }
+
 
 /**
  * Returns the string representation of math interval, specified by two points and include / exclude flags.
@@ -219,6 +227,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
 	return str;
 }
 
+
 /**
  * Reverse the specified string (put all chars in reverse order)
  *
@@ -235,6 +244,7 @@ function reverseString(str) {
 	return str.split('').reverse().join('');
 }
 
+
 /**
  * Reverse the specified integer number (put all digits in reverse order)
  *
@@ -250,6 +260,7 @@ function reverseString(str) {
 function reverseInteger(num) {
 	return +String(num).split('').reverse().join('');
 }
+
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
@@ -295,6 +306,7 @@ function isCreditCardNumber(ccn) {
 	return nCheck % 10 == 0;
 }
 
+
 /**
  * Returns the digital root of integer:
  *   step1 : find sum of all digits
@@ -312,6 +324,7 @@ function isCreditCardNumber(ccn) {
 function getDigitalRoot(num) {
 	return num - 9 * Math.floor((num - 1) / 9);
 }
+
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -332,7 +345,7 @@ function getDigitalRoot(num) {
  *   '[[][][[]]]' => true
  *   '[[][]][' => false
  *   '{)' = false
- *   '{[(<{[]}>)]}' = true
+ *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
 	if (str === '') return true;
@@ -351,6 +364,7 @@ function isBracketsBalanced(str) {
 	}
 	return str === '';
 }
+
 
 /**
  * Returns the human readable string of time period specified by the start and end time.
@@ -387,6 +401,7 @@ function timespanToHumanString(startDate, endDate) {
 	throw new Error('Not implemented');
 }
 
+
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of specified number.
  * See more about
@@ -409,6 +424,7 @@ function timespanToHumanString(startDate, endDate) {
 function toNaryString(num, n) {
 	return num.toString(n);
 }
+
 
 /**
  * Returns the commom directory path for specified array of full filenames.
@@ -445,6 +461,7 @@ function getCommonDirectoryPath(pathes) {
 	return result;
 }
 
+
 /**
  * Returns the product of two specified matrixes.
  * See details: https://en.wikipedia.org/wiki/Matrix_multiplication
@@ -466,6 +483,7 @@ function getCommonDirectoryPath(pathes) {
 function getMatrixProduct(m1, m2) {
 	throw new Error('Not implemented');
 }
+
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
@@ -515,23 +533,24 @@ function evaluateTicTacToePosition(position) {
 	return;
 }
 
+
 module.exports = {
-	getFizzBuzz: getFizzBuzz,
-	getFactorial: getFactorial,
-	getSumBetweenNumbers: getSumBetweenNumbers,
-	isTriangle: isTriangle,
-	doRectanglesOverlap: doRectanglesOverlap,
-	isInsideCircle: isInsideCircle,
-	findFirstSingleChar: findFirstSingleChar,
-	getIntervalString: getIntervalString,
-	reverseString: reverseString,
-	reverseInteger: reverseInteger,
-	isCreditCardNumber: isCreditCardNumber,
-	getDigitalRoot: getDigitalRoot,
-	isBracketsBalanced: isBracketsBalanced,
-	timespanToHumanString: timespanToHumanString,
-	toNaryString: toNaryString,
-	getCommonDirectoryPath: getCommonDirectoryPath,
-	getMatrixProduct: getMatrixProduct,
-	evaluateTicTacToePosition: evaluateTicTacToePosition,
+    getFizzBuzz: getFizzBuzz,
+    getFactorial: getFactorial,
+    getSumBetweenNumbers: getSumBetweenNumbers,
+    isTriangle: isTriangle,
+    doRectanglesOverlap: doRectanglesOverlap,
+    isInsideCircle: isInsideCircle,
+    findFirstSingleChar: findFirstSingleChar,
+    getIntervalString : getIntervalString,
+    reverseString: reverseString,
+    reverseInteger: reverseInteger,
+    isCreditCardNumber: isCreditCardNumber,
+    getDigitalRoot: getDigitalRoot,
+    isBracketsBalanced: isBracketsBalanced,
+    timespanToHumanString : timespanToHumanString,
+    toNaryString: toNaryString,
+    getCommonDirectoryPath: getCommonDirectoryPath,
+    getMatrixProduct: getMatrixProduct,
+    evaluateTicTacToePosition : evaluateTicTacToePosition
 };
