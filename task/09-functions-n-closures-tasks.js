@@ -204,8 +204,11 @@ function logger(func, logFunc) {
  */
 function partialUsingArguments(fn) {
     let args = [...arguments].slice(1);
-    function res(...x) {
+    /*function res(...x) {
         return fn(...args.concat(x));
+    }*/
+    function res() {
+        return fn(...args.concat([...arguments]));
     }
     return res;
 }
