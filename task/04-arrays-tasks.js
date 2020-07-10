@@ -304,7 +304,7 @@ function propagateItemsByPositionIndex(arr) {
  */
 function get3TopItems(arr) {
    return arr.sort(function(a, b) {
-	  return a - b;
+	  return b - a;
    }).slice(0, 3);
 }
  
@@ -358,7 +358,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   return arr.reduce((sum, item) => sum + item);
+   return arr.reduce((sum, item) => sum + item, 0);
 }
  
 /** 
