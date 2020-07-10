@@ -23,7 +23,9 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = () => this.width * this.height;
 }
 
 
@@ -38,7 +40,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +56,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -106,35 +108,126 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+ class Selector {
+    selector = "";
+    callCounter = {
+        element: 0,
+        id: 0,
+        class: 0,
+        attr: 0,
+        pseudoClass: 0,
+        pseudoElement: 0
+    };
+    callOrder = {
+        element: 1,
+        id: 2,
+        class: 3,
+        attr: 4,
+        pseudoClass: 5,
+        pseudoElement: 6,
+        orderQueue: []
+    }
+
+    element(value) {
+         this.selector += value;
+         this.callCounter.element++;
+         this.checkCalls();
+         this.checkOrder(1);
+         return this;
+     }
+
+    id(value) {
+        this.selector += "#" + value;
+        this.callCounter.id++;
+        this.checkCalls();
+        this.checkOrder(2);
+        return this;
+    }
+
+    class(value) {
+        this.selector += "." + value;
+        this.callCounter.class++;
+        this.checkCalls();
+        this.checkOrder(3);
+        return this;
+    }
+
+    attr(value) {
+        this.selector += "[" + value + "]";
+        this.callCounter.attr++;
+        this.checkCalls();
+        this.checkOrder(4);
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.selector += ":" + value;
+        this.callCounter.pseudoClass++;
+        this.checkCalls();
+        this.checkOrder(5);
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.selector += "::" + value;
+        this.callCounter.pseudoElement++;
+        this.checkCalls();
+        this.checkOrder(6);
+        return this;
+    }
+
+    combine(selector1, combinator, selector2) {
+        this.selector = selector1.selector + " " + combinator + " " + selector2.selector;
+        return this;
+    }
+
+    stringify() {
+        return this.selector;
+    }
+
+    checkCalls() {
+        if (this.callCounter.element > 1 || this.callCounter.id > 1 || this.callCounter.pseudoElement > 1) {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
+        }
+    }
+
+    checkOrder(order) {
+        this.callOrder.orderQueue.push(order);
+        if (this.callOrder.orderQueue.toString() !== this.callOrder.orderQueue.sort().toString() ) {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+        }
+    }
+ }
+
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new Selector().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
+        return new Selector().combine(selector1, combinator, selector2);
+    }
 };
 
 
