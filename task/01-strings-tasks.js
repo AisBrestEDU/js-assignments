@@ -115,10 +115,8 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    var str=value;
-	
-	for(let i=1; i< count; i++)
-	{
+    	let str=value;
+	for(let i=1; i< count; i++){
 		str = str.concat(value);
 	}
 	return str;
@@ -232,9 +230,9 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    var input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-    var output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
-    var lookup = input.reduce((m, k, i) => Object.assign(m, { [k]: output[i] }), {});
+    let input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+    let output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
+    let lookup = input.reduce((m, k, i) => Object.assign(m, { [k]: output[i] }), {});
     return str.split('').map(x => lookup[x] || x).join('');
 }
 
@@ -284,7 +282,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    var cards=['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+    let cards=['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
                'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
                'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
                'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
