@@ -72,7 +72,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    var res = 0;
+    let res = 0;
     for (let i = n1; i <= n2; i++) {
         res += i;
     }
@@ -95,8 +95,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-    let res = (a < b + c && b < a + c && c < a + b) ? true : false;
-    return res;
+    return (a < b + c && b < a + c && c < a + b);
 }
 
 
@@ -178,9 +177,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-
-    var hypot = Math.hypot(point.x - circle.center.x, point.y - circle.center.y);
-
+    const hypot = Math.hypot(point.x - circle.center.x, point.y - circle.center.y);
     return circle.radius > hypot;
 }
 
@@ -197,8 +194,8 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    for (var i = 0; i < str.length; i++) {
-        var c = str.charAt(i);
+    for (let i = 0; i < str.length; i++) {
+        let c = str.charAt(i);
         if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1) {
             return c;
         }
@@ -229,7 +226,7 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    var resString = '';
+    let resString = '';
     resString += (isStartIncluded) ? '[' : '(';
     resString += (a < b) ? `${a}, ${b}` : `${b}, ${a}`;
     resString += (isEndIncluded) ? ']' : ')';
@@ -250,8 +247,8 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    var newString = "";
-    for (var i = str.length - 1; i >= 0; i--) {
+    let newString = "";
+    for (let i = str.length - 1; i >= 0; i--) {
         newString += str[i];
     }
     return newString;
@@ -298,35 +295,18 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
     let sum = 0;
-    let i = 1;
-    for (let digit of getDigits(ccn)) {
-        sum += processCcnDigit(digit, i);
-        i += 1;
+    const digits = ccn.toString();
+    for (let i = 0; i < digits.length; i += 1) {
+        let cardNum = parseInt(digits[i], 10);
+        if ((digits.length - i) % 2 === 0) {
+            cardNum *= 2;
+            if (cardNum > 9) {
+                cardNum -= 9;
+            }
+        }
+        sum += cardNum;
     }
     return sum % 10 === 0;
-
-    function processCcnDigit(digit, i) {
-        if (i % 2 === 0) {
-            digit *= 2;
-            if (digit > 9) { digit -= 9; }
-        }
-        return digit;
-    }
-
-    function* getDigits(ccn) {
-        if (!Number.isSafeInteger(ccn)) {
-            yield* ccn.toString(10)
-                .split('')
-                .reverse()
-                .map(x => +x);
-            return;
-        }
-        while (ccn > 0) {
-            yield ccn % 10;
-            ccn = Math.trunc(ccn / 10);
-        }
-    }
-
 }
 
 
@@ -391,8 +371,8 @@ function isBracketsBalanced(str) {
             }
         }
     }
-    if (result.length === 0) return true;
-    return false;
+    return(result.length===0);
+    
 }
 
 
@@ -524,15 +504,15 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    var rowsA = m1.length, colsA = m1[0].length,
+    let rowsA = m1.length, colsA = m1[0].length,
         rowsB = m2.length, colsB = m2[0].length,
         C = [];
     if (colsA != rowsB) return false;
-    for (var i = 0; i < rowsA; i++) C[i] = [];
-    for (var k = 0; k < colsB; k++) {
-        for (var i = 0; i < rowsA; i++) {
-            var t = 0;
-            for (var j = 0; j < rowsB; j++) t += m1[i][j] * m2[j][k];
+    for (let i = 0; i < rowsA; i++) C[i] = [];
+    for (let k = 0; k < colsB; k++) {
+        for (let i = 0; i < rowsA; i++) {
+            let t = 0;
+            for (let j = 0; j < rowsB; j++) t += m1[i][j] * m2[j][k];
             C[i][k] = t;
         }
     }
