@@ -33,7 +33,24 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    let count  = 99;
+    while(count > 0){
+        if(count == 1){
+            yield `${count} bottle of beer on the wall, ${count} bottle of beer.`
+            yield `Take one down and pass it around, no more bottles of beer on the wall.`
+            yield 'No more bottles of beer on the wall, no more bottles of beer.'
+            yield 'Go to the store and buy some more, 99 bottles of beer on the wall.'
+            count--
+        } else {
+            yield `${count} bottles of beer on the wall, ${count} bottles of beer.`
+            count--;
+            if (count == 1) {
+                yield `Take one down and pass it around, ${count} bottle of beer on the wall.`
+            } else {
+                yield `Take one down and pass it around, ${count} bottles of beer on the wall.`
+            }
+        }
+    }
 }
 
 
@@ -47,12 +64,19 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    let previous = 0
+    let current = 1
+    while (true) {
+        yield previous
+        const next = current + previous
+        previous = current
+        current = next
+    }
 }
 
 
 /**
- * Traverses a tree using the depth-first strategy
+         * Traverses a tree using the depth-first strategy
  * See details: https://en.wikipedia.org/wiki/Depth-first_search
  *
  * Each node have child nodes in node.children array.
@@ -82,8 +106,50 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let queue = [],
+    count = [0],
+    i = 0;
+    yield root
+    let currentNode = root;
+    queue.push(root);
+    while(i >= 0) {
+        currentNode = queue[i];
+        if(currentNode.children != undefined) {
+            if(currentNode.children.length > count[i]) {
+                queue.push(currentNode.children[count[i]]);
+                count.push(0)
+                yield currentNode.children[count[i]];
+                i++;
+            }else{
+                queue.pop();
+                count.pop()
+                i--;
+                count[i]++
+            }
+        }else{
+            queue.pop();
+            count.pop()
+            i--;
+            count[i]++
+        
+        
+        }
+    }
 }
+    /*while (queue.length > i) {
+        let currentNode = queue[i];
+        if(currentNode.children != undefined) { 
+            for(let j = currentNode.children.length - 1; j >= 0; j--){
+                queue.splice( i+1, 0, currentNode.children[j] );
+            }
+        }
+        yield queue[i]
+        i++;
+    }*/
+
+
+
+    
 
 
 /**
@@ -108,7 +174,19 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let queue = [];
+    let i = 0
+    queue.push(root)
+    while (queue.length > i) {
+        let currentNode = queue[i];
+        if(currentNode.children != undefined) {
+            for( const child of currentNode.children) {
+                queue.push(child);
+            }
+        }
+        yield queue[i]
+        i++;
+    }
 }
 
 
@@ -126,7 +204,24 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    let first  = source1(),
+            second = source2(),
+            a,
+            b;
+    while(true){
+    
+            a = first.next().value,
+            b = second.next().value;
+            if(a == undefined){
+                yield b;
+            } else if( b == undefined){
+                yield a;
+            }else {
+                yield Math.min(a,b);
+                yield Math.max(a,b);
+                
+            }
+    }
 }
 
 /**
@@ -144,8 +239,22 @@ function* mergeSortedSequences(source1, source2) {
  *
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
+
 function async(generator) {
-    throw new Error('Not implemented');
+    let gen = generator();
+
+    let iterator = async response => {
+        
+        if (response.done) {
+            return await Promise.resolve(response.value);
+        } 
+
+        const result = await Promise.resolve(response.value);
+        return iterator(gen.next(result));
+    }
+
+    return iterator(gen.next());
+    
 }
 
 
