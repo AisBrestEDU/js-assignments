@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return (width * height);
+    return width * height;
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return (2 * Math.PI * radius);
+    return 2 * Math.PI * radius;
 }
 
 /**
@@ -54,7 +54,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return (value1 / 2 + value2 / 2);
+    return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -89,7 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    return (-b / a);
+    return -b / a;
 }
 
 
@@ -111,7 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    return (Math.abs(Math.atan2(y2, x2) - Math.atan2(y1, x1)));
+    return Math.abs(Math.atan2(y2, x2) - Math.atan2(y1, x1));
 }
 
 /**
@@ -160,7 +160,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-    return Math.sqrt(a * a + b * b + c * c);
+    return Math.hypot(a ,b,c);
 }
 
 /**

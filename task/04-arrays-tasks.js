@@ -89,9 +89,8 @@ function getArrayOfPositives(arr) {
  */
 function getArrayOfStrings(arr) {
    return arr.filter(i => {
-      if (typeof i === 'string') {
-         return i;
-      }
+      return typeof i === 'string';
+
 
    });
 }
