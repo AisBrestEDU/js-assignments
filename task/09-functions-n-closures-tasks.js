@@ -166,7 +166,7 @@ function retry(func, attempts) {
 function logger(func, logFunc) {
     return function() {
         let args = JSON.stringify(Array.from(arguments));
-        args = args.slice(1, args.length - 1);
+        args = args.slice(1, -1);
         const logString = `${func.name}(${args})`;
         logFunc(`${logString} starts`);
         const result = func(...arguments);
@@ -190,7 +190,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    const args = Array.from(arguments).slice(1, Array.from(arguments).length);
+    const args = Array.from(arguments).slice(1);
     return function() {
         const secondArgs = Array.from(arguments);
         return fn(...args, ...secondArgs);
