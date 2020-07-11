@@ -152,12 +152,13 @@ function* depthTraversalTree(root) {
 function* breadthTraversalTree(root) {
   let queue = [];
   queue.push(root);
-  yield root;
-  while (queue.length > 0) {
-    let currentNode = queue.shift();
+  for (let j = 0; j < queue.length; j++) {
+    let currentNode = queue[j];
+    yield currentNode;
+
     if (!currentNode.hasOwnProperty('children')) continue;
+
     for (let i of currentNode.children) {
-      yield i;
       queue.push(i)
     }
   }
@@ -179,9 +180,9 @@ function* breadthTraversalTree(root) {
  */
 function* mergeSortedSequences(source1, source2) {
   let firstSeq = source1(),
-      secondSeq = source2(),
-      firstValue = firstSeq.next().value,
-      secondValue = secondSeq.next().value;
+    secondSeq = source2(),
+    firstValue = firstSeq.next().value,
+    secondValue = secondSeq.next().value;
 
   while (true) {
     if (firstValue == undefined && secondValue == undefined) break;
