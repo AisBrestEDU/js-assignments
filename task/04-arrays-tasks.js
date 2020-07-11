@@ -74,13 +74,11 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-   return array = arr.map(function(value,index){
-      if (num > 0) return num;
-      else arr.splice(ind,1);
-      
-      getArrayOfPositives(array)
-      return array;
-   })
+   var result = new Array();
+   arr.map(function (num) {
+      if (num > 0) result.push(num);
+  })
+   return result;
 }
 
 /**
