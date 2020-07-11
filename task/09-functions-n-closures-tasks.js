@@ -71,12 +71,9 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    const argum = [...arguments];
-    return function(x) {
-        return argum.reverse()
-                    .map((a, i) => a * Math.pow(x, i))
-                    .reduce((c, d) => c + d, 0);
-    }
+    return x => [...arguments].reverse()
+                            .map((a, i) => a * Math.pow(x, i))
+                            .reduce((c, d) => c + d, 0);
 }
 
 /**
