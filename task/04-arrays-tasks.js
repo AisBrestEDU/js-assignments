@@ -339,13 +339,26 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-  const DIGITAL = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7,
-                   'eight': 8, 'nine': 9};
-  return arr.map(i => {
-    return { digital: DIGITAL[i], name: i }
-  })
-  .sort((a,b) => (a.digital > b.digital) ? 1 : (a.digital < b.digital) ? -1 :0)
-  .map(i => i.name);
+  const DIGITAL = {
+    "zero": 0,
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+  };
+  return arr
+    .map((i) => {
+      return { digital: DIGITAL[i], name: i };
+    })
+    .sort((a, b) =>
+      a.digital > b.digital ? 1 : a.digital < b.digital ? -1 : 0
+    )
+    .map((i) => i.name);
 }
 
 /**
@@ -378,7 +391,6 @@ function getItemsSum(arr) {
  */
 function getFalsyValuesCount(arr) {
   return arr.reduce((result, i) => result + (i ? 0 : 1), 0);
- 
 }
 
 /**
@@ -396,10 +408,9 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-  return arr.reduce(function(n, val) {
+  return arr.reduce(function (n, val) {
     return n + (val === item);
-}, 0);
- 
+  }, 0);
 }
 
 /**
@@ -544,8 +555,15 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   
-  throw new Error("Not implemented");
+  return array.reduce((map, item) => {
+    if (!map.has(keySelector(item))) {
+      map.set(keySelector(item), []);
+    }
+    map.get(keySelector(item)).push(valueSelector(item));
+    return map;
+  }, new Map());
+
+  // throw new Error("Not implemented");
 }
 
 /**
@@ -576,8 +594,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-  return  indexes.reduce((result, item) => result[item], arr);
-  
+  return indexes.reduce((result, item) => result[item], arr);
 }
 
 /**
@@ -599,8 +616,17 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
- 
-  throw new Error("Not implemented");
+  let arr1 = {};
+  let arr2 = {};
+  if (arr.length % 2 == 0) {
+    arr1 = arr.slice(0, arr.length / 2);
+    arr2 = arr.slice(-arr.length / 2);
+    return arr2.concat(arr1);
+  } else if (arr.length % 2 == 1 && arr.length > 1) {
+    arr1 = arr.slice(-Math.floor(arr.length / 2));
+    arr2 = arr.slice(0, Math.floor(arr.length / 2));
+    return arr1.concat(Math.floor(arr.length / 2) + 1, arr2);
+  } else return arr;
 }
 
 module.exports = {
