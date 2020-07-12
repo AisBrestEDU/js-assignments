@@ -249,12 +249,11 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   let newArr = [];
-   let sum = 0;
-   arr.map((item,index) => {
-       sum += item
-       newArr.push(sum)
-   })
+   let newArr=[];
+   arr.reduce(function(sum, current) {
+      newArr.push(sum+current);
+      return sum + current;
+    },0);
    return newArr;
 }
 
@@ -334,7 +333,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
    let s = 0;
    arr.map(item => {
-      item > 0 && typeof item == 'number' ? s++ : null;
+      item > 0 && typeof item === 'number' ? s++ : null;
    })
    return s;
 }
@@ -375,7 +374,9 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   return !(arr == 0) ? arr.reduce((sum, current) => sum + current) : 0;
+   return arr.reduce((sum, current) => {
+      return sum + current
+   },0)
 }
  
 /** 
@@ -391,11 +392,8 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   let s = 0;
-   arr.map(item => {
-      !item ? s++ : null;
-   });
-   return s;
+   let newArr = arr.filter(item => !item);
+   return newArr.length;
 }
 
 /**
@@ -464,7 +462,7 @@ function sortCitiesArray(arr) {
    return arr.sort((a, b) => {
       if (a.country > b.country) {
          return 1;
-      } else if (a.country == b.country){
+      } else if (a.country === b.country){
          return a.city > b.city ? 1 : -1
       } else {
          return -1;

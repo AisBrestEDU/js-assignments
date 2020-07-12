@@ -203,7 +203,7 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
     let str = '';
-    for(var i = 1; i <= height; i++) {
+    for(let i = 1; i <= height; i++) {
         switch (i) {
             case 1:
                 str += "┌" + "─".repeat(width-2) + "┐" + "\n";
