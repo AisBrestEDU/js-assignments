@@ -108,64 +108,91 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+class Selector {
+    static createSelector(builder, selector, value) {
+        const obj = Object.create(builder);
+        let valueStr;
+        switch (selector) {
+            case 'element':
+                valueStr = `${value}`;
+                break;
+            case 'id':
+                valueStr = `#${value}`;
+                break;
+            case 'class':
+                valueStr = `.${value}`;
+                break;
+            case 'attribute':
+                valueStr = `[${value}]`;
+                break;
+            case 'pseudo-class':
+                valueStr = `:${value}`;
+                break;
+            case 'pseudo-element':
+                valueStr = `::${value}`;
+                break;
+        }
+        obj.selectorStr = `${builder.selectorStr}${valueStr}`;
+        return obj;
+    }
+
+    static checkSelector(builder, selector, thisBuilder) {
+        if (selector === 'element') {
+            builder.elementCalls++;
+        }
+        if (selector === 'id') {
+            builder.idCalls++;
+        }
+        if (selector === 'pseudo-element') {
+            builder.pseudoElementCalls++;
+        }
+        builder.checkCalls();
+        builder.order = builder.selectors.indexOf(selector);
+        thisBuilder.checkOrder(builder.selectors.indexOf(selector));
+    }
+}
+
 const cssSelectorBuilder = {
     selectorStr: '',
     elementCalls: 0,
     idCalls: 0,
     pseudoElementCalls: 0,
+    selectors: ['element', 'id', 'class', 'attribute', 'pseudo-class', 'pseudo-element'],
 
     element: function (value) {
-        const obj = Object.create(this);
-        obj.elementCalls++;
-        obj.checkCalls();
-        obj.order = 0;
-        this.checkOrder(0);
-        obj.selectorStr = `${this.selectorStr}${value}`;
-        return obj;
+        let selector = Selector.createSelector(this, 'element', value);
+        Selector.checkSelector(selector, 'element', this);
+        return selector;
     },
 
     id: function (value) {
-        const obj = Object.create(this);
-        obj.idCalls++;
-        obj.checkCalls();
-        obj.order = 1;
-        this.checkOrder(1);
-        obj.selectorStr = `${this.selectorStr}#${value}`;
-        return obj;
+        let selector = Selector.createSelector(this, 'id', value);
+        Selector.checkSelector(selector, 'id', this);
+        return selector;
     },
 
     class: function (value) {
-        const obj = Object.create(this);
-        obj.order = 2;
-        this.checkOrder(2);
-        obj.selectorStr = `${this.selectorStr}.${value}`;
-        return obj;
+        let selector = Selector.createSelector(this, 'class', value);
+        Selector.checkSelector(selector, 'class', this);
+        return selector;
     },
 
     attr: function (value) {
-        const obj = Object.create(this);
-        obj.order = 3;
-        this.checkOrder(3);
-        obj.selectorStr = `${this.selectorStr}[${value}]`;
-        return obj;
+        let selector = Selector.createSelector(this, 'attribute', value);
+        Selector.checkSelector(selector, 'attribute', this);
+        return selector;
     },
 
     pseudoClass: function (value) {
-        const obj = Object.create(this);
-        obj.order = 4;
-        this.checkOrder(4);
-        obj.selectorStr = `${this.selectorStr}:${value}`;
-        return obj;
+        let selector = Selector.createSelector(this, 'pseudo-class', value);
+        Selector.checkSelector(selector, 'pseudo-class', this);
+        return selector;
     },
 
     pseudoElement: function (value) {
-        const obj = Object.create(this);
-        obj.pseudoElementCalls++;
-        obj.checkCalls();
-        obj.order = 5;
-        this.checkOrder(5);
-        obj.selectorStr = `${this.selectorStr}::${value}`;
-        return obj;
+        let selector = Selector.createSelector(this, 'pseudo-element', value);
+        Selector.checkSelector(selector, 'pseudo-element', this);
+        return selector;
     },
 
     combine: function (selector1, combinator, selector2) {
