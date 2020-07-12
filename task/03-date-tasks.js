@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,8 +56,22 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   const year = new Date(date).getFullYear();
+   if (!(year % 4)) {
+   } else {
+      return false;
+   };
+   if (year % 100) {
+      return true;
+   } else {
+      if (!(year % 400)) {
+         return true;
+      } else {
+         return false;
+      }
+   }
 }
+
 
 
 /**
@@ -76,7 +90,39 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+
+   let passedMilliseconds = endDate - startDate;
+
+   let dateComponents = [];
+
+   const hours = Math.trunc(passedMilliseconds / 3600000);
+   dateComponents.push(hours);
+
+
+   const minutes = Math.trunc((passedMilliseconds - hours * 3600000) / 60000);
+   dateComponents.push(minutes);
+
+   const seconds = Math.trunc((passedMilliseconds - hours * 3600000 - minutes * 60000) / 1000);
+   dateComponents.push(seconds);
+
+   let milliseconds = passedMilliseconds - hours * 3600000 - minutes * 60000 - seconds * 1000;
+   dateComponents.push(milliseconds);
+
+
+   dateComponents = dateComponents.map((dateComponent, index, array) => {
+      if (dateComponent < 10 && index !== array.length - 1) {
+         return `0${dateComponent}`;
+      } else if (index === array.length - 1) {
+         if (dateComponent < 10) {
+            return `00${milliseconds}`;
+         } else if (dateComponent > 9 && dateComponent < 100) {
+            return `0${milliseconds}`
+         }
+      }
+      return dateComponent;
+   })
+
+   return `${dateComponents[0]}:${dateComponents[1]}:${dateComponents[2]}.${dateComponents[3]}`;
 }
 
 
@@ -94,14 +140,25 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   const dateRes = new Date(date);
+   let angle = 0.5 * (60 * dateRes.getUTCHours() - 11 * dateRes.getUTCMinutes());
+   if (angle > 180) {
+      angle = 360 - angle;
+      if (angle < 0) {
+         angle = angle * (-1);
+      }
+      if (angle > 180) {
+         angle = 360 - angle;
+      }
+   }
+   return Math.PI / 180 * angle;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
