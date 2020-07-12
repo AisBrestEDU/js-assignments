@@ -89,11 +89,10 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    if (a != 0)
+    if (a !== 0)
         return -b / a;
     else
-        return Number.NaN;
-    
+        return Number.NaN;  
 }
 
 
@@ -116,13 +115,13 @@ function getLinearEquationRoot(a, b) {
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
     let dotProduct = x1 * x2 + y1 * y2;
-    let Magnitude1 = Math.sqrt(x1 * x1 + y1 * y1);
-    let Magnitude2 = Math.sqrt(x2 * x2 + y2 * y2);
+    let magnitude1 = Math.sqrt(x1 * x1 + y1 * y1);
+    let magnitude2 = Math.sqrt(x2 * x2 + y2 * y2);
 
-    if (Magnitude1 * Magnitude2 == 0)
+    if (magnitude1 * magnitude2 === 0)
         return Number.NaN;
 
-    return Math.acos(dotProduct / (Magnitude1 * Magnitude2));
+    return Math.acos(dotProduct / (magnitude1 * magnitude2));
 }
 
 /**
@@ -138,9 +137,9 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    let str_value = value.toString();
+    let stringValue = value.toString();
 
-    return Number(str_value[str_value.length - 1]);
+    return Number(stringValue[stringValue.length - 1]);
 }
 
 
@@ -230,7 +229,7 @@ function roundToPowerOfTen(num, pow) {
  */
 function isPrime(n) {
     for (let i = 2; i <= Math.sqrt(n); i++) {
-        if (n % i == 0)
+        if (n % i === 0)
             return false;
     }
         return true;
@@ -252,7 +251,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (value == null)
+    if (value === null)
         return def;
 
     let num = Number(value);

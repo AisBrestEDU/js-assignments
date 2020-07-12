@@ -58,13 +58,13 @@ function parseDataFromIso8601(value) {
 function isLeapYear(date) {
     let years = date.getFullYear();
 
-    if (years % 4 != 0) {
+    if (years % 4 !== 0) {
         return false;
     }
-    else if (years % 100 != 0) {
+    else if (years % 100 !== 0) {
         return true;
     }
-    else if (years % 400 != 0) {
+    else if (years % 400 !== 0) {
         return false;
     }
     else {
@@ -89,15 +89,15 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) { 
-    let ts = new Date(endDate - startDate);
-    let hours = ts.getUTCHours().toString();
-    let minutes = ts.getUTCMinutes().toString();
-    let seconds = ts.getUTCSeconds().toString();
-    let milliseconds = ts.getUTCMilliseconds().toString();
-    let hours_number = Number(hours);
+    let timeSpan = new Date(endDate - startDate);
+    let hours = timeSpan.getUTCHours().toString();
+    let minutes = timeSpan.getUTCMinutes().toString();
+    let seconds = timeSpan.getUTCSeconds().toString();
+    let milliseconds = timeSpan.getUTCMilliseconds().toString();
+    let hoursNumber = Number(hours);
 
-    hours_number = ((endDate - startDate) / 3600000 > 24) ? hours_number + 24 : hours_number;
-    hours = hours_number.toString();
+    hoursNumber = ((endDate - startDate) / 3600000 > 24) ? hoursNumber + 24 : hoursNumber;
+    hours = hoursNumber.toString();
     hours = (hours < 10) ? '0' + hours : hours;   
 
     minutes = (minutes < 10) ? '0' + minutes : minutes;

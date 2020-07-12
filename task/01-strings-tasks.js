@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return new String(`Hello, ${firstName} ${lastName}!`);
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -69,9 +69,10 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    let temp = value.replace(' ', '');
-    let ln = 'Hello,'.length;
-    return temp.substring(ln, temp.length - 1);
+    let tempString = value.replace(' ', '');
+    let tempStringLength = 'Hello,'.length;
+
+    return tempString.substring(tempStringLength, tempString.length - 1);
 }
 
 
@@ -116,17 +117,17 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    let retString = '';
+    let resultString = '';
 
     if (eval(count) > 0) {
-        for (var i = 0; i < count; i++) {
-            retString += value;
+        for (let i = 0; i < count; i++) {
+            resultString += value;
         }
     }
     else
-        retString = value;
+        resultString = value;
 
-    return retString;
+    return resultString;
 }
 
 /**
@@ -215,41 +216,41 @@ function extractEmails(str) {
 function getRectangleString(width, height) {
     let pseudograhicString = '';
 
-    if (width == 0 || height == 0)
+    if (width === 0 || height === 0)
         return pseudograhicString;
 
-    for (let h_index = 0; h_index < height; h_index++) {
-        if (h_index == height-1) {
-            for (let w_index = 0; w_index < width; w_index++) {
-                if (w_index == 0)
+    for (let highIndex = 0; highIndex < height; highIndex++) {
+        if (highIndex === height-1) {
+            for (let widthIndex = 0; widthIndex < width; widthIndex++) {
+                if (widthIndex === 0)
                     pseudograhicString += '└';
-                if (w_index == width - 1)
+                if (widthIndex === width - 1)
                     pseudograhicString += '┘\n';
-                if (w_index != 0 && w_index != width - 1)
+                if (widthIndex !== 0 && widthIndex !== width - 1)
                     pseudograhicString += '─';
 
             }
         }
 
-        if (h_index == 0) {
-            for (let w_index = 0; w_index < width; w_index++) {
-                if (w_index == 0)
+        if (highIndex === 0) {
+            for (let widthIndex = 0; widthIndex < width; widthIndex++) {
+                if (widthIndex === 0)
                     pseudograhicString += '┌';
-                if (w_index == width - 1)
+                if (widthIndex === width - 1)
                     pseudograhicString += '┐\n';
-                if (w_index != 0 && w_index != width - 1)
+                if (widthIndex !== 0 && widthIndex !== width - 1)
                     pseudograhicString += '─';
 
             }           
         }
 
-        if (h_index != 0 && h_index != height - 1) {
-            for (let w_index = 0; w_index < width; w_index++) {
-                if (w_index == 0)
+        if (highIndex !== 0 && highIndex !== height - 1) {
+            for (let widthIndex = 0; widthIndex < width; widthIndex++) {
+                if (widthIndex === 0)
                     pseudograhicString += '│';
-                if (w_index == width - 1)
+                if (widthIndex === width - 1)
                     pseudograhicString += '│\n';
-                if (w_index != 0 && w_index != width - 1)
+                if (widthIndex !== 0 && widthIndex !== width - 1)
                     pseudograhicString += ' ';
             }
         }
@@ -277,27 +278,27 @@ function getRectangleString(width, height) {
 function encodeToRot13(str) {
     let initAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let otherAlphabet = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-    let retString = '';
-    let Match = false;
+    let resultString = '';
+    let match = false;
 
-    if (str == '')
-        return retString;
+    if (str === '')
+        return resultString;
 
     for (let i = 0; i < str.length; i++) {
         for (let j = 0; j < initAlphabet.length; j++) {
-            if (str[i] == initAlphabet[j]) {
-                retString += otherAlphabet[j];
-                Match = true;//We have a match
+            if (str[i] === initAlphabet[j]) {
+                resultString += otherAlphabet[j];
+                match = true;//We have a match
             }           
         }
 
-        if (!Match) 
-            retString += str[i];//We have no match                   
+        if (!match) 
+            resultString += str[i];//We have no match                   
 
-        Match = false;
+            match = false;
     }
 
-    return retString;
+    return resultString;
 }
 
 /**
@@ -352,7 +353,7 @@ function getCardId(value) {
                     ];
 
     for (let i = 0; i < playCards.length; i++) {
-        if (value == playCards[i]) {
+        if (value === playCards[i]) {
             playCardID = i;
             break;
         }
