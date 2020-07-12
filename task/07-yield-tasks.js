@@ -33,16 +33,15 @@
  *
  */
 function* get99BottlesOfBeer() {
-    let number = 99
-    while (number>1) {
-       yield  `${number} bottles of beer on the wall, ${number} bottles of beer.`
-       yield  number-1!==1 ? `Take one down and pass it around, ${number-1} bottles of beer on the wall.` : `Take one down and pass it around, 1 bottle of beer on the wall.`
-       number--
+    let number = 99;
+    for (number; number >1; number--){
+        yield  `${number} bottles of beer on the wall, ${number} bottles of beer.`;
+        yield  number-1!==1 ? `Take one down and pass it around, ${number-1} bottles of beer on the wall.` : `Take one down and pass it around, 1 bottle of beer on the wall.`;
     }
-    yield '1 bottle of beer on the wall, 1 bottle of beer.'
-    yield  'Take one down and pass it around, no more bottles of beer on the wall.'
-    yield  'No more bottles of beer on the wall, no more bottles of beer.'
-    yield  'Go to the store and buy some more, 99 bottles of beer on the wall.'
+    yield '1 bottle of beer on the wall, 1 bottle of beer.';
+    yield  'Take one down and pass it around, no more bottles of beer on the wall.';
+    yield  'No more bottles of beer on the wall, no more bottles of beer.';
+    yield  'Go to the store and buy some more, 99 bottles of beer on the wall.';
 }
 
 
@@ -56,15 +55,15 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    yield 0
-    var fn1 = 1;
-    var fn2 = 1;
+    yield 0;
+    let number1 = 1;
+    let munber2 = 1;
     while (true){  
-    var current = fn2;
-    fn2 = fn1;
-    fn1 = fn1 + current;
-    yield current;
-  }
+        let current = munber2;
+        munber2 = number1;
+        number1 = number1 + current;
+        yield current;
+    }
 }
 
 
@@ -103,8 +102,8 @@ function* depthTraversalTree(root) {
     while (stack.length) {
         let elem = stack.pop();
         if (elem.children) 
-            for (let leaf of elem.children.reverse())
-                stack.push(leaf)     
+            for (let node of elem.children.reverse())
+                stack.push(node);     
         yield elem;
     }
 }
@@ -132,17 +131,16 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    let nodes = [root],
-    index = 0;
+    let nodes = [root], index = 0;
     while ((nodes.length - index) > 0) {
-    let n = nodes[index];
-    yield n;
-    if(n.children){
-        for (let i of n.children) {
-            nodes.push(i);                
+        let node = nodes[index];
+        yield node;
+        if(node.children){
+            for (let i of node.children) {
+                nodes.push(i);                
+            }
         }
-    }
-    index++;
+        index++;
     }
 }
 
@@ -196,9 +194,9 @@ function async(generator) {
         });
     }
     try {
-        return handle(iter.next())
+        return handle(iter.next());
     } catch (error) {
-        return Promise.reject(error)
+        return Promise.reject(error);
     }
 }
 
