@@ -223,7 +223,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    return Number(value) ? Number(value) : def;
+    return Number(value) || Number(value) === 0 ? Number(value) : def;
 }
 
 module.exports = {
