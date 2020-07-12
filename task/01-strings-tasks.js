@@ -132,7 +132,7 @@ function repeatString(value, count) {
 function removeFirstOccurrences(str, value) {
   let index = str.indexOf(value);
   if(index > -1)
-    return str.slice(0, index - 1) + str.slice(index + value.length, str.length)
+    return str.slice(0, index) + str.slice(index + value.length, str.length)
   return str;
 }
 
