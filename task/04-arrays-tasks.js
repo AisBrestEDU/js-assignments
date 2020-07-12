@@ -237,7 +237,7 @@ function toArrayOfSquares(arr) {
 function getMovingSum(arr) {
    let accum = arr[0]
    return arr.map((element, index) => { 
-      if (index == 0){
+      if (index === 0){
          return accum;
       }
       else {
