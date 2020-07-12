@@ -199,7 +199,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   throw new Error('Not implemented');
+   return arr.map((row) => row.join()).reduce((prev, cur) => prev + "\n" + cur);
 }
 
 /**
@@ -437,7 +437,11 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   throw new Error('Not implemented');
+   return (new Array(n).fill(0)).map(
+      function (_, i) {
+         return (new Array(n)).fill(0).map((_, j) => (i == j) ? 1 : 0);
+      }
+   );
 }
 
 /**
