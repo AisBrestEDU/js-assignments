@@ -524,7 +524,7 @@ function getIntervalArray(start, end) {
 function distinct(arr) {
    let result = new Array();
    arr.map(function(element){
-      if (!result.includes(element)) result.push(element);
+      if (result.indexOf(element) == -1) result.push(element);
    });
    return result;
 }
