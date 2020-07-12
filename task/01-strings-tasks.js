@@ -251,7 +251,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return Object.prototype.toString.call(value) === "[object.String]"; 
+    return Object.prototype.toString.call(value) === "[object String]";
 }
 
 
