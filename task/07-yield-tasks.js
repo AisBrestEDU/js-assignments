@@ -103,16 +103,14 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    const nodes = [root];
-
-    while (nodes.length) {
-        const current = nodes.pop();
-
-        if (current.children) {
-        nodes.push(...current.children.reverse());
+    let nodes = [root];
+    for (let i = 0; i < nodes.length; i++) {
+        yield nodes[i];
+        if ('children' in nodes[i]) {
+            for (let j = 0; j < nodes[i].children.length; j++) {
+                nodes.splice(i + 1 + j, 0, nodes[i].children[j]);
+            }
         }
-
-        yield current;
     }
 }
 
@@ -139,17 +137,14 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    const nodes = [root];
-    let place = 0;
-
-    while (place < nodes.length) {
-        const current = nodes[place++];
-
-        if (current.children) {
-        nodes.push(...current.children);
+    let nodes = [root];
+    for (let i = 0; i < nodes.length; i++) {
+        yield nodes[i];
+        if ('children' in nodes[i]) {
+            for (let j = 0; j < nodes[i].children.length; j++) {
+                nodes.push(nodes[i].children[j]);
+            }
         }
-        
-        yield current;
     }
 }
 
