@@ -27,8 +27,48 @@
  *   'FUNCTION'  => false
  *   'NULL'      => false 
  */
+
+function dfs(puzzle, searchStr, i, j, used, cur) {
+    if (cur == searchStr.length) {
+        return true;
+    }
+    for (let delta_i of [-1,0,1]){
+        for (let delta_j of [-1,0,1]){
+            if (delta_i * delta_j == 0 && delta_i != delta_j && 
+                (i+delta_i >=0 && i+delta_i<puzzle.length) && 
+                (j+delta_j >=0 && j+delta_j<puzzle[i+delta_i].length) && !used[i+delta_i][j+delta_j]){
+                    if (searchStr.charAt(cur) == puzzle[i+delta_i][j+delta_j]) {
+                        used[i+delta_i][j+delta_j] = true;
+                        if (dfs(puzzle, searchStr, i+delta_i, j+delta_j, used, cur+1)) {
+                            return true;
+                        }
+                    }
+            }
+        }
+    }
+    return false;
+}
+
+function dfsSeria(puzzle, searchStr){
+    for (let i = 0; i< puzzle.length; i++){
+        for (let j = 0; j< puzzle[i].length; j++){
+            if (puzzle[i][j] == searchStr.charAt(0)){
+                let used = new Array(puzzle.length).fill().map(x=>new Array(puzzle[0].length).fill(false));
+                used[i][j] = true;
+                if (dfs(puzzle, searchStr, i,j, used, 1)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
 function findStringInSnakingPuzzle(puzzle, searchStr) {
-    throw new Error('Not implemented');
+    puzzle = puzzle.map(x=>x.split(''));
+    return dfsSeria(puzzle, searchStr);
+    
 }
 
 
@@ -45,7 +85,23 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
 function* getPermutations(chars) {
-    throw new Error('Not implemented');
+    yield chars;
+    chars = chars.split('');
+    let counter = new Array(chars.length).fill(0);
+    let iter = 0;
+    while (iter < chars.length){
+        for(let j = counter[iter]; j<iter; counter[iter]++, iter=0, j = counter[iter]) {
+            if (iter%2 == 0){
+                [chars[iter], chars[0]] =  [chars[0], chars[iter]] 
+            }
+            else {
+                 [chars[iter], chars[counter[iter]]] =  [chars[counter[iter]], chars[iter]] 
+            }
+            yield chars.join('');
+            
+        }
+        counter[iter]=0; iter++;
+    }
 }
 
 
@@ -65,7 +121,16 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-    throw new Error('Not implemented');
+    let pos = 0;
+    let res = 0;
+    while(pos<quotes.length){
+        let prevPos = pos;
+        pos = quotes.slice(prevPos).reduce((acc,val, idx)=> quotes[acc+prevPos]<val? idx:acc, 0) + prevPos;
+        res+= Math.max(-quotes.slice(prevPos, pos).reduce((acc,val)=> val + acc, 0) + quotes[pos]*(pos-prevPos), 0);
+        pos++; 
+    }
+    return res;
+    
 }
 
 
@@ -92,11 +157,30 @@ function UrlShortener() {
 UrlShortener.prototype = {
 
     encode: function(url) {
-        throw new Error('Not implemented');
+        let ans = new Array();
+        for (let i = 1; i< url.length; i+=2){
+            ans.push(String.fromCharCode(this.urlAllowedChars.indexOf(url.charAt(i-1))*100 + this.urlAllowedChars.indexOf(url.charAt(i))));
+        }
+        if (url.length%2 == 1){
+            ans.push(String.fromCharCode(this.urlAllowedChars.indexOf(url.charAt(url.length-1))*100 + 85));
+        }
+        return ans.join('');
     },
     
     decode: function(code) {
-        throw new Error('Not implemented');
+        let ans = new Array();
+        for (let i = 0; i< code.length - 1; i++) {
+            ans.push(this.urlAllowedChars.charAt(Math.floor(code.charCodeAt(i)/100)));
+            ans.push(this.urlAllowedChars.charAt(Math.floor(code.charCodeAt(i)%100)));
+        }
+        if (Math.floor(code.charCodeAt(code.length - 1)%100) != 85) {
+            ans.push(this.urlAllowedChars.charAt(Math.floor(code.charCodeAt(code.length - 1)/100)));
+            ans.push(this.urlAllowedChars.charAt(Math.floor(code.charCodeAt(code.length - 1)%100)));
+        }
+        else {
+            ans.push(this.urlAllowedChars.charAt(Math.floor(code.charCodeAt(code.length - 1)/100)));
+        }
+        return ans.join('');
     } 
 }
 
