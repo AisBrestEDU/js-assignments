@@ -84,7 +84,9 @@ function extractNameFromTemplate(value) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-let getFirstChar = (value) => value.match(/^./g)[0];
+function getFirstChar(value) {
+    return value.match(/^./g)[0];
+}
 
 
 /**
@@ -98,7 +100,9 @@ let getFirstChar = (value) => value.match(/^./g)[0];
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-let removeLeadingAndTrailingWhitespaces = (value) => value.trim();
+function removeLeadingAndTrailingWhitespaces(value) {
+    return value.trim();
+}
 
 /**
  * Returns a string that repeated the specified number of times.
@@ -111,7 +115,9 @@ let removeLeadingAndTrailingWhitespaces = (value) => value.trim();
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-let repeatString = (value, count) => value.repeat(count);
+function repeatString(value, count) {
+    return value.repeat(count);
+}
 
 /**
  * Remove the first occurrence of string inside another string
@@ -125,7 +131,9 @@ let repeatString = (value, count) => value.repeat(count);
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-let removeFirstOccurrences = (str, value) => str.replace(value, '');
+function removeFirstOccurrences(str, value) {
+    return str.replace(value, '');
+}
 
 /**
  * Remove the first and last angle brackets from tag string
@@ -138,7 +146,9 @@ let removeFirstOccurrences = (str, value) => str.replace(value, '');
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-let unbracketTag = (str) => str.replace(/<|>/g, '');
+function unbracketTag(str) {
+    return str.replace(/<|>/g, '');
+}
 
 /**
  * Converts all characters of the specified string into the upper case
@@ -150,7 +160,9 @@ let unbracketTag = (str) => str.replace(/<|>/g, '');
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-let convertToUpperCase = (str) => str.toUpperCase();
+function convertToUpperCase(str) {
+    return str.toUpperCase();
+}
 
 /**
  * Extracts e-mails from single string with e-mails list delimeted by semicolons
@@ -162,7 +174,9 @@ let convertToUpperCase = (str) => str.toUpperCase();
  *   'angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com' => ['angus.young@gmail.com', 'brian.johnson@hotmail.com', 'bon.scott@yahoo.com']
  *   'info@gmail.com' => ['info@gmail.com']
  */
-let extractEmails = (str) => str.split(';');
+function extractEmails(str) {
+    return str.split(';');
+}
 
 /**
  * Returns the string representation of rectangle with specified width and height
@@ -212,14 +226,15 @@ function getRectangleString(width, height) {
  *   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-let encodeToRot13 = (str) =>
-    str.split('').map(function (c) {
+function encodeToRot13(str) {
+    return str.split('').map(function (c) {
         let Input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         let Output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
         return ~Input.indexOf(c)
             ? Output.charAt(Input.indexOf(c))
             : c;
     }).join('');
+}
 
 /**
  * Returns true if the value is string; otherwise false.
@@ -234,7 +249,9 @@ let encodeToRot13 = (str) =>
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-let isString = (value) => typeof (value) === 'string' || value instanceof String;
+function isString(value) {
+    return typeof (value) === 'string' || value instanceof String;
+}
 
 /**
  * Returns playid card id.
@@ -260,11 +277,12 @@ let isString = (value) => typeof (value) === 'string' || value instanceof String
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-let getCardId = (value) =>
-    ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+function getCardId(value) {
+    return ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
         'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
         'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
         'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'].indexOf(value);
+}
 
 module.exports = {
     concatenateStrings: concatenateStrings,

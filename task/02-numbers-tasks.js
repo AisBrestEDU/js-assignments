@@ -21,7 +21,9 @@
  *   5, 10 => 50
  *   5, 5  => 25
  */
-let getRectangleArea = (width, height) => width * height;
+function getRectangleArea(width, height) {
+    return width * height;
+}
 
 
 /**
@@ -35,7 +37,9 @@ let getRectangleArea = (width, height) => width * height;
  *   3.14 => 19.729201864543903
  *   0    => 0
  */
-let getCicleCircumference = (radius) => 2 * Math.PI * radius;
+function getCicleCircumference(radius) {
+    return 2 * Math.PI * radius;
+}
 
 /**
  * Returns an average of two given numbers.
@@ -49,7 +53,9 @@ let getCicleCircumference = (radius) => 2 * Math.PI * radius;
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-let getAverage = (value1, value2) => 0.5 * value1 + 0.5 * value2;
+function getAverage(value1, value2) {
+    return 0.5 * value1 + 0.5 * value2;
+}
 
 /**
  * Returns a distance beetween two points by cartesian coordinates.
@@ -66,7 +72,9 @@ let getAverage = (value1, value2) => 0.5 * value1 + 0.5 * value2;
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-let getDistanceBetweenPoints = (x1, y1, x2, y2) => Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+function getDistanceBetweenPoints(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
 
 /**
  * Returns a root of linear equation a*x + b = 0 given by coefficients a and b.
@@ -80,8 +88,9 @@ let getDistanceBetweenPoints = (x1, y1, x2, y2) => Math.sqrt(Math.pow(x2 - x1, 2
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-let getLinearEquationRoot = (a, b) => - (b / a);
-
+function getLinearEquationRoot(a, b) {
+    return - (b / a);
+}
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi, coordinates in Cartesian plane
@@ -100,8 +109,10 @@ let getLinearEquationRoot = (a, b) => - (b / a);
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-let getAngleBetweenVectors = (x1, y1, x2, y2) =>
-    Math.acos((x1 * x2 + y1 * y2 )/ (Math.sqrt(Math.pow(x1, 2) + Math.pow(y1, 2)) * Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2))));
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+    return Math.acos((x1 * x2 + y1 * y2 ) / (Math.sqrt(Math.pow(x1, 2) + 
+        Math.pow(y1, 2)) * Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2))));
+}
 
 /**
  * Returns a last digit of a integer number.
@@ -132,7 +143,9 @@ function getLastDigit(value) {
  *     '37'     => 37
  * '-525.5'     => -525.5
  */
-let parseNumberFromString = (value) => + value;
+function parseNumberFromString(value) {
+    return + value;
+}
 
 /**
  * Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c.
@@ -147,8 +160,9 @@ let parseNumberFromString = (value) => + value;
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-let getParallelipidedDiagonal = (a, b, c) =>
-    Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2));
+function getParallelipidedDiagonal(a,b,c) {
+    return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2));
+}
 
 /**
  * Returns the number rounded to specified power of 10.
@@ -213,7 +227,9 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-let toNumber = (value, def) => !isNaN(value) && !isNaN(parseFloat(value)) ? +value : def;
+function toNumber(value, def) {
+    return !isNaN(value) && !isNaN(parseFloat(value)) ? +value : def;
+}
 
 module.exports = {
     getRectangleArea: getRectangleArea,

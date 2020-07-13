@@ -147,7 +147,6 @@ function getStringsLength(arr) {
  */
 function insertItem(arr, item, index) {
     arr.splice(index, 0, item);
-    return arr;
 }
 
 /**
@@ -200,7 +199,7 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(arr) { 
+function toCsvText(arr) {
     return arr.join('\n');
 }
 
@@ -268,7 +267,7 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(arr) {    
+function propagateItemsByPositionIndex(arr) {
     return arr.map((value, index) => [...Array(index + 1)].fill(value)).reduce((acc, val) => acc.concat(val), []);
 }
 
@@ -581,8 +580,6 @@ function swapHeadAndTail(arr) {
 		return [...rightPart, ...leftPart];
 	}
 }
-
-
 
 
 module.exports = {
