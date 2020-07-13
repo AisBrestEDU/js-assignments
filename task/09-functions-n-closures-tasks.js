@@ -127,7 +127,7 @@ function retry(func, attempts) {
     return function () {
         try {
             return func();
-        } catch (e) {
+        } catch {
             return retry(func, attempts - 1)();
         }
     };
