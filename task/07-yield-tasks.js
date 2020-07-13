@@ -203,9 +203,27 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async (generator) {
- let  co = require('co');
- return co(generator);
+    let iter=generator();
+    function run(arg){
+        let result=iter.next(arg);
+        if (result.done){
+            return result.value;
+        }else {
+            return Promise.resolve(result.value).then(run);
+        }
+    }
+    return run()
+   
 }
+
+
+
+
+
+            
+
+
+
 module.exports = {
     get99BottlesOfBeer: get99BottlesOfBeer,
     getFibonacciSequence: getFibonacciSequence,
