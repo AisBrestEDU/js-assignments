@@ -199,7 +199,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   return arr.map((row) => row.join()).reduce((prev, cur) => prev + "\n" + cur);
+   return arr.map(row => row.join()).reduce((prev, cur) => prev + "\n" + cur);
 }
 
 /**
@@ -415,7 +415,8 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   throw new Error('Not implemented');
+   return arr.sort((a, b) =>
+      (b.country < a.country) - (a.country < b.country) || (b.city < a.city) - (a.city < b.city));
 }
 
 /**
@@ -437,11 +438,8 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   return (new Array(n).fill(0)).map(
-      function (_, i) {
-         return (new Array(n)).fill(0).map((_, j) => (i == j) ? 1 : 0);
-      }
-   );
+   return (new Array(n).fill(0)).map((_, i) =>
+      (new Array(n)).fill(0).map((_, j) => (i == j) ? 1 : 0));
 }
 
 /**
