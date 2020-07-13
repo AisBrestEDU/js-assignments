@@ -542,7 +542,7 @@ function getIntervalArray(start, end) {
 function distinct(arr) {
    const arrRes = [];
    arr.map(item => {
-      if (!arrRes.includes(item)) {
+      if (arrRes.indexOf(item) === -1) {
          arrRes.push(item);
       }
    });
