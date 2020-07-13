@@ -25,8 +25,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.acos(x))
  *
  */
-function getComposition(f,g) {
-    throw new Error('Not implemented');
+function getComposition(f, g) {
+    return function (x) {
+        return f(g(x));
+    };
 }
 
 
@@ -47,7 +49,9 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+    return function (n) {
+        return Math.pow(n, exponent);
+    }
 }
 
 
@@ -65,7 +69,14 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+    let args = arguments;
+    return function (x) {
+        let sum = 0;
+        for (let i = 0; i < args.length; i++) {
+            sum += args[i] * Math.pow(x, args.length - i - 1);
+        }
+        return sum;
+    }
 }
 
 
@@ -84,7 +95,13 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+    let cached;
+    return function () {
+        if (cached === undefined) {
+            cached = func();
+        }
+        return cached;
+    }
 }
 
 
@@ -104,7 +121,16 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+    if (attempts === 0) {
+        throw new Error('fulyError');
+    }
+    return function () {
+        try {
+            return func();
+        } catch {
+            return retry(func, attempts - 1)();
+        }
+    };
 }
 
 
@@ -132,7 +158,14 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+    return function () {
+        let argsStr = Array.from(arguments).map(v => Array.isArray(v) ? `[${v.map(s => typeof s === 'string' ? `"${s}"` : s).join(',')}]` : v).join(',');
+        let funcStr = `${func.name}(${argsStr})`;
+        logFunc(`${funcStr} starts`);
+        let result = func(...arguments);
+        logFunc(`${funcStr} ends`);
+        return result;
+    }
 }
 
 
@@ -150,7 +183,11 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+    let args1 = Array.from(arguments).slice(1);
+    return function (...args2) {
+        args1.push(...args2);
+        return fn(...args1);
+    };
 }
 
 
@@ -171,7 +208,9 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+    return function () {
+        return startFrom++;
+    };
 }
 
 
