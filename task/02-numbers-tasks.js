@@ -14,7 +14,7 @@
  * Returns an area of a rectangle given by width and heigth.
  *
  * @param {numder} width
- * @param {number} height
+ * @param {number} heightпше 
  * @return {number}
  *
  * @example:
