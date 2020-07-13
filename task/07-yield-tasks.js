@@ -130,14 +130,18 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    const queue = [root];
-    while (queue.length > 0) {
-        root = queue.shift();
-        yield root;
-        if (typeof root.children !== 'undefined')
-            for (let value of root.children)
-                queue.push(value);
-    };
+    let tree = [root];
+    let i = 0;
+    while ((tree.length - i) > 0) {
+        let node = tree[i];
+        yield node;
+        if (node.children) {
+            for (let item of node.children) {
+                tree.push(item);
+            }
+        }
+        i++;
+    }
 }
 
 
