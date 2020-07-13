@@ -21,18 +21,17 @@
  *   '{0c74f13f-fa83-4c48-9b33-68921dd72463}'
  *
  *  Do not match:
-     *   '{D44EF4F4-280B47E5-91C7-261222A59621}'
-     *   '{D1A5279D-B27D-4CD4-A05E-EFDH53D08E8D}'
-     *   '{5EDEB36C-9006-467A8D04-AFB6F62CD7D2}'
-     *   '677E2553DD4D43B09DA77414DB1EB8EA'
-     *   '0c74f13f-fa83-4c48-9b33-68921dd72463'
-     *   'The roof, the roof, the roof is on fire'
+ *   '{D44EF4F4-280B47E5-91C7-261222A59621}'
+ *   '{D1A5279D-B27D-4CD4-A05E-EFDH53D08E8D}'
+ *   '{5EDEB36C-9006-467A8D04-AFB6F62CD7D2}'
+ *   '677E2553DD4D43B09DA77414DB1EB8EA'
+ *   '0c74f13f-fa83-4c48-9b33-68921dd72463'
+ *   'The roof, the roof, the roof is on fire'
  *
  * @return {RegExp}
  */
 function getRegexForGuid() {
-    let pattern = /^{([\d]|[a-d,e,f,A-D,E,F]){8}-([\d]|[a-d,e,f,A-D,E,F]){4}-([\d]|[a-d,e,f,A-D,E,F]){4}-([\d]|[a-d,e,f,A-D,E,F]){4}-([\d]|[a-d,e,f,A-D,E,F]){12}}/
-    return pattern;
+   throw new Error('Not implemented');
 }
 
 
@@ -54,8 +53,7 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-   //  let pattern = /(^[^p]|.i).*/gim
-    return  /p.t/;
+   throw new Error('Not implemented');
 }
 
 
@@ -74,7 +72,7 @@ function getRegexForPitSpot() {
  * @return {RegExp}
  */
 function getRegexForIPv4() {
-   return /^(\d{1,2}|[0-1]\d{2}|2[0-5]{2})\.(\d{1,2}|[0-1]\d{2}|2[0-5]{2})\.(\d{1,2}|[0-1]\d{2}|2[0-5]{2})\.(\d{1,2}|[0-1]\d{2}|[0-5]\d{2})$/;
+   throw new Error('Not implemented');
 }
 
 
@@ -93,7 +91,7 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-    return /^(?!000)\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/;
+   throw new Error('Not implemented');
 }
 
 
@@ -118,7 +116,7 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-    return new RegExp(`^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])[A-Za-z0-9]{${minLength},}$`);
+   throw new Error('Not implemented');
 }
 
 

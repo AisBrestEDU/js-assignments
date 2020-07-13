@@ -22,9 +22,9 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-    const date = new Date(value);
-    return date;
+   throw new Error('Not implemented');
 }
+
 /**
  * Parses an ISO 8601 string date representation into date value
  * For ISO 8601 date specification refer to : https://en.wikipedia.org/wiki/ISO_8601
@@ -37,9 +37,10 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-    const date = new Date(value);
-    return date;
+   throw new Error('Not implemented');
 }
+
+
 /**
  * Returns true if specified date is leap year and false otherwise
  * Please find algorithm here: https://en.wikipedia.org/wiki/Leap_year#Algorithm
@@ -55,12 +56,10 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-    let year = date.getFullYear();
-    if ((year % 4 === 0 && year % 100 != 0) || year % 400 === 0) {
-        return true;
-    }
-    return false;
+   throw new Error('Not implemented');
 }
+
+
 /**
  * Returns the string represention of the timespan between two dates.
  * The format of output string is "HH:mm:ss.sss"
@@ -77,20 +76,14 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-    let milliSec = endDate - startDate;
-    let differTime = Math.abs(endDate - startDate) / 1000;
-    let hours = Math.floor(differTime / 3600);
-    let minutes = Math.floor(differTime / 60) % 60;
-    let seconds = Math.floor(differTime % 60);
-    let msecs = milliSec % 1000;
-    let pad = (v, len = 2) => ("" + v).padStart(len, '0');
-    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}.${pad(msecs, 3)}`;
-
+   throw new Error('Not implemented');
 }
+
+
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- *
+ * 
  * @param {date} date
  * @return {number}
  *
@@ -101,17 +94,7 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    let parsedDate = new Date(date)
-    let h = parsedDate.getUTCHours();
-    let m = parsedDate.getUTCMinutes();
-    let hourAngle = 0.5 * (parsedDate.getUTCHours() * 60 + parsedDate.getUTCMinutes());
-    let minuteAngle = parsedDate.getUTCMinutes() * 6;
-    let resultAngle = Math.abs(hourAngle - minuteAngle) ;
-    resultAngle = Math.min(resultAngle, Math.abs(360 - resultAngle));
-    if (resultAngle > 180) {
-        resultAngle -=180;
-    }
-    return resultAngle * Math.PI / 180;
+    throw new Error('Not implemented');
 }
 
 
