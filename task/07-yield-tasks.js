@@ -183,7 +183,6 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     let generat = generator();
-
     return (function nextGen(val) {
         let genObject = generat.next(val);
         if (genObject.done) {
