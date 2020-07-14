@@ -31,8 +31,8 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-    let pt = '[0-9a-f]';
-    return new RegExp(`{${pt}{8}-${pt}{4}-${pt}{4}-${pt}{4}-${pt}{12}}`, 'i');
+    let pattern = '[0-9a-f]';
+    return new RegExp(`{${pattern}{8}-${pattern}{4}-${pattern}{4}-${pattern}{4}-${pattern}{12}}`, 'i');
 }
 
 
