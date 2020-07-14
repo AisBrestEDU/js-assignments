@@ -159,8 +159,8 @@ function retry(func, attempts) {
  */
 function logger(func, logFunc) {
     return function () {
-        let argsStr = Array.from(arguments).map(v => Array.isArray(v) ? `[${v.map(s => typeof s === 'string' ? `"${s}"` : s).join(',')}]` : v).join(',');
-        let funcStr = `${func.name}(${argsStr})`;
+        let argsStr = JSON.stringify(Array.from(arguments));
+        let funcStr = `${func.name}(${argsStr.slice(1, argsStr.length - 1)})`;
         logFunc(`${funcStr} starts`);
         let result = func(...arguments);
         logFunc(`${funcStr} ends`);
