@@ -35,7 +35,7 @@ function* get99BottlesOfBeer() {
     for (let i = 99; i > 1; ) {
         yield `${i} bottles of beer on the wall, ${i--} bottles of beer.`;
         if (i > 1) {
-        yield `Take one down and pass it around, ${i} bottles of beer on the wall.`;
+            yield `Take one down and pass it around, ${i} bottles of beer on the wall.`;
         } else
         yield `Take one down and pass it around, ${i} bottle of beer on the wall.`;
     }
@@ -59,11 +59,11 @@ function* getFibonacciSequence() {
     let b = 1;
     let c = 0;
     yield 0;
-    while(true) {
+    while (true) {
         c = b;
-        yield c
+        yield c;
         b = a + b;
-        a = c;       
+        a = c;
     }
 }
 
@@ -99,16 +99,15 @@ function* getFibonacciSequence() {
  */
 function* depthTraversalTree(root) {
     let nodes = [root];
-
     while (nodes.length) {
-        let current = nodes.pop();
-
-        if (current.children) {
-            for(let i = current.children.length - 1; i >= 0; i--)	          
-            nodes.push(current.children[i]);            
+        let newNodes = nodes.pop();
+        if (newNodes.children) {
+            for (let i of newNodes.children.reverse()) {
+            nodes.push(i);
+            }
         }
-        yield current;
-    }	   
+        yield newNodes;
+    }
 }
 
 /**
@@ -132,8 +131,14 @@ function* depthTraversalTree(root) {
  *           8
  *
  */
-function* breadthTraversalTree(root) {
-  throw new Error("Not implemented");
+function* breadthTraversalTree(root) {  
+    let nodes = [[root]];
+    while (nodes.length > 0) {	
+        for (let node of nodes.shift()) {	       
+            yield node;	          
+            if (node.children) nodes.push(node.children);	           
+        }	      
+    }	 
 }
 
 /**
@@ -150,7 +155,15 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-  throw new Error("Not implemented");
+    source1 = source1();
+    source2 = source2();	    
+    while (true) {	   
+        let newSource1 = source1.next();	       
+        let newSourch2 = source2.next();	        
+        if(newSource1.done) yield newSourch2.value;	       
+        else if(newSourch2.done) yield newSource1.value;	       
+        else yield * [newSource1.value, newSourch2.value].sort((a,b) => {return a-b});	       
+    }	   
 }
 
 /**
@@ -169,7 +182,15 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-  throw new Error("Not implemented");
+    let generat = generator();
+
+    return (function nextGen(val) {
+        let genObject = generat.next(val);
+        if (genObject.done) {
+            return genObject.value;
+        }
+        return genObject.value.then(nextGen);
+    })();
 }
 
 module.exports = {
