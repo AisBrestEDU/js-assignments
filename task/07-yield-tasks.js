@@ -114,8 +114,8 @@ function* depthTraversalTree(root) {
         yield node;
 
         if(node.children){
-            for (let n of node.children.reverse()){
-                stack.push(n);
+            for (let children of node.children.reverse()){
+                stack.push(children);
             }
         }
     }
@@ -152,8 +152,8 @@ function* breadthTraversalTree(root) {
         yield node;
 
         if(node.children){
-            for (let n of node.children){
-                queue.push(n);
+            for (let children of node.children){
+                queue.push(children);
             }       
         }
     }
@@ -213,9 +213,9 @@ function async(generator) {
 
     let gen = generator();
     
-    return (function resolve (i) {
-        let val = gen.next(i);
-        return val.done ? Promise.resolve(val.value) : Promise.resolve(val.value).then(resolve);
+    return (function resolve (prevValue) {
+        let value = gen.next(prevValue);
+        return value.done ? Promise.resolve(value.value) : Promise.resolve(value.value).then(resolve);
     })();
 }
 
