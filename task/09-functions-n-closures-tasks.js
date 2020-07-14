@@ -105,21 +105,7 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    // return () => {
-
-    //     while(true){
-    //         try {
-    //             return func();
-    //         } catch (error) {
-                
-    //             if(--attempts < 0){
-    //                 return func();
-    //             }
-    //         }
-    //     }
-    // }
-
-    return function(){
+        return function(){
 
         for (let i =0; i< attempts; i++){
             try {
