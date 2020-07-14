@@ -30,7 +30,7 @@
  *
  */
 function getFizzBuzz(num) {
-    var res;
+    let res;
     if(num%3 == 0 && num%5 == 0)
         return 'FizzBuzz';        
     if(num%3 == 0)
@@ -56,8 +56,8 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    var rval=1;
-    for (var i = 2; i <= n; i++)
+    let rval=1;
+    for (let i = 2; i <= n; i++)
         rval = rval * i;
     return rval;
 }
@@ -76,8 +76,8 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    var res = 0;
-    for(var i = n1; i <= n2; i++)
+    let res = 0;
+    for(let i = n1; i <= n2; i++)
         res = res + i;
     return res;
 
@@ -100,17 +100,11 @@ function getSumBetweenNumbers(n1, n2) {
  */
 function isTriangle(a,b,c) 
 {
-    if ((Math.pow(a, 2) + Math.pow(b, 2) === Math.pow(c, 2)) ||
+    return ((Math.pow(a, 2) + Math.pow(b, 2) === Math.pow(c, 2)) ||
         (Math.pow(b, 2) + Math.pow(c, 2) === Math.pow(a, 2)) ||
         (Math.pow(c, 2) + Math.pow(a, 2) === Math.pow(b, 2)) ||
-        (a === b && a === c)) 
-    {
-        return true;
-    } 
-    else 
-    {
-        return false;
-    } 
+        (a === b && a === c));
+    
 }
 
 
@@ -148,14 +142,10 @@ function isTriangle(a,b,c)
  */
 function doRectanglesOverlap(rect1, rect2) {
     // it looks a little scary
-    if((rect1.left < rect2.left + rect2.width) && 
+    return ((rect1.left < rect2.left + rect2.width) && 
         (rect1.left + rect1.width > rect2.left)&&
         (rect1.top < rect2.top + rect2.height)&&
-        (rect1.top + rect1.height > rect2.top))
-        {
-            return true;
-        }
-    return false;
+        (rect1.top + rect1.height > rect2.top));
     
 }
 
@@ -188,13 +178,12 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
 
-    var x = point.x - circle.center.x;
-    var y = point.y - circle.center.y;
-    var z = Math.pow(circle.radius,2);
+    let x = point.x - circle.center.x;
+    let y = point.y - circle.center.y;
+    let z = Math.pow(circle.radius,2);
 
-    if(x*x + y*y < z)
-        return true;
-    return false;
+    return(x*x + y*y < z);
+       
 }
 
 
@@ -210,8 +199,8 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    for (var i = 0; i < str.length; i++) {
-        var c = str.charAt(i);
+    for (let i = 0; i < str.length; i++) {
+        let c = str.charAt(i);
         if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1) {
           return c;
         }
@@ -243,7 +232,7 @@ function findFirstSingleChar(str) {
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {    
 
-    var finalStr = '';
+    let finalStr = '';
 
     finalStr += (isStartIncluded) ? '[' : '(';
     finalStr += (a < b) ? `${a}, ${b}` : `${b}, ${a}`;
@@ -268,9 +257,9 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  */
 function reverseString(str) {
 
-    var strForSplit = str.split("");   
-    var arrForReverse = strForSplit.reverse();    
-    var resultStr = arrForReverse.join(""); 
+    let strForSplit = str.split("");   
+    let arrForReverse = strForSplit.reverse();    
+    let resultStr = arrForReverse.join(""); 
     return resultStr; 
 }
 
@@ -289,9 +278,9 @@ function reverseString(str) {
  */
 function reverseInteger(num) {
 
-    var strForSplit = String(num).split("");   
-    var arrForReverse = strForSplit.reverse();    
-    var resultStr = arrForReverse.join("");
+    let strForSplit = String(num).split("");   
+    let arrForReverse = strForSplit.reverse();    
+    let resultStr = arrForReverse.join("");
 
     return Number(resultStr);
 
@@ -320,19 +309,20 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
    
-    var str = String(ccn);
+    let str = String(ccn);
 
-	if (/[^0-9-\s]+/.test(str)) return false;
+	if (/[^0-9-\s]+/.test(str)) 
+		return false;
 
-	// The Luhn Algorithm. It's so pretty.
 	let nCheck = 0, bEven = false;
 	str = str.replace(/\D/g, "");
 
-	for (var n = str.length - 1; n >= 0; n--) {
-		var cDigit = str.charAt(n),
+	for (let n = str.length - 1; n >= 0; n--) {
+		let cDigit = str.charAt(n),
 			  nDigit = parseInt(cDigit, 10);
 
-		if (bEven && (nDigit *= 2) > 9) nDigit -= 9;
+		if (bEven && (nDigit *= 2) > 9) 
+			nDigit -= 9;
 
 		nCheck += nDigit;
 		bEven = !bEven;
@@ -391,11 +381,11 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    var stack = {};
-    var size = 0;
-    var beginners = ['(', '[', '{', '<'];
-    var enders = [')', ']', '}', '>'];
-    for(var i = 0; i < str.length; i++){
+    let stack = {};
+    let size = 0;
+    let beginners = ['(', '[', '{', '<'];
+    let enders = [')', ']', '}', '>'];
+    for(let i = 0; i < str.length; i++){
         if( beginners.indexOf(str[i]) !== -1 ){
             stack[size] = str[i];
             size++;
@@ -447,16 +437,16 @@ function isBracketsBalanced(str) {
  */
 function timespanToHumanString(startDate, endDate) {
 
-    var sec = 1000;
-    var min = 60000;
-    var hour = 3600000;;
-    var day = 86400000;
-    var month = 2592000000;
-    var year = 31104000000;
+    let sec = 1000;
+    let min = 60000;
+    let hour = 3600000;;
+    let day = 86400000;
+    let month = 2592000000;
+    let year = 31104000000;
 
-    var buffForRound = (x, y) => Math.round((x - 1) / y);
+    let buffForRound = (x, y) => Math.round((x - 1) / y);
 
-    var timeSpan = Math.abs(startDate.getTime() - endDate.getTime());
+    let timeSpan = Math.abs(startDate.getTime() - endDate.getTime());
     
     if (timeSpan <= 45 * sec) 
     { 
@@ -499,7 +489,7 @@ function timespanToHumanString(startDate, endDate) {
         return 'a year ago'; 
     }
 
-    var resString = buffForRound(timeSpan, year);
+    let resString = buffForRound(timeSpan, year);
     return `${resString} years ago`
 }
 
@@ -574,12 +564,12 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    var resultArr = [];
-    for (var i = 0; i < m1.length; i++) {
+    let resultArr = [];
+    for (let i = 0; i < m1.length; i++) {
         resultArr[i] = [];
-        for (var j = 0; j < m2[0].length; j++) {
-            var sum = 0;
-            for (var k = 0; k < m1[0].length; k++) {
+        for (let j = 0; j < m2[0].length; j++) {
+            let sum = 0;
+            for (let k = 0; k < m1[0].length; k++) {
                 sum = sum + m1[i][k] * m2[k][j];
             }
             resultArr[i][j] = sum;
