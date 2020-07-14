@@ -199,10 +199,10 @@ function* mergeSortedSequences(source1, source2) {
 function async(generator) {
     let g = generator();
     return Promise.resolve(function step(v) {
-         let res = g.next(v);
-         if (res.done)
-             return res.value;
-         return res.value.then(step);
+        let res = g.next(v);
+        if (res.done)
+            return res.value;
+        return res.value.then(step);
     }());
 }
 
