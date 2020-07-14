@@ -17,8 +17,38 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    let sides = ['N','E','S','W'];  // use array of cardinal directions only!
+
+    function getPoints(abbreviation, azimuth) {
+        let obj = {
+            abbreviation: abbreviation,
+            azimuth: azimuth
+        };
+
+        return obj;
+    }
+
+    return sides.reduce((acc, curr, i) => {
+        let next;
+        let index = !(i % 2);
+
+        if(i === sides.length - 1) {
+            next = sides[0];
+        } else {
+            next = sides[i + 1];
+        }
+
+        acc.push(getPoints(`${curr}`, (i * 8 * 11.25).toFixed(2)));
+        acc.push(getPoints(`${curr}b${next}`, (11.25 + (i * 8 * 11.25)).toFixed(2)));
+        acc.push(getPoints(index ? `${curr}${curr}${next}`:`${curr}${next}${curr}`, (22.5 + (i * 8 * 11.25)).toFixed(2)));
+        acc.push(getPoints(index ? `${curr}${next}b${curr}`:`${next}${curr}b${curr}`, (33.75 + (i * 8 * 11.25)).toFixed(2)));
+        acc.push(getPoints(index ? `${curr}${next}`:`${next}${curr}`, (45 + (i * 8 * 11.25)).toFixed(2)));
+        acc.push(getPoints(index ? `${curr}${next}b${next}`:`${next}${curr}b${next}`, (56.25 + (i * 8 * 11.25)).toFixed(2)));
+        acc.push(getPoints(index ? `${next}${curr}${next}`:`${next}${next}${curr}`, (67.5 + (i * 8 * 11.25)).toFixed(2)));
+        acc.push(getPoints(`${next}b${curr}`, (78.75 + (i * 8 * 11.25)).toFixed(2)));
+
+        return acc;
+    }, []);
 }
 
 
@@ -56,7 +86,23 @@ function createCompassPoints() {
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-    throw new Error('Not implemented');
+    let arr = [str];
+    let result = [];
+    let regex = /{([^\{\}]+)}/;
+
+    while (arr.length) {
+        let item = arr.shift();
+        let matches = item.match(regex);
+
+        if (matches !== null) {
+            matches[1].split(',').map(el => {
+                arr.push(item.replace(matches[0], el));
+            });
+        } else if (result.indexOf(item) === -1) {
+            result.push(item);
+            yield item;
+        }
+    }
 }
 
 
@@ -88,7 +134,41 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    let arr = new Array(n).fill([]).map((value) => new Array(n));
+
+    let a = 1;
+    let b = 1;
+
+    for (let i = 0; i < n * n; i++) {
+        arr[a - 1][b - 1] = i;
+
+        if ((a + b) % 2 == 0) {
+
+            if (b < n) {
+                b++;
+            }
+            else {
+                a += 2;
+            }
+
+            if (a > 1) {
+                a--;
+            }
+        } else {
+            if (a < n) {
+                a++;
+            }
+            else {
+                b += 2;
+            }
+
+            if (b > 1) {
+                b--;
+            }
+        }
+    }
+
+    return arr;
 }
 
 
@@ -113,7 +193,39 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    let row = String(dominoes.shift());
+    let i = 0;
+    while (dominoes.length != 0) {
+        if (dominoes[i][0] == row[0]) {
+            row = dominoes[i].reverse() + row;
+            dominoes.splice(i, 1);
+            i = 0;
+        }
+        else if (dominoes[i][1] == row[0]) {
+            row = dominoes[i] + row;
+            dominoes.splice(i, 1);
+            i = 0;
+        }
+        else if (dominoes[i][0] == row[row.length - 1]) {
+            row = row + dominoes[i];
+            dominoes.splice(i, 1);
+            i = 0;
+        }
+        else if (dominoes[i][1] == row[row.length - 1]) {
+            row = row + dominoes[i].reverse();
+            dominoes.splice(i, 1);
+            i = 0;
+        }
+        else {
+            i++;
+            
+            if (i === dominoes.length) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 
@@ -137,7 +249,29 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let result = '';
+    let arr = [nums[0]];
+    for(let i = 1 ; i < nums.length; i++) {
+        if (nums[i] == (nums[ i - 1 ] + 1) ) {
+            arr.push(nums[i]);
+            console.log(arr);
+        }
+        if((nums[i] !== (nums[ i - 1 ] + 1))|| (i == nums.length-1) ) {   
+            let res = (result.length > 0) ? "," : "";
+            if (arr.length == 1) {
+                result += res + String(arr[0]);
+            }
+            else if(arr.length == 2) {
+                result += res + String(arr[0]) + "," + String(arr[1]);
+            }
+            else {
+                result += res + String(arr[0]) + "-" + String(arr[arr.length - 1]);
+            }
+            arr = [nums[i]];
+        }
+        
+    }
+    return result;
 }
 
 module.exports = {
