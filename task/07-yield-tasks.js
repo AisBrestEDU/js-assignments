@@ -33,7 +33,23 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+
+    let bottles = 99;
+
+    while (bottles > 0) {
+
+        if( bottles > 1) {
+            yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`
+            yield `Take one down and pass it around, ${(bottles - 1)} ${(bottles - 1) === 1 ? 'bottle' : 'bottles'} of beer on the wall.`
+            bottles--;
+        } else if (bottles === 1) {
+            yield '1 bottle of beer on the wall, 1 bottle of beer.'
+            yield 'Take one down and pass it around, no more bottles of beer on the wall.'
+            yield 'No more bottles of beer on the wall, no more bottles of beer.'
+            yield 'Go to the store and buy some more, 99 bottles of beer on the wall.'
+            bottles --;
+        }
+    }
 }
 
 
@@ -47,7 +63,25 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    let a = 0;
+    let b = 1;
+
+    while (a >= 0) {
+        if (a === 0) {
+            yield a;
+            yield b;
+            yield a + b;
+            let c = a + b
+            a = b;
+            b = c;
+        }
+
+        yield a + b;
+        let c = a + b
+        a = b;
+        b = c;
+
+    }
 }
 
 
@@ -82,7 +116,33 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let stack = [];
+    let index = [0];
+    let key = 0;
+    yield root;
+    let current = root;
+    stack.push(root);
+    while (key >= 0) {
+        current = stack[key];
+        if (current.children != undefined) {
+            if (current.children.length > index[key]) {
+                stack.push(current.children[index[key]]);
+                index.push(0);
+                yield current.children[index[key]];
+                key++;
+            } else {
+                stack.pop();
+                index.pop();
+                key--;
+                index[key]++
+            }
+        } else {
+            stack.pop();
+            index.pop();
+            key--;
+            index[key]++; 
+        }
+    }
 }
 
 
@@ -108,7 +168,20 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+
+    let stack = [];
+    let ind = 0
+    stack.push(root)
+    while (stack.length > ind) {
+        let current = stack[ind];
+        if(current.children != undefined) {
+            for( let item of current.children) {
+                stack.push(item);
+            }
+        }
+        yield stack[ind]
+        ind++;
+    }
 }
 
 
@@ -126,7 +199,20 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    
+    let s1 = source1();
+    let s2 = source2();
+    
+    while(true) {
+        let val1 = s1.next().value;
+        let val2 = s2.next().value;
+        if (val1 == undefined) yield val2;
+        else if (val2 == undefined) yield val1;
+        else {
+            val1 >= val2 ? yield val2 : yield val1;
+            val1 >= val2 ? yield val1 : yield val2;
+        }
+    }
 }
 
 /**
@@ -145,6 +231,19 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
+
+    let val = generator();
+
+    let resultPromise = (v) => {
+        if (v.done) return Promise.resolve(v.value);
+        else {
+            return Promise.resolve(v.value)
+                .then((result) => resultPromise(val.next(result)));
+        }
+    }
+
+    return resultPromise(val.next());
+
     throw new Error('Not implemented');
 }
 
