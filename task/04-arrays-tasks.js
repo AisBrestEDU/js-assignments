@@ -69,7 +69,7 @@ function doubleArray(arr) {
  */
 
 function getArrayOfPositives(arr) {
-   var array = [];
+   let array = [];
    arr.map(function(value) {
       if (value > 0) array.push(value);
    });
@@ -136,11 +136,9 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-   var lengthsArray = arr.map(function(value) {
+   return arr.map(function(value) {
       return value.length; 
    });
-
-   return lengthsArray;
 }
 
 /**
@@ -249,12 +247,11 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   function myFunction(value, index) {
+   return arr.map(function(value, index) {
       return arr.slice(0, index + 1).reduce(function(previousValue, currentValue){ 
          return previousValue + currentValue;
       });
-   } 
-   return arr.map(myFunction);
+   });
 }
 
 /**
@@ -269,11 +266,9 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   function myFunction(item, index) {
+   return arr.filter(function(item, index) {
       return (index + 1) % 2 == 0;
-   }
-
-   return arr.filter(myFunction);
+   });
 }
 
 
@@ -292,7 +287,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   var transform = array => array.reduce((total, item, index) => (
+   let transform = array => array.reduce((total, item, index) => (
       total.concat(Array.from( { 
          length: index + 1 
       }, () => item ))), []);
@@ -314,10 +309,9 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   function myFunction(item, index) {
+   return arr.reverse().filter(function(item, index) {
       return index < 3;
-   }
-   return arr.reverse().filter(myFunction);;
+   });
 }
  
  
@@ -335,10 +329,9 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   var result = arr.reduce(function(total, currentValue, currentIndex, arr) {
+   return arr.reduce(function(total, currentValue, currentIndex, arr) {
       return ((typeof currentValue != 'string') && (currentValue > 0)) ? (total + 1) : total;
    }, 0);
-   return result;
 }
  
 /** 
@@ -355,9 +348,9 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   var stringFiguresArray = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+   const stringFiguresArray = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 
-   var figuresArray = arr.map(function(item) {
+   let figuresArray = arr.map(function(item) {
       return stringFiguresArray.findIndex(rank => rank === item);
    });
 
@@ -467,27 +460,15 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-  var array = arr.sort(function (a, b) {
+   let array = arr.sort(function (a, b) {
       if (a.country == b.country) {
-         if (a.city > b.city) {
-            return 1;
-          } else {
-            return -1;
-          }
+         return (a.city > b.city) ? 1 : -1;
       }
       
-      if (a.country > b.country) {
-        return 1;
-      }
-      
-      if (a.country < b.country) {
-        return -1;
-      }
+      return (a.country > b.country) ? 1 : -1;
+   });
 
-      return 0;
-    });
-
-  return array;
+   return array;
 }
 
 /**
@@ -509,15 +490,13 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   var matrix = new Array(n);
-  
-   function myFunction(value, index) {
-     return (index == i) ? 1 : 0;
-   } 
-   
-   for (var i = 0; i < matrix.length; i++) {
-      matrix[i] = new Array(n).fill(0).map(myFunction);  
-   }
+   let matrix = new Array(n).fill(0);
+
+   matrix.map(function(item, ind) {
+      matrix[ind] = new Array(n).fill(0).map(function(value, index) {
+         return (index == ind) ? 1 : 0;   
+      });  
+   })
 
    return matrix;
 }
@@ -553,7 +532,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   return Array.from(new Set(arr));;
+   return Array.from(new Set(arr));
 }
 
 /**
@@ -589,19 +568,17 @@ function distinct(arr) {
 function group(array, keySelector, valueSelector) {
    let multimap = new Map();
    
-   function myFunction(item) {
+   array.map(function(item) {
       if (multimap.has(keySelector(item)))  {
-         var cityArray = multimap.get(keySelector(item));
+         let cityArray = multimap.get(keySelector(item));
          cityArray.push(valueSelector(item));
          multimap.set(keySelector(item), cityArray);
       } else {
-         var cityArray = [];
+         let cityArray = [];
          cityArray.push(valueSelector(item));
          multimap.set(keySelector(item), cityArray);
       }
-   }
-
-   array.map(myFunction);
+   });
 
    return multimap;
 }
@@ -618,11 +595,9 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-     var result = arr.reduce(function(total, currentValue) {
-        return total.concat(childrenSelector(currentValue)) ;
-    }, []);
-   
-   return result;
+   return arr.reduce(function(total, currentValue) {
+      return total.concat(childrenSelector(currentValue)) ;
+   }, []);
 }
 
 /**
@@ -638,11 +613,10 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   var arrayStringIndex = indexes.reduce(function(total, currentValue) {
-      return total + '['+ currentValue + ']';
-    }, '');
-
-  return eval("arr" + arrayStringIndex);
+   function getElement(array, i) {
+      return (i == indexes.length-1) ? array[indexes[i]] : getElement(array[indexes[i]], i+1);
+   }
+   return getElement(arr, 0);
 }
 
 /**
@@ -665,7 +639,7 @@ function getElementByIndexes(arr, indexes) {
  */
 function swapHeadAndTail(arr) {
   if (arr.length == 1) return arr;
-  var sliceArray = arr.slice(-arr.length/2);
+  let sliceArray = arr.slice(-arr.length/2);
 
    if (arr.length % 2 != 0) {
       sliceArray.push(arr[Math.floor(arr.length/2)]);
