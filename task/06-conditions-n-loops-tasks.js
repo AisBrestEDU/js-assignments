@@ -336,26 +336,22 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    let matchingOpeningBracket, ch
-    let stack = []
-
-    let openingBrackets = ['[', '{', '(', '<']
-    let closingBrackets = [']', '}', ')', '>']
-
+    let matchingOpeningBracket, ch;
+    let stack = [];
+    let openingBrackets = ['[', '{', '(', '<'];
+    let closingBrackets = [']', '}', ')', '>'];
     for (let i = 0; i < str.length; i++) {
-        ch = str[i]
-
+        ch = str[i];
         if (closingBrackets.indexOf(ch) > -1) {
-            matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)]
+            matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)];
             if (stack.length === 0 || (stack.pop() !== matchingOpeningBracket)) {
-                return false
+                return false;
             }
         } else {
-            stack.push(ch)
+            stack.push(ch);
         }
     }
-
-    return (stack.length === 0)
+    return (stack.length === 0);
 }
 
 
@@ -473,18 +469,18 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    let r1 = m1.length, c1 = m1[0].length, c2 = m2[0].length;
-    let m = new Array(r1);
-    for (let r = 0; r < r1; r++) {
-        m[r] = new Array(c2);
-        for (let c = 0; c < c2; c++) {
-            m[r][c] = 0;
-            for (let i = 0; i < c1; i++) {
-                m[r][c] += m1[r][i] * m2[i][c];
+    let height1 = m1.length, width1 = m1[0].length, width2 = m2[0].length;
+    let matrix = new Array(height1);
+    for (let rowNumber = 0; rowNumber < height1; rowNumber++) {
+        matrix[rowNumber] = new Array(width2);
+        for (let columnNumber = 0; columnNumber < width2; columnNumber++) {
+            matrix[rowNumber][columnNumber] = 0;
+            for (let i = 0; i < width1; i++) {
+                matrix[rowNumber][columnNumber] += m1[rowNumber][i] * m2[i][columnNumber];
             }
         }
     }
-    return m;
+    return matrix;
 }
 
 
@@ -519,9 +515,9 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    function check(c1, c2, c3) {
-        if (c1 === c2 && c2 === c3) {
-            return c1;
+    function check(cell1, cell2, cell3) {
+        if (cell1 === cell2 && cell2 === cell3) {
+            return cell1;
         }
         return undefined;
     }
