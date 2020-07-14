@@ -521,8 +521,9 @@ function evaluateTicTacToePosition(position) {
         }
         return undefined;
     }
+    let winner;
     for (let i = 0; i < 3; i++) {
-        let winner = check(position[i][0], position[i][1], position[i][2]);
+        winner = check(position[i][0], position[i][1], position[i][2]);
         if (winner !== undefined) {
             return winner;
         }
