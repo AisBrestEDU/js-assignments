@@ -170,7 +170,7 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-  return arr.slice(arr.length-n) ; 
+  return arr.slice(-n) ; 
 }
 
 /**
