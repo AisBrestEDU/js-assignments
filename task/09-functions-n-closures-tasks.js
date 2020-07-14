@@ -108,23 +108,16 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    let attempt = 0;
-    return function main() {
-        let result;
-        for (let i = 0; i < attempts; i++) {
+    return () => {
+        let counter = 0;
+        while (counter < attempts) {
             try {
-                result = func();
-            } catch (err) {
-                if (attempt < attempts) {
-                    attempt++;
-                    result = main();
-                } else {
-                    throw err;
-                }
+                return func();
+            } catch {
+                if(++counter >= attempts) throw new Error("fulyError");
             }
         }
-        return result;
-    };
+    }
 }
 
 
