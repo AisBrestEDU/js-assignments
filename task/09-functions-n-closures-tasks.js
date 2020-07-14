@@ -84,14 +84,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    let cache = {};
-
-    return n => {
-        if (n in cache) {
-            return cache[n];
-        }
-        return cache[n] = func(n);
-    };
+    let res = func();
+    return () => res;
 }
 
 
@@ -111,18 +105,30 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    return () => {
+    // return () => {
 
-        while(true){
+    //     while(true){
+    //         try {
+    //             return func();
+    //         } catch (error) {
+                
+    //             if(--attempts < 0){
+    //                 return func();
+    //             }
+    //         }
+    //     }
+    // }
+
+    return function(){
+
+        for (let i =0; i< attempts; i++){
             try {
                 return func();
-            } catch (error) {
-                
-                if(--attempts < 0){
-                    return func();
-                }
             }
+            catch (e){}
         }
+        
+        return func();
     }
 }
 
