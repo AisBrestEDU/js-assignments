@@ -545,7 +545,16 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-    throw new Error('Not implemented');
+    let indexes = {};
+    return array.reduce((pv, cv) => {
+        if (indexes[keySelector(cv)] == undefined) {
+            indexes[keySelector(cv)] = pv.length;
+            pv.push([keySelector(cv)]);
+            pv[indexes[keySelector(cv)]].push([]);
+        }
+        pv[indexes[keySelector(cv)]][1].push(valueSelector(cv));
+        return pv;
+    }, []);
 }
 
 
