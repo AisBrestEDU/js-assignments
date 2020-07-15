@@ -1,6 +1,7 @@
 'use strict';
 
 var assert = require('assert');
+var lint = require('mocha-eslint');
 var tasks = require('../task/07-yield-tasks');
 it.optional = require('../extensions/it-optional');
 
@@ -221,8 +222,8 @@ describe('07-yield-tasks', function() {
         }
 
         assert.equal(
-            expected.length,
             lineNo,
+            expected.length,
             'Lines count is incorrect:'
         );
     });
@@ -505,4 +506,3 @@ describe('07-yield-tasks', function() {
             });
         });
     });
-});
