@@ -89,7 +89,11 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
+<<<<<<< Updated upstream
 function isTriangle(a, b, c) {
+=======
+function isTriangle(a,b,c) {
+>>>>>>> Stashed changes
     return (a < b + c && b < a + c && c < a + b);
 }
 
@@ -127,7 +131,11 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
+<<<<<<< Updated upstream
    return rect1.height>=rect2.top&&rect1.width>=rect2.left;
+=======
+    return rect1.height>=rect2.top&&rect1.width>=rect2.left;
+>>>>>>> Stashed changes
 }
 
 
@@ -224,7 +232,11 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
+<<<<<<< Updated upstream
     return str.split('').reverse().join('');
+=======
+    return str.toString().split('').reverse().join('');
+>>>>>>> Stashed changes
 }
 
 
@@ -338,7 +350,11 @@ function isBracketsBalanced(str) {
             } else return false;
         }
     }
+<<<<<<< Updated upstream
     return !stash.length; //если на выходе стэк пустой, то последовательность правильная
+=======
+    return !stash.length;
+>>>>>>> Stashed changes
 }
 
 
