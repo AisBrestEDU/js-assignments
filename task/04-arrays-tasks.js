@@ -156,7 +156,8 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 'x', 0   => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-   return arr.splice(index, 0, item);
+   var result = arr.splice(index, 0, item);
+   return arr;
 }
 // console.log(insertItem([ 1, 'b', 'c'],'x', 0 ))
 
@@ -458,14 +459,6 @@ function toStringList(arr) {
 function sortCitiesArray(arr) {
    return arr.sort((a, b) => a.country.localeCompare(b.country) * 2 + a.city.localeCompare(b.city));
 }
-// console.log(sortCitiesArray([
-//    { country: 'Russia', city: 'Moscow' },
-//    { country: 'Belarus', city: 'Minsk' },
-//    { country: 'Poland', city: 'Warsaw' },
-//    { country: 'Russia', city: 'Saint Petersburg' },
-//    { country: 'Poland', city: 'Krakow' },
-//    { country: 'Belarus', city: 'Brest' }
-// ]))
 
 /**
  * Creates an indentity matrix of the specified size
@@ -508,11 +501,9 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   let array = [];
-   for (let index = start; index <= end; index++) {
-      array.push(index);
-   }
-   return array;
+   return Array(end - start + 1)
+      .fill(0)
+      .map((item, index) => start + index);
 }
 // console.log(getIntervalArray(1, 100))
 
