@@ -340,7 +340,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
    let count = 0;
    arr.map(item =>{
-      if (item > 0) 
+      if (item > 0 && typeof item == "number") 
          count++;      
    });
    return count;
@@ -420,7 +420,9 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {   
-   return arr.filter(element => element == item).length;
+   return arr.reduce((n, val) => {
+      return n + (val === item);
+  }, 0);
 }
 // console.log(findAllOccurences([ null, undefined, null ], null))
 /**
@@ -538,7 +540,7 @@ function getIntervalArray(start, end) {
 function distinct(arr) {
    let array = [];
    arr.map(item => {
-      if (!array.includes(item))
+      if (array.indexOf == -1)
          array.push(item);    
    });
    return array;
@@ -618,7 +620,9 @@ function group(array, keySelector, valueSelector) {
  */
 function selectMany(arr, childrenSelector) {
    let array = [];
-   arr.map(item => array = array.concat(childrenSelector(element)));   
+   arr.map(item => {
+      array = array.push(...childrenSelector(element))
+   });   
    return array;
 }
 // console.log(selectMany(['one','two','three'], x=>x.split('')));
@@ -680,7 +684,7 @@ function swapHeadAndTail(arr) {
    }
    return result;
 }
-console.log(swapHeadAndTail([ 1, 2, 3, 4, 5, 6, 7, 8 ]));
+// console.log(swapHeadAndTail([ 1, 2, 3, 4, 5, 6, 7, 8 ]));
 
 
 module.exports = {
