@@ -2,7 +2,7 @@
 
 /*********************************************************************************************
  *                                                                                           *
- * Plese read the following tutorial before implementing tasks:                              *
+ * Please read the following tutorial before implementing tasks:                              *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array    *
  *                                                                                           *
  * NOTE : Please do not use loops! All tasks can be implmeneted using standard Array methods *
@@ -69,13 +69,8 @@ function doubleArray(arr) {
  *    [-1, 2, -5, -4, 0] => [ 2 ]
  *    [] => [] 
  */
-function getArrayOfPositives(arr) {
-   let array = [];
-   for (let i = 0; i < arr.length; i++) {
-      if (arr[i] > 0)
-         array.push(arr[i]);
-   }
-   return array;
+function getArrayOfPositives(arr) {   
+   return arr.filter(e => e > 0);
 }
 // console.log(getArrayOfPositives([ 0, 1, 2, 3, 4, 5 ]));
 
@@ -573,34 +568,26 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   let map = new Map();
-   array.map(val => {
-      let key = keySelector(val);
-      let value = valueSelector(val);
-      if (!map.has(key)) {
-         let newData = [];
-         newData.push(value);
-         map.set(key, newData);
-      }
-      else {
-         let data = map.get(key);
-         data.push(value);
-         map.set(key, data);
-      }
-   })
-   return map;
+   return array.reduce((prev, curr) => {
+      let key = keySelector(curr);
+      let value = valueSelector(curr);
+      let arr = prev.get(key) || [];
+      arr.push(value);
+      prev.set(key, arr);
+      return prev;
+  }, new Map);
 }
-// console.log(group([
-//       { country: 'Belarus', city: 'Brest' },
-//       { country: 'Russia', city: 'Omsk' },
-//       { country: 'Russia', city: 'Samara' },
-//       { country: 'Belarus', city: 'Grodno' },
-//       { country: 'Belarus', city: 'Minsk' },
-//       { country: 'Poland', city: 'Lodz' }
-//       ], 
-//       item => item.country, 
-//       item => item.city
-//       ))
+console.log(group([
+      { country: 'Belarus', city: 'Brest' },
+      { country: 'Russia', city: 'Omsk' },
+      { country: 'Russia', city: 'Samara' },
+      { country: 'Belarus', city: 'Grodno' },
+      { country: 'Belarus', city: 'Minsk' },
+      { country: 'Poland', city: 'Lodz' }
+      ], 
+      item => item.country, 
+      item => item.city
+      ))
 
 /**
  * Projects each element of the specified array to a sequence and flattens the resulting sequences into one array.
@@ -614,7 +601,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   return arr.map(item => childrenSelector(item)).flat();   ;
+   return arr.reduce((prev, curr) => prev.concat(childrenSelector(curr)), []);
 }
 // console.log(selectMany(['one','two','three'], x=>x.split('')));
 
