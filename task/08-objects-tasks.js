@@ -23,7 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+   
+        this.width = width;
+        this.height = height;
+        
+        Rectangle.prototype.getArea = () => this.width * this.height;
+    
 }
 
 
@@ -38,7 +43,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +59,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -108,33 +113,85 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
+    selectorString: '',
+    checkRepeating: '',
+    selectorId: 1,
+    
+    repeatError: function(element) {
+        if (this.checkRepeating.includes(element)) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    },
+
+    orderError: function(selectorId) {
+        if (this.selectorId > selectorId) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+    },
+
     element: function(value) {
-        throw new Error('Not implemented');
+        let cssBuilder = Object.create(cssSelectorBuilder);
+        this.repeatError('element');
+        this.orderError(1);
+        cssBuilder.selectorString = this.selectorString + value;
+        cssBuilder.checkRepeating = this.checkRepeating + 'element';
+        cssBuilder.selectorId = 1;
+        return cssBuilder;
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        let cssBuilder = Object.create(cssSelectorBuilder);
+        this.repeatError('id');
+        this.orderError(2);
+        cssBuilder.selectorString = this.selectorString + '#' + value;
+        cssBuilder.checkRepeating = this.checkRepeating + 'id';
+        cssBuilder.selectorId = 2;
+        return cssBuilder;
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        let cssBuilder = Object.create(cssSelectorBuilder);
+        this.orderError(3);
+        cssBuilder.selectorString = this.selectorString + '.' + value;
+        cssBuilder.selectorId = 3;
+        return cssBuilder;
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        let cssBuilder = Object.create(cssSelectorBuilder);
+        this.orderError(4);
+        cssBuilder.selectorString = this.selectorString + `[${value}]`;
+        cssBuilder.selectorId = 4;
+        return cssBuilder;
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        let cssBuilder = Object.create(cssSelectorBuilder);
+        this.orderError(5);
+        cssBuilder.selectorString = this.selectorString + `:${value}`;
+        cssBuilder.selectorId = 5;
+        return cssBuilder;
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        let cssBuilder = Object.create(cssSelectorBuilder);
+        this.repeatError('pseudo-element');
+        this.orderError(6);
+        cssBuilder.selectorString = this.selectorString + `::${value}`;
+        cssBuilder.checkRepeating = this.checkRepeating + 'pseudo-element';
+        cssBuilder.selectorId = 6;
+        return cssBuilder;
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        let cssBuilder = Object.create(cssSelectorBuilder);
+        cssBuilder.selectorString = `${selector1.selectorString} ${combinator} ${selector2.selectorString}`;
+        return cssBuilder;
     },
+
+    stringify: function () {
+        return this.selectorString;
+    }
 };
 
 
