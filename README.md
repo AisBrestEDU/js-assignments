@@ -32,6 +32,7 @@ To start javascript assignments please follow the next steps:
 * Open https://github.com/juggler39/js-assignments and test the build icon. Now it will run all tests and update status once you push changes to github. Keep this icon green!
 
 
+
 ### How to setup work environment
 * Download and install the latest [Nodejs](https://nodejs.org/en/download/stable/).
 * Run `npm install` from you repository folder to download the required modules. All dependent modules will be located in the  *node_modules* folder.
