@@ -30,7 +30,18 @@
  *
  */
 function getFizzBuzz(num) {
-    return !(num % 3) ? !(num % 5) ? 'FizzBuzz' : 'Fizz' : !(num % 5) ? 'Buzz' : num;
+    if(!(num%3) && !(num%5)){
+        return 'FizzBuzz';
+    }
+    else if(!(num%3)){
+        return 'Fizz';
+    }
+    else if(!(num%5)){
+        return 'Buzz';
+    }
+    else{
+        return num;
+    }
 }
 
 
@@ -49,13 +60,11 @@ function getFactorial(n) {
     if(n === 0){
         return 1;
     }
-    else{
-        let fact = 1;
-        for(let i = 1; i<=n; i++){
-            fact*=i;
-        }
-        return fact;
+    let fact = 1;
+    for(let i = 1; i<=n; i++){
+        fact*=i;
     }
+    return fact;
 }
 
 
@@ -349,35 +358,16 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    const brackets = new Map([
-        ['[', ']'], ['(', ')'], ['{', '}'], ['<', '>']
-    ]);
-
-    const has = (iterator, element) => {
-        let current = iterator.next().value;
-        while (current !== undefined) {
-            if (current === element) {
-                return true;
-            }
-            current = iterator.next().value;
-        }
-
-        return false;
-    };
-
-    let stack = [];
-    for (let char of str) {
-        if (has(brackets.keys(), char)) {
-            stack.push(char);
-        } else if (has(brackets.values(), char)) {
-            let removed = stack.pop();
-            if (removed === undefined || brackets.get(removed) !== char) {
-                return false;
-            }
-        }
+    let len;
+    do 
+    {
+        len = str.length;
+        str = str.replace(/\(\)|\[\]|\<\>|\{\}/ , '')
     }
+    while(len !== str.length)
 
-    return stack.pop() === undefined;
+    if(str == '') return true; 
+    return false;
 }
 
 
@@ -423,31 +413,39 @@ function timespanToHumanString(startDate, endDate) {
     const altRound = (val) => Math.abs(Math.round(val) - val) === 0.5 ? Math.floor(val) : Math.round(val);
 
     const period = endDate.getTime() - startDate.getTime();
-    switch (true) {
-        case (msToSecs(period) <= 45):
+        if(msToSecs(period) <= 45){
             return 'a few seconds ago';
-        case (msToSecs(period) <= 90):
+        }
+        else if (msToSecs(period) <= 90){
             return 'a minute ago';
-        case (msToMins(period) <= 45):
+        }
+        else if (msToMins(period) <= 45){
             return `${altRound(msToMins(period))} minutes ago`;
-        case (msToMins(period) <= 90):
+        }
+        else if (msToMins(period) <= 90){
             return 'an hour ago';
-        case (msToHours(period) <= 22):
+        }
+        else if(msToHours(period) <= 22){
             return `${altRound(msToHours(period))} hours ago`;
-        case (msToHours(period) <= 36):
+        }
+        else if(msToHours(period) <= 36){
             return 'a day ago';
-        case (msToDays(period) <= 25):
+        }
+        else if(msToDays(period) <= 25){
             return `${altRound(msToDays(period))} days ago`;
-        case (msToDays(period) <= 45):
+        }
+        else if(msToDays(period) <= 45){
             return 'a month ago';
-        case (msToDays(period) <= 345):
+        }
+        else if(msToDays(period) <= 345){
             return `${altRound(msToMonths(period))} months ago`;
-        case (msToDays(period) <= 545):
+        }
+        else if(msToDays(period) <= 545){
             return 'a year ago';
-        default:
+        }
+        else{
             return `${altRound(msToYears(period))} years ago`;
-}
-
+        }
 }
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of specified number.
