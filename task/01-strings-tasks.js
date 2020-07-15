@@ -224,7 +224,19 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    const arr = str.split('');
+    const result = arr.map((letter) => {
+        let res;
+        if ((letter >= 'A' && letter <= 'M') || (letter >= 'a' && letter <= 'm')) {
+            res = String.fromCharCode(letter.charCodeAt(0) + 13);
+        } else if ((letter >= 'N' && letter <= 'Z') || (letter >= 'n' && letter <= 'z')) {
+            res = String.fromCharCode(letter.charCodeAt(0) - 13);
+        } else {
+            res = letter;
+        }
+        return res;
+    });
+    return result.join('');
 }
 
 /**
