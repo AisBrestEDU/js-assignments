@@ -234,12 +234,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   let result = [];
-   arr.reduce((accumulator, currentValue) => {
-      result.push(accumulator + currentValue);
-      return accumulator + currentValue;
-   }, 0);
-   return result;
+   return arr.reduce((acc, curr, i) => 0 == i
+       ? acc.concat(curr) : acc.concat(curr + acc[i - 1]), []);
 }
 
 /**
@@ -423,10 +419,19 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   return arr.sort((a, b) => (a.country > b.country)
-       ? 1 : (a.country === b.country)
-           ? ((a.city > b.city)
-               ? 1 : -1) : -1 );
+   return arr.sort((a, b) => {
+      if (a.country > b.country) {
+         return 1;
+      } else if (a.country === b.country) {
+         if (a.city > b.city) {
+            return 1;
+         } else {
+            return -1;
+         }
+      } else {
+         return -1;
+      }
+   })
 }
 
 /**
@@ -521,18 +526,16 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   let map = new Map();
-   array.map(element => new Array(keySelector(element), valueSelector(element))).map((element) => {
-      if (map.has(element[0])) {
-         map.set(element[0], map.get(element[0]).concat(element[1]));
-      } else {
-         let arr = Array(1);
-         arr[0] = element[1];
-         map.set(element[0], arr);
+   let indexes = {};
+   return array.reduce((prev, curr) => {
+      if (indexes[keySelector(curr)] == undefined) {
+         indexes[keySelector(curr)] = prev.length;
+         prev.push([keySelector(curr)]);
+         prev[indexes[keySelector(curr)]].push([]);
       }
-      return element;
-   });
-   return map;
+      prev[indexes[keySelector(curr)]][1].push(valueSelector(curr));
+      return prev;
+   }, []);
 }
 
 
@@ -548,9 +551,9 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   let newArr = Array();
-   arr.map(childrenSelector).map((element) => newArr = newArr.concat(element));
-   return newArr;
+   return arr.map(childrenSelector).reduce((total, amount) => {
+      return total.concat(amount);
+   }, []);
 }
 
 
@@ -590,10 +593,11 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   let middle = Math.floor(arr.length/2);
-   let head = arr.splice(0,middle);
-   let tail = arr.splice(arr.length - middle);
-   return [...tail, ...arr, ...head];
+   let array = arr.slice();
+   let middle = Math.floor(array.length/2);
+   let head = array.splice(0,middle);
+   let tail = array.splice(array.length - middle);
+   return [...tail, ...array, ...head];
 }
 
 

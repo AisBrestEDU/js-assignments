@@ -115,11 +115,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    let result = '';
-    for (let i = 0; i < count; i++) {
-        result += value;
-    }
-    return result;
+    return value.repeat(count);
 }
 
 /**
@@ -135,11 +131,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    let index = str.indexOf(value);
-    if (index === -1) {
-        return str;
-    }
-    return str.slice(0, index) + str.slice(index + value.length);
+    return str.replace(value, '');
 }
 
 /**
