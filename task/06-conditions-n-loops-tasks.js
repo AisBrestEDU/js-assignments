@@ -339,6 +339,7 @@ function isBracketsBalanced(str) {
             } else return false;
         }
     }
+    
 
     return !stash.length;
 }
