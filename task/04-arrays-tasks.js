@@ -304,6 +304,7 @@ function propagateItemsByPositionIndex(arr) {
 }
 // console.log(propagateItemsByPositionIndex([ 1,2,3,4,5 ]))
 
+
 /** 
  *       
  * 
@@ -337,9 +338,14 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   return arr.filter(element => element > 0).length;
+   let count = 0;
+   arr.map(item =>{
+      if (item > 0) 
+         count++;      
+   });
+   return count;
 }
-// console.log(getPositivesCount([ -1, 0, 1, 3 ]));
+// console.log(getPositivesCount([ null, 1, 'elephant' ]));
 
 /** 
  * Sorts digit names
@@ -363,6 +369,7 @@ function sortDigitNamesByNumericOrder(arr) {
 }
 // console.log(sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]))
 
+
 /** 
  * Returns the sum of all items in the specified array of numbers
  * 
@@ -376,7 +383,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   return arr.reduce((sum, current) => sum + current);
+   return arr.reduce((sum, current) => sum + current, 0);
 }
 // console.log(getItemsSum([ 1, 10, 100, 1000 ]))
 
@@ -398,7 +405,6 @@ function getFalsyValuesCount(arr) {
    return count;
 }
 // console.log(getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]))
-
 /**
  * Returns a number of all occurences of the specified item in an array  
  * 
@@ -413,11 +419,8 @@ function getFalsyValuesCount(arr) {
  *    [ null, undefined, null ], null => 2 
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurences(arr, item) {
-   let count = 0;
-   let result = arr.map(element => element == item ? count++ : count);
-   return count;
-
+function findAllOccurences(arr, item) {   
+   return arr.filter(element => element == item).length;
 }
 // console.log(findAllOccurences([ null, undefined, null ], null))
 /**
@@ -435,6 +438,7 @@ function toStringList(arr) {
    return arr.join(',');
 }
 // console.log(toStringList([0, false, 'cat', NaN, true, '']))
+
 
 /**
  * Sorts the specified array by country name first and city name (if countries are equal) in ascending order.
@@ -498,7 +502,6 @@ function getIdentityMatrix(n) {
       })
 }
 // console.log(getIdentityMatrix(16))
-
 /**
  * Creates an array of integers from the specified start to end (inclusive)
  * 
@@ -534,7 +537,10 @@ function getIntervalArray(start, end) {
  */
 function distinct(arr) {
    let array = [];
-   arr.map(item => array.includes(item) ? null : array.push(item))
+   arr.map(item => {
+      if (!array.includes(item))
+         array.push(item);    
+   });
    return array;
 }
 // console.log(distinct( [ 1, 1, 2, 2, 3, 3, 4, 4]))
@@ -611,11 +617,9 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   let array = arr.map(item => {
-      return childrenSelector(item);
-   });
-   let flatArray = array.flat(10);
-   return flatArray;
+   let array = [];
+   arr.map(item => array = array.concat(childrenSelector(element)));   
+   return array;
 }
 // console.log(selectMany(['one','two','three'], x=>x.split('')));
 
@@ -658,30 +662,25 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   let a1 = [], a2 = [], a3 = [];
-   if (arr.length % 2 == 0) {
-      for (let i = 0; i < arr.length; ++i)
-         if (i < arr.length / 2)
-            a1.push(arr[i]);
-         else
-            a3.push(arr[i]);
+   let result = [];
+   let length = arr.length;
+   if (length % 2 === 0) {
+      let head = arr.slice(0, length / 2);
+      let tail = arr.slice(length / 2, length);
+      result = result.concat(tail);
+      result = result.concat(head);
    }
    else {
-      for (let i = 0; i < arr.length; ++i)
-         if (i < (arr.length - 1) / 2)
-            a1.push(arr[i]);
-         else if (i == (arr.length - 1) / 2)
-            a2.push(arr[i])
-         else
-            a3.push(arr[i]);
+      let middleIndex = (length - 1) / 2;
+      let head = arr.slice(0, middleIndex);
+      let tail = arr.slice(middleIndex + 1, length);
+      result = result.concat(tail);
+      result.push(arr[middleIndex]);
+      result = result.concat(head);
    }
-   for (let i = 0; i < a2.length; ++i)
-      a3.push(a2[i]);
-   for (let i = 0; i < a1.length; ++i)
-      a3.push(a1[i]);
-   return a3;
+   return result;
 }
-// console.log(swapHeadAndTail([ 1, 2, 3, 4, 5, 6, 7, 8 ]));
+console.log(swapHeadAndTail([ 1, 2, 3, 4, 5, 6, 7, 8 ]));
 
 
 module.exports = {
