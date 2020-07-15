@@ -31,8 +31,7 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-   let reg = /^\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}$/;
-   return reg;
+   return /^\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}$/;
 }
 
 
@@ -54,8 +53,7 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-   let reg = /p.t/;
-   return reg;
+   return /p.t/;
 }
 
 
@@ -74,8 +72,7 @@ function getRegexForPitSpot() {
  * @return {RegExp}
  */
 function getRegexForIPv4() {
-   let reg = /^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2}).){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})$/;
-   return reg;
+   return /^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2}).){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})$/;
 }
 
 
@@ -94,8 +91,7 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-   let reg = /^(?!(0){3})[0-9]{3}-(?!(0){2})[0-9]{2}-(?!(0){4})[0-9]{4}$/;
-   return reg;
+   return /^(?!(0){3})[0-9]{3}-(?!(0){2})[0-9]{2}-(?!(0){4})[0-9]{4}$/;
 }
 
 
