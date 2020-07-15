@@ -236,7 +236,7 @@ function toArrayOfSquares(arr) {
 function getMovingSum(arr) {
     function counter(start){
         let curr = start;
-        return function accomulator(value) {
+        return function accumulator(value) {
             curr+=value;
             return curr;
         }
@@ -515,7 +515,7 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-    function forAccomulation(acc, val){
+    function forAccumulation(acc, val){
         if (!acc.has(keySelector(val))){
              acc.set(keySelector(val), [valueSelector(val)]);
         }
@@ -525,7 +525,7 @@ function group(array, keySelector, valueSelector) {
         return acc;
     }
     var newArray = Array.from(array);
-    return newArray.reduce((acc, val) => forAccomulation(acc, val), new Map());
+    return newArray.reduce((acc, val) => forAccumulation(acc, val), new Map());
 }
 
 
