@@ -292,13 +292,11 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-    function compare(a, b) {
+    return arr.sort((a, b) => {
         if (a > b) return -1;
         if (a === b) return 0;
         if (a < b) return 1;
-    }
-
-    return arr.sort(compare).splice(0, 3);
+    }).splice(0, 3);
 }
 
 
@@ -428,7 +426,7 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-    function compare(a, b) {
+    return arr.sort((a, b) => {
         if (a.country > b.country) return 1;
         if (a.country === b.country) {
             if (a.city > b.city) return 1;
@@ -436,9 +434,7 @@ function sortCitiesArray(arr) {
             if (a.city < b.city) return -1;
         }
         if (a.country < b.country) return -1;
-    }
-
-    return arr.sort(compare);
+    });
 }
 
 /**

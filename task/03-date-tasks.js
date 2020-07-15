@@ -78,8 +78,34 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-    let time = new Date(endDate - startDate);
-    return `${parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60)) < 10 ? '0' + parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60)) : parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60))}:${time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes()}:${time.getSeconds() < 10 ? '0' + time.getSeconds() : time.getSeconds()}.${time.getMilliseconds() < 10 ? '00' + time.getMilliseconds() : time.getMilliseconds() < 100 ? '0' + time.getMilliseconds() : time.getMilliseconds()}`;
+    let time = new Date(endDate - startDate),
+        hours,
+        minutes,
+        seconds,
+        milisec;
+    if (parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60)) < 10) {
+        hours = '0' + parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60));
+    } else {
+        hours = parseInt((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60));
+    }
+    if (time.getMinutes() < 10) {
+        minutes = '0' + time.getMinutes();
+    } else {
+        minutes = time.getMinutes();
+    }
+    if (time.getSeconds() < 10) {
+        seconds = '0' + time.getSeconds();
+    } else {
+        seconds = time.getSeconds();
+    }
+    if (time.getMilliseconds() < 10) {
+        milisec = '00' + time.getMilliseconds();
+    } else if (time.getMilliseconds() < 100) {
+        milisec = '0' + time.getSeconds();
+    } else {
+        milisec = time.getMilliseconds()
+    }
+    return `${hours}:${minutes}:${seconds}.${milisec}`;
 }
 
 
