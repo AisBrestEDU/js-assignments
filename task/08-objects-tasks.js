@@ -113,6 +113,7 @@ const CSS_ERRORS = [
     'Element, id and pseudo-element should not occur more then one time inside the selector',
     'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
 ];
+
 function CssSelector(item){
     item = item || '';
 
