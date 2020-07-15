@@ -203,7 +203,8 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let dashStr = '─'.repeat(width - 2);
+    return `┌${dashStr}┐\n` + `│${' '.repeat(width - 2)}│\n`.repeat(height - 2) + `└${dashStr}┘\n`;
 }
 
 
@@ -240,7 +241,8 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    if (value === undefined || value === null) return false;
+    return value.length > 0;
 }
 
 
