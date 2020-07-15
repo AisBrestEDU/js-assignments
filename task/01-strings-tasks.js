@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /********************************************************************************************
  *                                                                                          *
@@ -22,9 +22,8 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    const result = value1 + value2;
-    return result;
-};
+    return value1 + value2;
+}
 
 
 
