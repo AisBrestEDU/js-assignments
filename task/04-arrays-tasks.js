@@ -304,7 +304,6 @@ function propagateItemsByPositionIndex(arr) {
 }
 // console.log(propagateItemsByPositionIndex([ 1,2,3,4,5 ]))
 
-
 /** 
  *       
  * 
@@ -364,7 +363,6 @@ function sortDigitNamesByNumericOrder(arr) {
 }
 // console.log(sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]))
 
-
 /** 
  * Returns the sum of all items in the specified array of numbers
  * 
@@ -400,6 +398,7 @@ function getFalsyValuesCount(arr) {
    return count;
 }
 // console.log(getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]))
+
 /**
  * Returns a number of all occurences of the specified item in an array  
  * 
@@ -436,7 +435,6 @@ function toStringList(arr) {
    return arr.join(',');
 }
 // console.log(toStringList([0, false, 'cat', NaN, true, '']))
-
 
 /**
  * Sorts the specified array by country name first and city name (if countries are equal) in ascending order.
@@ -500,6 +498,7 @@ function getIdentityMatrix(n) {
       })
 }
 // console.log(getIdentityMatrix(16))
+
 /**
  * Creates an array of integers from the specified start to end (inclusive)
  * 
