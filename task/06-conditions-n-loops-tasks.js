@@ -30,18 +30,7 @@
  *
  */
 function getFizzBuzz(num) {
-    let result = '';
-    if(num % 3 === 0) {
-        result = 'Fizz';
-    }
-    if(num % 5 === 0) {
-        result += 'Buzz';
-    }
-    if(result === '') {
-        result = num;
-    }
-
-    return result;
+    return (num % 3 ? '' : 'Fizz') + (num % 5 ? '' : 'Buzz') || num;
 }
 
 
@@ -340,7 +329,7 @@ function isBracketsBalanced(str) {
 
     while (temp !== str) {
         temp = str;
-        str = str.replace(/\[\]|\(\)|\{\}|\<\>/g, () => '');
+        str = str.replace(/\[]|\(\)|{}|<>/g, () => '');
     }
 
     return str.length === 0;
