@@ -86,10 +86,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   let array = [];
-   arr.map(item =>
-      typeof (item) == "string" ? array.push(item) : null);
-   return array;
+   return arr.map(item => typeof (item) == "string" ? array.push(item) : null);
 }
 // console.log(getArrayOfStrings([ 'cat', 'dog', 'raccon' ]));
 
@@ -107,11 +104,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   let array = [];
-   arr.map(item => {
-      Boolean(item) ? array.push(item) : null
-   });
-   return array;
+   return arr.map(item => Boolean(item) ? array.push(item) : null);
 }
 // console.log(removeFalsyValues([ 0, false, 'cat', NaN, true, '' ]))
 /**
@@ -156,8 +149,7 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 'x', 0   => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-   var result = arr.splice(index, 0, item);
-   return arr;
+   return arr.splice(index, 0, item);
 }
 // console.log(insertItem([ 1, 'b', 'c'],'x', 0 ))
 
@@ -509,11 +501,9 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   let array = [];
-   for (let index = start; index <= end; index++) {
-      array.push(index);
-   }
-   return array;
+   return Array(end - start + 1)
+      .fill(0)
+      .map((item, index) => start + index);
 }
 // console.log(getIntervalArray(1, 100))
 
