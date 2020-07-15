@@ -209,9 +209,9 @@ function toCsvText(arr) {
    return arr.reduce((previousValue, currentValue, index, array) => {
       if (index !== array.length - 1) {
          return previousValue + `${currentValue.join(',')}\n`
-      } else {
-         return previousValue + currentValue.join(',')
       }
+      return previousValue + currentValue.join(',');
+
    }, '')
 }
 
@@ -299,7 +299,7 @@ function propagateItemsByPositionIndex(arr) {
       });
    } else {
       return arr;
-   };
+   }
    return resArr;
 }
 
@@ -320,9 +320,8 @@ function propagateItemsByPositionIndex(arr) {
 function get3TopItems(arr) {
    if (arr.length > 2) {
       return arr.slice(-3).reverse();
-   } else {
-      return arr.reverse();
    }
+   return arr.reverse();
 }
 
 
@@ -394,7 +393,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   return arr.filter(item => !Boolean(item)).length;
+   return arr.filter(item => !item).length;
 }
 
 /**
@@ -461,15 +460,12 @@ function sortCitiesArray(arr) {
          return 1;
       } else if (a.country < b.country) {
          return -1;
-      } else {
-         if (a.city < b.city) {
-            return -1;
-         } else if (a.city > b.city) {
-            return 1;
-         } else {
-            return 0;
-         }
+      } else if (a.city < b.city) {
+         return -1;
+      } else if (a.city > b.city) {
+         return 1;
       }
+      return 0;
    });
 }
 
@@ -519,10 +515,9 @@ function getIntervalArray(start, end) {
    function getArr(arr, end) {
       if (arr[arr.length - 1] === end) {
          return arr;
-      } else {
-         arr.push(arr[arr.length - 1] + 1);
-         getArr(arr, end);
       }
+      arr.push(arr[arr.length - 1] + 1);
+      getArr(arr, end);
    }
    getArr(arr, end);
    return arr;
@@ -653,12 +648,12 @@ function swapHeadAndTail(arr) {
       const head = getBpdyParts(0, halfBody);
       const tail = getBpdyParts(halfBody);
       return [...tail, ...head];
-   } else {
-      const head = getBpdyParts(0, halfBody);
-      const body = arr[halfBody];
-      const tail = getBpdyParts(halfBody + 1);
-      return [...tail, body, ...head];
    }
+   const head = getBpdyParts(0, halfBody);
+   const body = arr[halfBody];
+   const tail = getBpdyParts(halfBody + 1);
+   return [...tail, body, ...head];
+
    function getBpdyParts(start, end) {
       return arr.slice(start, end);
    }
