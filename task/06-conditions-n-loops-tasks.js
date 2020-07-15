@@ -97,10 +97,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if(a+b>c && a+c>b && b+c>a){
-        return true;
-    }
-    return false;
+    return a+b>c && a+c>b && b+c>a;
 }
 
 
@@ -137,9 +134,8 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    if(rect1.top < rect2.top + rect2.width && rect2.top < rect1.top + rect1.width &&
-        rect1.left < rect2.left + rect2.height && rect2.left < rect1.left + rect1.height) return true;
-    else return false;
+    return rect1.top < rect2.top + rect2.width && rect2.top < rect1.top + rect1.width &&
+    rect1.left < rect2.left + rect2.height && rect2.left < rect1.left + rect1.height;
 }
 
 
@@ -171,9 +167,7 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
     var h = Math.pow(point.x - circle.center.x,2)+Math.pow(point.y - circle.center.y,2);
-    if(h < Math.pow(circle.radius,2)){
-        return true
-    }else return false;
+    return h < Math.pow(circle.radius,2);
 }
 
 
@@ -321,9 +315,7 @@ function isCreditCardNumber(ccn) {
     }
     sum += cardNum;
   }
-  if (sum % 10 === 0)
-    return true;
-return false;
+return sum % 10 === 0;
 }
 
 
