@@ -86,7 +86,10 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   return arr.map(item => typeof (item) == "string" ? array.push(item) : null);
+   let array = [];
+   arr.map(item =>
+      typeof (item) == "string" ? array.push(item) : null);
+   return array;
 }
 // console.log(getArrayOfStrings([ 'cat', 'dog', 'raccon' ]));
 
@@ -104,7 +107,11 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   return arr.map(item => Boolean(item) ? array.push(item) : null);
+   let array = [];
+   arr.map(item => {
+      Boolean(item) ? array.push(item) : null
+   });
+   return array;
 }
 // console.log(removeFalsyValues([ 0, false, 'cat', NaN, true, '' ]))
 /**
@@ -501,9 +508,11 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   return Array(end - start + 1)
-      .fill(0)
-      .map((item, index) => start + index);
+   let array = [];
+   for (let index = start; index <= end; index++) {
+      array.push(index);
+   }
+   return array;
 }
 // console.log(getIntervalArray(1, 100))
 
