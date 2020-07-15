@@ -23,7 +23,11 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+}
+Rectangle.prototype.getArea = function() {
+    return this.width * this.height;
 }
 
 
@@ -38,7 +42,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +58,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -109,32 +113,99 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        const copy = {...this};
+        if (this.elValue) {
+            throw new Error(
+                'Element, id and pseudo-element should not occur more then one time inside the selector',
+            );
+        }
+        if (this.idValue) {
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            );
+        }
+        !copy.elValue ? copy.elValue = value : copy.elValue += value;
+        return copy;
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    id: function (value) {
+        const copy = {...this};
+        if (this.idValue) {
+            throw new Error(
+                'Element, id and pseudo-element should not occur more then one time inside the selector',
+            );
+        }
+        if (this.classValue || this.pseudoElValue) {
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            );
+        }
+        !copy.idValue ? copy.idValue = `#${value}` : copy.idValue += `#${value}`;
+        return copy;
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        const copy = {...this};
+        if (this.attrValue) {
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            );
+        }
+        !copy.classValue ?  copy.classValue = `.${value}` : copy.classValue += `.${value}`;
+        return copy;
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        const copy = {...this};
+        if (this.pseudoClassValue) {
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            );
+        }
+        !copy.attrValue ? copy.attrValue = `[${value}]` : copy.attrValue += `[${value}]`;
+        return copy;
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        const copy = {...this};
+        if (this.pseudoElValue) {
+            throw new Error(
+                'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+            );
+        }
+        !copy.pseudoClassValue ? copy.pseudoClassValue = `:${value}` : copy.pseudoClassValue += `:${value}`;
+        return copy;
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        const copy = {...this};
+        if (this.pseudoElValue) {
+            throw new Error(
+                'Element, id and pseudo-element should not occur more then one time inside the selector',
+            );
+        }
+        !copy.pseudoElValue ? copy.pseudoElValue = `::${value}` : copy.pseudoElValue += `::${value}`;
+        return copy;
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        const copy = {...this};
+        const value = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
+        !copy.value ? copy.value = value : copy.value += value;
+        return copy;
     },
+
+    stringify() {
+        let value = '';
+        if (this.value) return this.value;
+        if (this.elValue) value += this.elValue;
+        if (this.idValue) value += this.idValue;
+        if (this.classValue) value += this.classValue;
+        if (this.attrValue) value += this.attrValue;
+        if (this.pseudoClassValue) value += this.pseudoClassValue;
+        if (this.pseudoElValue) value += this.pseudoElValue;
+        return value;
+      },
 };
 
 
