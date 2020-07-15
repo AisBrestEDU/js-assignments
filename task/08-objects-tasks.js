@@ -23,7 +23,9 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+        this.width = width,
+        this.height = height,
+        Rectangle.prototype.getArea = () => this.width * this.height
 }
 
 
@@ -38,8 +40,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
-}
+    return JSON.stringify(obj)}
 
 
 /**
@@ -53,20 +54,15 @@ function getJSON(obj) {
  *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
  *
  */
-function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+function fromJSON(proto, json) {     
+    return Object.setPrototypeOf(JSON.parse(json), proto)
 }
 
 
 /**
  * Css selectors builder
- *
- * Each complex selector can consists of type, id, class, attribute, pseudo-class and pseudo-element selectors:
- *
- *    element#id.class[attr]:pseudoClass::pseudoElement
- *              \----/\----/\----------/
- *              Can be several occurences
- *
+ *1q2w3e
+ 1 
  * All types of selectors can be combined using the combinators ' ','+','~','>' .
  *
  * The task is to design a single class, independent classes or classes hierarchy and implement the functionality
@@ -106,35 +102,98 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
+class MySuperSelector {
+    constructor(value, part){
+        this.value = value
+        this.part = part
+    }
+    element(value){
+        if(this.part == 'element') {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
+        }else if(this.part != undefined){
+            throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
+        }
+        return new MySuperSelector(this.value, 'element')
+    }
+    id(value){
+        if(this.part == 'id') {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
+        }else if(this.part != "element") {
+            throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
+        }
+        this.value = this.value + "#"+ value;
+        return new MySuperSelector(this.value, 'id')
+        
+    }
+    class(value) {
+        if(this.part != "element" && this.part != "id" && this.part != "class"){
+            throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
+        }
+        this.value = this.value + "." + value;
+        return new MySuperSelector(this.value, 'class');
+    }
 
+    attr(value) {
+        if(this.part != "element" && this.part != "id" && this.part != "class" && this.part != "attr") {
+            throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
+        }
+        this.value = this.value + "[" + value + "]";
+        return new MySuperSelector(this.value, 'attr')
+    }
+
+    pseudoClass(value) {
+        if(this.part == 'pseudoElement') {
+            throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element") 
+        }
+        this.value = this.value + ":" + value;
+        return new MySuperSelector(this.value, 'pseudoClass')
+    }
+
+    pseudoElement(value) {
+        if(this.part == 'pseudoElement') {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
+        }
+        this.value = this.value + "::" + value;
+        return new MySuperSelector(this.value, 'pseudoElement')
+    }
+    
+    stringify() { 
+        
+        return this.value.toString()
+    }
+} 
+const cssSelectorBuilder = {
+    
     element: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperSelector(value, 'element');
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperSelector("#"+ value, 'id');
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperSelector("." + value, 'class');
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperSelector("[" + value + "]", 'attr');
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperSelector(":" + value, 'pseudoClass');
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new MySuperSelector("::" + value, "pseudoElement");
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
+        let sel1 = selector1.stringify();
+        let sel2 = selector2.stringify();
+        let result = sel1 + " "+ combinator + " " + sel2
+        return new MySuperSelector(result)
+    }
 };
 
 

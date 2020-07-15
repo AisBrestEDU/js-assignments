@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   return new Date(value)
+   throw new Error('Not implemented');
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   return new Date(value)
+   throw new Error('Not implemented');
 }
 
 
@@ -56,15 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   if (date.getFullYear() % 4 != 0){
-      return false
-   } else if (date.getFullYear() % 100 != 0){
-      return true
-   }else if (date.getFullYear() % 400 == 0){
-      return true
-   }else {
-      return false
-   }
+   throw new Error('Not implemented');
 }
 
 
@@ -84,15 +76,9 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   let totalms = endDate - startDate,
-   hours = Math.trunc(totalms/1000/60/60),
-   minuts = Math.trunc(totalms/1000/60%60),
-   second = totalms/1000%60,
-   h = hours < 10? '0' + hours.toString(): hours,
-   m = minuts < 10? '0' + minuts.toString(): minuts,
-   s = second < 10? "0" + second.toFixed(3).toString(): second.toFixed(3)
-   return (`${h}:${m}:${s}`);
+   throw new Error('Not implemented');
 }
+
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
@@ -108,18 +94,8 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   let grad = 0.5 * (60 * date.getUTCHours() - 11 * date.getUTCMinutes());
-   let totalGrad = 0
-   if (grad <= 180) {
-      totalGrad = grad
-   } else if(grad <= 360) {
-      totalGrad = 360 - grad
-   } else if(grad <= 540 ) {
-      totalGrad = grad - 360
-   } else totalGrad = 720 - grad
-   //let totalGrad = grad <= 180? grad : grad < 360? 360 - grad: grad < ;
-   let itog = Math.PI/180 * totalGrad
-   return Math.PI/180 * totalGrad}
+    throw new Error('Not implemented');
+}
 
 
 module.exports = {
