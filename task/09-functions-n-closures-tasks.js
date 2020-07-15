@@ -26,7 +26,7 @@
  *
  */
 function getComposition(f, g) {
-  return x => f(g(x));
+    return x => f(g(x));
 }
 
 
@@ -47,7 +47,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return x => Math.pow(x, exponent);
+    return x => Math.pow(x, exponent);
 }
 
 
@@ -65,12 +65,13 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-  const args = [...arguments];
-  if (!args.length) {
-    return null;
-  }
-  let n = args.length - 1;
-  return x => args.reduce((acc, curr, index) => acc += curr * Math.pow(x, n - index), 0);
+    const args = [...arguments];
+    if (!args.length) {
+        return null;
+    }
+    let n = args.length - 1;
+    return x => args.reduce(
+        (acc, curr, index) => acc += curr * Math.pow(x, n - index), 0);
 }
 
 
@@ -89,14 +90,10 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-  let cache = {};
-  return n => {
-    if (n in cache) {
-      return cache[n];
-    } else {
-      return cache[n] = func(n);
-    }
-  };
+    let cache;
+    return () => {
+        return cache ? cache : cache = func();
+    };
 }
 
 
@@ -116,18 +113,18 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-  return () => {
-    while (attempts >= 0) {
-      try {
-        return func();
-      } catch (e) {
-        --attempts;
-        if (attempts === 0) {
-          throw new Error('fulyError');
+    return () => {
+        while (attempts >= 0) {
+            try {
+                return func();
+            } catch (e) {
+                --attempts;
+                if (attempts === 0) {
+                    throw new Error('fulyError');
+                }
+            }
         }
-      }
-    }
-  };
+    };
 }
 
 
@@ -155,12 +152,12 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-  return (...args) => {
-    logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) starts`);
-    const result = func(...args);
-    logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) ends`);
-    return result;
-  }
+    return (...args) => {
+        logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) starts`);
+        const result = func(...args);
+        logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) ends`);
+        return result;
+    };
 }
 
 
@@ -178,7 +175,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-  return (...args) => fn(...([].slice.call(arguments, 1)), ...args);
+    return (...args) => fn(...([].slice.call(arguments, 1)), ...args);
 }
 
 
@@ -199,17 +196,17 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-  return () => startFrom++;
+    return () => startFrom++;
 }
 
 
 module.exports = {
-  getComposition: getComposition,
-  getPowerFunction: getPowerFunction,
-  getPolynom: getPolynom,
-  memoize: memoize,
-  retry: retry,
-  logger: logger,
-  partialUsingArguments: partialUsingArguments,
-  getIdGeneratorFunction: getIdGeneratorFunction,
+    getComposition: getComposition,
+    getPowerFunction: getPowerFunction,
+    getPolynom: getPolynom,
+    memoize: memoize,
+    retry: retry,
+    logger: logger,
+    partialUsingArguments: partialUsingArguments,
+    getIdGeneratorFunction: getIdGeneratorFunction,
 };
