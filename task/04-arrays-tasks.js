@@ -69,7 +69,7 @@ function doubleArray(arr) {
  *    [-1, 2, -5, -4, 0] => [ 2 ]
  *    [] => [] 
  */
-function getArrayOfPositives(arr) {   
+function getArrayOfPositives(arr) {
    return arr.filter(e => e > 0);
 }
 // console.log(getArrayOfPositives([ 0, 1, 2, 3, 4, 5 ]));
@@ -333,12 +333,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   let count = 0;
-   arr.map(item =>{
-      if (item > 0 && typeof item == "number") 
-         count++;      
-   });
-   return count;
+   return arr.filter(item => typeof item === 'number' && item > 0).length;
 }
 // console.log(getPositivesCount([ null, 1, 'elephant' ]));
 
@@ -414,10 +409,10 @@ function getFalsyValuesCount(arr) {
  *    [ null, undefined, null ], null => 2 
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurences(arr, item) {   
+function findAllOccurences(arr, item) {
    return arr.reduce((n, val) => {
       return n + (val === item);
-  }, 0);
+   }, 0);
 }
 // console.log(findAllOccurences([ null, undefined, null ], null))
 /**
@@ -462,15 +457,16 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   return arr.sort((a, b) => {
-      if (a.country > b.country)
-         return 1;
-      else if (a.country === b.country)
-         return a.city > b.city ? 1 : -1;
-      else
-         return -1;
-   })
+   return arr.sort((a, b) => a.country.localeCompare(b.country) * 2 + a.city.localeCompare(b.city));
 }
+// console.log(sortCitiesArray([
+//    { country: 'Russia', city: 'Moscow' },
+//    { country: 'Belarus', city: 'Minsk' },
+//    { country: 'Poland', city: 'Warsaw' },
+//    { country: 'Russia', city: 'Saint Petersburg' },
+//    { country: 'Poland', city: 'Krakow' },
+//    { country: 'Belarus', city: 'Brest' }
+// ]))
 
 /**
  * Creates an indentity matrix of the specified size
@@ -575,19 +571,19 @@ function group(array, keySelector, valueSelector) {
       arr.push(value);
       prev.set(key, arr);
       return prev;
-  }, new Map);
+   }, new Map);
 }
-console.log(group([
-      { country: 'Belarus', city: 'Brest' },
-      { country: 'Russia', city: 'Omsk' },
-      { country: 'Russia', city: 'Samara' },
-      { country: 'Belarus', city: 'Grodno' },
-      { country: 'Belarus', city: 'Minsk' },
-      { country: 'Poland', city: 'Lodz' }
-      ], 
-      item => item.country, 
-      item => item.city
-      ))
+// console.log(group([
+//    { country: 'Belarus', city: 'Brest' },
+//    { country: 'Russia', city: 'Omsk' },
+//    { country: 'Russia', city: 'Samara' },
+//    { country: 'Belarus', city: 'Grodno' },
+//    { country: 'Belarus', city: 'Minsk' },
+//    { country: 'Poland', city: 'Lodz' }
+// ],
+//    item => item.country,
+//    item => item.city
+// ))
 
 /**
  * Projects each element of the specified array to a sequence and flattens the resulting sequences into one array.
@@ -644,25 +640,13 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   let result = [];
-   let length = arr.length;
-   if (length % 2 === 0) {
-      let head = arr.slice(0, length / 2);
-      let tail = arr.slice(length / 2, length);
-      result = result.concat(tail);
-      result = result.concat(head);
-   }
-   else {
-      let middleIndex = (length - 1) / 2;
-      let head = arr.slice(0, middleIndex);
-      let tail = arr.slice(middleIndex + 1, length);
-      result = result.concat(tail);
-      result.push(arr[middleIndex]);
-      result = result.concat(head);
-   }
-   return result;
+   return [
+      ...arr.slice(arr.length + 1 >> 1),
+      ...arr.slice(arr.length >> 1, arr.length + 1 >> 1),
+      ...arr.slice(0, arr.length >> 1)
+   ];
 }
-// console.log(swapHeadAndTail([ 1, 2, 3, 4, 5, 6, 7, 8 ]));
+console.log(swapHeadAndTail([1, 2, 3, 4, 5, 6, 7, 8]));
 
 
 module.exports = {
