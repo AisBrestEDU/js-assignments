@@ -257,10 +257,7 @@ return (str ? str : this).split('').map(function(s)
  *   isString(new String('test')) => true
  */
 function isString(value) {    
-    if( typeof value === "string" || value instanceof String){
-        return true;     
-    }else 
-    return false;
+    return toString.call(value) === '[object String]';    
 }
 
 

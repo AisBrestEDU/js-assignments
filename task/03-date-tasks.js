@@ -57,7 +57,7 @@ function parseDataFromIso8601(value) {
  */
 function isLeapYear(date) {
    let year = date.getFullYear();
-    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
 }
 
 
@@ -116,9 +116,6 @@ function angleBetweenClockHands(date) {
   
    let result = Math.abs(totalGrad )> 180  ?  totalGrad -360: totalGrad;
    return  Math.abs( result * Math.PI/180 );
-  
-   return i;
-  
 }
 
 

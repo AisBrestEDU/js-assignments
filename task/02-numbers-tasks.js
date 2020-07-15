@@ -95,7 +95,8 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    return -b/a;
+    let result = (-b) / a;
+  return result;
 }
 
 
@@ -117,8 +118,8 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    var deltaX = Math.pow(x2 - x1, 2);
-    var deltaY =Math.pow( y2 - y1, 2);
+    let deltaX = Math.pow(x2 - x1, 2);
+    let deltaY =Math.pow( y2 - y1, 2);
     return Math.atan2(deltaY, deltaX)*2;    
 }
 
@@ -191,7 +192,7 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    var power = Math.pow(10, -pow);
+    let power = Math.pow(10, -pow);
     return Math.round(num * power) / power;
 }
 
@@ -213,7 +214,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    for(var x = 2; x < n; x++)
+    for(let x = 2; x < n; x++)
     {
       if(n % x === 0)
       {
@@ -239,9 +240,8 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if( +value){
-        return value;     
-    }else return def;
+    let num = Number(value);
+    return Number.isNaN(num) ? def : num;
 }
 
 module.exports = {

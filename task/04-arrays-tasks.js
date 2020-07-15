@@ -229,8 +229,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  var result = [];
-  var totalSum = arr.reduce(function (sum, item) {
+  let result = [];
+  let totalSum = arr.reduce(function (sum, item) {
     result.push(sum);
     return sum + item;
   });
@@ -250,7 +250,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-  return arr.filter((item, index) => index % 2 == 1);
+  return arr.filter((item, index) => index % 2 === 1);
 }
 
 /**
@@ -291,11 +291,11 @@ function get3TopItems(arr) {
   let newArr = arr.sort(function (a, b) {
     if (a < b) {
       return 1;
-    } else if (a == b) {
+    } else if (a === b) {
       return 0;
-    } else {
+    } 
       return -1;
-    }
+    
   });
   return newArr.slice(0, 3);
 }
@@ -314,7 +314,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  var count = arr.reduce(function (a, b) {
+  let count = arr.reduce(function (a, b) {
     if (typeof b === "number") {
       if (b > 0) {
         a = ++a;
@@ -521,7 +521,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-  return arr.filter((item, pos) => arr.indexOf(item) == pos);
+  return arr.filter((item, pos) => arr.indexOf(item) === pos);
 }
 
 /**
@@ -618,15 +618,15 @@ function getElementByIndexes(arr, indexes) {
 function swapHeadAndTail(arr) {
   let arr1 = {};
   let arr2 = {};
-  if (arr.length % 2 == 0) {
+  if (arr.length % 2 === 0) {
     arr1 = arr.slice(0, arr.length / 2);
     arr2 = arr.slice(-arr.length / 2);
     return arr2.concat(arr1);
-  } else if (arr.length % 2 == 1 && arr.length > 1) {
+  } else if (arr.length % 2 === 1 && arr.length > 1) {
     arr1 = arr.slice(-Math.floor(arr.length / 2));
     arr2 = arr.slice(0, Math.floor(arr.length / 2));
     return arr1.concat(Math.floor(arr.length / 2) + 1, arr2);
-  } else return arr;
+  }  return arr;
 }
 
 module.exports = {
