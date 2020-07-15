@@ -538,12 +538,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   let array = [];
-   arr.map(item => {
-      if (array.indexOf == -1)
-         array.push(item);    
-   });
-   return array;
+   return arr.filter((e, index) => arr.indexOf(e) == index);
 }
 // console.log(distinct( [ 1, 1, 2, 2, 3, 3, 4, 4]))
 
@@ -619,11 +614,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   let array = [];
-   arr.map(item => {
-      array = array.push(...childrenSelector(element))
-   });   
-   return array;
+   return arr.map(item => childrenSelector(item)).flat();   ;
 }
 // console.log(selectMany(['one','two','three'], x=>x.split('')));
 
