@@ -469,10 +469,7 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   arr.sort((a, b) => a.city < b.city ? 1 : -1);
-
-   return arr.sort((a, b) => a.country > b.country ? 1 : -1);
-
+   return arr.sort((a, b) => a.country.localeCompare(b.country) || a.city.localeCompare(b.city));
 }
 
 /**
