@@ -211,8 +211,9 @@ function isPrime(n) {
             break
         }
     }
-    if(n === 2) isPrime  = true
     
+    if(n === 2) isPrime  = true
+
     return isPrime 
 }
 
