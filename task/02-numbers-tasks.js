@@ -212,6 +212,7 @@ function isPrime(n) {
         }
     }
     if(n === 2) isPrime  = true
+    
     return isPrime 
 }
 
