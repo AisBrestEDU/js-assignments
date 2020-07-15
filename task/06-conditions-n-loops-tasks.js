@@ -435,7 +435,7 @@ function timespanToHumanString(startDate, endDate) {
     let hour = min / 60
     let day = hour / 24
     let month = day / 30
-    let year = month / 12
+    let year = month / 12    
 
     if(sec <= 45) return 'a few seconds ago'
     else if (sec <= 90) return 'a minute ago'
@@ -492,31 +492,16 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    let mas = []
-    let isMatch = true
-    let match = []
+    let result = '';
 
-    for (let i = 0; i < pathes.length; i++){        
-        let item = pathes[i].split('/')
-        mas.push(item)
-    }
-
-    outer: for (let c = 0; c < mas[0].length; c++){        
-        let sample = mas[0][c]
-
-        for (let r = 0; r < mas.length; r++){ 
-            if (sample !== mas[r][c]){
-                isMatch = false
-                break outer
-            }                
-        }
-
-        if(isMatch)  match.push(sample)
-    }
-
-    if(match.length === 0) return ''
-
-    return (isMatch) ? match.join('/') : match.join('/') + '/'
+     for (let i = 0; i < pathes[0].length; i++) {
+         for (let j = 1; j < pathes.length; j++) {
+             if (pathes[0].charAt(i) !== pathes[j].charAt(i)) {
+                 result = pathes[0].slice(0, i);
+                 return result.slice(0, result.lastIndexOf('/') + 1);
+             }
+         }
+     }
 }
 
 
