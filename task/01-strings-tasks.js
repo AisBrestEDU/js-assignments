@@ -136,7 +136,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {    
-    var index = str.indexOf(value);
+    let index = str.indexOf(value);
 	if (index === -1) {
 		return str;
 	}
@@ -239,7 +239,7 @@ return (str ? str : this).split('').map(function(s)
         if (!s.match(/[A-Za-z]/)) return s;
        let c = Math.floor(s.charCodeAt(0) / 97);
        let k = (s.toLowerCase().charCodeAt(0) - 83) % 26 || 26;
-        return String.fromCharCode(k + ((c == 0) ? 64 : 96));
+        return String.fromCharCode(k + ((c === 0) ? 64 : 96));
      }).join('');
 }
 
@@ -259,7 +259,8 @@ return (str ? str : this).split('').map(function(s)
 function isString(value) {    
     if( typeof value === "string" || value instanceof String){
         return true;     
-    }else return false;
+    }else 
+    return false;
 }
 
 
