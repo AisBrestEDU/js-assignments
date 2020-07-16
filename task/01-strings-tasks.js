@@ -226,8 +226,8 @@ function getRectangleString(width, height) {
 function encodeToRot13(str) {
     const heave = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const out = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-    let index  = x => heave.indexOf(x);
-    let translate = x => index(x) > -1 ? out[index(x)] : x;
+    const index  = x => heave.indexOf(x);
+    const translate = x => index(x) > -1 ? out[index(x)] : x;
   return str.split('').map(translate).join('');
 }
 
@@ -274,7 +274,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    let arrCard = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠']
+    const arrCard = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠']
     return arrCard.indexOf(value);
 
     
