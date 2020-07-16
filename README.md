@@ -111,3 +111,4 @@ There is an easier way to debug for beginners with free Visual Studio Code:
 ##Contribution
 Feel free to contribute into this project. New tasks and katas are welcome.
 
+[![Build Status](https://travis-ci.com/ArtemOsadchuck/js-assignments.svg?branch=master)](https://travis-ci.com/ArtemOsadchuck/js-assignments)
