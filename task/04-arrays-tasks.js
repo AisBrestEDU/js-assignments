@@ -322,298 +322,300 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   throw new Error('Not implemented');
+   let order = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+
+   return arr.sort((a, b) => order.indexOf(a) - order.indexOf(b));
 }
 
-/** 
- * Returns the sum of all items in the specified array of numbers
- * 
- * @param {array} arr
- * @return {number}
- * 
- * @example
- *   [] => 0
- *   [ 1, 2, 3 ]           => 6
- *   [ -1, 1, -1, 1 ]      => 0
- *   [ 1, 10, 100, 1000 ]  => 1111
- */
-function getItemsSum(arr) {
-   return arr.length == 0 ? 0 : arr.reduce((a, b) => a + b);
-}
+   /** 
+    * Returns the sum of all items in the specified array of numbers
+    * 
+    * @param {array} arr
+    * @return {number}
+    * 
+    * @example
+    *   [] => 0
+    *   [ 1, 2, 3 ]           => 6
+    *   [ -1, 1, -1, 1 ]      => 0
+    *   [ 1, 10, 100, 1000 ]  => 1111
+    */
+   function getItemsSum(arr) {
+      return arr.length == 0 ? 0 : arr.reduce((a, b) => a + b);
+   }
 
-/** 
- * Returns the number of all falsy value in the specified array
- * 
- * @param {array} arr
- * @return {array}
- * 
- * @example
- *  [] => 0
- *  [ 1, '', 3 ] => 1
- *  [ -1, 'false', null, 0 ] => 2
- *  [ null, undefined, NaN, false, 0, '' ]  => 6
- */
-function getFalsyValuesCount(arr) {
-   return arr.length - arr.filter(i => !!i).length;
-}
+   /** 
+    * Returns the number of all falsy value in the specified array
+    * 
+    * @param {array} arr
+    * @return {array}
+    * 
+    * @example
+    *  [] => 0
+    *  [ 1, '', 3 ] => 1
+    *  [ -1, 'false', null, 0 ] => 2
+    *  [ null, undefined, NaN, false, 0, '' ]  => 6
+    */
+   function getFalsyValuesCount(arr) {
+      return arr.length - arr.filter(i => !!i).length;
+   }
 
-/**
- * Returns a number of all occurences of the specified item in an array  
- * 
- * @param {array} arr
- * @param {any} item 
- * @return {number}
- * 
- * @example
- *    [ 0, 0, 1, 1, 1, 2 ], 1 => 3
- *    [ 1, 2, 3, 4, 5 ], 0 => 0
- *    [ 'a','b','c','c' ], 'c'=> 2
- *    [ null, undefined, null ], null => 2 
- *    [ true, 0, 1, 'true' ], true => 1
- */
-function findAllOccurences(arr, item) {
-   return arr.filter(i => i === item).length;
-}
+   /**
+    * Returns a number of all occurences of the specified item in an array  
+    * 
+    * @param {array} arr
+    * @param {any} item 
+    * @return {number}
+    * 
+    * @example
+    *    [ 0, 0, 1, 1, 1, 2 ], 1 => 3
+    *    [ 1, 2, 3, 4, 5 ], 0 => 0
+    *    [ 'a','b','c','c' ], 'c'=> 2
+    *    [ null, undefined, null ], null => 2 
+    *    [ true, 0, 1, 'true' ], true => 1
+    */
+   function findAllOccurences(arr, item) {
+      return arr.filter(i => i === item).length;
+   }
 
-/**
- * Concatenates all elements from specified array into single string with ',' delimeter  
- * 
- * @param {array} arr 
- * @return {string}
- * 
- * @example
- *    [0, false, 'cat', NaN, true, '']  => '0,false,cat,NaN,true,'
- *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
- *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
- */
-function toStringList(arr) {
-   return arr.join();
-}
-
-
-/**
- * Sorts the specified array by country name first and city name (if countries are equal) in ascending order.
- * 
- * @param {array} arr
- * @return {array}
- * 
- * @example
- *    [
- *      { country: 'Russia',  city: 'Moscow' },
- *      { country: 'Belarus', city: 'Minsk' },
- *      { country: 'Poland',  city: 'Warsaw' },
- *      { country: 'Russia',  city: 'Saint Petersburg' },
- *      { country: 'Poland',  city: 'Krakow' },
- *      { country: 'Belarus', city: 'Brest' }
- *    ]  
- *                      =>
- *    [
- *      { country: 'Belarus', city: 'Brest' },
- *      { country: 'Belarus', city: 'Minsk' },
- *      { country: 'Poland',  city: 'Krakow' },
- *      { country: 'Poland',  city: 'Warsaw' },
- *      { country: 'Russia',  city: 'Moscow' },
- *      { country: 'Russia',  city: 'Saint Petersburg' }
- */
-function sortCitiesArray(arr) {
-   return arr.sort((a, b) =>
-      (b.country < a.country) - (a.country < b.country) || (b.city < a.city) - (a.city < b.city));
-}
-
-/**
- * Creates an indentity matrix of the specified size
- * 
- * @param {number} n
- * @return {array}
- * 
- * @example
- *     1  => [[1]]
- *  
- *     2 => [[1,0],
- *           [0,1]]
- * 
- *          [[1,0,0,0,0],
- *           [0,1,0,0,0],
- *     5 =>  [0,0,1,0,0],
- *           [0,0,0,1,0],
- *           [0,0,0,0,1]]   
- */
-function getIdentityMatrix(n) {
-   return (new Array(n).fill(0)).map((_, i) =>
-      (new Array(n)).fill(0).map((_, j) => (i == j) ? 1 : 0));
-}
-
-/**
- * Creates an array of integers from the specified start to end (inclusive)
- * 
- * @param {number} start
- * @param {number} end
- * @return {array}
- * 
- * @example
- *     1, 5  => [ 1, 2, 3, 4, 5 ]
- *    -2, 2  => [ -2, -1, 0, 1, 2 ]
- *     0, 100 => [ 0, 1, 2, ..., 100 ]
- *     3, 3   => [ 3 ]
- */
-function getIntervalArray(start, end) {
-   return Array.from(new Array(end - start + 1), (x, i) => i + start);
-}
-
-/**
- * Returns array containing only unique values from the specified array.
- *
- * @param {array} arr
- * @return {array}
- * 
- * @example
- *   [ 1, 2, 3, 3, 2, 1 ] => [ 1, 2, 3 ]
- *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
- *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
- */
-function distinct(arr) {
-   return Array.from(new Set(arr));
-}
-
-/**
- * Groups elements of the specified array by key.
- * Returns multimap of keys extracted from array elements via keySelector callback
- * and values extracted via valueSelector callback.
- * See: https://en.wikipedia.org/wiki/Multimap
- *
- * @param {array} array
- * @param {Function} keySelector
- * @param {Function} valueSelector
- * @return {Map}
- *
- * @example
- *   group([
- *      { country: 'Belarus', city: 'Brest' },
- *      { country: 'Russia', city: 'Omsk' },
- *      { country: 'Russia', city: 'Samara' },
- *      { country: 'Belarus', city: 'Grodno' },
- *      { country: 'Belarus', city: 'Minsk' },
- *      { country: 'Poland', city: 'Lodz' }
- *     ], 
- *     item => item.country, 
- *     item => item.city
- *   )
- *            => 
- *   Map {
- *    "Belarus" => ["Brest", "Grodno", "Minsk"],
- *    "Russia" => ["Omsk", "Samara"], 
- *    "Poland" => ["Lodz"]
- *   }
- */
-function group(array, keySelector, valueSelector) {
-   let group = array.reduce((obj, item) => {
-      let key = keySelector(item);
-      obj[key] = obj[key] || [];
-      obj[key].push(valueSelector(item));
-
-      return obj;
-   }, {});
-
-   return Object.keys(group).map(key => [key, group[key]]);
-}
+   /**
+    * Concatenates all elements from specified array into single string with ',' delimeter  
+    * 
+    * @param {array} arr 
+    * @return {string}
+    * 
+    * @example
+    *    [0, false, 'cat', NaN, true, '']  => '0,false,cat,NaN,true,'
+    *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
+    *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
+    */
+   function toStringList(arr) {
+      return arr.join();
+   }
 
 
-/**
- * Projects each element of the specified array to a sequence and flattens the resulting sequences into one array.
- *
- * @param {array} arr
- * @param {Function} childrenSelector, a transform function to apply to each element that returns an array of children
- * @return {array}
- * 
- * @example
- *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
- *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
- */
-function selectMany(arr, childrenSelector) {
-   return arr.flatMap(childrenSelector);
-}
+   /**
+    * Sorts the specified array by country name first and city name (if countries are equal) in ascending order.
+    * 
+    * @param {array} arr
+    * @return {array}
+    * 
+    * @example
+    *    [
+    *      { country: 'Russia',  city: 'Moscow' },
+    *      { country: 'Belarus', city: 'Minsk' },
+    *      { country: 'Poland',  city: 'Warsaw' },
+    *      { country: 'Russia',  city: 'Saint Petersburg' },
+    *      { country: 'Poland',  city: 'Krakow' },
+    *      { country: 'Belarus', city: 'Brest' }
+    *    ]  
+    *                      =>
+    *    [
+    *      { country: 'Belarus', city: 'Brest' },
+    *      { country: 'Belarus', city: 'Minsk' },
+    *      { country: 'Poland',  city: 'Krakow' },
+    *      { country: 'Poland',  city: 'Warsaw' },
+    *      { country: 'Russia',  city: 'Moscow' },
+    *      { country: 'Russia',  city: 'Saint Petersburg' }
+    */
+   function sortCitiesArray(arr) {
+      return arr.sort((a, b) =>
+         (b.country < a.country) - (a.country < b.country) || (b.city < a.city) - (a.city < b.city));
+   }
+
+   /**
+    * Creates an indentity matrix of the specified size
+    * 
+    * @param {number} n
+    * @return {array}
+    * 
+    * @example
+    *     1  => [[1]]
+    *  
+    *     2 => [[1,0],
+    *           [0,1]]
+    * 
+    *          [[1,0,0,0,0],
+    *           [0,1,0,0,0],
+    *     5 =>  [0,0,1,0,0],
+    *           [0,0,0,1,0],
+    *           [0,0,0,0,1]]   
+    */
+   function getIdentityMatrix(n) {
+      return (new Array(n).fill(0)).map((_, i) =>
+         (new Array(n)).fill(0).map((_, j) => (i == j) ? 1 : 0));
+   }
+
+   /**
+    * Creates an array of integers from the specified start to end (inclusive)
+    * 
+    * @param {number} start
+    * @param {number} end
+    * @return {array}
+    * 
+    * @example
+    *     1, 5  => [ 1, 2, 3, 4, 5 ]
+    *    -2, 2  => [ -2, -1, 0, 1, 2 ]
+    *     0, 100 => [ 0, 1, 2, ..., 100 ]
+    *     3, 3   => [ 3 ]
+    */
+   function getIntervalArray(start, end) {
+      return Array.from(new Array(end - start + 1), (x, i) => i + start);
+   }
+
+   /**
+    * Returns array containing only unique values from the specified array.
+    *
+    * @param {array} arr
+    * @return {array}
+    * 
+    * @example
+    *   [ 1, 2, 3, 3, 2, 1 ] => [ 1, 2, 3 ]
+    *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
+    *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
+    */
+   function distinct(arr) {
+      return Array.from(new Set(arr));
+   }
+
+   /**
+    * Groups elements of the specified array by key.
+    * Returns multimap of keys extracted from array elements via keySelector callback
+    * and values extracted via valueSelector callback.
+    * See: https://en.wikipedia.org/wiki/Multimap
+    *
+    * @param {array} array
+    * @param {Function} keySelector
+    * @param {Function} valueSelector
+    * @return {Map}
+    *
+    * @example
+    *   group([
+    *      { country: 'Belarus', city: 'Brest' },
+    *      { country: 'Russia', city: 'Omsk' },
+    *      { country: 'Russia', city: 'Samara' },
+    *      { country: 'Belarus', city: 'Grodno' },
+    *      { country: 'Belarus', city: 'Minsk' },
+    *      { country: 'Poland', city: 'Lodz' }
+    *     ], 
+    *     item => item.country, 
+    *     item => item.city
+    *   )
+    *            => 
+    *   Map {
+    *    "Belarus" => ["Brest", "Grodno", "Minsk"],
+    *    "Russia" => ["Omsk", "Samara"], 
+    *    "Poland" => ["Lodz"]
+    *   }
+    */
+   function group(array, keySelector, valueSelector) {
+      let group = array.reduce((obj, item) => {
+         let key = keySelector(item);
+         obj[key] = obj[key] || [];
+         obj[key].push(valueSelector(item));
+
+         return obj;
+      }, {});
+
+      return Object.keys(group).map(key => [key, group[key]]);
+   }
 
 
-/**
- * Returns an element from the multidimentional array by the specified indexes.
- *
- * @param {array} arr
- * @param {array} indexes
- * @return {any} element from array
- * 
- * @example
- *   [[1, 2], [3, 4], [5, 6]], [0,0]  => 1        (arr[0][0]) 
- *   ['one','two','three'], [2]       => 'three'  (arr[2]) 
- *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
- */
-function getElementByIndexes(arr, indexes) {
-   if (indexes.length === 1) return arr[indexes];
-
-   return indexes.reduce((prev, curr) => Array.isArray(prev) ? prev[curr] : arr[prev][curr]);
-}
+   /**
+    * Projects each element of the specified array to a sequence and flattens the resulting sequences into one array.
+    *
+    * @param {array} arr
+    * @param {Function} childrenSelector, a transform function to apply to each element that returns an array of children
+    * @return {array}
+    * 
+    * @example
+    *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
+    *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
+    */
+   function selectMany(arr, childrenSelector) {
+      return arr.flatMap(childrenSelector);
+   }
 
 
-/**
- * Swaps the head and tail of the specified array:
- * the head (first half) of array move to the end, the tail (last half) move to the start. 
- * The middle element (if exists) leave on the same position.
- * 
- *  
- * @param {array} arr
- * @return {array}
- * 
- * @example
- *   [ 1, 2, 3, 4, 5 ]   =>  [ 4, 5, 3, 1, 2 ]
- *    \----/   \----/         
- *     head     tail 
- *
- *   [ 1, 2 ]  => [ 2, 1 ] 
- *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]   
- * 
- */
-function swapHeadAndTail(arr) {
-   let length = arr.length;
+   /**
+    * Returns an element from the multidimentional array by the specified indexes.
+    *
+    * @param {array} arr
+    * @param {array} indexes
+    * @return {any} element from array
+    * 
+    * @example
+    *   [[1, 2], [3, 4], [5, 6]], [0,0]  => 1        (arr[0][0]) 
+    *   ['one','two','three'], [2]       => 'three'  (arr[2]) 
+    *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
+    */
+   function getElementByIndexes(arr, indexes) {
+      if (indexes.length === 1) return arr[indexes];
 
-   if (length < 2) return arr;
-
-   let head = arr.slice(0, length / 2);
-   let center = arr.slice(length / 2, length / 2 + 1);
-   let tail = arr.slice(-length / 2);
-
-   return length % 2 == 0 ? tail.concat(head) : tail.concat(center).concat(head);
-}
+      return indexes.reduce((prev, curr) => Array.isArray(prev) ? prev[curr] : arr[prev][curr]);
+   }
 
 
-module.exports = {
-   findElement: findElement,
-   generateOdds: generateOdds,
-   doubleArray: doubleArray,
-   getArrayOfPositives: getArrayOfPositives,
-   getArrayOfStrings: getArrayOfStrings,
-   removeFalsyValues: removeFalsyValues,
-   getUpperCaseStrings: getUpperCaseStrings,
-   getStringsLength: getStringsLength,
-   insertItem: insertItem,
-   getHead: getHead,
-   getTail: getTail,
-   toCsvText: toCsvText,
-   toStringList: toStringList,
-   toArrayOfSquares: toArrayOfSquares,
-   getMovingSum: getMovingSum,
-   getSecondItems: getSecondItems,
-   propagateItemsByPositionIndex: propagateItemsByPositionIndex,
-   get3TopItems: get3TopItems,
-   getPositivesCount: getPositivesCount,
-   sortDigitNamesByNumericOrder: sortDigitNamesByNumericOrder,
-   getItemsSum: getItemsSum,
-   getFalsyValuesCount: getFalsyValuesCount,
-   findAllOccurences: findAllOccurences,
-   sortCitiesArray: sortCitiesArray,
-   getIdentityMatrix: getIdentityMatrix,
-   getIntervalArray: getIntervalArray,
-   distinct: distinct,
-   group: group,
-   selectMany: selectMany,
-   getElementByIndexes: getElementByIndexes,
-   swapHeadAndTail: swapHeadAndTail
-};
+   /**
+    * Swaps the head and tail of the specified array:
+    * the head (first half) of array move to the end, the tail (last half) move to the start. 
+    * The middle element (if exists) leave on the same position.
+    * 
+    *  
+    * @param {array} arr
+    * @return {array}
+    * 
+    * @example
+    *   [ 1, 2, 3, 4, 5 ]   =>  [ 4, 5, 3, 1, 2 ]
+    *    \----/   \----/         
+    *     head     tail 
+    *
+    *   [ 1, 2 ]  => [ 2, 1 ] 
+    *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]   
+    * 
+    */
+   function swapHeadAndTail(arr) {
+      let length = arr.length;
+
+      if (length < 2) return arr;
+
+      let head = arr.slice(0, length / 2);
+      let center = arr.slice(length / 2, length / 2 + 1);
+      let tail = arr.slice(-length / 2);
+
+      return length % 2 == 0 ? tail.concat(head) : tail.concat(center).concat(head);
+   }
+
+
+   module.exports = {
+      findElement: findElement,
+      generateOdds: generateOdds,
+      doubleArray: doubleArray,
+      getArrayOfPositives: getArrayOfPositives,
+      getArrayOfStrings: getArrayOfStrings,
+      removeFalsyValues: removeFalsyValues,
+      getUpperCaseStrings: getUpperCaseStrings,
+      getStringsLength: getStringsLength,
+      insertItem: insertItem,
+      getHead: getHead,
+      getTail: getTail,
+      toCsvText: toCsvText,
+      toStringList: toStringList,
+      toArrayOfSquares: toArrayOfSquares,
+      getMovingSum: getMovingSum,
+      getSecondItems: getSecondItems,
+      propagateItemsByPositionIndex: propagateItemsByPositionIndex,
+      get3TopItems: get3TopItems,
+      getPositivesCount: getPositivesCount,
+      sortDigitNamesByNumericOrder: sortDigitNamesByNumericOrder,
+      getItemsSum: getItemsSum,
+      getFalsyValuesCount: getFalsyValuesCount,
+      findAllOccurences: findAllOccurences,
+      sortCitiesArray: sortCitiesArray,
+      getIdentityMatrix: getIdentityMatrix,
+      getIntervalArray: getIntervalArray,
+      distinct: distinct,
+      group: group,
+      selectMany: selectMany,
+      getElementByIndexes: getElementByIndexes,
+      swapHeadAndTail: swapHeadAndTail
+   };
