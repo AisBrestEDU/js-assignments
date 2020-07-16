@@ -22,7 +22,11 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -38,7 +42,11 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -55,7 +63,11 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -69,7 +81,11 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -84,7 +100,11 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -99,7 +119,11 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 /**
  * Returns a string that repeated the specified number of times.
@@ -113,7 +137,11 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -129,7 +157,11 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -144,7 +176,11 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -159,7 +195,11 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -173,7 +213,11 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -200,7 +244,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -220,7 +268,11 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -237,7 +289,11 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -266,11 +322,16 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
 module.exports = {
+<<<<<<< HEAD
 	concatenateStrings: concatenateStrings,
 	getStringLength: getStringLength,
 	getStringFromTemplate: getStringFromTemplate,
@@ -286,4 +347,21 @@ module.exports = {
 	encodeToRot13: encodeToRot13,
 	isString: isString,
 	getCardId: getCardId
+=======
+    concatenateStrings: concatenateStrings,
+    getStringLength: getStringLength,
+    getStringFromTemplate: getStringFromTemplate,
+    extractNameFromTemplate: extractNameFromTemplate,
+    getFirstChar: getFirstChar,
+    removeLeadingAndTrailingWhitespaces: removeLeadingAndTrailingWhitespaces,
+    repeatString: repeatString,
+    removeFirstOccurrences: removeFirstOccurrences,
+    unbracketTag: unbracketTag,
+    convertToUpperCase: convertToUpperCase,
+    extractEmails: extractEmails,
+    getRectangleString: getRectangleString,
+    encodeToRot13: encodeToRot13,
+    isString: isString,
+    getCardId: getCardId
+>>>>>>> task_6v1
 };

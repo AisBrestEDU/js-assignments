@@ -22,7 +22,11 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+   throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -37,7 +41,11 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+   throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -56,7 +64,11 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+   throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -76,7 +88,11 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+   throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -94,14 +110,26 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
 module.exports = {
+<<<<<<< HEAD
 	parseDataFromRfc2822: parseDataFromRfc2822,
 	parseDataFromIso8601: parseDataFromIso8601,
 	isLeapYear: isLeapYear,
 	timeSpanToString: timeSpanToString,
 	angleBetweenClockHands: angleBetweenClockHands
+=======
+    parseDataFromRfc2822: parseDataFromRfc2822,
+    parseDataFromIso8601: parseDataFromIso8601,
+    isLeapYear: isLeapYear,
+    timeSpanToString: timeSpanToString,
+    angleBetweenClockHands: angleBetweenClockHands
+>>>>>>> task_6v1
 };

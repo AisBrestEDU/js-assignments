@@ -30,7 +30,7 @@
  *
  */
 function getFizzBuzz(num) {
-	return !(num % 5) && !(num % 3) ? 'FizzBuzz' : !(num % 5) ? 'Buzz' : !(num % 3) ? 'Fizz' : num;
+    return !(num % 5) && !(num % 3) ? 'FizzBuzz' : !(num % 5) ? 'Buzz' : !(num % 3) ? 'Fizz' : num;
 }
 
 
@@ -90,8 +90,8 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(a, b, c) {
-	return a < b + c && b < a + c && c < a + b;
+function isTriangle(a,b,c) {
+    return a < b + c && b < a + c && c < a + b;
 }
 
 
@@ -128,7 +128,7 @@ function isTriangle(a, b, c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-	return rect1.height >= rect2.top && rect1.width >= rect2.left;
+    return rect1.height >= rect2.top && rect1.width >= rect2.left;
 }
 
 
@@ -159,7 +159,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-	return Math.sqrt(Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2)) < circle.radius;
+    return Math.sqrt(Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2)) < circle.radius;
 }
 
 
@@ -175,7 +175,7 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-	return str.split('').filter((val, index, arr) => arr.indexOf(val) === arr.lastIndexOf(val))[0];
+    return str.split('').filter((val, index, arr) => arr.indexOf(val) === arr.lastIndexOf(val))[0];
 }
 
 
@@ -201,7 +201,7 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-	return `${isStartIncluded ? '[' : '('}${Math.min(a, b)}, ${Math.max(a, b)}${isEndIncluded ? ']' : ')'}`;
+    return `${isStartIncluded ? '[' : '('}${Math.min(a, b)}, ${Math.max(a, b)}${isEndIncluded ? ']' : ')'}`;
 }
 
 
@@ -218,7 +218,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-	return str.split('').reverse().join('');
+    return str.split('').reverse().join('');
 }
 
 
@@ -235,7 +235,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-	return +num.toString().split('').reverse().join('');
+    return +num.toString().split('').reverse().join('');
 }
 
 
@@ -370,14 +370,14 @@ function timespanToHumanString(startDate, endDate) {
 
 	return time > 545 * days ? `${round(time / years)} years ago` :
 		time > 345 * days ? 'a year ago' :
-			time > 45 * days ? `${round(time / months)} months ago` :
-				time > 25 * days ? 'a month ago' :
-					time > 36 * hours ? `${round(time / days)} days ago` :
-						time > 22 * hours ? 'a day ago' :
-							time > 90 * minutes ? `${round(time / hours)} hours ago` :
-								time > 45 * minutes ? 'an hour ago' :
-									time > 90 ? `${round(time / 60)} minutes ago` :
-										time > 45 ? 'a minute ago' : 'a few seconds ago';
+		time > 45 * days ? `${round(time / months)} months ago` :
+		time > 25 * days ? 'a month ago' :
+		time > 36 * hours ? `${round(time / days)} days ago` :
+		time > 22 * hours ? 'a day ago' :
+		time > 90 * minutes ? `${round(time / hours)} hours ago` :
+		time > 45 * minutes ? 'an hour ago' :
+		time > 90 ? `${round(time / 60)} minutes ago` :
+		time > 45 ? 'a minute ago' : 'a few seconds ago';
 }
 
 
@@ -401,7 +401,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-	return num.toString(n);
+    return num.toString(n);
 }
 
 

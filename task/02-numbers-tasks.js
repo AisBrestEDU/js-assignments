@@ -22,7 +22,11 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -38,7 +42,11 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -54,7 +62,11 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -73,7 +85,11 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -89,7 +105,11 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -111,7 +131,11 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -127,7 +151,11 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 
@@ -143,7 +171,11 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -159,8 +191,13 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
+<<<<<<< HEAD
 function getParallelipidedDiagonal(a, b, c) {
 	throw new Error('Not implemented');
+=======
+function getParallelipidedDiagonal(a,b,c) {
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -181,7 +218,11 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -202,7 +243,11 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
+=======
+    throw new Error('Not implemented');
+>>>>>>> task_6v1
 }
 
 /**
@@ -221,6 +266,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
+<<<<<<< HEAD
 	throw new Error('Not implemented');
 }
 
@@ -237,4 +283,22 @@ module.exports = {
 	roundToPowerOfTen: roundToPowerOfTen,
 	isPrime: isPrime,
 	toNumber: toNumber
+=======
+    throw new Error('Not implemented');
+}
+
+module.exports = {
+    getRectangleArea: getRectangleArea,
+    getCicleCircumference: getCicleCircumference,
+    getAverage: getAverage,
+    getDistanceBetweenPoints: getDistanceBetweenPoints,
+    getLinearEquationRoot: getLinearEquationRoot,
+    getAngleBetweenVectors: getAngleBetweenVectors,
+    getLastDigit: getLastDigit,
+    parseNumberFromString: parseNumberFromString,
+    getParallelipidedDiagonal: getParallelipidedDiagonal,
+    roundToPowerOfTen: roundToPowerOfTen,
+    isPrime: isPrime,
+    toNumber: toNumber
+>>>>>>> task_6v1
 };
