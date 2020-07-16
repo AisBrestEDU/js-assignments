@@ -189,7 +189,7 @@ function parseNumberFromString(value) {
 function getParallelipidedDiagonal(a,b,c) {
    // throw new Error('Not implemented');
 
-   return  Math.sqrt(a**2 + b**2 + c**2);
+   return  Math.sqrt( Math.pow(a,2) + Math.pow(b,2) + Math.pow(c,2));
 }
 
 /**
