@@ -81,7 +81,6 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
    let one = Math.pow( Math.abs(x1) + Math.abs(x2) , 2);
 
    let two =  Math.pow(Math.abs(y1) + Math.abs(y2), 2);
-
    
  return Math.sqrt(one + two);
 }
@@ -122,14 +121,12 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(x1, y1, x2, y2) {
-  //  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {  
+    
   let a= (x1*x2 + y1*y2) ;
   let b = 0;
-
-  //let c =  (Math.sqrt(x1**2 + y1**2)) * (Math.sqrt(x2**2 + y2**2)  ) ;
-  let c = (Math.sqrt(x1**2 + y1**2)) * (Math.sqrt(x2**2 +y2**2)) ;
- 
+  
+  let c = (Math.sqrt( Math.pow(x1, 2) + Math.pow(y1,2)) * (Math.sqrt(Math.pow(x2,2) + Math.pow(y2,2)) )); 
   b = a/c;  
 
   return  Math.acos(b);
