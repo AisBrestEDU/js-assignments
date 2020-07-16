@@ -224,8 +224,8 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    let heave = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    let out = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    const heave = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const out = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
     let index  = x => heave.indexOf(x);
     let translate = x => index(x) > -1 ? out[index(x)] : x;
   return str.split('').map(translate).join('');
