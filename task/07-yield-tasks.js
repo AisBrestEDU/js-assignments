@@ -33,7 +33,7 @@
  *
  */
 function* get99BottlesOfBeer() {
-    for (var i = 99; i > 2; i--) {
+    for (let i = 99; i > 2; i--) {
         yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
         yield `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`;
     }
@@ -158,12 +158,25 @@ function* breadthTraversalTree(root) {
 function* mergeSortedSequences(source1, source2) {
     let seq1 = source1();
     let seq2 = source2();
-    while (true) {
-        let nextObj1 = seq1.next();
-        let nextObj2 = seq2.next();
-        if (nextObj1.done) yield nextObj2.value;
-        else if (nextObj2.done) yield nextObj1.value;
-        else yield* [nextObj1.value, nextObj2.value].sort((a, b) => a - b);
+    let nextObj1 = seq1.next();
+    let nextObj2 = seq2.next();
+    while (!nextObj1.done && !nextObj2.done) {
+        if (nextObj1.value < nextObj2.value) {
+            yield nextObj1.value;
+            nextObj1 = seq1.next();
+        }
+        else {
+            yield nextObj2.value;
+            nextObj2 = seq2.next();
+        }
+    }
+    while (!nextObj1.done){
+        yield nextObj1.value;
+        nextObj1 = seq1.next();
+    }
+    while (!nextObj2.done){
+        yield nextObj2.value;
+        nextObj2 = seq2.next();
     }
 }
 
