@@ -57,6 +57,7 @@ function doubleArray(arr) {
    throw new Error('Not implemented');
 }
 
+
 /**
  * Returns an array of positive numbers from the specified array in original order
  * 
