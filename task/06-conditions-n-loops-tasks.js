@@ -60,8 +60,8 @@ function getFactorial(n) {
     
     let result = 1;
     
-    for(let i = 0; i < n; i++){
-        result *= i + 1;
+    for(let index = 0; index < n; index++){
+        result *= index + 1;
     }
 
     return result;
@@ -84,8 +84,8 @@ function getSumBetweenNumbers(n1, n2) {
     
     let result = 0;
     
-    for(let i = n1; i <= n2; i++){
-        result += i;
+    for(let index = n1; index <= n2; index++){
+        result += index;
     }
 
     return result;
@@ -200,25 +200,25 @@ function isInsideCircle(circle, point) {
  */
 function findFirstSingleChar(str) {
    
-    for(let i = 0; i < str.length - 1; i++){
+    for(let currentLetter  = 0; currentLetter  < str.length - 1; currentLetter ++){
         
         let flag = false; 
         
-        for(let j = 0; j < str.length - 1; j++){
+        for(let letter = 0; letter < str.length - 1; letter++){
             
             flag = true;
             
-            if(i == j){
+            if(currentLetter == letter){
                 continue;
             }
-            if(str[i] == str[j]){
+            if(str[currentLetter ] == str[letter]){
                 flag = false;
                 break;
             }
         }
 
         if(flag){
-            return str[i];
+            return str[currentLetter ];
         }
     }
 
@@ -251,14 +251,8 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
     
     let startBracket = isStartIncluded ? '[' : '(';
     let endBracket = isEndIncluded ? ']' : ')';
-    
-    if( a > b){
-        let temp = b;
-        b = a;
-        a = temp;
-    }
-
-    return startBracket + a +', ' + b + endBracket;
+   
+    return startBracket + Math.min(a, b) +', ' + Math.max(a, b) + endBracket;
 }
 
 
@@ -329,11 +323,11 @@ function isCreditCardNumber(ccn) {
     let digits = String(ccn);
     let sum = 0;
   
-    for (let i = 0; i < digits.length; i++) {
+    for (let index = 0; index < digits.length; index++) {
         
-        let digit = parseInt(digits[i]);
+        let digit = parseInt(digits[index]);
         
-        if ((digits.length - i) % 2 === 0) {
+        if ((digits.length - index) % 2 === 0) {
             
             digit = digit * 2;
   
@@ -406,8 +400,8 @@ function isBracketsBalanced(str) {
     
     let stack = [];
     
-    for(let i = 0; i < str.length; i++){
-        let elem = str[i];
+    for(let index = 0; index < str.length; index++){
+        let elem = str[index];
 
         if(elem.match(/[\[\{\(\<]/) != null){
             stack.push(elem);
@@ -515,8 +509,8 @@ function toNaryString(num, n) {
     
     let result = 0;
     
-    for (let i = 0; num > 0; i++){
-        result = (num % n) * Math.pow(10,i) + result;
+    for (let index = 0; num > 0; index++){
+        result = (num % n) * Math.pow(10,index) + result;
         num = Math.floor(num / n);
     }
   
@@ -542,15 +536,15 @@ function getCommonDirectoryPath(pathes) {
     let tempResult = [];
     let first = pathes[0];
     
-    for (let i = 0; i < first.length; i++){
-        let isEqualSymbol = pathes.every(value => value[i] === first[i]);
+    for (let index = 0; index < first.length; index++){
+        let isEqualSymbol = pathes.every(value => value[index] === first[index]);
         
-        if(isEqualSymbol && first[i] === '/'){
+        if(isEqualSymbol && first[index] === '/'){
             result += tempResult + '/';
             tempResult = [];
         }
         else if(isEqualSymbol){
-            tempResult += first[i];
+            tempResult += first[index];
         }
         else break;
     }
@@ -584,10 +578,10 @@ function getMatrixProduct(m1, m2) {
     let colmLengthOfM2 = m2[0].length;
     let result = Array.from({length: rowLengthOfM1}, () => Array.from({length: colmLengthOfM2}, () => 0));
 
-    for(let i = 0; i < rowLengthOfM1; i++){
-        for(let j = 0; j < colmLengthOfM2; j++){
-            for(let x = 0; x < colmLengthOfM1; x++){
-                result[i][j] += m1[i][x] * m2[x][j];
+    for(let rowM1 = 0; rowM1 < rowLengthOfM1; rowM1++){
+        for(let columnM2 = 0; columnM2 < colmLengthOfM2; columnM2++){
+            for(let columnM1 = 0; columnM1 < colmLengthOfM1; columnM1++){
+                result[rowM1][columnM2] += m1[rowM1][columnM1] * m2[columnM1][columnM2];
             }
         }
     }
@@ -638,12 +632,12 @@ function evaluateTicTacToePosition(position) {
         return p[2][0];
     }
 
-    for(let i = 0; i < p.length; i++){
-        if(p[i][0] === p[i][1] && p[i][1] === p[i][2] && p[i][2] != undefined){
-            return p[i][0];
+    for(let index = 0; index < p.length; index++){
+        if(p[index][0] === p[index][1] && p[index][1] === p[index][2] && p[index][2] != undefined){
+            return p[index][0];
         }
-        if(p[0][i] === p[1][i] && p[1][i] === p[2][i] && p[2][i] != undefined){
-            return p[0][i];
+        if(p[0][index] === p[1][index] && p[1][index] === p[2][index] && p[2][index] != undefined){
+            return p[0][index];
         }
     }
 
