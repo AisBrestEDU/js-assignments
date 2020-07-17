@@ -539,7 +539,7 @@ function getIntervalArray(start, end) {
  */
 function distinct(arr) {
    var result = new Array();
-   arr.map(function(item,index){
+   arr.map(function(item){
       if (!result.includes(item)) result.push(item);
    });
    return result;
