@@ -116,11 +116,11 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     return () => {
-        for (let i = 0; i < attempts;) {
+        for (let i = 0; i < attempts; i++) {
             try {
                 return func();
-            } catch (error) {
-                attempts--;
+            } catch (err) {
+                console.log(err);
             }
         };
         throw new Error('fulyError');
