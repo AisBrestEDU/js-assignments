@@ -26,6 +26,9 @@
  *
  */
 function getComposition(f,g) {
+
+    return x => f(g(x));
+    
     throw new Error('Not implemented');
 }
 
@@ -47,6 +50,9 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
+
+    return x => Math.pow(x, exponent);
+    
     throw new Error('Not implemented');
 }
 
@@ -65,6 +71,10 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
+    return  x => {
+        let args = [...arguments];
+        return args.map((value, index) => value*Math.pow(x, (args.length - 1 -index))).reduce((calc, val) => calc += val);
+    }
     throw new Error('Not implemented');
 }
 
@@ -84,6 +94,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
+    let result;
+    return () => !result ? result = func() : result;
     throw new Error('Not implemented');
 }
 
@@ -104,6 +116,16 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
+    return () => {
+        for (let i = 1; i <= attempts; i++) {
+            try {
+                return func();
+            }
+            catch (e) {
+                if(i === attempts) throw e;
+            }
+        }
+    }
     throw new Error('Not implemented');
 }
 
@@ -132,6 +154,14 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
+    return function (...args) {
+        const logStart = `${func.name}(${args.map(value => JSON.stringify(value))}) starts`;
+        const logEnd = `${func.name}(${args.map(value => JSON.stringify(value))}) ends`;
+        logFunc(logStart);
+        const result = func(...args)
+        logFunc(logEnd);
+        return result;
+    }
     throw new Error('Not implemented');
 }
 
@@ -150,6 +180,12 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
+    let array1 = [...arguments];
+    return (...args) => {
+        array1.splice(array1.findIndex(fn), 1);
+        let array = [...array1, ...args];
+        return fn(...array);
+    }
     throw new Error('Not implemented');
 }
 
@@ -171,6 +207,15 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
+    let id = startFrom;
+    
+    return function () {
+        function* generateId(){           
+            while(true)
+              yield id++;
+        }
+        return generateId().next().value
+    }
     throw new Error('Not implemented');
 }
 
