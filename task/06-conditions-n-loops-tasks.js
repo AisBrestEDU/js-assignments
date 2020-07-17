@@ -320,10 +320,10 @@ function getDigitalRoot(num) {
 function isBracketsBalanced(str) {
   let opening = ['[', '(', '{', '<'];
   let closing = [']', ')', '}', '>'];
-  let temp = [];
+  let temp = []; // I think that name 'temp' for this variable is still the best one, literally no ideas for another name
   for (let i = 0; i < str.length; i++) {
     if (closing.includes(str[i])) {
-      if (!temp.length || temp.pop() != opening[closing.indexOf(str[i])]) {
+      if (temp.pop() != opening[closing.indexOf(str[i])]) {
         return false;
       }
     } else {
