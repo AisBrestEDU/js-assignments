@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    return value1 + value2
+    throw new Error('Not implemented');
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    return value.length
+    throw new Error('Not implemented');
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return 'Hello, ' + firstName + ' ' + lastName +'!' 
+    throw new Error('Not implemented');
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.slice(7, value.length-1)
+    throw new Error('Not implemented');
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    return value[0]
+    throw new Error('Not implemented');
 }
 
 /**
@@ -99,8 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    
-    return value.trim()
+    throw new Error('Not implemented');
 }
 
 /**
@@ -115,11 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    	let str=value;
-	for(let i=1; i< count; i++){
-		str = str.concat(value);
-	}
-	return str;
+    throw new Error('Not implemented');
 }
 
 /**
@@ -135,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    return str.replace(value,'')
+    throw new Error('Not implemented');
 }
 
 /**
@@ -150,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    return str.replace(/<|>/g,'')
+    throw new Error('Not implemented');
 }
 
 
@@ -165,7 +160,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    return str.toLocaleUpperCase()
+    throw new Error('Not implemented');
 }
 
 /**
@@ -179,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    return str.split(';')
+    throw new Error('Not implemented');
 }
 
 /**
@@ -206,11 +201,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let top = '┌' + '─'.repeat(width - 2) + '┐\n';
-    let mid = '│' + ' '.repeat(width - 2) + '│\n';
-    let fot = '└' + '─'.repeat(width - 2) + '┘\n';
-    return top + mid.repeat(height - 2) + fot;
-    //throw new Error('Not implemented');
+    throw new Error('Not implemented');
 }
 
 
@@ -230,10 +221,7 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    let input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-    let output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
-    let lookup = input.reduce((m, k, i) => Object.assign(m, { [k]: output[i] }), {});
-    return str.split('').map(x => lookup[x] || x).join('');
+    throw new Error('Not implemented');
 }
 
 /**
@@ -250,10 +238,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if(typeof(value) === 'string' || value instanceof String)
-        return true
-    else
-        return false
+    throw new Error('Not implemented');
 }
 
 
@@ -282,11 +267,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    let cards=['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
-               'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
-               'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
-               'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
-  return cards.indexOf(value);
+    throw new Error('Not implemented');
 }
 
 
