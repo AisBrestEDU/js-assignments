@@ -611,19 +611,17 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   let key = array.map(keySelector),
-       value = array.map(valueSelector),
-       map = new Map();
-       
-   key.filter((x, i) => {
-      if (!map.has(x)) {
-         map.set(x, [value[i]]);
-      } else {
-         let value2 = map.get(x);
-         value2.push(value[i]);
-         map.set(x, value2);
-      }
-   });
+   let map = new Map();
+
+   map = array.reduce((x, i) =>{
+      let key = keySelector(i),
+          value = valueSelector(i),
+          arr2 = x.get(key) || [];
+          arr2.push(value);
+      x.set(key, arr2);
+
+      return x;
+   }, new Map);
 
    return map;
 
@@ -644,9 +642,9 @@ function group(array, keySelector, valueSelector) {
  */
 function selectMany(arr, childrenSelector) {
    let arr2 = [];
-   arr.map(x => {
-      arr2.push(...childrenSelector(x));
-   });
+
+   arr2 = arr.reduce((a, i) => a.concat(childrenSelector(i)), []);
+
    return arr2;
    
    //throw new Error('Not implemented');
