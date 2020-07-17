@@ -101,7 +101,7 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-  let temp = [root];
+  let temp = [root]; // Name 'temp' conveys meaning of the variable as the temporary storage of some information in process of treatment.
   while (temp.length) {
     let current = temp.pop();
     yield current;
@@ -133,7 +133,7 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-  let temp = [root];
+  let temp = [root]; // Name 'temp' conveys meaning of the variable as the temporary storage of some information in process of treatment.
   while (temp.length) {
     let current = temp.shift();
     yield current;
