@@ -154,11 +154,11 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    return function () {
-        const logStart = `${func.name}(${[...arguments].map(value => JSON.stringify(value))}) starts`;
-        const logEnd = `${func.name}(${[...arguments].map(value => JSON.stringify(value))}) ends`;
+    return function (...args) {
+        const logStart = `${func.name}(${args.map(value => JSON.stringify(value))}) starts`;
+        const logEnd = `${func.name}(${args.map(value => JSON.stringify(value))}) ends`;
         logFunc(logStart);
-        const result = func(...arguments)
+        const result = func(...args)
         logFunc(logEnd);
         return result;
     }
@@ -181,17 +181,11 @@ function logger(func, logFunc) {
  */
 function partialUsingArguments(fn) {
     let array1 = [...arguments];
-    array1.splice(array1.findIndex(fn), 1);
     return (...args) => {
-        let arr = [...args];
-        let array = [...array1, ...arr];
+        array1.splice(array1.findIndex(fn), 1);
+        let array = [...array1, ...args];
         return fn(...array);
     }
-
-    // let args = [...arguments].slice(1);
-    // return function () {
-    //     return args.concat([...arguments]).join('');
-    // };
     throw new Error('Not implemented');
 }
 
@@ -214,6 +208,7 @@ function partialUsingArguments(fn) {
  */
 function getIdGeneratorFunction(startFrom) {
     let id = startFrom;
+    
     return function () {
         function* generateId(){           
             while(true)
