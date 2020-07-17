@@ -354,10 +354,9 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
- let Countpositive = 0 ;
- Countpositive = arr.sort( function (a , b) { if ( Number.isSafeInteger(a))return b -a})  .slice(0,1) ;
-
-   return  Countpositive;
+ //let Countpositive = 0 ;
+ //Countpositive = arr.sort( function (a , b) { if ( Number.isSafeInteger(a))return b -a})  .slice(0,1) ;
+   return arr.reduce((acc, curr) => curr>0 && typeof curr == 'number' ? acc+1 : acc, 0);
 }
  
 /** 
@@ -484,11 +483,13 @@ function toStringList(arr) {
  */
 function sortCitiesArray(arr) {
 
-   return arr.sort((a,b)=>{
+   /*return arr.sort((a,b)=>{
       if(a.country < b.country) { return -1; }
       if(a.country > b.country) { return 1; }
       if(a.city < b.city) { return -1; }
    });
+   */
+  return arr.sort((l,r)=>l.country != r.country ? l.country.localeCompare(r.country): l.city.localeCompare(r.city))
 }
 
 /**
