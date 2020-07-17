@@ -57,8 +57,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    let fullName = `Hello, ${firstName} ${lastName}`
-    return fullName
+    return `Hello, ${firstName} ${lastName}!`
     throw new Error('Not implemented');
 }
 
@@ -139,7 +138,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    return str.split(value).join('')
+    return str.replace(value, '')
     throw new Error('Not implemented');
 }
 

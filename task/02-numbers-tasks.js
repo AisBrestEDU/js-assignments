@@ -56,7 +56,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return (value1 + value2)/2;
+    return (value1 + value2) < Number.MAX_VALUE ? (value1 + value2) / 2 : value2 + (value1 - value2) / 2;
     throw new Error('Not implemented');
 }
 
@@ -118,10 +118,10 @@ function getLinearEquationRoot(a, b) {
 function getAngleBetweenVectors(x1, y1, x2, y2) {
     let angle = Math.atan2(x1, y1) - Math.atan(x2, y2);
     if(angle < 0) {
-        angle += 2*Math.PI
+        angle += 2 * Math.PI
     }
-    if( angle > 0) {
-        angle -= 2*Math.PI
+    if( angle > Math.PI) {
+        angle -= 2 * Math.PI
     }
     return angle
     throw new Error('Not implemented');
@@ -175,7 +175,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(a^2 + b^2 + c^2)
+    return Math.sqrt(a^a + b^b + c^c)
     throw new Error('Not implemented');
 }
 
@@ -219,7 +219,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    for(let i = 0; i< n; i++){
+    for(let i = 2; i < n; i++){
         if(n % i === 0){
             return false
         }
