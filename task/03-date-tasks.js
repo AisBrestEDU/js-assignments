@@ -83,9 +83,14 @@ function timeSpanToString(startDate, endDate) {
    let date = new Date(endDate - startDate)
    let hours = date.getUTCHours() > 24 ? date.getUTCHours() - 24 : date.getUTCHours()
    let minutes = date.toISOString().slice(13, -1);
-   if (date.getDay() > 4) { hours = ${hours + 24} };
-   if (hours < 10) { hours = 0${hours} };
-   return ${hours}${minutes};
+
+   if (date.getDay() > 4) { 
+      hours = `${hours + 24}` 
+   };
+   if (hours < 10) {
+       hours = `0${hours}` };
+
+   return `${hours}${minutes}`;
 }
 
 
