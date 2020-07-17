@@ -354,9 +354,10 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
- let Countpositive = arr.sort( function (a , b) { if ( Number.isSafeInteger(a))return b -a})  .slice(0,1) ;
+ let Countpositive = 0 ;
+ Countpositive = arr.sort( function (a , b) { if ( Number.isSafeInteger(a))return b -a})  .slice(0,1) ;
 
-   return  +Countpositive;
+   return  Countpositive;
 }
  
 /** 
@@ -483,17 +484,11 @@ function toStringList(arr) {
  */
 function sortCitiesArray(arr) {
 
-         let citysort = arr.sort(function(a,b)
-          { if(a.city > b.city) return 1;
-           if (a.city < b.city) return -1 ;
-            return 0;   });
-         
-          let countrysort = citysort.sort(function(a,b) { 
-              if(a.country > b.country) return 1;
-                if(a.country < b.country) return -1; 
-          return 0 ;      } );  
-
-   return countrysort; 
+   return arr.sort((a,b)=>{
+      if(a.country < b.country) { return -1; }
+      if(a.country > b.country) { return 1; }
+      if(a.city < b.city) { return -1; }
+   });
 }
 
 /**
@@ -615,7 +610,7 @@ function group(array, keySelector, valueSelector) {
  */
 function selectMany(arr, childrenSelector) {  
    
-   return arr.map(  childrenSelector).flat(); 
+   return arr.map( childrenSelector).reduce((acc, val) => acc.concat(val), []) ;
 }
 
 
