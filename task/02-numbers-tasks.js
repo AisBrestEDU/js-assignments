@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width * height
+    throw new Error('Not implemented');
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return 2 * Math.PI * radius
+    throw new Error('Not implemented');
 }
 
 /**
@@ -54,7 +54,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return ((value1  + value2)/2 );
+    throw new Error('Not implemented');
 }
 
 /**
@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.hypot((Math.abs(x1 - x2)), (Math.abs(y1 - y2)));
+    throw new Error('Not implemented');
 }
 
 /**
@@ -89,10 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    if (a === Infinity || a === 0)
-    return Infinity
-    else
-    return ((0 - b) / a);
+   throw new Error('Not implemented');
 }
 
 
