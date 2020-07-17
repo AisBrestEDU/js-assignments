@@ -22,11 +22,14 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    function Rectangle(width, height) {
+        this.width=width;
+        this.height=height;
 }
-
-
+    Rectangle.prototype.getArea = function () {
+    return this.width * this.height;
+}
+  
 /**
  * Returns the JSON representation of specified object
  *
@@ -38,7 +41,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +57,9 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    let r = JSON.parse(json);
+    r.__proto__ = proto;
+    return r;
 }
 
 
@@ -109,34 +114,119 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return selector1.combine(combinator,selector2);
     },
-};
+}; 
+class CssSelector{
+    constructor() {
+        this.levels = new Array(6).fill(false);
+        this.follow = [];
+        this.content = {
+            element: undefined,
+            id: undefined,
+            classes: [],
+            attributes: [],
+            pseudoClasses: [],
+            pseudoElement: undefined
+        };
+    }
+    checkLevel(level) {
+        let current = this.levels.slice(level + 1);
+        const isAdded = (isAdded) => isAdded;
+        let isOrderRight = current.some(isAdded);
+        if (isOrderRight) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        this.levels[level] = true;
+    }
 
+    element(value) {
+        this.checkLevel(0);
+        if (this.content.element === undefined) {
+            this.content.element = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+
+    id(value) {
+        this.checkLevel(1);
+        if (this.content.id === undefined) {
+            this.content.id = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+
+    class(value) {
+        this.checkLevel(2);
+        this.content.classes.push(value);
+        return this;
+    }
+
+    attr(value) {
+        this.checkLevel(3);
+        this.content.attributes.push(value);
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.checkLevel(4);
+        this.content.pseudoClasses.push(value);
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.checkLevel(5);
+        if (this.content.pseudoElement === undefined) {
+            this.content.pseudoElement = value;
+            return this;
+        } else {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+
+    combine(combinator, combinable) {
+        this.follow.push({combinator: combinator, element: combinable});
+        return this;
+    }
+
+    stringify() {
+        return (this.content.element !== undefined ? this.content.element : '') +
+        (this.content.id !== undefined ? '#' + this.content.id : '') +
+        (this.content.classes.length ? '.' + this.content.classes.join('.') : '') +
+        (this.content.attributes.length ? this.content.attributes.map(elem => `[${elem}]`).join('') : '') +
+        (this.content.pseudoClasses.length ? ':' + this.content.pseudoClasses.join(':') : '') +
+        (this.content.pseudoElement !== undefined ? '::' + this.content.pseudoElement : '') +
+        (this.follow.length ? this.follow.map(elem => ` ${elem.combinator} ` + elem.element.stringify()).join('') : '');
+    }
+}
 
 module.exports = {
     Rectangle: Rectangle,
