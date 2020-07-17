@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.split(/(\w+ \w+)/)[1];
+    return value.split(/(\w+\s\w+)/)[1];
 }
 
 
@@ -114,13 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    let result = '';
-
-    for (let i = 0; i < count; i += 1) {
-        result += value;
-    }
-
-    return result;
+    return value.repeat(count);
 }
 
 /**
@@ -295,11 +289,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    for (const valueKey in value) {
-        return typeof value[valueKey] === 'string';
-    }
-
-    return typeof value === 'string';
+    return typeof value === 'string' || value instanceof String;
 }
 
 

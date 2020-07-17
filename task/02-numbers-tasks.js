@@ -132,13 +132,11 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
 
   let corner = scalarProduct / (moduleA * moduleB);
 
-  if (corner === 1) {
-    return 0;
-  } else if (corner === 0) {
-    return Math.PI / 2;
-  } else {
-    return Math.PI;
-  }
+  return corner === 1
+    ? 0
+    : corner === 0
+      ? Math.PI / 2
+      : Math.PI;
 }
 
 /**
@@ -243,7 +241,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  if (n === 1) {
+  if (n < 2) {
     return false;
   }
 
@@ -272,19 +270,13 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  if (value === null) {
-    return def;
-  }
-
-  if (typeof value === 'object') {
-    return value.toString();
-  }
-
-  if (isFinite(value)) {
-    return value;
-  } else {
-    return def;
-  }
+  return value === null
+    ? def
+    : typeof value === 'object'
+      ? value.toString()
+      : isFinite(value)
+        ? value
+        : def;
 }
 
 module.exports = {
