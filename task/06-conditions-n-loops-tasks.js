@@ -1,457 +1,745 @@
 'use strict';
 
-/**************************************************************************************************
- *                                                                                                *
- * Plese read the following tutorial before implementing tasks:                                   *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling  *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration              *
- *                                                                                                *
- **************************************************************************************************/
+let assert = require('assert');
+let tasks = require('../task/06-conditions-n-loops-tasks');
+it.optional = require('../extensions/it-optional');
+
+describe('06-conditions-n-loops-tasks', function() {
+
+    it.optional('getFizzBuzz should return the output value according specification', () => {
+        [
+            1, 2, 4, 7, 8, 11, 13, 14, 16, 17, 19, 22, 23, 26, 28, 29, 31, 32, 34,
+           37, 38, 41, 43, 44, 47, 49, 52, 53, 56, 58, 59, 61, 62, 64, 67, 68, 71,
+           73, 74, 76, 77, 79, 82, 83, 86, 88, 89, 91, 92, 94, 97, 98
+        ].forEach(num => {
+            let actual = tasks.getFizzBuzz(num);
+            assert.equal(
+                actual,
+                num,
+                `getFizzBuzz shoud return ${num} for ${num}, but actually ${actual}`
+            )
+        });
+
+        [
+            3,  6,  9, 12, 18, 21, 24, 27,
+           33, 36, 39, 42, 48, 51, 54, 57,
+           63, 66, 69, 72, 78, 81, 84, 87,
+           93, 96, 99
+        ].forEach(num => {
+            let actual = tasks.getFizzBuzz(num);
+            assert.equal(
+                actual,
+                'Fizz',
+                `getFizzBuzz shoud return 'Fizz' for ${num}, but actually ${actual}`
+            )
+        });
+
+        [
+            5, 10, 20, 25, 35, 40, 50, 55, 65, 70, 80, 85, 95, 100
+        ].forEach(num => {
+            let actual = tasks.getFizzBuzz(num);
+            assert.equal(
+                actual,
+                'Buzz',
+                `getFizzBuzz shoud return 'Buzz' for ${num}, but actually ${actual}`
+            )
+        });
+
+        [
+            15, 30, 45, 60, 75, 90
+        ].forEach(num => {
+            let actual = tasks.getFizzBuzz(num);
+            assert.equal(
+                actual,
+                'FizzBuzz',
+                `getFizzBuzz shoud return 'FizzBuzz' for ${num}, but actually ${actual}`
+            )
+        });
+
+    });
 
 
-/**
- * Returns the 'Fizz','Buzz' or an original number using the following rules:
- * 1) return original number
- * 2) but if number multiples of three return 'Fizz'
- * 3) for the multiples of five return 'Buzz'
- * 4) for numbers which are multiples of both three and five return 'FizzBuzz'
- *
- * @param {number} num
- * @return {any}
- *
- * @example
- *   2 =>  2
- *   3 => 'Fizz'
- *   5 => 'Buzz'
- *   4 => 4
- *  15 => 'FizzBuzz'
- *  20 => 'Buzz'
- *  21 => 'Fizz'
- *
- */
-function getFizzBuzz(num) {
-    throw new Error('Not implemented');
-}
+    it.optional('getFactorial should return the functorial of given number', () => {
+        [
+            { n:  1, expected:       1 },
+            { n:  5, expected:     120 },
+            { n: 10, expected: 3628800 },
+            { n: 41758, expected: Number.POSITIVE_INFINITY }
+        ].forEach(data => {
+            let actual = tasks.getFactorial(data.n);
+            assert.equal(
+                actual,
+                data.expected,
+                `${data.n}! = ${data.expected}, but actual ${actual}`
+            )
+        });
+    });
 
 
-/**
- * Returns the factorial of the specified integer n.
- *
- * @param {number} n
- * @return {number}
- *
- * @example:
- *   1  => 1
- *   5  => 120
- *   10 => 3628800
- */
-function getFactorial(n) {
-    throw new Error('Not implemented');
-}
+    it.optional('getSumBetweenNumbers should return the sum inside the specified interval', () => {
+        [
+            { n1:  1, n2:  2, expected:  3 },
+            { n1:  5, n2: 10, expected: 45 },
+            { n1: -1, n2:  1, expected:  0 }
+        ].forEach(data => {
+            let actual = tasks.getSumBetweenNumbers(data.n1, data.n2);
+            assert.equal(
+                actual,
+                data.expected,
+                `Sum of [${data.n1},${data.n2}] = ${data.expected}, but actual ${actual}`
+            )
+        });
+    });
 
 
-/**
- * Returns the sum of integer numbers between n1 and n2 (inclusive).
- *
- * @param {number} n1
- * @param {number} n2
- * @return {number}
- *
- * @example:
- *   1,2   =>  3  ( = 1+2 )
- *   5,10  =>  45 ( = 5+6+7+8+9+10 )
- *   -1,1  =>  0  ( = -1 + 0 + 1 )
- */
-function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
-}
+    it.optional('isTriangle should check if triangle can be built', () => {
+        [
+            { sides: [ 1, 2, 3] , expected:  false },
+            { sides: [ 3, 4, 5] , expected:  true },
+            { sides: [ 10, 1, 1] , expected:  false },
+            { sides: [ 10, 10, 10] , expected:  true },
+        ].forEach(data => { 
+            [[0,1,2], [0,2,1], [1,2,0], [1,0,2], [2,0,1], [2,1,0]].forEach(idx => {
+                let actual = tasks.isTriangle(
+                    data.sides[idx[0]],
+                    data.sides[idx[1]],
+                    data.sides[idx[2]]
+                );
+                assert.equal(
+                    actual,
+                    data.expected,
+                    `Triangle from [${data.sides.toString()}]: expected ${data.expected} but actual ${actual}`
+                );
+            })
+        });
+    });
 
 
-/**
- * Returns true, if a triangle can be built with the specified sides a,b,c and false in any other ways.
- *
- * @param {number} a
- * @param {number} b
- * @param {number} c
- * @return {bool}
- *
- * @example:
- *   1,2,3    =>  false
- *   3,4,5    =>  true
- *   10,1,1   =>  false
- *   10,10,10 =>  true
- */
-function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
-}
+    it.optional('doRectanglesOverlap should return true if rectangles overlap', () => {
+        [
+            { 
+                rect1:    { top: 0, left: 0, width: 10, height: 10 },
+                rect2:    { top: 5, left: 5, width: 10, height: 10 },
+                expected: true
+            },{
+                rect1:    { top: 10, left: 10, width: 10, height: 10 },
+                rect2:    { top:  5, left: 5, width: 15, height: 15 },
+                expected: true
+            },{
+                rect1:    { top: 10, left: 10, width: 50, height:  5 },
+                rect2:    { top:  5, left: 5,  width: 10, height: 50 },
+                expected: true
+            },{
+                rect1:    { top:  0, left:  0, width: 90, height: 90 },
+                rect2:    { top: 25, left: 25, width: 10, height: 10 },
+                expected: true
+            },{
+                rect1:    { top:  5, left:  5, width: 20, height: 20 },
+                rect2:    { top:  5, left:  5, width: 40, height: 10 },
+                expected: true
+            },{
+                rect1:    { top:  5, left:  5, width: 20, height: 20 },
+                rect2:    { top: 30, left:  5, width: 40, height: 10 },
+                expected: false
+            },{
+                rect1:    { top:  0, left:  0, width: 90, height: 90 },
+                rect2:    { top: 25, left:100, width: 10, height: 10 },
+                expected: false
+            }
+        ].forEach(data => { 
+            assert.equal(
+                tasks.doRectanglesOverlap(data.rect1, data.rect2),
+                data.expected,
+                `doRectanglesOverlap(\n   ${JSON.stringify(data.rect1)},\n   ${JSON.stringify(data.rect2)}\n): expected ${data.expected}`
+            );
+        });
+    });
 
 
-/**
- * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
- * Each rectangle representing by object 
- *  {
- *     top: 5,
- *     left: 5,
- *     width: 20,
- *     height: 10
- *  }
- * 
- *  (5;5)
- *     -------------  
- *     |           | 
- *     |           |  height = 10
- *     ------------- 
- *        width=20    
- * 
- * NOTE: Please use canvas coordinate space (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#The_grid),
- * it differs from Cartesian coordinate system.
- * 
- * @param {object} rect1
- * @param {object} rect2
- * @return {bool}
- *
- * @example:
- *   { top: 0, left: 0, width: 10, height: 10 },
- *   { top: 5, left: 5, width: 20, height: 20 }    =>  true
- * 
- *   { top: 0, left: 0, width: 10, height: 10 },
- *   { top:20, left:20, width: 20, height: 20 }    =>  false
- *  
- */
-function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
-}
+    it.optional('isInsideCircle should return true if point lies inside of the specified circle', () => {
+        [
+            { 
+                circle:   { center: { x: 0, y: 0 }, radius: 10 },
+                point:    { x: 0, y: 0 },
+                expected: true
+            },{ 
+                circle:   { center: { x: 5, y: 5 }, radius: 6 },
+                point:    { x: 5, y: 10.99 },
+                expected: true
+            },{ 
+                circle:   { center: { x: 0, y: 0 }, radius: 10 },
+                point:    { x: 0, y: 10 },
+                expected: false
+            },{ 
+                circle:   { center: { x: 5, y: 5 }, radius: 6 },
+                point:    { x: 0, y: 0 },
+                expected: false
+            },{ 
+                circle:   { center: { x: 2, y: 2 }, radius: 1 },
+                point:    { x: 2.8, y: 2.8 },
+                expected: false
+            },{
+                circle:   { center: { x: 2, y: 2 }, radius: 4 },
+                point:    { x: -1, y: -1 },
+                expected: false
+            },{
+                circle:   { center: { x: 2, y: 2 }, radius: 4 },
+                point:    { x: 2, y: 6.1 },
+                expected: false
+            }
+        ].forEach(data => { 
+            assert.equal(
+                tasks.isInsideCircle(data.circle, data.point),
+                data.expected,
+                `isInsideCircle(\n   ${JSON.stringify(data.circle)},\n   ${JSON.stringify(data.point)}\n): expected ${data.expected}`
+            );
+        });
+    });
 
 
-/**
- * Returns true, if point lies inside the circle, otherwise false.
- * Circle is an object of 
- *  {
- *     center: {
- *       x: 5,       
- *       y: 5
- *     },        
- *     radius: 20
- *  }
- * 
- * Point is object of 
- *  {
- *     x: 5,
- *     y: 5
- *  }
- * 
- * @param {object} circle
- * @param {object} point
- * @return {bool}
- *
- * @example:
- *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
- *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
- *   
- */
-function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
-}
+    it.optional('findFirstSingleChar should return the first unrepeated char from string', () => {
+        [
+            { str: 'The quick brown fox jumps over the lazy dog', expected: 'T' },
+            { str: 'abracadabra', expected: 'c' },
+            { str: 'entente', expected: null }
+        ].forEach(data => {
+            let actual = tasks.findFirstSingleChar(data.str);
+            assert.equal(
+                actual,
+                data.expected,
+                `First single char of '${data.str}' = '${data.expected}', but actual '${actual}'`
+            )
+        });
+    });
 
 
-/**
- * Returns the first non repeated char in the specified strings otherwise returns null.
- *
- * @param {string} str
- * @return {string}
- *
- * @example:
- *   'The quick brown fox jumps over the lazy dog' => 'T'
- *   'abracadabra'  => 'c'
- *   'entente' => null
- */
-function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
-}
+    it.optional('getIntervalString should return the string representation of math interval', () => {
+        [
+            {
+                a: 0,
+                b: 1,
+                isStartIncluded: true,
+                isEndIncluded: true,
+                expected: '[0, 1]'
+            },{
+                a: 0,
+                b: 1,
+                isStartIncluded: true,
+                isEndIncluded: false,
+                expected: '[0, 1)'
+            },{
+                a: 0,
+                b: 1,
+                isStartIncluded: false,
+                isEndIncluded: true,
+                expected: '(0, 1]'
+            },{
+                a: 0,
+                b: 1,
+                isStartIncluded: false,
+                isEndIncluded: false,
+                expected: '(0, 1)'
+            },{
+                a: 5,
+                b: 3,
+                isStartIncluded: true,
+                isEndIncluded: true,
+                expected: '[3, 5]'
+            }
+        ].forEach(data => {
+            let actual = tasks.getIntervalString(data.a, data.b, data.isStartIncluded, data.isEndIncluded);
+            assert.equal(
+                actual,
+                data.expected,
+                `getIntervalString(${data.a}, ${data.b}, ${data.isStartIncluded}, ${data.isEndIncluded}) shoud return '${data.expected}', but actually '${actual}'`
+            )
+        });
+    });
 
 
-/**
- * Returns the string representation of math interval, specified by two points and include / exclude flags.
- * See the details: https://en.wikipedia.org/wiki/Interval_(mathematics)
- *
- * Please take attention, that the smaller number should be the first in the notation
- *
- * @param {number} a
- * @param {number} b
- * @param {bool} isStartIncluded
- * @param {bool} isEndIncluded
- * @return {string}
- *
- * @example
- *   0, 1, true, true   => '[0, 1]'
- *   0, 1, true, false  => '[0, 1)'
- *   0, 1, false, true  => '(0, 1]'
- *   0, 1, false, false => '(0, 1)'
- * Smaller number has to be first :
- *   5, 3, true, true   => '[3, 5]'
- *
- */
-function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
-}
+    it.optional('reverseString should return the specified string in reverse order', () => {
+        [
+            { str: 'The quick brown fox jumps over the lazy dog', expected: 'god yzal eht revo spmuj xof nworb kciuq ehT' },
+            { str: 'abracadabra', expected: 'arbadacarba' },
+            { str: 'rotator', expected: 'rotator' },
+            { str: 'noon', expected : 'noon'}
+        ].forEach(data => {
+            let actual = tasks.reverseString(data.str);
+            assert.equal(
+                actual,
+                data.expected,
+                `Reversed '${data.str}' = '${data.expected}', but actual '${actual}'`
+            )
+        });
+    });
 
 
-/**
- * Reverse the specified string (put all chars in reverse order)
- *
- * @param {string} str
- * @return {string}
- *
- * @example:
- * 'The quick brown fox jumps over the lazy dog' => 'god yzal eht revo spmuj xof nworb kciuq ehT'
- * 'abracadabra' => 'arbadacarba'
- * 'rotator' => 'rotator'
- * 'noon' => 'noon'
- */
-function reverseString(str) {
-    throw new Error('Not implemented');
-}
+    it.optional('reverseInteger should return the specified number in reverse order', () => {
+        [
+            { num: 12345, expected: 54321 },
+            { num:  1111, expected:  1111 },
+            { num: 87354, expected: 45378 },
+            { num: 34143, expected :34143 }
+        ].forEach(data => {
+            let actual = tasks.reverseInteger(data.num);
+            assert.equal(
+                actual,
+                data.expected,
+                `Reversed ${data.num} = ${data.expected}, but actual ${actual}`
+            )
+        });
+    });
 
 
-/**
- * Reverse the specified integer number (put all digits in reverse order)
- *
- * @param {number} num
- * @return {number}
- *
- * @example:
- *   12345 => 54321
- *   1111  => 1111
- *   87354 => 45378
- *   34143 => 34143
- */
-function reverseInteger(num) {
-    throw new Error('Not implemented');
-}
+    it.optional('isCreditCardNumber should validate CCN', () => {
+        [
+            79927398713,
+            4012888888881881,
+            5123456789012346,
+            378282246310005,
+            371449635398431,
+            378734493671000,
+            5610591081018250,
+            30569309025904,
+            38520000023237,
+            6011111111111117,
+            6011000990139424,
+            3530111333300000,
+            3566002020360505,
+            5555555555554444,
+            5105105105105100,
+            4111111111111111,
+            4012888888881881,
+            4222222222222,
+            5019717010103742,
+            6331101999990016,
+            54891243456789010
+        ].forEach(ccn => {
+            assert(
+                tasks.isCreditCardNumber(ccn),
+                `CCN ${ccn} is valid, but actually not`
+            )
+        });
 
 
-/**
- * Validates the CCN (credit card number) and return true if CCN is valid
- * and false otherwise.
- *
- * See algorithm here : https://en.wikipedia.org/wiki/Luhn_algorithm
- *
- * @param {number} cnn
- * @return {boolean}
- *
- * @example:
- *   79927398713      => true
- *   4012888888881881 => true
- *   5123456789012346 => true
- *   378282246310005  => true
- *   371449635398431  => true
- *
- *   4571234567890111 => false
- *   5436468789016589 => false
- *   4916123456789012 => false
- */
-function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
-}
+        [
+            4571234567890111,
+            5436468789016589,
+            4916123456789012,
+            371449635398430,
+            9112893456789010
+        ].forEach(ccn => {
+            assert(
+                tasks.isCreditCardNumber(ccn) == false,
+                `CCN ${ccn} is not valid, but actually yes`
+            )
+        });
+
+    });
 
 
-/**
- * Returns the digital root of integer:
- *   step1 : find sum of all digits
- *   step2 : if sum > 9 then goto step1 otherwise return the sum
- *
- * @param {number} n
- * @return {number}
- *
- * @example:
- *   12345 ( 1+2+3+4+5 = 15, 1+5 = 6) => 6
- *   23456 ( 2+3+4+5+6 = 20, 2+0 = 2) => 2
- *   10000 ( 1+0+0+0+0 = 1 ) => 1
- *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
- */
-function getDigitalRoot(num) {
-    throw new Error('Not implemented');
-}
+    it.optional('getDigitalRoot should return the cyclic sum of all digits', () => {
+        [
+            { num: 12345, expected: 6 },
+            { num: 23456, expected: 2 },
+            { num: 10000, expected: 1 },
+            { num: 165536, expected: 8 }
+        ].forEach(data => {
+            let actual = tasks.getDigitalRoot(data.num);
+            assert.equal(
+                actual,
+                data.expected,
+                `GetDigitalRoot(${data.num}) = ${data.expected}, but actual ${actual}`
+            )
+        });
+    });
 
 
-/**
- * Returns true if the specified string has the balanced brackets and false otherwise.
- * Balanced means that is, whether it consists entirely of pairs of opening/closing brackets
- * (in that order), none of which mis-nest.
- * Brackets include [],(),{},<>
- *
- * @param {string} str
- * @return {boolean}
- *
- * @example:
- *   '' => true
- *   '[]'  => true
- *   '{}'  => true
- *   '()   => true
- *   '[[]' => false
- *   ']['  => false
- *   '[[][][[]]]' => true
- *   '[[][]][' => false
- *   '{)' = false
- *   '{[(<{[]}>)]}' = true 
- */
-function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
-}
+   it.optional('isBracketsBalanced should check the balanced brackets', () => {
+        [
+            '[]', '[[][][[]]]', '[[][]]', '', '<>', '{}', '()', '<()>', '{<>}', '[{}]',
+            '[{(<()[]{}<>>)}]', '{}<>()[]','{<>}{()}[[]](())'
+        ].forEach(str => {
+            assert(
+                tasks.isBracketsBalanced(str),
+                `'${str}' has balanced brackets, but actually not`
+            )
+        });
 
 
-/**
- * Returns the human readable string of time period specified by the start and end time.
- * The result string should be constrcuted using the folliwing rules:
- *
- * ---------------------------------------------------------------------
- *   Difference                 |  Result
- * ---------------------------------------------------------------------
- *    0 to 45 seconds           |  a few seconds ago
- *   45 to 90 seconds           |  a minute ago
- *   90 seconds to 45 minutes   |  2 minutes ago ... 45 minutes ago
- *   45 to 90 minutes           |  an hour ago
- *  90 minutes to 22 hours      |  2 hours ago ... 22 hours ago
- *  22 to 36 hours              |  a day ago
- *  36 hours to 25 days         |  2 days ago ... 25 days ago
- *  25 to 45 days               |  a month ago
- *  45 to 345 days              |  2 months ago ... 11 months ago
- *  345 to 545 days (1.5 years) |  a year ago
- *  546 days+                   |  2 years ago ... 20 years ago
- * ---------------------------------------------------------------------
- *
- * @param {Date} startDate
- * @param {Date} endDate
- * @return {string}
- *
- * @example
- *   Date('2000-01-01 01:00:00.100'), Date('2000-01-01 01:00:00.200')  => 'a few seconds ago'
- *   Date('2000-01-01 01:00:00.100'), Date('2000-01-01 01:00:05.000')  => '5 minutes ago'
- *   Date('2000-01-01 01:00:00.100'), Date('2000-01-02 03:00:05.000')  => 'a day ago'
- *   Date('2000-01-01 01:00:00.100'), Date('2015-01-02 03:00:05.000')  => '15 years ago'
- *
- */
-function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
-}
+        [
+            '[[]', '][', '[][][][][[]', '{)', '<]','(}', '[{]}','{<}>','{{[(])}}','{}()[]<',
+            '{','(','[','({}[]<>(((())))','{{[]}}>'
+        ].forEach(str => {
+            assert(
+                tasks.isBracketsBalanced(str) == false,
+                `'${str}' has unbalanced brackets, but actually yes`
+            )
+        });
+
+    });
 
 
-/**
- * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of specified number.
- * See more about
- * https://en.wikipedia.org/wiki/Binary_number
- * https://en.wikipedia.org/wiki/Ternary_numeral_system
- * https://en.wikipedia.org/wiki/Radix
- *
- * @param {number} num
- * @param {number} n, radix of the result
- * @return {string}
- *
- * @example:
- *   1024, 2  => '10000000000'
- *   6561, 3  => '100000000'
- *    365, 2  => '101101101'
- *    365, 3  => '111112'
- *    365, 4  => '11231'
- *    365, 10 => '365'
- */
-function toNaryString(num, n) {
-    throw new Error('Not implemented');
-}
+    it.optional('toNaryString should return the n-ary string representation of number', () => {
+        [
+            { num: 1024,  n: 2, expected: '10000000000' },
+            { num: 6561,  n: 3, expected: '100000000' },
+            { num:  365,  n: 2, expected: '101101101' },
+            { num:  365,  n: 3, expected: '111112' },
+            { num:  365,  n: 4, expected: '11231' },
+            { num:  365,  n: 5, expected: '2430' },
+            { num:  365,  n: 6, expected: '1405' },
+            { num:  365,  n: 7, expected: '1031' },
+            { num:  365,  n: 9, expected: '445' },
+            { num:  365,  n:10, expected: '365' },
+        ].forEach(data => {
+            let actual = tasks.toNaryString(data.num, data.n);
+            assert.equal(
+                actual,
+                data.expected,
+                `${data.num} with radix ${data.n} = ${data.expected}, but actual ${actual}`
+            )
+        });
+    });
 
 
-/**
- * Returns the commom directory path for specified array of full filenames.
- *
- * @param {array} pathes
- * @return {string}
- *
- * @example:
- *   ['/web/images/image1.png', '/web/images/image2.png']  => '/web/images/'
- *   ['/web/assets/style.css', '/web/scripts/app.js',  'home/setting.conf'] => ''
- *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
- *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
- */
-function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
-}
+    it.optional('getCommonDirectoryPath should return the n-ary string representation of number', () => {
+        [
+            {
+                pathes: ['/web/images/image1.png', '/web/images/image2.png'],
+                expected: '/web/images/'
+            },{
+                pathes: ['/web/assets/style.css', '/web/scripts/app.js',  'home/setting.conf'],
+                expected: ''
+            },{
+                pathes:  ['/web/assets/style.css', '/.bin/mocha',  '/read.me'],
+                expected: '/'
+            },{
+                pathes:  ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'],
+                expected: '/'
+            }
+        ].forEach(data => {
+            let actual = tasks.getCommonDirectoryPath(data.pathes, data.n);
+            assert.equal(
+                actual,
+                data.expected,
+                `Common directory path fo [${data.pathes}] = ${data.expected}, but actual ${actual}`
+            )
+        });
+    });
 
 
-/**
- * Returns the product of two specified matrixes.
- * See details: https://en.wikipedia.org/wiki/Matrix_multiplication
- *
- * @param {array} m1
- * @param {array} m2
- * @return {array}
- *
- * @example:
- *   [[ 1, 0, 0 ],       [[ 1, 2, 3 ],           [[ 1, 2, 3 ],
- *    [ 0, 1, 0 ],   X    [ 4, 5, 6 ],     =>     [ 4, 5, 6 ],
- *    [ 0, 0, 1 ]]        [ 7, 8, 9 ]]            [ 7, 8, 9 ]]
- *
- *                        [[ 4 ],
- *   [[ 1, 2, 3]]    X     [ 5 ],          =>     [[ 32 ]]
- *                         [ 6 ]]
- *
- */
-function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
-}
+    it.optional('getMatrixProduct should return the product of two specified matrices', () => {
+        [
+            {
+                m1: [
+                    [ 1, 0, 0 ],
+                    [ 0, 1, 0 ],
+                    [ 0, 0, 1 ]
+                ],
+                m2: [
+                    [ 1, 2, 3 ],
+                    [ 4, 5, 6 ],
+                    [ 7, 8, 9 ]
+                ],
+                expected: [
+                    [ 1, 2, 3 ],
+                    [ 4, 5, 6 ],
+                    [ 7, 8, 9 ]
+                ]
+            },{
+                m1: [
+                    [ 1, 2, 3]
+                ],
+                m2: [
+                    [ 4 ],
+                    [ 5 ],
+                    [ 6 ]
+                ],
+                expected : [[ 32 ]]
+            }
+        ].forEach(data => {
+            let actual = tasks.getMatrixProduct(data.m1, data.m2);
+            assert.deepEqual(
+                actual,
+                data.expected,
+                `Product of [${data.m1}] x [${data.m2}] = [${data.expected}], but actual ${actual}`
+            )
+        });
+    });
 
 
-/**
- * Returns the evaluation of the specified tic-tac-toe position.
- * See the details: https://en.wikipedia.org/wiki/Tic-tac-toe
- *
- * Position is provides as 3x3 array with the following values: 'X','0', undefined
- * Function should return who is winner in the current position according to the game rules.
- * The result can be: 'X','0',undefined
- *
- * @param {array} position
- * @return {string}
- *
- * @example
- *
- *   [[ 'X',   ,'0' ],
- *    [    ,'X','0' ],       =>  'X'
- *    [    ,   ,'X' ]]
- *
- *   [[ '0','0','0' ],
- *    [    ,'X',    ],       =>  '0'
- *    [ 'X',   ,'X' ]]
- *
- *   [[ '0','X','0' ],
- *    [    ,'X',    ],       =>  undefined
- *    [ 'X','0','X' ]]
- *
- *   [[    ,   ,    ],
- *    [    ,   ,    ],       =>  undefined
- *    [    ,   ,    ]]
- *
- */
-function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
-}
+    it.optional('timespanToHumanString should return the human string representation of datetime period', () => {
+        [
+            {
+                startDate: '2000-01-01 01:00:00.100',
+                endDate:   '2000-01-01 01:00:00.200',
+                expected:  'a few seconds ago'
+            }, {
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:00:30.000',
+                expected:  'a few seconds ago'
+            }, {
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:00:45.000',
+                expected:  'a few seconds ago'
+            }, {
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:00:45.001',
+                expected:  'a minute ago'
+            }, {
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:01:00.000',
+                expected:  'a minute ago'
+            }, {
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:01:30.000',
+                expected:  'a minute ago'
+            }, {
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:01:30.001',
+                expected:  '2 minutes ago'
+            }, {
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:05:30.000',
+                expected:  '5 minutes ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:45:00.000',
+                expected:  '45 minutes ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 01:45:00.001',
+                expected:  'an hour ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 02:00:00.000',
+                expected:  'an hour ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 02:30:00.000',
+                expected:  'an hour ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 02:30:00.001',
+                expected:  '2 hours ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 05:30:00.000',
+                expected:  '4 hours ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 05:30:00.001',
+                expected:  '5 hours ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 23:00:00.000',
+                expected:  '22 hours ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-01 23:00:00.001',
+                expected:  'a day ago'
+            },{
+                startDate: '2000-01-01 01:00:00.000',
+                endDate:   '2000-01-02 01:00:00.000',
+                expected:  'a day ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-01-02 12:00:00.000',
+                expected:  'a day ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-01-02 12:00:00.001',
+                expected:  '2 days ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-01-05 12:00:00.000',
+                expected:  '4 days ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-01-26 00:00:00.000',
+                expected:  '25 days ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-01-26 00:00:00.001',
+                expected:  'a month ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-02-01 00:00:00.000',
+                expected:  'a month ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-02-15 00:00:00.000',
+                expected:  'a month ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-02-16 00:00:00.000',
+                expected:  '2 months ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-05-20 00:00:00.000',
+                expected:  '5 months ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-12-10 00:00:00.000',
+                expected:  '11 months ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2000-12-12 00:00:00.000',
+                expected:  'a year ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2001-02-15 00:00:00.001',
+                expected:  'a year ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2001-06-01 00:00:00.001',
+                expected:  'a year ago'
+            },{
+                startDate: '2000-01-01 00:00:00.000',
+                endDate:   '2015-02-15 00:00:00.001',
+                expected:  '15 years ago'
+            }
+        ].forEach(data => {
+            let actual = tasks.timespanToHumanString(new Date(data.startDate), new Date(data.endDate));
+            assert.equal(
+                actual,
+                data.expected,
+                `timespanToHumanString('${data.startDate}', '${data.endDate}') shoud return '${data.expected}', but actually '${actual}'`
+            )
+        });
+    });
 
 
-module.exports = {
-    getFizzBuzz: getFizzBuzz,
-    getFactorial: getFactorial,
-    getSumBetweenNumbers: getSumBetweenNumbers,
-    isTriangle: isTriangle,
-    doRectanglesOverlap: doRectanglesOverlap,
-    isInsideCircle: isInsideCircle,
-    findFirstSingleChar: findFirstSingleChar,
-    getIntervalString : getIntervalString,
-    reverseString: reverseString,
-    reverseInteger: reverseInteger,
-    isCreditCardNumber: isCreditCardNumber,
-    getDigitalRoot: getDigitalRoot,
-    isBracketsBalanced: isBracketsBalanced,
-    timespanToHumanString : timespanToHumanString,
-    toNaryString: toNaryString,
-    getCommonDirectoryPath: getCommonDirectoryPath,
-    getMatrixProduct: getMatrixProduct,
-    evaluateTicTacToePosition : evaluateTicTacToePosition
-};
+    it.optional('evaluateTicTacToePosition should return the winner if defined', () => {
+        const X = 'X', O = '0';
+
+        function positionToSting(position) {
+            let result = '';
+            for(let i=0; i<3; i++) {
+                result += '-------------\n| ';
+                for(let j=0; j<3; j++) {
+                    result += (position[i][j] ? position[i][j] : ' ')+' | ';
+                }
+                result += '\n';
+            }
+            result+='-------------';
+            return result;
+        }
+
+        [[
+            [ X, X, X ],
+            [ O, O,   ],
+            [ O,  ,   ]
+         ],[
+            [  , O, O ],
+            [ X, X, X ],
+            [ O,  , O ]
+         ],[
+            [  ,  , O ],
+            [ O,  , O ],
+            [ X, X, X ]
+         ],[
+            [ X,  , O ],
+            [ X,  , O ],
+            [ X, O,   ]
+         ],[
+            [ O, X, O ],
+            [ X, X, O ],
+            [ O, X,   ]
+         ],[
+            [ O, O, X ],
+            [ X, O, X ],
+            [ O, X, X ]
+         ],[
+            [ X, O, O ],
+            [ X, X, O ],
+            [ O, X, X ]
+         ],[
+            [ O, O, X ],
+            [ X, X, O ],
+            [ X,  , O ]
+         ]
+        ].forEach(data => {
+            let actual = tasks.evaluateTicTacToePosition(data);
+            assert.equal(
+                actual,
+                X,
+                `Position: \n${positionToSting(data)}\n  The winner is X, but actually '${actual}'`
+            )
+        });
+
+        [[
+            [ O, O, O ],
+            [  , X, X ],
+            [ X,  ,   ]
+         ],[
+            [ X, X,   ],
+            [ O, O, O ],
+            [ X,  , X ]
+         ],[
+            [  ,  ,   ],
+            [ X,  , X ],
+            [ O, O, O ]
+         ],[
+            [ O,  , X ],
+            [ O, X, X ],
+            [ O, X,   ]
+         ],[
+            [ X, O, X ],
+            [ X, O, O ],
+            [ O, O, X ]
+         ],[
+            [ X, X, O ],
+            [ X, O, O ],
+            [  , X, O ]
+         ],[
+            [ O, X, X ],
+            [ X, O, X ],
+            [ O, X, O ]
+         ],[
+            [ X, X, O ],
+            [ X, O, X ],
+            [ O,  , X ]
+         ]
+        ].forEach(data => {
+            let actual = tasks.evaluateTicTacToePosition(data);
+            assert.equal(
+                actual,
+                O,
+                `Position: \n${positionToSting(data)}\n  The winner is O, but actually '${actual}'`
+            )
+        });
+
+        [[
+            [  ,  ,   ],
+            [  ,  ,   ],
+            [  ,  ,   ]
+         ],[
+            [ X,  ,   ],
+            [ O, O,   ],
+            [  ,  , X ]
+         ],[
+            [ X, O, X ],
+            [ X, O, X ],
+            [ O, X, O ]
+         ],[
+            [ X, O, X ],
+            [ O, X, X ],
+            [ O, X, O ]
+         ],[
+            [ X, O, X ],
+            [ O,  , O ],
+            [ X, O, X ]
+         ]
+        ].forEach(data => {
+            let actual = tasks.evaluateTicTacToePosition(data);
+            assert.equal(
+                actual,
+                undefined,
+                `Position: \n${positionToSting(data)}\n  The winner is undefined, but actually '${actual}'`
+            )
+        });
+    });
+
+});
