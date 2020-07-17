@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width * height
+    throw new Error('Not implemented');
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return 2 * Math.PI * radius
+    throw new Error('Not implemented');
 }
 
 /**
@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.hypot((Math.abs(x1 - x2)), (Math.abs(y1 - y2)));
+    throw new Error('Not implemented');
 }
 
 /**
@@ -89,10 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    if (a === Infinity || a === 0)
-    return Infinity
-    else
-    return ((0 - b) / a);
+            throw new Error('Not implemented');
 }
 
 
@@ -114,7 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    throw new Error('Not implemented');
+   throw new Error('Not implemented');
 }
 
 /**
@@ -205,7 +202,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    throw new Error('Not implemented');
+   throw new Error('Not implemented');
 }
 
 /**
@@ -224,7 +221,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    throw new Error('Not implemented');
+   throw new Error('Not implemented');
 }
 
 module.exports = {
