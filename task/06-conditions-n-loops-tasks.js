@@ -142,10 +142,10 @@ function doRectanglesOverlap(rect1, rect2) {
  *     center: {
  *       x: 5,       
  *       y: 5
- *     },
+ *     },        
  *     radius: 20
- *  }        
- *
+ *  }
+ * 
  * Point is object of 
  *  {
  *     x: 5,
