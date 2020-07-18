@@ -178,38 +178,38 @@ class Selector {
 }
 
 const cssSelectorBuilder = {
-  element: function (value) {
+    element: function (value) {
     return new Selector().element(value);
-  },
+    },
 
-  id: function (value) {
+    id: function (value) {
     return new Selector().id(value);
-  },
+    },
 
-  class: function (value) {
+    class: function (value) {
     return new Selector().class(value);
-  },
+    },
 
-  attr: function (value) {
+    attr: function (value) {
     return new Selector().attr(value);
-  },
+    },
 
-  pseudoClass: function (value) {
+    pseudoClass: function (value) {
     return new Selector().pseudoClass(value);
-  },
+    },
 
-  pseudoElement: function (value) {
+    pseudoElement: function (value) {
     return new Selector().pseudoElement(value);
-  },
+    },
 
-  combine: function (selector1, combinator, selector2) {
+    combine: function (selector1, combinator, selector2) {
     return new Selector().combine(selector1, combinator, selector2);
-  },
+    },
 };
 
 module.exports = {
-  Rectangle: Rectangle,
-  getJSON: getJSON,
-  fromJSON: fromJSON,
-  cssSelectorBuilder: cssSelectorBuilder,
+    Rectangle: Rectangle,
+    getJSON: getJSON,
+    fromJSON: fromJSON,
+    cssSelectorBuilder: cssSelectorBuilder,
 };
