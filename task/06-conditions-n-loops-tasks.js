@@ -114,7 +114,7 @@ function isTriangle(a,b,c) {
  *     |           |  height = 10
  *     ------------- 
  *        width=20    
- *
+ * 
  * NOTE: Please use canvas coordinate space (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#The_grid),
  * it differs from Cartesian coordinate system.
  * 
@@ -125,7 +125,7 @@ function isTriangle(a,b,c) {
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top: 5, left: 5, width: 20, height: 20 }    =>  true
- *
+ * 
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *  
@@ -329,7 +329,7 @@ function getDigitalRoot(num) {
  *   '[[][][[]]]' => true
  *   '[[][]][' => false
  *   '{)' = false
- *   '{[(<{[]}>)]}' = true
+ *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
   let opening = ['[', '(', '{', '<'];
@@ -548,6 +548,7 @@ function evaluateTicTacToePosition(position) {
   if (position[0][2] && position[0][2] == position[1][1] && position[0][2] == position[2][0]) return position[0][2];
 }
 
+
 module.exports = {
     getFizzBuzz: getFizzBuzz,
     getFactorial: getFactorial,
@@ -556,15 +557,15 @@ module.exports = {
     doRectanglesOverlap: doRectanglesOverlap,
     isInsideCircle: isInsideCircle,
     findFirstSingleChar: findFirstSingleChar,
-    getIntervalString: getIntervalString,
+    getIntervalString : getIntervalString,
     reverseString: reverseString,
     reverseInteger: reverseInteger,
     isCreditCardNumber: isCreditCardNumber,
     getDigitalRoot: getDigitalRoot,
     isBracketsBalanced: isBracketsBalanced,
-    timespanToHumanString: timespanToHumanString,
+    timespanToHumanString : timespanToHumanString,
     toNaryString: toNaryString,
     getCommonDirectoryPath: getCommonDirectoryPath,
     getMatrixProduct: getMatrixProduct,
-    evaluateTicTacToePosition: evaluateTicTacToePosition,
+    evaluateTicTacToePosition : evaluateTicTacToePosition,
 };
