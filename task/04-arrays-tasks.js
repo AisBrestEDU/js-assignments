@@ -42,7 +42,6 @@ function findElement(arr, value) {
 function generateOdds(len) {
    let arr = Array(len).fill(1);
    let i = 0;
-   console.log(arr);
    if( arr.length != 1){
       let arr2 = arr.map(function(item){
          item += i;
@@ -189,7 +188,7 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-   arr.slice(index, 0, item);
+   return arr.splice(index, 0, item);
    throw new Error('Not implemented');
 }
 
@@ -204,8 +203,7 @@ function insertItem(arr, item, index) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 function getHead(arr, n) {
-   let arr2 = arr.slice(0, n)
-   return arr2;
+   return arr.slice(0, n);
    throw new Error('Not implemented');
 }
 
@@ -221,8 +219,7 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-   let arr2 = arr.slice(arr.length - n, arr.length)
-   return arr2;
+   return arr.slice(arr.length - n, arr.length);
    throw new Error('Not implemented');
 }
 
@@ -251,7 +248,6 @@ function toCsvText(arr) {
    let arr2 = arr.map(function(item){
       return item.join();
    })
-   console.log(arr2);
    return arr2.join('\n');
    throw new Error('Not implemented');
 }
@@ -312,7 +308,6 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   let i = 0
    let arr2 = arr.filter(function(item, index){
       return index % 2 == 1;
    })
@@ -641,7 +636,6 @@ function selectMany(arr, childrenSelector) {
    let arr2 =  arr1.reduce(function(a, b){ 
          return a.concat(b);
      });
-   console.log(arr2);
    return arr2;
     throw new Error('Not implemented');
 }
