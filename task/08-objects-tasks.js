@@ -191,19 +191,19 @@ const cssSelectorBuilder = {
     },
 
     attr: function (value) {
-    return new Selector().attr(value);
+      return new Selector().attr(value);
     },
 
     pseudoClass: function (value) {
-    return new Selector().pseudoClass(value);
+      return new Selector().pseudoClass(value);
     },
 
     pseudoElement: function (value) {
-    return new Selector().pseudoElement(value);
+      return new Selector().pseudoElement(value);
     },
 
     combine: function (selector1, combinator, selector2) {
-    return new Selector().combine(selector1, combinator, selector2);
+      return new Selector().combine(selector1, combinator, selector2);
     },
 };
 
@@ -211,5 +211,5 @@ module.exports = {
     Rectangle: Rectangle,
     getJSON: getJSON,
     fromJSON: fromJSON,
-    cssSelectorBuilder: cssSelectorBuilder,
+    cssSelectorBuilder: cssSelectorBuilder
 };
