@@ -98,11 +98,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if((a + b > c) && (b + c > a) && (a + c > b)){
-        return true;
-    } else {
-        return false;
-    }
+    return (a+b>c) && (a+c>b) && (b+c>a);
 }
 
 
@@ -139,16 +135,7 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    function RectangleA(x, y) {
-        return (!(x < rect1.left || x > rect1.left + rect1.width) && !(y < rect1.top || y > rect1.top + rect1.height));    
-    }
-
-    function RectangleB(x, y) {
-        return (!(x < rect2.left || x > rect2.left + rect2.width) && !(y < rect2.top || y > rect2.top + rect2.height));    
-    }  
-
-    return RectangleA(rect2.left, rect2.top) || RectangleA(rect2.left + rect2.width, rect2.top + rect2.height) 
-        || RectangleB(rect1.left, rect1.top) || RectangleB(rect1.left + rect1.width, rect1.top + rect1.height);
+    return rect2.top < rect1.top + rect1.height && rect2.left < rect1.left + rect1.width;
 }
 
 
@@ -318,19 +305,11 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    let str = '';
-    let sum = 0;
-    str += num;
-
-    while(str.length > 1) {
-
-        for(var i = 0; i < str.length; i++) {
-            sum += Number(str[i]);
-        }
-        str = String(sum);
-        sum = 0;
-    }   
-    return Number(str);
+    while (num > 9) {
+        let arr = num.toString().split("").map(Number);
+        num = arr.reduce((a, b) => a + b)
+    }
+    return num;
 }
 
 
