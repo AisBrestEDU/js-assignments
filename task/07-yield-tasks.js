@@ -137,7 +137,7 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-  let nodesToProcess = [root]; // Name 'temp' conveys meaning of the variable as the temporary storage of some information in process of treatment.
+  let nodesToProcess = [root]; 
   while (nodesToProcess.length) {
     let current = nodesToProcess.shift();
     yield current;
@@ -183,8 +183,8 @@ function* mergeSortedSequences(source1, source2) {
  * Resolve Promises and take values step by step.
  *
  * @params {Iterable.<Promise>} generator
- * @return {Promise} Promise with value returned via return
- *
+ * @return {Promise} Promise with value returned via return 
+ * 
  * @example
  *   async((function*() {
  *      var a = yield new Promise((resolve)=> setTimeout(()=>resolve(5)));
@@ -202,6 +202,7 @@ function async(generator) {
   }
   return handler(next);
 }
+
 
 module.exports = {
     get99BottlesOfBeer: get99BottlesOfBeer,
