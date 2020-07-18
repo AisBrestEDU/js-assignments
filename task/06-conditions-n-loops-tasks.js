@@ -35,7 +35,8 @@ function getFizzBuzz(num) {
     return 'Fizz';
   } else if (num % 5 === 0) {
     return 'Buzz';
-  } else return num;
+  }
+  return num;
 }
 
 /**
@@ -131,9 +132,8 @@ function isTriangle(a, b, c) {
 function doRectanglesOverlap(rect1, rect2) {
   if (rect2.top <= rect1.width && rect2.left <= rect1.height) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 /**
@@ -168,9 +168,8 @@ function isInsideCircle(circle, point) {
   );
   if (dist < circle.radius) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 /**
@@ -466,9 +465,8 @@ function timespanToHumanString(startDate, endDate) {
         t = Math.floor(t);
       }
       return t + res[i][0];
-    } else {
-      return res[i][0];
     }
+    return res[i][0];
   }
   return answer();
 }
@@ -615,7 +613,7 @@ function evaluateTicTacToePosition(position) {
   let tmpZ = [];
   let tmpI = [];
 
-  function evaluate(tmp, i, j){
+  function evaluate(tmp, i, j) {
     if (position[i][j]) {
       if (tmp.length === 0) {
         tmp.push(position[i][j]);
