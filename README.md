@@ -29,7 +29,7 @@ To start javascript assignments please follow the next steps:
   git commit -m "Update the links"
   git push origin master
 ```
-* Open https://github.com/AisBrestEDU/js-assignments and test the build icon. Now it will run all tests and update status once you push changes to github. Keep this icon green!
+
  #1-4Task.-Elizaveta-Panasiuk
 * Open https://github.com/ElizavetaPanasiuk/js-assignments and test the build icon. Now it will run all tests and update status once you push changes to github. Keep this icon green!
 
