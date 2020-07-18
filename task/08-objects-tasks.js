@@ -8,6 +8,7 @@
  *                                                                                                *
  **************************************************************************************************/
 
+ 
 /**
  * Returns the rectagle object with width and height parameters and getArea() method
  *
@@ -27,6 +28,7 @@ function Rectangle(width, height) {
   Rectangle.prototype.getArea = () => this.width * this.height;
 }
 
+
 /**
  * Returns the JSON representation of specified object
  *
@@ -40,6 +42,7 @@ function Rectangle(width, height) {
 function getJSON(obj) {
   return JSON.stringify(obj);
 }
+
 
 /**
  * Returns the object of specified type from JSON representation
@@ -55,6 +58,7 @@ function getJSON(obj) {
 function fromJSON(proto, json) {
   return Object.setPrototypeOf(JSON.parse(json), proto);
 }
+
 
 /**
  * Css selectors builder
@@ -178,6 +182,7 @@ class Selector {
 }
 
 const cssSelectorBuilder = {
+
     element: function(value) {
     return new Selector().element(value);
     },
@@ -206,6 +211,7 @@ const cssSelectorBuilder = {
       return new Selector().combine(selector1, combinator, selector2);
     },
 };
+
 
 module.exports = {
     Rectangle: Rectangle,
