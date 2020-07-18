@@ -181,10 +181,10 @@ function* mergeSortedSequences(source1, source2) {
 
 /**
  * Resolve Promises and take values step by step.
- *
+ * 
  * @params {Iterable.<Promise>} generator
  * @return {Promise} Promise with value returned via return 
- * 
+ *
  * @example
  *   async((function*() {
  *      var a = yield new Promise((resolve)=> setTimeout(()=>resolve(5)));
@@ -210,5 +210,5 @@ module.exports = {
     depthTraversalTree: depthTraversalTree,
     breadthTraversalTree: breadthTraversalTree,
     mergeSortedSequences: mergeSortedSequences,
-    async: async,
+    async:               async,
 };
