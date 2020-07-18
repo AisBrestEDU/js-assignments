@@ -238,7 +238,7 @@ function isPrime(n) {
  */
 function toNumber(value, def) {
     const number = Number(value);
-    if (Number(value)) {
+    if (Number(value) || number === 0) {
         return number;
     }
     return def;
