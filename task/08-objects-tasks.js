@@ -8,7 +8,7 @@
  *                                                                                                *
  **************************************************************************************************/
 
- 
+
 /**
  * Returns the rectagle object with width and height parameters and getArea() method
  *
