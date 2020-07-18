@@ -10,6 +10,7 @@
  *                                                                                            *
  **********************************************************************************************/
 
+
 /**
  * Returns the functions composition of two specified functions f(x) and g(x).
  * The result of compose is to be a function of one argument, (lets call the argument x),
@@ -24,9 +25,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.acos(x))
  *
  */
-function getComposition(f, g) {
+function getComposition(f,g) {
   return (x) => f(g(x));
 }
+
 
 /**
  * Returns the math power function with the specified exponent
@@ -48,6 +50,7 @@ function getPowerFunction(exponent) {
   return (x) => x ** exponent;
 }
 
+
 /**
  * Returns the polynom function of one argument based on specified coefficients.
  * See: https://en.wikipedia.org/wiki/Polynomial#Definition
@@ -64,6 +67,8 @@ function getPowerFunction(exponent) {
 function getPolynom() {
   return (x) => [...arguments].reverse().reduce((y, elem, i) => (y += elem * x ** i));
 }
+
+
 /**
  * Memoizes passed function and returns function
  * which invoked first time calls the passed function and then always returns cached result.
@@ -83,6 +88,7 @@ function memoize(func) {
   return () => a;
 }
 
+
 /**
  * Returns the function trying to call the passed function and if it throws,
  * retrying it specified number of attempts.
@@ -100,7 +106,7 @@ function memoize(func) {
  */
 function retry(func, attempts) {
   return () => {
-    for (let i = 0; i <= attempts; i++) {
+    for (let i = 0; ; i++) {
       try {
         return func();
       } catch (error) {
@@ -109,6 +115,7 @@ function retry(func, attempts) {
     }
   };
 }
+
 
 /**
  * Returns the logging wrapper for the specified method,
@@ -142,6 +149,7 @@ function logger(func, logFunc) {
   };
 }
 
+
 /**
  * Return the function with partial applied arguments
  *
@@ -161,6 +169,7 @@ function partialUsingArguments(fn) {
     return args.concat([...arguments]).join('');
   };
 }
+
 
 /**
  * Returns the id generator function that returns next integer starting from specified number every time when invoking.
@@ -182,13 +191,14 @@ function getIdGeneratorFunction(startFrom) {
   return () => startFrom++;
 }
 
+
 module.exports = {
-  getComposition: getComposition,
-  getPowerFunction: getPowerFunction,
-  getPolynom: getPolynom,
-  memoize: memoize,
-  retry: retry,
-  logger: logger,
-  partialUsingArguments: partialUsingArguments,
-  getIdGeneratorFunction: getIdGeneratorFunction,
+    getComposition: getComposition,
+    getPowerFunction: getPowerFunction,
+    getPolynom: getPolynom,
+    memoize: memoize,
+    retry: retry,
+    logger: logger,
+    partialUsingArguments: partialUsingArguments,
+    getIdGeneratorFunction: getIdGeneratorFunction,
 };
