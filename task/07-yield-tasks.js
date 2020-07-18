@@ -8,6 +8,7 @@
  *                                                                                          *
  ********************************************************************************************/
 
+
 /**
  * Returns the lines sequence of "99 Bottles of Beer" song:
  *
@@ -33,7 +34,7 @@
  */
 function* get99BottlesOfBeer() {
   let bottles = 99;
-  while (true) {
+  while (bottles >= 0) {
     yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`;
     bottles -= 1;
     if (bottles == 1) {
@@ -47,6 +48,7 @@ function* get99BottlesOfBeer() {
   yield `No more bottles of beer on the wall, no more bottles of beer.`;
   yield `Go to the store and buy some more, 99 bottles of beer on the wall.`;
 }
+
 
 /**
  * Returns the Fibonacci sequence:
@@ -69,6 +71,7 @@ function* getFibonacciSequence() {
     next = temp;
   }
 }
+
 
 /**
  * Traverses a tree using the depth-first strategy
@@ -101,15 +104,16 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-  let temp = [root]; // Name 'temp' conveys meaning of the variable as the temporary storage of some information in process of treatment.
-  while (temp.length) {
-    let current = temp.pop();
+  let nodesToProcess = [root];
+  while (nodesToProcess.length) {
+    let current = nodesToProcess.pop();
     yield current;
     if (current.children) {
-      temp.push(...current.children.reverse());
+      nodesToProcess.push(...current.children.reverse());
     }
   }
 }
+
 
 /**
  * Traverses a tree using the breadth-first strategy
@@ -133,15 +137,16 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-  let temp = [root]; // Name 'temp' conveys meaning of the variable as the temporary storage of some information in process of treatment.
-  while (temp.length) {
-    let current = temp.shift();
+  let nodesToProcess = [root]; // Name 'temp' conveys meaning of the variable as the temporary storage of some information in process of treatment.
+  while (nodesToProcess.length) {
+    let current = nodesToProcess.shift();
     yield current;
     if (current.children) {
-      temp.push(...current.children);
+      nodesToProcess.push(...current.children);
     }
   }
 }
+
 
 /**
  * Merges two yield-style sorted sequences into the one sorted sequence.
@@ -159,11 +164,9 @@ function* breadthTraversalTree(root) {
 function* mergeSortedSequences(source1, source2) {
   let gen1 = source1();
   let gen2 = source2();
-
-  while (true) {
+  while (!gen1.done || !gen2.done) {
     let num1 = gen1.next().value;
     let num2 = gen2.next().value;
-
     if (num1 != undefined && num2 != undefined) {
       yield Math.min(num1, num2);
       yield Math.max(num1, num2);
@@ -174,6 +177,7 @@ function* mergeSortedSequences(source1, source2) {
     }
   }
 }
+
 
 /**
  * Resolve Promises and take values step by step.
@@ -200,10 +204,10 @@ function async(generator) {
 }
 
 module.exports = {
-  get99BottlesOfBeer: get99BottlesOfBeer,
-  getFibonacciSequence: getFibonacciSequence,
-  depthTraversalTree: depthTraversalTree,
-  breadthTraversalTree: breadthTraversalTree,
-  mergeSortedSequences: mergeSortedSequences,
-  async: async,
+    get99BottlesOfBeer: get99BottlesOfBeer,
+    getFibonacciSequence: getFibonacciSequence,
+    depthTraversalTree: depthTraversalTree,
+    breadthTraversalTree: breadthTraversalTree,
+    mergeSortedSequences: mergeSortedSequences,
+    async: async,
 };
