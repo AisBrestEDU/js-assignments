@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return (new Date(value));
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return (new Date(value));
 }
 
 
@@ -56,7 +56,17 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+   if (year % 400) {
+      if (year % 100) {
+         if (year % 4) {
+            return false;
+         }
+         return true;
+      }
+      return false;
+   }
+   return true;
 }
 
 
@@ -76,7 +86,23 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let result = endDate - startDate;
+   let hours = Math.floor(result / 3600000);
+   let min = Math.floor((result - hours * 3600000) / 60000);
+   let sec = Math.floor((result - hours * 3600000 - min * 60000) / 1000);
+   let msec = result % 1000;
+   let time = [hours, min, sec];
+   for (let i = 0; i < time.length; i++) {
+      if (time[i] < 10) {
+         time[i] = "0" + time[i];
+      }
+   }
+   if (msec < 10) {
+      msec = "00" + msec;
+   } else if (msec < 100) {
+      msec = "0" + msec;
+   }
+   return `${time[0]}:${time[1]}:${time[2]}.${msec}`;
 }
 
 
@@ -94,7 +120,11 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hours = date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours(),
+       minutes = date.getUTCMinutes();
+   let angle_deg = Math.abs(60 * hours - 11 * minutes) / 2;
+   angle_deg = angle_deg > 180 ? 360 - angle_deg : angle_deg;
+   return (Math.PI / 180 * angle_deg);
 }
 
 
