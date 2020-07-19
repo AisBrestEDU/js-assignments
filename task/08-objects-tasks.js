@@ -22,10 +22,15 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
+
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
 }
 
+Rectangle.prototype.getArea = function(){
+    return this.width*this.height;
+};
 
 /**
  * Returns the JSON representation of specified object
@@ -37,10 +42,11 @@ function Rectangle(width, height) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(obj) {
-    throw new Error('Not implemented');
-}
 
+function getJSON(obj) {
+   let json = JSON.stringify(obj);
+   return json;
+}
 
 /**
  * Returns the object of specified type from JSON representation
@@ -53,10 +59,11 @@ function getJSON(obj) {
  *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
  *
  */
-function fromJSON(proto, json) {
-    throw new Error('Not implemented');
-}
 
+function fromJSON(proto, json) {
+    let result = Object.setPrototypeOf(JSON.parse(json), proto);
+    return result;
+}
 
 /**
  * Css selectors builder
@@ -107,36 +114,84 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
+    answer: '',
 
     element: function(value) {
-        throw new Error('Not implemented');
+        this.error(1);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.excpectedPlaceIndex = 1;
+        let ind = 1;
+        let additive = '';
+        obj.answer = String.prototype.concat(this.answer + additive + value);
+        return obj;
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        this.error(2);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.excpectedPlaceIndex= 2;
+        let additive = '#';
+        obj.answer = String.prototype.concat(this.answer + additive + value);
+        return obj;
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        this.error(3);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.excpectedPlaceIndex= 3;
+        let additive = '.';
+        obj.answer = String.prototype.concat(this.answer + additive + value);
+        return obj;
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        this.error(4);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.excpectedPlaceIndex = 4;
+        let additive = '[]';
+        obj.answer =  String.prototype.concat(this.answer + additive[0] + value + additive[1]);
+        return obj;
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        this.error(5);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.excpectedPlaceIndex = 5;
+        let additive = ':';
+        obj.answer = String.prototype.concat(this.answer + additive + value);
+        return obj;
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        this.error(6);
+        let obj = Object.create(cssSelectorBuilder);
+        obj.excpectedPlaceIndex = 6;
+        let additive = '::';
+        obj.answer =  String.prototype.concat(this.answer  + additive + value);
+        return obj;
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        let obj = Object.create(cssSelectorBuilder);
+        obj.answer =  String.prototype.concat(selector1.answer + ' ' + combinator + ' ' + selector2.answer);
+        return obj;
+    },
+
+    stringify: function() {
+        return this.answer;
+    },
+
+    error: function(placeIndex) {
+        let borderElementsIndexes = [1,2,6];
+
+        if (this.excpectedPlaceIndex > placeIndex) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        if (this.excpectedPlaceIndex == placeIndex && (borderElementsIndexes.includes(placeIndex))) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
     },
 };
-
 
 module.exports = {
     Rectangle: Rectangle,
