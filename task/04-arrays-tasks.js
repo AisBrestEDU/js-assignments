@@ -625,13 +625,12 @@ function getIntervalArray(start, end) {
  */
 function distinct(arr) {
    let result = [];
-   arr.map(function (elem) {
-      if (result.indexOf(elem) === -1) {
+   return arr.reduce((result, elem) => { 
+      if (result.indexOf(elem) == -1){
          result.push(elem);
       }
-   })
-   
-   return result;
+      return result;
+   }, []);
 }
 
 /**
@@ -665,21 +664,14 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   let keys = array.map(keySelector);
-   let values = array.map(valueSelector);
-   let map = new Map();
-
-   keys.filter((elem, index) => {
-       if (!map.has(elem)) {
-           map.set(elem, [values[index]]);
-       } else {
-           let value = map.get(elem);
-           value.push(values[index]);
-           map.set(elem, value);
-       }
-   });
-   
-   return map;
+   return array.reduce((prev, cur) => {
+      let key = keySelector(cur);
+      let value = valueSelector(cur);
+      let arr = prev.get(key) || [];
+      arr.push(value);
+      prev.set(key, arr);
+      return prev;
+  }, new Map);
 }
 
 
@@ -695,14 +687,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   let result = [];
-
-   arr.map(function (elem) {
-      elem = childrenSelector(elem);
-      result.push(...elem);
-   })
-   
-   return result;
+   return arr.reduce((result, current) => result.concat(childrenSelector(current)), []);
 }
 
 
