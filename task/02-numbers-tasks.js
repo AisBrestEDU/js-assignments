@@ -73,8 +73,8 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  const x = Math.pow(x2 - x1, 2);
-  const y = Math.pow(y2 - y1, 2);
+  const x = (x2 - x1) ** 2;
+  const y = (y2 - y1) ** 2;
   return Math.sqrt(x + y);
 }
 
@@ -178,7 +178,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-  const sum = Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2);
+  const sum = a ** 2 + b ** 2 + c ** 2;
   return Math.sqrt(sum);
 }
 
