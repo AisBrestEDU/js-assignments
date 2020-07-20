@@ -209,9 +209,9 @@ function getRectangleString(width, height) {
     const V_LINE = '\u2502';
     let str = '';
     if (width > 1 && height>1){
-        str = LT_ANGLE + new String(H_LINE).repeat(width-2) + RT_ANGLE+'\n';
-        let mid = V_LINE + new String(' ').repeat(width-2) + V_LINE + '\n';
-        str+= mid.repeat(height-2) + LB_ANGLE + new String(H_LINE).repeat(width-2) + RB_ANGLE+'\n';
+        str = LT_ANGLE + H_LINE.repeat(width-2) + RT_ANGLE+'\n';
+        let mid = V_LINE + ' '.repeat(width-2) + V_LINE + '\n';
+        str+= mid.repeat(height-2) + LB_ANGLE + H_LINE.repeat(width-2) + RB_ANGLE+'\n';
     }
     return str;
 }

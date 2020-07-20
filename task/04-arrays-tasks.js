@@ -541,8 +541,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    arr = arr.map(x=>childrenSelector(x));
-    return arr.reduce((acc, val) => acc.concat(val), []);
+    return arr.reduce((acc, val) => acc.concat(childrenSelector(val)), []);
 }
 
 
@@ -559,8 +558,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    if (indexes.length == 1) return arr[indexes[0]];
-    else return getElementByIndexes(arr[indexes[0]], indexes.slice(1))
+     return indexes.reduce((acc,val)=>acc[val], arr);
 }
 
 
@@ -583,10 +581,9 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-     arr = arr.map((x,idx)=> idx < Math.floor(arr.length/2) ? x+arr[idx + Math.ceil(arr.length/2)]:x);
-     arr = arr.map((x,idx)=> idx >= arr.length/2 ? arr[idx - Math.ceil(arr.length/2)] - x :x);
-     arr = arr.map((x,idx)=> idx < Math.floor(arr.length/2) ? x - arr[idx + Math.ceil(arr.length/2)]:x);
-     return arr;
+     return arr.slice(Math.ceil(arr.length/2))
+            .concat(arr.slice(Math.floor(arr.length/2), Math.ceil(arr.length/2)))
+            .concat(arr.slice(0, Math.floor(arr.length/2)));
 }
 
 
