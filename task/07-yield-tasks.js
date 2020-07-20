@@ -146,15 +146,16 @@ function* breadthTraversalTree(root) {
     for (let i = 0; i < stack.length; i++) {
         yield stack[i];
     }
-}
-function addChildren(stack, ind) {
-    var node = stack[ind];
-    if (node.children != undefined) {
-        for (let child of node.children) {
-            stack.push(child);
+    function addChildren(stack, ind) {
+        var node = stack[ind];
+        if (node.children != undefined) {
+            for (let child of node.children) {
+                stack.push(child);
+            }
         }
     }
 }
+
 
 /**
  * Merges two yield-style sorted sequences into the one sorted sequence.
