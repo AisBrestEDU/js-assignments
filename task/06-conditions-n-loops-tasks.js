@@ -100,7 +100,7 @@ function getSumBetweenNumbers(n1, n2) {
  */
 function isTriangle(a,b,c) 
 {
-    return ((Math.pow(a, 2) + Math.pow(b, 2) === Math.pow(c, 2)) || (Math.pow(b, 2) + Math.pow(c, 2) === Math.pow(a, 2)) || (Math.pow(c, 2) + Math.pow(a, 2) === Math.pow(b, 2)) || (a === b && a === c));
+    return (a*a + b*b === c*c) || (b*b + c*c === a*a) || (c*c + a*a === b*b) || (a === b && a === c));
     
 }
 
@@ -253,11 +253,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-
-    let strForSplit = str.split("");   
-    let arrForReverse = strForSplit.reverse();    
-    let resultStr = arrForReverse.join(""); 
-    return resultStr; 
+    return str.split("").reverse().join("");
 }
 
 
@@ -274,13 +270,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-
-    let strForSplit = String(num).split("");   
-    let arrForReverse = strForSplit.reverse();    
-    let resultStr = arrForReverse.join("");
-
-    return Number(resultStr);
-
+    return Number(String(num).split("").reverse().join(""));
 }
 
 
@@ -349,8 +339,7 @@ function getDigitalRoot(num) {
 
     while (resultSum > 9) 
     {
-        newArr = resultSum.toString().split("")
-        resultSum = newArr.reduce(reducer)
+        resultSum = resultSum.toString().split("").reduce(reducer)
     }
     return resultSum;
 }
