@@ -115,27 +115,27 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        return new BaseSelector(new Element(value));
+        return new BaseSelector().element(value);
     },
 
     id: function(value) {
-        return new BaseSelector(new Id(value, null));
+        return new BaseSelector().id(value);
     },
 
     class: function(value) {
-        return new BaseSelector(new Class(value, null));
+        return new BaseSelector().class(value);
     },
 
     attr: function(value) {
-        return new BaseSelector(new Attribute(value, null));
+        return new BaseSelector().attr(value);
     },
 
     pseudoClass: function(value) {
-        return new BaseSelector(new PseudoClass(value, null));
+        return new BaseSelector().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        return new BaseSelector(new PseudoElement(value, null));
+        return new BaseSelector().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
@@ -153,144 +153,81 @@ class Combination{
 }
 
 class BaseSelector{
-    constructor(selector) {
-        this.prevSelector = selector;
-        this.definitions = ['Element', 'Id', 'Class', 'Attribute', 'PseudoClass', 'PseudoElement']
+    constructor() {
+        this.data = "";
+        this.definitions = ['Element', 'Id', 'Class', 'Attribute', 'PseudoClass', 'PseudoElement'];
+        this.lastElem = "";
     }
     element(value) {
-        if (this.definitions.indexOf(this.prevSelector.constructor.name) == this.definitions.indexOf('Element')){
+        if (this.lastElem == '') {
+            this.data+=value;
+            this.lastElem = 'Element';
+            return this;
+        }
+        else if (this.lastElem == this.definitions[0]){
             throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
-        } else {
+        } 
+        else {
             throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
         }
-        return this;
+        
     }
     id(value){
-        if (this.definitions.indexOf(this.prevSelector.constructor.name) < this.definitions.indexOf('Id')){
-            this.prevSelector = new Id(value, this.prevSelector);
-        } else if (this.definitions.indexOf(this.prevSelector.constructor.name) == this.definitions.indexOf('Id')){
+        if (this.definitions.indexOf(this.lastElem) < this.definitions.indexOf('Id')){
+            this.lastElem = 'Id';
+            this.data +=`#${value}`;
+            return this;
+        } 
+        else if (this.definitions.indexOf(this.lastElem) == this.definitions.indexOf('Id')){
             throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
         } else {
             throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
         }
-        return this;
     }
     class(value){
-        if (this.definitions.indexOf(this.prevSelector.constructor.name) <= this.definitions.indexOf('Class')){
-            this.prevSelector = new Class(value, this.prevSelector);
-        } else {
+        if (this.definitions.indexOf(this.lastElem) <= this.definitions.indexOf('Class')){
+            this.lastElem = 'Class';
+            this.data +=`.${value}`;
+            return this;
+        } 
+        else {
             throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
         }
-        return this;
     }
     attr(value){
-        if (this.definitions.indexOf(this.prevSelector.constructor.name) <= this.definitions.indexOf('Attribute')){
-            this.prevSelector = new Attribute(value, this.prevSelector);
-        } else {
+        if (this.definitions.indexOf(this.lastElem) <= this.definitions.indexOf('Attribute')){
+            this.lastElem = 'Attribute';
+            this.data +=`[${value}]`;
+            return this;
+        } 
+        else {
             throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
         }
-        return this;
     }
     pseudoClass(value){
-        if (this.definitions.indexOf(this.prevSelector.constructor.name) <= this.definitions.indexOf('PseudoClass')){
-            this.prevSelector = new PseudoClass(value, this.prevSelector);
-        } else {
+        if (this.definitions.indexOf(this.lastElem) <= this.definitions.indexOf('PseudoClass')){
+            this.lastElem = 'PseudoClass';
+            this.data +=`:${value}`;
+            return this;
+        } 
+        else {
             throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
         }
-        return this;
     }
     pseudoElement(value){
-        if (this.definitions.indexOf(this.prevSelector.constructor.name) < this.definitions.indexOf('PseudoElement')){
-            this.prevSelector = new PseudoElement(value, this.prevSelector);
-        } else if (this.definitions.indexOf(this.prevSelector.constructor.name) == this.definitions.indexOf('PseudoElement')){
+        if (this.definitions.indexOf(this.lastElem) < this.definitions.indexOf('PseudoElement')){
+            this.lastElem = 'PseudoElement';
+            this.data +=`::${value}`;
+            return this;
+        } 
+        else if (this.definitions.indexOf(this.lastElem) == this.definitions.indexOf('PseudoElement')){
             throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
         } else {
             throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
         }
-        return this;
-    }
-    stringify() {
-        return this.prevSelector.stringify();
-    }
-}
-
-class Element{
-    constructor(value) {
-        this.data = value;
-        //this.name = 'Element';
     }
     stringify() {
         return this.data;
-    }
-}
-
-class Id{
-    constructor(value, prevSelector) {
-        this.data = value;
-        this.prevSelector = prevSelector;
-        //this.name = 'Id';
-    }
-    stringify() {
-        if (this.prevSelector){
-        return this.prevSelector.stringify()+ '#' + this.data;
-        }
-        else return '#'+this.data;
-    }
-}
-
-class Class{
-    constructor(value, prevSelector) {
-        this.data = value;
-        this.prevSelector = prevSelector;
-        //this.name = 'Class';
-    }
-    stringify() {
-        if (this.prevSelector){
-        return this.prevSelector.stringify()+ '.' + this.data;
-        }
-        else return '.' +this.data;
-    }
-}
-
-
-class Attribute{
-    constructor(value, prevSelector) {
-        this.data = value;
-        this.prevSelector = prevSelector;
-        //this.name = 'Attribute';
-    }
-    stringify() {
-        if (this.prevSelector){
-        return this.prevSelector.stringify()+ '[' + this.data+']';
-        }
-        else return '[' + this.data+']';
-    }
-    
-}
-
-class PseudoClass{
-    constructor(value, prevSelector) {
-        this.data = value;
-        this.prevSelector = prevSelector;
-    }
-    stringify() {
-        if (this.prevSelector){
-        return this.prevSelector.stringify()+ ':' + this.data;
-        }
-        else return ':' +this.data;
-    }
-}
-
-class PseudoElement{
-    constructor(value, prevSelector) {
-        this.data = value;
-        this.prevSelector = prevSelector;
-    }
-    stringify() {
-        if (this.prevSelector){
-        return this.prevSelector.stringify()+ '::' + this.data;
-        }
-        else return '::' +this.data;
     }
 }
 
