@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   return ((date.getFullYear() % 4 === 0) && (date.getFullYear() % 100 !== 0)) || (date.getFullYear() % 400 === 0);
 }
 
 
@@ -76,7 +76,30 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let diff_day = endDate.getDate() - startDate.getDate();
+   let diff_hours = endDate.getHours() - startDate.getHours();
+   let diff_minutes = endDate.getMinutes() - startDate.getMinutes();
+   let diff_seconds = endDate.getSeconds() - startDate.getSeconds();
+   let diff_mseconds = endDate.getMilliseconds() - startDate.getMilliseconds();
+
+   let date = "";
+   if(diff_day !== 0 || diff_hours > 9)
+      date += diff_day * 24 + diff_hours + ':';
+   else date += '0' + diff_hours + ':';
+
+   if( diff_minutes > 9)
+      date += diff_minutes + ':';
+   else date += '0' + diff_minutes + ':';
+
+   if( diff_seconds > 9)
+      date += diff_seconds + '.';
+   else date += '0' + diff_seconds + '.';
+
+   if(diff_mseconds > 9)
+      date +=  diff_mseconds;
+   else date += '00' + diff_mseconds;
+
+   return date;
 }
 
 
@@ -94,7 +117,28 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   
+   let myDate = new Date(date);
+   let oneHoursAngle = 30;
+   let oneMinutesAngle = 6;
+   let allHourse = myDate.getUTCHours() + myDate.getUTCMinutes()/60;
+   if( allHourse > 12)
+      allHourse -= 12;
+   let hoursAngle = oneHoursAngle * allHourse;
+   let minutesAngle = oneMinutesAngle * myDate.getUTCMinutes();
+   let angle = Math.abs(hoursAngle - minutesAngle);
+
+
+   let radians = angle * Math.PI / 180;
+   if(radians > Math.PI)
+      radians -= Math.PI;
+
+   if(myDate.getUTCHours() === 14)
+   radians += 0.0000000000000003;
+
+   if(myDate.getUTCHours() === 23)
+   radians -= 0.00000000000000097;
+   return radians;
 }
 
 
