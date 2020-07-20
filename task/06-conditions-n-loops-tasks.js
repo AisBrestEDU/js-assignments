@@ -100,7 +100,7 @@ function getSumBetweenNumbers(n1, n2) {
  */
 function isTriangle(a,b,c) 
 {
-    return (a*a + b*b === c*c) || (b*b + c*c === a*a) || (c*c + a*a === b*b) || (a === b && a === c));
+    return (a*a + b*b === c*c) || (b*b + c*c === a*a) || (c*c + a*a === b*b) || (a === b && a === c);
     
 }
 
