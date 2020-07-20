@@ -541,12 +541,12 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
    return array.reduce((map, el) => {
-   	      if (!(map.has(keySelector(el)))) {
-           map.set(keySelector(el), [])
-         } 
-         map.get(keySelector(el)).push(valueSelector(el))
-         return map
-       }, new Map())
+   if (!(map.has(keySelector(el)))) {
+   map.set(keySelector(el), [])
+   } 
+   map.get(keySelector(el)).push(valueSelector(el))
+   return map
+   }, new Map())
 }
 
 
