@@ -199,9 +199,9 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
     
-    var string = ""
+    let string = ""
 
-    for(var h = 1; h <= height; h++) {
+    for(let h = 1; h <= height; h++) {
         switch (h) {
             case 1: string = string + `┌${'─'.repeat(width - 2)}┐\n` 
                 break
