@@ -73,11 +73,13 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
+  let sum = n1;
+
   for(let i = n1 + 1; i <= n2; i++) {
-    n1 += i
+    sum += i
   }
 
-  return n1;
+  return sum;
 }
 
 
@@ -195,7 +197,6 @@ function findFirstSingleChar(str) {
   return null;
 }
 
-findFirstSingleChar('The quick brown fox jumps over the lazy dog');
 
 /**
  * Returns the string representation of math interval, specified by two points and include / exclude flags.
@@ -322,7 +323,7 @@ function isCreditCardNumber(ccn) {
  */
 function getDigitalRoot(num) {
   while (num > 9) {
-  num = String(num)
+    num = String(num)
           .split('')
           .reduce((acc, cur) => +acc + +cur, 0);
   }
@@ -357,39 +358,31 @@ function isBracketsBalanced(str) {
 
   let brackets = ['[', '{', '(', '<', ']', '}', ')', '>'];
 
-    str = str.split('');
+  str = str.split('');
 
-    if (str.length % 2) {
+  while(str.length) {
+    let comapreStr = str;
+    let i = 1;
+
+    while (i < str.length) {
+      if(brackets.indexOf(str[i - 1]) === brackets.indexOf(str[i]) - 4) {
+        str = str.slice(2);
+        i--;
+
+      } else if(brackets.indexOf(str[0]) === brackets.indexOf(str[str.length - 1]) - 4) {
+        str = str.slice(1, -1);
+        i--;
+      }
+
+      i++;
+    }
+
+    if (comapreStr.length === str.length) {
       return false;
-
-    } else if (!str.length) {
-      return true;
     }
+  }
 
-    while(true) {
-      let comapreStr = str;
-
-      for (let i = 1; i < str.length; i++) {
-        if(brackets.indexOf(str[i - 1]) === brackets.indexOf(str[i]) - 4) {
-          str = str.slice(2);
-          i = 0;
-
-        } else if(brackets.indexOf(str[0]) === brackets.indexOf(str[str.length - 1]) - 4) {
-          str = str.slice(1, -1);
-          i = 0;
-        }
-      }
-
-      if(!str.length) {
-        return true
-
-      } else if (comapreStr.length === str.length) {
-        return false;
-
-      } else {
-        comapreStr = str;
-      }
-    }
+  return true;
 }
 
 /**
