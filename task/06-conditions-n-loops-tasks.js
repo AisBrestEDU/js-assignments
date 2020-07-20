@@ -31,15 +31,14 @@
  */
 function getFizzBuzz(num) {
     let res;
-    if(num%3 == 0 && num%5 == 0)
+    if(num%3 === 0 && num%5 === 0)
         return 'FizzBuzz';        
-    if(num%3 == 0)
+    if(num%3 === 0)
         return 'Fizz';
-    if(num%5 == 0)
-        return 'Buzz';
-    else{
-        return num;
-    }
+    if(num%5 === 0)
+        return 'Buzz';    
+    return num;
+    
         
 }
 
@@ -56,7 +55,7 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    let rval=1;
+    let rval = 1;
     for (let i = 2; i <= n; i++)
         rval *=  i;
     return rval;
@@ -198,7 +197,7 @@ function isInsideCircle(circle, point) {
 function findFirstSingleChar(str) {
     for (let i = 0; i < str.length; i++) {
         let c = str.charAt(i);
-        if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1) {
+        if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1) {
           return c;
         }
       }
@@ -305,17 +304,13 @@ function isCreditCardNumber(ccn) {
 	str = str.replace(/\D/g, "");
 
 	for (let n = str.length - 1; n >= 0; n--) {
-		let cDigit = str.charAt(n),
-			  nDigit = parseInt(cDigit, 10);
-
+		let cDigit = str.charAt(n),  nDigit = parseInt(cDigit, 10);
 		if (bEven && (nDigit *= 2) > 9) 
 			nDigit -= 9;
-
 		nCheck += nDigit;
 		bEven = !bEven;
 	}
-
-	return (nCheck % 10) == 0;
+	return (nCheck % 10) === 0;
 }
 
 /**
@@ -377,7 +372,7 @@ function isBracketsBalanced(str) {
             size++;
         } else if( enders.indexOf(str[i]) !== -1 ){
             if(size === 0) { return false; }
-                var index = enders.indexOf(str[i]);
+                let index = enders.indexOf(str[i]);
             if(stack[size-1] === beginners[index] ){
                 size --;
         } else {
@@ -598,7 +593,7 @@ function getMatrixProduct(m1, m2) {
 function evaluateTicTacToePosition(position) {
     //some strange function
     function forChecking(x, y, z) {
-        if(x === y && y === z && x != undefined) 
+        if(x === y && y === z && x !== undefined) 
             return true;
         return false;
     }
