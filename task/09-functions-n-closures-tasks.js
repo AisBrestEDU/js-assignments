@@ -26,9 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    return function(x) {
-        return f(g(x));
-      }
+    return (x) => f(g(x));
 }
 
 
@@ -49,9 +47,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    return function (x) {
-        return Math.pow(x, exponent);
-    }
+    return (x) => Math.pow(x, exponent);
 }
 
 
@@ -92,19 +88,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    let memory = new Map();
-    return function(arg) {
-        let result;
-        
-        if (!memory.has(arg)) {
-        result = func(arg);
-        memory.set(arg, result);
-        }else {
-        result = memory.get(arg);
-        } 
-
-        return result;
-    };
+    let memoized = func();
+    return () => memoized;
 }
 
 
@@ -188,7 +173,8 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(fn, ...args) {
+function partialUsingArguments(fn) {
+    let args = [...arguments].slice(1);
     return fn.bind(partialUsingArguments, ...args);
 }
 
