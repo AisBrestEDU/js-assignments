@@ -245,10 +245,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    var splitString = str.split("");
-    var reverseArray = splitString.reverse(); 
-    var joinArray = reverseArray.join("");
-    return joinArray;
+    return str.split("").reverse().join("");
 }
 
 
@@ -265,7 +262,13 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    return parseInt(reverseString(num + ''));
+    let res = 0,i = num;
+
+    while (i) {
+        res = res * 10 + i % 10;
+        i = Math.floor(i / 10);
+    }
+    return res;
 }
 
 
@@ -291,7 +294,7 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
     let sum = 0;
-    var digits = ccn + "";
+    var digits = ccn.toString();
     for (let i = 0; i < digits.length; i++) {
         let cardNum = parseInt(digits[i]);
         if ((digits.length - i) % 2 === 0) {
@@ -321,24 +324,13 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    var res = 0;
-    res = getSum(num);
-    while (res >= 10) {
-        res = getSum(res);
+    const reducer = (accumulator, currentValue) => accumulator + parseInt(currentValue);
+    let sum = num.toString().split("").reduce(reducer, 0);
+    if (sum <= 9) {
+        return sum;
     }
-    return res;
+    return getDigitalRoot(sum);
 }
-function getSum(num) {
-    var sum = 0;
-    while (num >= 10) {
-        sum += num % 10;
-        num =  Math.floor(num / 10);
-    }
-    sum += num;
-    return sum;
-}
-
-
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -364,23 +356,19 @@ function getSum(num) {
 function isBracketsBalanced(str) {
     if(str.length == 0) {return true;}
     var stack = [];
+    var openers = "<[{(";
+    var closers = ">]})";
+    var isCloser = (ch) => ")]}>".indexOf(ch) != -1;
+    var getOpener = (ch) => openers[closers.indexOf(ch)];
     stack.push(str[0]);
     for (var i = 1; i < str.length; i++) {
-        if (isCloser(str[i]) && getOpener(str[i]) == stack[stack.length - 1]) {
+        if (isCloser(str[i])  && getOpener(str[i]) == stack[stack.length - 1]) {
             stack.pop();
         } else {
             stack.push(str[i]);
         }
     }
     return stack.length == 0;
-}
-function isCloser(ch) {
-    return ")]}>".indexOf(ch) != -1;
-}
-function getOpener(ch) {
-    var openers = "<[{(";
-    var closers = ">]})";
-    return openers[closers.indexOf(ch)];
 }
 
 
@@ -423,6 +411,8 @@ function timespanToHumanString(startDate, endDate) {
     var monthsLag = daysLag / 30;
     var yearsLag = monthsLag / 12;
 
+    let getNumber = (i) => Math.ceil(i) - i < 1/2 ? Math.ceil(i) : Math.floor(i);
+
     if (daysLag >= 546) { return `${getNumber(yearsLag)} years ago`;}
     else if (daysLag > 345 && daysLag <= 545) {return "a year ago";}
     else if (daysLag > 45 && daysLag <= 345) { return `${getNumber(monthsLag)} months ago`;}
@@ -434,14 +424,6 @@ function timespanToHumanString(startDate, endDate) {
     else if (secondsLag > 90 && minutesLag <= 45) {return `${getNumber(minutesLag)} minutes ago`;}
     else if (secondsLag > 45 && secondsLag <= 90) {return "a minute ago";}
     else {return "a few seconds ago";}
-}
-
-function getNumber(i) {
-    if (Math.ceil(i) - i < 1/2) {
-        return Math.ceil(i);
-    } else {
-        return Math.floor(i);
-    }
 }
 
 
@@ -482,20 +464,21 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
+    function getLongestCommonPrefix(pathes) {
+        var arr = pathes.concat().sort(), a1 = arr[0], a2 = arr[arr.length - 1], len = a1.length, i = 0;
+        while (i < len && a1.charAt(i) == a2.charAt(i)) i++;
+        return a1.substring(0, i);
+    }
+    function trimToFolderSign(path) {
+        var str = path.repeat(1);
+        while (str[str.length - 1] != '/' && str != "") {
+            str = str.substring(0, str.length - 1);
+        }
+        return str;
+    }
     return trimToFolderSign(getLongestCommonPrefix(pathes));
 }
-function getLongestCommonPrefix(pathes) {
-    var arr = pathes.concat().sort(), a1 = arr[0], a2 = arr[arr.length - 1], len = a1.length, i = 0;
-    while (i < len && a1.charAt(i) == a2.charAt(i)) i++;
-    return a1.substring(0, i);
-}
-function trimToFolderSign(path) {
-    var str = path.repeat(1);
-    while (str[str.length - 1] != '/' && str != "") {
-        str = str.substring(0, str.length - 1);
-    }
-    return str;
-}
+
 
 
 /**
