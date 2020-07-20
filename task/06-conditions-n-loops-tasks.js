@@ -273,7 +273,20 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let ccnArray = ccn.toString().split("");
+    let sum = 0;
+    for (let i = 0; i < ccnArray.length; i++) {
+        let cardDigit = parseInt(ccnArray[i]);
+        if ((ccnArray.length - i) % 2 === 0) {
+            cardDigit = cardDigit * 2;
+
+            if (cardDigit > 9) {
+                cardDigit = cardDigit - 9;
+            }
+        }
+        sum += cardDigit;
+    }
+    return sum % 10 === 0;
 }
 
 
@@ -360,7 +373,25 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let diffInSec = (endDate.getTime() - startDate.getTime());
+    let sec = 1000;
+    let min = sec * 60;
+    let hours = min * 60;
+    let days = hours * 24;
+    let getTime = time => time > (Math.floor(time) + 0.5) ? Math.round(time) : Math.floor(time);
+
+    if (diffInSec <= 45 * sec) return 'a few seconds ago';
+    if (diffInSec <= 90 * sec) return 'a minute ago';
+    if (diffInSec <= 45 * min) return `${getTime(diffInSec / min)} minutes ago`;
+    if (diffInSec <= 90 * min) return 'an hour ago';
+    if (diffInSec <= 22 * hours) return `${getTime(diffInSec / hours)} hours ago`;
+    if (diffInSec <= 36 * hours) return 'a day ago';
+    if (diffInSec <= 25 * days) return `${getTime(diffInSec / days)} days ago`;
+    if (diffInSec <= 45 * days) return 'a month ago';
+    if (diffInSec <= 345 * days) return `${getTime(diffInSec / 30 / days)} months ago`;
+    if (diffInSec <= 545 * days) return 'a year ago';
+    
+    return `${getTime(diffInSec / days / 365)} years ago`;
 }
 
 
@@ -401,7 +432,14 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    let splitPaths = pathes.map(el => el.split('/'));
+    let path = '';
+    for (let i = 0; i < splitPaths[0].length; i++) {
+        if (splitPaths.every(el => el[i] === splitPaths[0][i])) {
+            path += splitPaths[0][i] + '/';
+        }
+    }
+    return path;
 }
 
 
@@ -424,7 +462,18 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let res = [];
+    for (let i = 0; i < m1.length; i++) {
+        res[i] = [];
+        for (let j = 0; j < m2[0].length; j++) {
+            let sum = 0;
+            for (let k = 0; k < m1[0].length; k++) {
+                sum += m1[i][k] * m2[k][j];
+            }
+            res[i][j] = sum;
+        }
+    }
+    return res;
 }
 
 
@@ -459,7 +508,28 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    for (let i = 0; i < 3; i++) {
+        let row = "";
+        for (let j = 0; j < 3; j++) {
+            row += position[i][j];
+        }
+        if (row === ("000")) return "0";
+        if (row === ("XXX")) return "X";
+    }
+
+    for (let i = 0; i < 3; i++) {
+        let col = "";
+        for (let j = 0; j < 3; j++) {
+            col += position[j][i];
+        }
+        if (col === ("000")) return "0";
+        if (col === ("XXX")) return "X";
+    }
+
+    if (position[0][0] + position[1][1] + position[2][2] === "000") return "0";
+    if (position[0][0] + position[1][1] + position[2][2] === "XXX") return "X";
+    if (position[2][0] + position[1][1] + position[0][2] === "000") return "0";
+    if (position[2][0] + position[1][1] + position[0][2] === "XXX") return "X";
 }
 
 
