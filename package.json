@@ -2,23 +2,13 @@
   "name": "js-training",
   "version": "0.9.1",
   "description": "JS training tasks",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "test": "./node_modules/.bin/mocha",
-    "test-debug": "./node_modules/.bin/mocha --debug-brk",
-    "babel-node": "babel-node",    
-    "build": "NODE_ENV=production babel task --out-dir dist --source-maps inline",    
-    "prepublishOnly": "npm run build"
+    "test-debug": "./node_modules/.bin/mocha --debug-brk"
   },
   "author": "aorgish",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.10.5",
-    "@babel/node": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",

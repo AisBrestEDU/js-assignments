@@ -36,4 +36,3 @@ node_modules
 # Editors crap
 .vscode
 .idea
-dist
