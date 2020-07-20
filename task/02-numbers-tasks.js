@@ -90,7 +90,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  */
 function getLinearEquationRoot(a, b) {
     const x = -b / a
-    if (x === -0) return 0
+    if (x === 0) return 0
     return x
 }   
 
@@ -231,9 +231,8 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (+value || +value === 0) {
-        return +value
-    } else return def
+    if (+value || +value === 0) return +value
+    return def
 }
 
 module.exports = {

@@ -119,9 +119,8 @@ function angleBetweenClockHands(date) {
       hour-=12;
    }
    const time = Math.abs((60 * hour - 11 * minute) * 0.5 * Math.PI / 180)
-   if (time < Math.PI) {
-      return time
-   } else return Math.PI * 2 - time
+   if (time < Math.PI) return time
+   return Math.PI * 2 - time
 }
 
 
