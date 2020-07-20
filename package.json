@@ -6,7 +6,7 @@
     "test": "./node_modules/.bin/mocha",
     "test-debug": "./node_modules/.bin/mocha --debug-brk",
     "babel-node": "babel-node",    
-    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",    
+    "build": "NODE_ENV=production babel task --out-dir dist --source-maps inline",    
     "prepublishOnly": "npm run build"
   },
   "author": "aorgish",
