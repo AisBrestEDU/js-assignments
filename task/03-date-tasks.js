@@ -59,11 +59,7 @@ function isLeapYear(date) {
    if (year % 4 === 0 && year % 100 !== 0) {
       return true
    } 
-   if (year % 100 === 0 && year % 400 === 0) {
-      return true 
-   } else {
-      return false
-   }
+   return year % 100 === 0 && year % 400 === 0
 }
 
 /**
@@ -125,9 +121,7 @@ function angleBetweenClockHands(date) {
    const time = Math.abs((60 * hour - 11 * minute) * 0.5 * Math.PI / 180)
    if (time < Math.PI) {
       return time
-   } else {
-      return Math.PI * 2 - time
-   }
+   } else return Math.PI * 2 - time
 }
 
 

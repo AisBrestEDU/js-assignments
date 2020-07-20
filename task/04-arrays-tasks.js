@@ -644,14 +644,11 @@ function swapHeadAndTail(arr) {
       return arr.slice(1).concat(arr.slice(0,1))
     }
    const middleEl = Math.floor(arr.length / 2)
-   if (arr.length % 2 == 0) {
-      return arr.slice(middleEl).concat(arr.slice(0, middleEl))
-   } else {
-      const arr1 = arr.slice(0, middleEl)
-      const arr2 = arr.slice(middleEl + 1)
-      arr2.push(arr[middleEl])
-      return arr2.concat(arr1)
-    }
+   if (arr.length % 2 === 0) return arr.slice(middleEl).concat(arr.slice(0, middleEl))
+   const arr1 = arr.slice(0, middleEl)
+   const arr2 = arr.slice(middleEl + 1)
+   arr2.push(arr[middleEl])
+   return arr2.concat(arr1)
 }
 
 

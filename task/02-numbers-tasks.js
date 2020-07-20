@@ -89,7 +89,9 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    return -b / a
+    const x = -b / a
+    if (x === -0) return 0
+    return x
 }   
 
 
@@ -130,7 +132,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  */
 function getLastDigit(value) {
     const str = value.toString()
-    return str.slice(str.length - 1, str.length)
+    return +str.slice(str.length - 1, str.length)
 }
 
 /**
@@ -231,9 +233,7 @@ function isPrime(n) {
 function toNumber(value, def) {
     if (+value || +value === 0) {
         return +value
-    } else {
-        return def
-    }
+    } else return def
 }
 
 module.exports = {
