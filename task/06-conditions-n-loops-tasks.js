@@ -420,7 +420,7 @@ function timespanToHumanString(startDate, endDate) {
 
     let sec = 1000;
     let min = 60000;
-    let hour = 3600000;;
+    let hour = 3600000;
     let day = 86400000;
     let month = 2592000000;
     let year = 31104000000;
