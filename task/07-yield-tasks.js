@@ -64,9 +64,9 @@ function* getFibonacciSequence() {
   yield num[0];
   yield num[1];
 
-  for(;;) {
+  while ( isFinite(num[0] + num[1]) ) {
     yield num[0] + num[1];
-    [num[0], num[1]] = [num[1], num[1] + num[0]]
+    [num[0], num[1]] = [num[1], num[1] + num[0]];
   }
 }
 
