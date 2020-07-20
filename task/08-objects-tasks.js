@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**************************************************************************************************
  *                                                                                                *
@@ -7,7 +7,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object        *
  *                                                                                                *
  **************************************************************************************************/
-
 
 /**
  * Returns the rectagle object with width and height parameters and getArea() method
@@ -22,10 +21,14 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(width, height) {
-    throw new Error('Not implemented');
-}
+Rectangle.prototype.getArea = function () {
+  return this.width * this.height;
+};
 
+function Rectangle(width, height) {
+  this.width = width;
+  this.height = height;
+}
 
 /**
  * Returns the JSON representation of specified object
@@ -38,9 +41,8 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+  return JSON.stringify(obj);
 }
-
 
 /**
  * Returns the object of specified type from JSON representation
@@ -54,9 +56,8 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+  return Object.setPrototypeOf(JSON.parse(json), proto);
 }
-
 
 /**
  * Css selectors builder
@@ -106,41 +107,133 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
+function MyCssSelectorBuilder() {
+  this.selectors = {
+    elements: [[], 0], //[values, order]
+    ids: [[], 1],
+    classes: [[], 2],
+    attributes: [[], 3],
+    pseudoClasses: [[], 4],
+    pseudoElements: [[], 5],
+  };
+  this.combination = [];
+  this.lastOrder = 0;
+}
 
-    element: function(value) {
-        throw new Error('Not implemented');
-    },
+MyCssSelectorBuilder.prototype = {
+  checkOrder: function (curOrder) {
+    if (curOrder < this.lastOrder) {
+      throw new Error(
+        "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element"
+      );
+    }
+    return curOrder;
+  },
 
-    id: function(value) {
-        throw new Error('Not implemented');
-    },
+  element: function (value) {
+    if (this.selectors.elements[0].length > 0) {
+      throw new Error(
+        "Element, id and pseudo-element should not occur more then one time inside the selector"
+      );
+    }
+    this.selectors.elements[0].push(value);
+    this.lastOrder = this.checkOrder(this.selectors.elements[1]);
+    return this;
+  },
 
-    class: function(value) {
-        throw new Error('Not implemented');
-    },
+  id: function (value) {
+    if (this.selectors.ids[0].length > 0) {
+      throw new Error(
+        "Element, id and pseudo-element should not occur more then one time inside the selector"
+      );
+    }
+    this.selectors.ids[0].push("#" + value);
+    this.lastOrder = this.checkOrder(this.selectors.ids[1]);
+    return this;
+  },
 
-    attr: function(value) {
-        throw new Error('Not implemented');
-    },
+  class: function (value) {
+    this.selectors.classes[0].push("." + value);
+    this.lastOrder = this.checkOrder(this.selectors.classes[1]);
+    return this;
+  },
 
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
-    },
+  attr: function (value) {
+    this.selectors.attributes[0].push("[" + value + "]");
+    this.lastOrder = this.checkOrder(this.selectors.attributes[1]);
+    return this;
+  },
 
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
-    },
+  pseudoElement: function (value) {
+    if (this.selectors.pseudoElements[0].length > 0) {
+      throw new Error(
+        "Element, id and pseudo-element should not occur more then one time inside the selector"
+      );
+    }
+    this.selectors.pseudoElements[0].push("::" + value);
+    this.lastOrder = this.checkOrder(this.selectors.pseudoElements[1]);
+    return this;
+  },
 
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
+  pseudoClass: function (value) {
+    this.selectors.pseudoClasses[0].push(":" + value);
+    this.lastOrder = this.checkOrder(this.selectors.pseudoClasses[1]);
+    return this;
+  },
+
+  combine: function (combinator, combinable) {
+    this.combination.push({ combinator: combinator, selector: combinable });
+    return this;
+  },
+
+  stringify: function () {
+    return (
+      this.selectors.elements[0].join("") +
+      this.selectors.ids[0].join("") +
+      this.selectors.classes[0].join("") +
+      this.selectors.attributes[0].join("") +
+      this.selectors.pseudoClasses[0].join("") +
+      this.selectors.pseudoElements[0].join("") +
+      this.combination
+        .map((el) => " " + el.combinator + " " + el.selector.stringify())
+        .join("")
+    );
+  },
 };
 
+const cssSelectorBuilder = {
+  element: function (value) {
+    return new MyCssSelectorBuilder().element(value);
+  },
+
+  id: function (value) {
+    return new MyCssSelectorBuilder().id(value);
+  },
+
+  class: function (value) {
+    return new MyCssSelectorBuilder().class(value);
+  },
+
+  attr: function (value) {
+    return new MyCssSelectorBuilder().attr(value);
+  },
+
+  pseudoClass: function (value) {
+    return new MyCssSelectorBuilder().pseudoClass(value);
+  },
+
+  pseudoElement: function (value) {
+    return new MyCssSelectorBuilder().pseudoElement(value);
+  },
+
+  combine: function (selector1, combinator, selector2) {
+    return selector1.combine(combinator, selector2);
+  },
+};
 
 module.exports = {
-    Rectangle: Rectangle,
-    getJSON: getJSON,
-    fromJSON: fromJSON,
-    cssSelectorBuilder: cssSelectorBuilder
+  Rectangle: Rectangle,
+  getJSON: getJSON,
+  fromJSON: fromJSON,
+  cssSelectorBuilder: cssSelectorBuilder,
 };
