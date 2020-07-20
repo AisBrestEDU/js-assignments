@@ -30,8 +30,8 @@
  *
  */
 function getFizzBuzz(num) {
-    var mod5 = !(num%5);
-    var mod3 = !(num%3);
+    let mod5 = num%5===0;
+    let mod3 = num%3===0;
     if (mod3 || mod5) return (mod3 ? 'Fizz':'' ) + (mod5 ? 'Buzz':'');
     else return num;
     
@@ -217,7 +217,12 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    return `${isStartIncluded ? '[' : '('}${Math.min(a,b)}, ${Math.max(a,b)}${isEndIncluded ? ']' : ')'}`
+    let str = isStartIncluded ? '[' : '(';
+    
+    str+=`${Math.min(a,b)}, ${Math.max(a,b)}`
+    
+    str += isEndIncluded ? ']' : ')';
+    return str;
 }
 
 
@@ -234,12 +239,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    let arr = Array.from(str);
-    // arr.reverse().join('') hmmm... too easy :)
-    for (let i = 0; i<Math.floor(arr.length/2); i++){
-        [arr[i], arr[arr.length-i-1]]=[arr[arr.length-i-1], arr[i]]
-    }
-    return arr.join('');
+    return Array.from(str).reverse().join('');
 }
 
 
@@ -293,7 +293,7 @@ function isCreditCardNumber(ccn) {
         if(i%2 == 0) {
             sum += +arr[i]; 
         }else {
-            +arr[i]*2 > 9 ? sum += +arr[i]*2 -9 : sum += +arr[i]*2; 
+            sum += +arr[i]*2 > 9 ?  +arr[i]*2 -9 : +arr[i]*2; 
         }
     }
     return sum%10 === 0;
@@ -349,15 +349,15 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    let arr = Array(0);
-    
+    let arr = Array();
+    let open = ['(', '[' , '{' , '<'];
+    let close = [')', ']' , '}' , '>'];
     for (let el of str.split('')){
-        if (el == '(' || el == '[' || el == '{' || el == '<') {
+        if (open.indexOf(el) != -1) {
             arr.push(el);
             continue;
         }
-        if ((el == ')' && arr[arr.length - 1] == '(') || (el == '}' && arr[arr.length - 1] == '{') || 
-            (el == ']' && arr[arr.length - 1] == '[') || (el == '>' && arr[arr.length - 1] == '<')){
+        if (close.indexOf(el) == open.indexOf(arr[arr.length - 1])){
             arr.pop();
             continue;
         }
@@ -415,18 +415,18 @@ function timespanToHumanString(startDate, endDate) {
         {begin:3600*24*345*1000, end:3600*24*545*1000}, 
         {begin:3600*24*545*1000, end:Number.POSITIVE_INFINITY}
     ]
-    let f = new Map();
-    f.set(0, 'a few seconds ago');
-    f.set(1, 'a minute ago');
-    f.set(2, ' minutes ago');
-    f.set(3, 'an hour ago');
-    f.set(4, ' hours ago');
-    f.set(5, 'a day ago');
-    f.set(6, ' days ago');
-    f.set(7, 'a month ago');
-    f.set(8, ' months ago');
-    f.set(9, 'a year ago');
-    f.set(10, ' years ago');
+    let f = new Array()
+    f.push('a few seconds ago');
+    f.push('a minute ago');
+    f.push(' minutes ago');
+    f.push('an hour ago');
+    f.push(' hours ago');
+    f.push('a day ago');
+    f.push(' days ago');
+    f.push('a month ago');
+    f.push(' months ago');
+    f.push('a year ago');
+    f.push(' years ago');
     let index = 0;
     let sec = endDate.getTime()-startDate.getTime();
     while(!isInInterval(sec, intervals[index].begin, intervals[index].end)){
@@ -435,18 +435,18 @@ function timespanToHumanString(startDate, endDate) {
     if (index>1 && index%2 == 0){
         switch (index) {
             case 2:
-                return Math.round((sec-1)/1000/60) + f.get(index);
+                return Math.round((sec-1)/1000/60) + f[index];
             case 4:
-                return Math.round((sec-1)/1000/3600) + f.get(index);
+                return Math.round((sec-1)/1000/3600) + f[index];
             case 6:
-                return Math.round((sec-1)/3600/24/1000) + f.get(index);
+                return Math.round((sec-1)/3600/24/1000) + f[index];
             case 8:
-                return Math.round((sec-1)/3600/24/30/1000) + f.get(index);
+                return Math.round((sec-1)/3600/24/30/1000) + f[index];
             case 10:
-                return Math.round((sec-1)/3600/24/30/12/1000) + f.get(index);
+                return Math.round((sec-1)/3600/24/30/12/1000) + f[index];
         }
     }
-    else return f.get(index);
+    else return f[index];
     
     
 }
@@ -472,12 +472,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    let res = Array();
-    while (num>0){
-        res.push(num%n);
-        num = Math.floor(num/n);
-    }
-    return res.reverse().join('');
+    return num.toString(n);
 }
 
 
