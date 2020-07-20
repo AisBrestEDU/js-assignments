@@ -58,14 +58,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    let obj1 = Object.create(proto); 
-    let obj2 = JSON.parse(json);
-    
-    for (let key in obj2) {
-        obj1[key] = obj2[key];
-    } 
-
-    return obj1;  
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 /**
