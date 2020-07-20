@@ -108,16 +108,18 @@ function memoize(func) {
  */
 function retry(func, attempts) {
   return () => {
+
     while(attempts--) {
-      
+
       try {
         return func();
 
-      } catch(err) {
-        if(!attempts) throw err;
+      } catch {
       }
 
     }
+
+    throw new Error('fulyError');
   };
 }
 
