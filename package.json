@@ -2,6 +2,9 @@
   "name": "js-training",
   "version": "0.9.1",
   "description": "JS training tasks",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "./node_modules/.bin/mocha",
     "test-debug": "./node_modules/.bin/mocha --debug-brk",
