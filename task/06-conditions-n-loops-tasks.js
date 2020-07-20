@@ -339,7 +339,7 @@ function getDigitalRoot(num) {
 
     while (resultSum > 9) 
     {
-        resultSum = resultSum.toString().split("").reduce(reducer)
+        resultSum = resultSum.toString().split("").reduce(reducer);
     }
     return resultSum;
 }
