@@ -23,7 +23,14 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+
+    this.width = width
+    this.height = height
+
+    Rectangle.prototype.getArea = function(){
+        return this.width * this.height
+    }
+
 }
 
 
@@ -38,7 +45,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj)
 }
 
 
@@ -54,7 +61,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto)
 }
 
 
@@ -108,32 +115,78 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
-    element: function(value) {
-        throw new Error('Not implemented');
+    selector: '',
+
+    element(value){   
+        this.error(1)
+        let obj = Object.create(cssSelectorBuilder)
+        obj.key = 1
+        obj.selector = this.selector + value
+        return obj
+    },   
+
+
+    id(value){
+        this.error(2)
+        let obj = Object.create(cssSelectorBuilder)
+        obj.key = 2
+        obj.selector = `${this.selector}#${value}`
+        return obj
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+
+    class(value){   
+        this.error(3)
+        let obj = Object.create(cssSelectorBuilder)
+        obj.key = 3
+        obj.selector = `${this.selector}.${value}`
+        return obj
+    },   
+
+
+    attr(value){      
+        this.error(4)
+        let obj = Object.create(cssSelectorBuilder)
+        obj.key = 4
+        obj.selector = `${this.selector}[${value}]`
+        return obj
+    },  
+
+
+    pseudoClass(value){ 
+        this.error(5)
+        let obj = Object.create(cssSelectorBuilder)
+        obj.key = 5
+        obj.selector = `${this.selector}:${value}`
+        return obj
+    },  
+
+
+    pseudoElement(value){   
+        this.error(6)
+        let obj = Object.create(cssSelectorBuilder)
+        obj.key = 6
+        obj.selector = `${this.selector}::${value}`
+        return obj
+    },  
+
+
+    combine(selector1, combinator, selector2){  
+        let obj = Object.create(cssSelectorBuilder)
+        obj.selector = `${selector1.selector} ${combinator} ${selector2.selector}`
+        return obj
     },
 
-    class: function(value) {
-        throw new Error('Not implemented');
+    stringify(){
+        return this.selector
     },
 
-    attr: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+    error(key2){
+        if (this.key > key2) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element')
+        } else if (this.key == key2 && (key2 == 1 || key2 == 2 || key2 == 6)) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector')
+        }
     },
 };
 
