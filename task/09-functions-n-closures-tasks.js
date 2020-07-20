@@ -26,10 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    function res (x) {
-        return f(g(x));
-    }
-    return res;
+    return (x) => f(g(x));
 }
 
 
@@ -50,10 +47,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    function res(x) {
-        return Math.pow(x, exponent)
-    }
-    return res;
+    return (x) => Math.pow(x, exponent);
 }
 
 
@@ -101,16 +95,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    let cache;
-    let isFirstTime = true;
-    function firstOrCache() {
-        if (isFirstTime) {
-            isFirstTime = false;
-            cache = func(...arguments);//spred operator
-        } 
-        return cache;
-    }
-    return firstOrCache;
+    let cachedRes = func();
+    return () => cachedRes;
 }
 
 /**
@@ -171,13 +157,6 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    /*function res(...x) { //rest param: x[0],...
-        let len = `${JSON.stringify(x)}`.length;
-        logFunc(`${func.name}(${JSON.stringify(x).substring(1, len - 1)}) starts`);
-        let result = func(...x);//spred operator
-        logFunc(`${func.name}(${JSON.stringify(x).substring(1, len - 1)}) ends`);
-        return result;
-    }*/
     function res() {
         let len = `${JSON.stringify([...arguments])}`.length;
         logFunc(`${func.name}(${JSON.stringify([...arguments]).substring(1, len - 1)}) starts`);
@@ -204,9 +183,6 @@ function logger(func, logFunc) {
  */
 function partialUsingArguments(fn) {
     let args = [...arguments].slice(1);
-    /*function res(...x) {
-        return fn(...args.concat(x));
-    }*/
     function res() {
         return fn(...args.concat([...arguments]));
     }
