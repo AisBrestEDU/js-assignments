@@ -105,13 +105,15 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    let stack = [];
-    stack.push(root);
-    while (stack.length) {
-        let curr = stack.pop();
-        yield curr;
-        if (curr.children) {
-            curr.children.reverse().forEach(x => stack.push(x));
+    let nodes = [root];
+    while (nodes.length > 0) {
+        let n = nodes[nodes.length - 1];
+        yield n;
+        nodes.pop();
+        if (n.children) {
+            for (let i of n.children.reverse()) {
+                nodes.push(i)
+            }
         }
     }
 }
@@ -139,14 +141,17 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    let queue = [];
-    queue.push(root);
-    while (queue.length) {
-        let curr = queue.shift();
-        yield curr;
-        if (curr.children) {
-            curr.children.forEach(x => queue.push(x));
+    let nodes = [root],
+        index = 0;
+    while ((nodes.length - index) > 0) {
+        let n = nodes[index];
+        yield n;
+        if (n.children) {
+            for (let i of n.children) {
+                nodes.push(i);
+            }
         }
+        index++;
     }
 }
 
@@ -165,7 +170,19 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    let s1 = source1();
+    let s2 = source2();
+    while (true) {
+        const value1 = s1.next().value;
+        const value2 = s2.next().value;
+
+        if (value1 === undefined) { yield value2; }
+        else if (value2 === undefined) { yield value1; }
+        else {
+            yield Math.min(value1, value2);
+            yield Math.max(value1, value2);
+        }
+    }
 }
 
 /**
@@ -184,7 +201,13 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
+    let gen = generator();
+    return Promise.resolve(function step(v) {
+        let res = gen.next(v);
+        if (res.done)
+            return res.value;
+        return res.value.then(step);
+    }());
 }
 
 
