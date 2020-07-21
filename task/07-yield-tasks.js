@@ -64,7 +64,7 @@ function* getFibonacciSequence() {
   yield num[0];
   yield num[1];
 
-  while ( isFinite(num[0] + num[1]) ) {
+  for (;;) {
     yield num[0] + num[1];
     [num[0], num[1]] = [num[1], num[1] + num[0]];
   }
@@ -168,12 +168,10 @@ function* breadthTraversalTree(root) {
 function* mergeSortedSequences(source1, source2) {
   let gen1 = source1(), 
       gen2 = source2(),
-      num1,
-      num2;
+      num1 = gen1.next(),
+      num2 = gen2.next();
 
-  for(;;) {
-    num1 = gen1.next();
-    num2 = gen2.next();
+  while(!num1.done || !num2.done) {
 
     if(num1.done) {
       yield num2.value;
@@ -189,7 +187,9 @@ function* mergeSortedSequences(source1, source2) {
       yield num2.value;
       yield num1.value;
     }
-
+    
+    num1 = gen1.next();
+    num2 = gen2.next();
   }
 }
 
