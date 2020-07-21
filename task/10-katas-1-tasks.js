@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Returns the array of 32 compass points and heading.
@@ -17,10 +17,9 @@
  *  ]
  */
 function createCompassPoints() {
-    let sides = ['N','E','S','W'];  // use array of cardinal directions only!
-    throw new Error('Not implemented');
+  let sides = ["N", "E", "S", "W"]; // use array of cardinal directions only!
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Expand the braces of the specified string.
@@ -56,9 +55,8 @@ function createCompassPoints() {
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns the ZigZag matrix
@@ -88,9 +86,8 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns true if specified subset of dominoes can be placed in a row accroding to the game rules.
@@ -113,9 +110,8 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns the string expression of the specified ordered list of integers.
@@ -137,13 +133,13 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
 
 module.exports = {
-    createCompassPoints : createCompassPoints,
-    expandBraces : expandBraces,
-    getZigZagMatrix : getZigZagMatrix,
-    canDominoesMakeRow : canDominoesMakeRow,
-    extractRanges : extractRanges
+  createCompassPoints: createCompassPoints,
+  expandBraces: expandBraces,
+  getZigZagMatrix: getZigZagMatrix,
+  canDominoesMakeRow: canDominoesMakeRow,
+  extractRanges: extractRanges,
 };
