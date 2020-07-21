@@ -468,7 +468,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-    throw new Error('Not implemented');
+    return Array.from({ length: end - start + 1 }, (v, k) => start + k);
 }
 
 /**
@@ -483,7 +483,8 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-    throw new Error('Not implemented');
+    const s = new Set(arr);
+    return Array.from(s);
 }
 
 /**
@@ -517,9 +518,14 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-    throw new Error('Not implemented');
+    return array.reduce((acc, el) => {
+        const key = keySelector(el);
+        const value = valueSelector(el);
+        const valueArray = acc.get(key) || [];
+        valueArray.push(value);
+        return acc.set(key, valueArray);
+    }, new Map());
 }
-
 /**
  * Projects each element of the specified array to a sequence and flattens the resulting sequences into one array.
  *
@@ -532,7 +538,9 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    throw new Error('Not implemented');
+    return arr.reduce((acc, el) => {
+        return acc.concat(childrenSelector(el));
+    }, []);
 }
 
 /**
@@ -548,7 +556,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
+    return indexes.reduce((acc, el) => acc[el], arr);
 }
 
 /**
@@ -570,7 +578,12 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+    const middle = Math.floor(arr.length / 2);
+    const head = arr.splice(0, middle);
+    const tail = arr.splice(-middle);
+    const newArr = [ ...tail, ...arr, ...head ];
+
+    return newArr;
 }
 
 module.exports = {

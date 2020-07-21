@@ -353,14 +353,14 @@ function getCardId(value) {
         'Q♠',
         'K♠'
     ];
-    return cards.forEach((element, index) => {
+    let i;
+    cards.forEach((element, index) => {
         if (element === value) {
-            return index;
+            i = index;
         }
     });
+    return i;
 }
-
-console.log(getCardId('A♣'));
 
 module.exports = {
     concatenateStrings: concatenateStrings,
