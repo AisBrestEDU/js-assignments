@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +56,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   const isLeapDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+   return isLeapDate === 29;
 }
 
 
@@ -76,7 +77,37 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   const gap = new Date(endDate - startDate);
+   let hours = convertNumberTo2DigitsString(gap.getUTCHours());
+   const minutes = convertNumberTo2DigitsString(gap.getUTCMinutes());
+   const integerSeconds = gap.getUTCSeconds();
+   const integerMillis = gap.getUTCMilliseconds();
+   const seconds = convertStringTo2DigitsString((integerSeconds + integerMillis / 1000).toFixed(3));
+   if (startDate.getUTCDate() !== endDate.getUTCDate()) {
+      hours = +hours + 24 * (+endDate.getUTCDate() - +startDate.getUTCDate());
+   }
+   const strringTimeSpan = hours + ':' + minutes + ':' + seconds;
+
+   function convertNumberTo2DigitsString(num) {
+      let numberToString = '';
+      if (num < 10) {
+         numberToString = '0' + num;
+      } else {
+         numberToString += num;
+      }
+      return numberToString;
+   }
+
+   function convertStringTo2DigitsString(str) {
+      let stringToString = '';
+      if (str.indexOf('.') == 1 || str.indexOf(',') == 1) {
+         stringToString = '0' + str;
+      } else {
+         stringToString += str;
+      }
+      return stringToString;
+   }
+   return strringTimeSpan;
 }
 
 
@@ -94,14 +125,26 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   date = new Date(date);
+   let dateHours = date.getUTCHours();
+   let dateMinutes = date.getUTCMinutes();
+   let angle;
+   if (dateHours > 12) {
+      dateHours = dateHours - 12;
+   }
+   angle = Math.abs(0.5 * (60 * dateHours - 11 * dateMinutes));
+   if (angle > 180) {
+      angle = 360 - angle;
+   }
+   angle = Math.abs(angle * Math.PI / 180 / Math.PI);
+   return angle * Math.PI;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
