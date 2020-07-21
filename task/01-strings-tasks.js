@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    return value1 + value2;
+    throw new Error('Not implemented');
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    return value.length;
+    throw new Error('Not implemented');
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return 'Hello, ' + firstName + ' ' + lastName + '!';
+    throw new Error('Not implemented');
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.replace('Hello, ', '').replace('!', '');
+    throw new Error('Not implemented');
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    return value[0];
+    throw new Error('Not implemented');
 }
 
 /**
@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    return value.trim();
+    throw new Error('Not implemented');
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    return value.repeat(count);
+    throw new Error('Not implemented');
 }
 
 /**
@@ -130,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    return str.replace(value, '');
+    throw new Error('Not implemented');
 }
 
 /**
@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    return str.slice(1, str.length - 1);
+    throw new Error('Not implemented');
 }
 
 
@@ -160,7 +160,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    return str.toUpperCase();
+    throw new Error('Not implemented');
 }
 
 /**
@@ -174,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    return str.split(';');
+    throw new Error('Not implemented');
 }
 
 /**
@@ -201,44 +201,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    const leftTopCorner = '┌';
-    const rightTopCorner = '┐';
-    const leftBottomCorner = '└';
-    const rightBottomCorner = '┘';
-    const newline = '\n';
-    const horizontal = '─';
-    const vertical = '│';
-
-    let rectangle = '';
-
-    if (width < 2 || height < 2) {
-        return rectangle;
-    } else {
-        rectangle += leftTopCorner;
-        horizontalFunction();
-        rectangle += rightTopCorner + newline;
-        verticalFunction();
-        rectangle += leftBottomCorner;
-        horizontalFunction();
-        rectangle += rightBottomCorner + newline;
-
-        function verticalFunction() {
-            for (let i = 0; i < height - 2; i++) {
-                rectangle += vertical;
-                for (let i = 0; i < width - 2; i++) {
-                    rectangle += ' ';
-                }
-                rectangle += vertical + newline;
-            }
-        }
-
-        function horizontalFunction() {
-            for (let i = 0; i < width - 2; i++) {
-                rectangle += horizontal;
-            }
-        }
-    }
-    return rectangle;
+    throw new Error('Not implemented');
 }
 
 
@@ -258,40 +221,7 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    const startIndex1 = 65;
-    const endIndex1 = 90;
-    const startIndex2 = 97;
-    const endIndex2 = 122;
-    let rot13COde = '';
-
-    function calculateNewIndex(index, startIndex, endIndex) {
-        let newIndex;
-        if (index >= startIndex && index <= endIndex) {
-            newIndex = index + 13;
-            if (newIndex > endIndex) {
-                newIndex -= 26;
-            }
-        } else {
-            newIndex = index;
-        }
-        return newIndex;
-    }
-
-    for (let i = 0; i < str.length; i++) {
-        const index = str.charCodeAt(i);
-        let startIndex;
-        let endIndex;
-        if (index >= startIndex1 && index <= endIndex1) {
-            startIndex = startIndex1;
-            endIndex = endIndex1;
-        } else if (index >= startIndex2 && index <= endIndex2) {
-            startIndex = startIndex2;
-            endIndex = endIndex2;
-        }
-        const newIndex = calculateNewIndex(index, startIndex, endIndex);
-        rot13COde += String.fromCharCode(newIndex);
-    }
-    return rot13COde;
+    throw new Error('Not implemented');
 }
 
 /**
@@ -308,10 +238,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if (typeof value === 'object' && value !== null) {
-        value = value.valueOf();
-    }
-    return typeof value === 'string';
+    throw new Error('Not implemented');
 }
 
 
@@ -340,41 +267,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    // Char Cods: A - 65 K - 75 Q - 81 J - 74   ♣ - 9827 ♦ - 9830 ♥ - 9829 ♠ - 9824
-    let cardCode = value.slice(0, value.length - 1);
-    let suitCode = value.charCodeAt(value.length - 1);
-    let id;
-
-    switch (suitCode) {
-        case 9827: //♣ - 9827
-            id = 0;
-            break;
-        case 9830: //♦ - 9830
-            id = 13;
-            break;
-        case 9829: //♥ - 9829
-            id = 26;
-            break;
-        case 9824: //♠ - 9824
-            id = 39;
-            break;
-    }
-
-    switch (cardCode.charCodeAt(0)) {
-        case 74: //J - 74	
-            cardCode = 11;
-            break;
-        case 81: //Q - 81
-            cardCode = 12;
-            break;
-        case 75: //K - 75
-            cardCode = 13;
-            break;
-        case 65: //A - 65
-            cardCode = 1;
-            break;
-    }
-    return id += cardCode - 1;
+    throw new Error('Not implemented');
 }
 
 
