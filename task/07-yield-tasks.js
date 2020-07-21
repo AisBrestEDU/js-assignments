@@ -33,7 +33,21 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    let bottles = 99;
+    while (bottles >= 1) {
+        if (bottles === 1) {
+            yield '1 bottle of beer on the wall, 1 bottle of beer.';
+            yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+            yield 'No more bottles of beer on the wall, no more bottles of beer.';
+            yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
+            bottles--;
+        }
+        else {
+            yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`;
+            bottles--;
+            yield `Take one down and pass it around, ${bottles} ${bottles === 1 ? 'bottle' : 'bottles'} of beer on the wall.`;
+        }
+    }
 }
 
 
@@ -47,7 +61,16 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    let prev = 0;
+    let curr = 1;
+    yield prev;
+    yield curr;
+    while (true) {
+        let next = prev + curr;
+        yield next;
+        prev = curr;
+        curr = next;
+    }
 }
 
 
@@ -82,7 +105,15 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let stack = [];
+    stack.push(root);
+    while (stack.length) {
+        let curr = stack.pop();
+        yield curr;
+        if (curr.children) {
+            curr.children.reverse().forEach(x => stack.push(x));
+        }
+    }
 }
 
 
@@ -108,7 +139,15 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let queue = [];
+    queue.push(root);
+    while (queue.length) {
+        let curr = queue.shift();
+        yield curr;
+        if (curr.children) {
+            curr.children.forEach(x => queue.push(x));
+        }
+    }
 }
 
 
@@ -155,5 +194,5 @@ module.exports = {
     depthTraversalTree: depthTraversalTree,
     breadthTraversalTree: breadthTraversalTree,
     mergeSortedSequences: mergeSortedSequences,
-    async               : async
+    async: async
 };
