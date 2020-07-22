@@ -26,7 +26,7 @@ function Rectangle(width, height) {
     this.width = width;
     this.height = height;
     Rectangle.prototype.getArea = () => this.width * this.height;
-};
+}
 
 
 
@@ -212,7 +212,7 @@ function Selector(type, text) {
         }
         return str;
     };
-};
+}
 
 
 module.exports = {
