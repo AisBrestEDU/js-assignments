@@ -246,7 +246,7 @@ function toCsvText(arr) {
  */
 function toArrayOfSquares(arr) {
    let res = arr.map(elem => {
-      return elem ** 2
+      return elem*elem
    })
    return res
 }
