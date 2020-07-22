@@ -35,7 +35,7 @@
 function* get99BottlesOfBeer() {
 	for(let i=99; i>1; i--){
 		yield i+" bottles of beer on the wall, "+i+" bottles of beer.";
-		if(i!=2)yield 'Take one down and pass it around, '+(i-1)+' bottles of beer on the wall.';
+		if(i!=2) yield 'Take one down and pass it around, '+(i-1)+' bottles of beer on the wall.';
 	}
 	yield 'Take one down and pass it around, 1 bottle of beer on the wall.';
 	yield '1 bottle of beer on the wall, 1 bottle of beer.';
@@ -99,13 +99,13 @@ function* getFibonacciSequence() {
  */
 function* depthTraversalTree(root) {
 	var cash = [root];
- while (cash.length!=0) {
- root = cash.pop();
+	while (cash.length) {
+		root = cash.pop();
 		yield root;
 		if(root.children){
 			for(let i of root.children.reverse()) cash.push(i);			
 		}
- }
+	}
 }
 
 
@@ -198,11 +198,13 @@ function async(generator) {
 		let promise = Array();
 		try{
 			promise.push(task.value)
-			while(1)promise.push(prom.next().value)
+			while(true) promise.push(prom.next().value)
 		}
 		finally{
 			return Promise.all(promise).then(x => {
-				return x.reduce((accumulator, init) => {return accumulator + init}, 0)
+				return x.reduce((accumulator, init) => {
+					return accumulator + init
+				}, 0)
 			})
 		}
 	})
