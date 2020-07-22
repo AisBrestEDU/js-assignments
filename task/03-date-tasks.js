@@ -77,7 +77,16 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   var time = new Date(endDate - startDate);
+   var hours = time.getUTCHours() >= 24 ? time.getUTCHours() - 24 : time.getUTCHours();
+   var minutes = time.toISOString().slice(13, -1);
+   if (time.getDay() > 4) {
+      hours = `${hours + 24}`;
+   }
+   if (hours < 10) {
+      hours = `0${hours}`;
+   }
+   return `${hours}${minutes}`;
 }
 
 
