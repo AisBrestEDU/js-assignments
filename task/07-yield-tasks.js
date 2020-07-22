@@ -184,8 +184,7 @@ function* mergeSortedSequences(source1, source2) {
     firstValue = firstSeq.next().value,
     secondValue = secondSeq.next().value;
 
-  while (true) {
-    if (firstValue == undefined && secondValue == undefined) break;
+  while (firstValue !== undefined || secondValue !== undefined) {
     if (firstValue < secondValue || secondValue == undefined) {
       yield firstValue;
       firstValue = firstSeq.next().value;
@@ -216,23 +215,18 @@ async function async(generator) {
   let gen = generator(),
     arg = null,
     current;
-  while (true) {
-    if (arg) {
-      current = await gen.next(arg).value;
-    } else {
-      current = await gen.next().value;
-    }
-    if (current === undefined) break;
+  for (let val = gen.next().value; val !== undefined; val = gen.next(arg).value) {
+    current = await val;
     arg = current;
   }
   return arg;
 }
 
 module.exports = {
-  get99BottlesOfBeer: get99BottlesOfBeer,
-  getFibonacciSequence: getFibonacciSequence,
-  depthTraversalTree: depthTraversalTree,
-  breadthTraversalTree: breadthTraversalTree,
-  mergeSortedSequences: mergeSortedSequences,
-  async: async
+    get99BottlesOfBeer: get99BottlesOfBeer,
+    getFibonacciSequence: getFibonacciSequence,
+    depthTraversalTree: depthTraversalTree,
+    breadthTraversalTree: breadthTraversalTree,
+    mergeSortedSequences: mergeSortedSequences,
+    async               : async
 };
