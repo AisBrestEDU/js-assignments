@@ -32,13 +32,14 @@
 function getFizzBuzz(num) {
   if (num % 3 === 0 && num % 5 === 0) {
     return 'FizzBuzz';
-  } else if (num % 3 === 0) {
-    return 'Fizz';
-  } else if (num % 5 === 0) {
-    return 'Buzz';
-  } else {
-    return num;
   }
+  if (num % 3 === 0) {
+    return 'Fizz';
+  }
+  if (num % 5 === 0) {
+    return 'Buzz';
+  }
+  return num;
 }
 
 
@@ -98,11 +99,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-  if (a + b > c && a + c > b && b + c > a) {
-    return true;
-  } else {
-    return false;
-  }
+  return a + b > c && a + c > b && b + c > a;
 }
 
 
@@ -185,10 +182,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-  if ((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 < circle.radius ** 2) {
-    return true;
-  }
-  return false;
+  return (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 < circle.radius ** 2;
 }
 
 
@@ -272,7 +266,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  return String(num).split('').reverse().join('');
+  return Number(String(num).split('').reverse().join(''));
 }
 
 
@@ -353,18 +347,8 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
   while (str) {
-    if (str.includes('[]')) {
-      let ind = str.indexOf('[]');
-      str = str.slice(0, ind) + str.slice(ind + 2);
-    } else if (str.includes('()')) {
-      let ind = str.indexOf('()');
-      str = str.slice(0, ind) + str.slice(ind + 2);
-    } else if (str.includes('{}')) {
-      let ind = str.indexOf('{}');
-      str = str.slice(0, ind) + str.slice(ind + 2);
-    } else if (str.includes('<>')) {
-      let ind = str.indexOf('<>');
-      str = str.slice(0, ind) + str.slice(ind + 2);
+    if (str.match(/(\[]|\(\)|{}|<>)/)) {
+      str = str.replace(/(\[]|\(\)|{}|<>)/, '');
     } else {
       return false;
     }
@@ -452,12 +436,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-  let result = '';
-  while (num) {
-    result = num % n + result;
-    num = Math.floor(num / n);
-  }
-  return result;
+  return num.toString(n);
 }
 
 
@@ -580,22 +559,22 @@ function evaluateTicTacToePosition(position) {
 
 
 module.exports = {
-  getFizzBuzz: getFizzBuzz,
-  getFactorial: getFactorial,
-  getSumBetweenNumbers: getSumBetweenNumbers,
-  isTriangle: isTriangle,
-  doRectanglesOverlap: doRectanglesOverlap,
-  isInsideCircle: isInsideCircle,
-  findFirstSingleChar: findFirstSingleChar,
-  getIntervalString: getIntervalString,
-  reverseString: reverseString,
-  reverseInteger: reverseInteger,
-  isCreditCardNumber: isCreditCardNumber,
-  getDigitalRoot: getDigitalRoot,
-  isBracketsBalanced: isBracketsBalanced,
-  timespanToHumanString: timespanToHumanString,
-  toNaryString: toNaryString,
-  getCommonDirectoryPath: getCommonDirectoryPath,
-  getMatrixProduct: getMatrixProduct,
-  evaluateTicTacToePosition: evaluateTicTacToePosition
+    getFizzBuzz: getFizzBuzz,
+    getFactorial: getFactorial,
+    getSumBetweenNumbers: getSumBetweenNumbers,
+    isTriangle: isTriangle,
+    doRectanglesOverlap: doRectanglesOverlap,
+    isInsideCircle: isInsideCircle,
+    findFirstSingleChar: findFirstSingleChar,
+    getIntervalString : getIntervalString,
+    reverseString: reverseString,
+    reverseInteger: reverseInteger,
+    isCreditCardNumber: isCreditCardNumber,
+    getDigitalRoot: getDigitalRoot,
+    isBracketsBalanced: isBracketsBalanced,
+    timespanToHumanString : timespanToHumanString,
+    toNaryString: toNaryString,
+    getCommonDirectoryPath: getCommonDirectoryPath,
+    getMatrixProduct: getMatrixProduct,
+    evaluateTicTacToePosition : evaluateTicTacToePosition
 };
