@@ -173,7 +173,7 @@ function* mergeSortedSequences(source1, source2) {
     let src1 = source1();
     let src2 = source2();
   
-    while (true) {
+    whil (true) {
       let value1 = src1.next().value;
       let value2 = src2.next().value;
   
