@@ -50,9 +50,9 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    let res =1;
-    for (let i = 1; i<=n; i++){
-        res*=i;
+    let res = 1;
+    for (let i = 1; i <= n; i++){
+        res *= i;
     }
     return res;
 }
@@ -71,7 +71,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    return (n1+n2)*(n2-n1+1)/2;
+    return (n1 + n2) * (n2 - n1 + 1) / 2;
 }
 
 
@@ -90,7 +90,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    return !(a+b<=c || a+c<=b || b+c<=a)
+    return !(a + b <= c || a + c <= b || b + c <= a)
 }
 
 
@@ -127,14 +127,16 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    for (let el1 of [rect1.top, rect1.top+rect1.height]){
-        for (let el2 of [rect1.left, rect1.left+rect1.width]){
-            if (el1>=rect2.top && el1<=rect2.top+rect2.height && el2>=rect2.left && el2<=rect2.left+rect2.width) return true;
+    for (let el1 of [rect1.top, rect1.top + rect1.height]){
+        for (let el2 of [rect1.left, rect1.left + rect1.width]){
+            if (el1 >= rect2.top && el1 <= rect2.top + rect2.height 
+                && el2 >= rect2.left && el2 <= rect2.left + rect2.width) return true;
         }
     }
-    for (let el1 of [rect2.top, rect2.top+rect2.height]){
-        for (let el2 of [rect2.left, rect2.left+rect2.width]){
-            if (el1>=rect1.top && el1<=rect1.top+rect1.height && el2>=rect1.left && el2<=rect1.left+rect1.width) return true;
+    for (let el1 of [rect2.top, rect2.top + rect2.height]){
+        for (let el2 of [rect2.left, rect2.left + rect2.width]){
+            if (el1 >= rect1.top && el1 <= rect1.top + rect1.height 
+                && el2 >= rect1.left && el2 <= rect1.left + rect1.width) return true;
         }
     }
 
@@ -169,7 +171,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    return (circle.center.x-point.x)**2+(circle.center.y-point.y)**2<circle.radius**2;
+    return (circle.center.x - point.x)**2 + (circle.center.y - point.y)**2 < circle.radius**2;
 }
 
 
@@ -187,7 +189,7 @@ function isInsideCircle(circle, point) {
 function findFirstSingleChar(str) {
     for (let i = 0; i < str.length; i++) {
         let c = str.charAt(i);
-        if (str.indexOf(c) == i && str.slice(i+1).search(c) == -1) {
+        if (str.indexOf(c) == i && str.slice(i + 1).search(c) == -1) {
             return c;
         }
     }
@@ -257,9 +259,9 @@ function reverseString(str) {
  */
 function reverseInteger(num) {
     let res = 0;
-    while (num>0){
-        res*=10;
-        res+=num%10;
+    while (num > 0){
+        res *= 10;
+        res += num%10;
         num = Math.floor(num/10);
     }
     return res;
@@ -289,7 +291,7 @@ function reverseInteger(num) {
 function isCreditCardNumber(ccn) {
     let arr = `${ccn}`.split('').reverse();
     let sum = 0;
-    for(let i=0; i<arr.length; i++){
+    for(let i = 0; i < arr.length; i++){
         if(i%2 == 0) {
             sum += +arr[i]; 
         }else {
@@ -315,10 +317,10 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    while(num>9){
+    while(num > 9){
         let res = 0;
-        while(num>0){
-            res+=num%10;
+        while(num > 0){
+            res += num%10;
             num = Math.floor(num/10);
         }
         num = res;
@@ -357,7 +359,7 @@ function isBracketsBalanced(str) {
             arr.push(el);
             continue;
         }
-        if (close.indexOf(el) == open.indexOf(arr[arr.length - 1])){
+        if (close.indexOf(el) == open.indexOf( arr[arr.length - 1]) ){
             arr.pop();
             continue;
         }
@@ -403,47 +405,48 @@ function timespanToHumanString(startDate, endDate) {
         return num>=begin && num<=end;
     }
     let intervals = [
-        {begin:0, end:45000},
-        {begin:45000, end:90000}, 
-        {begin:90000, end:60*45*1000}, 
-        {begin:60*45*1000, end:60*90*1000}, 
-        {begin:60*90*1000, end:3600*22*1000}, 
-        {begin:3600*22*1000, end:3600*36*1000}, 
-        {begin:3600*36*1000, end:3600*24*25*1000}, 
-        {begin:3600*24*25*1000, end:3600*24*45*1000}, 
-        {begin:3600*24*45*1000, end:3600*24*345*1000}, 
-        {begin:3600*24*345*1000, end:3600*24*545*1000}, 
-        {begin:3600*24*545*1000, end:Number.POSITIVE_INFINITY}
+        {begin: 0, end: 45000},
+        {begin: 45000, end: 90000}, 
+        {begin: 90000, end: 60 * 45 * 1000}, 
+        {begin: 60 * 45 * 1000, end: 60 * 90 * 1000}, 
+        {begin: 60 * 90 * 1000, end: 3600 * 22 * 1000}, 
+        {begin: 3600 * 22 * 1000, end: 3600 * 36 * 1000}, 
+        {begin: 3600 * 36 * 1000, end: 3600 * 24 * 25 * 1000}, 
+        {begin: 3600 * 24 * 25 * 1000, end: 3600 * 24 * 45 * 1000}, 
+        {begin: 3600 * 24 * 45 * 1000, end: 3600 * 24 * 345 * 1000}, 
+        {begin: 3600 * 24 * 345 * 1000, end: 3600 * 24 * 545 * 1000}, 
+        {begin: 3600 * 24 * 545 * 1000, end: Number.POSITIVE_INFINITY}
     ]
-    let f = new Array()
-    f.push('a few seconds ago');
-    f.push('a minute ago');
-    f.push(' minutes ago');
-    f.push('an hour ago');
-    f.push(' hours ago');
-    f.push('a day ago');
-    f.push(' days ago');
-    f.push('a month ago');
-    f.push(' months ago');
-    f.push('a year ago');
-    f.push(' years ago');
+    let f = [
+        'a few seconds ago',
+        'a minute ago',
+        ' minutes ago',
+        'an hour ago',
+        ' hours ago',
+        'a day ago',
+        ' days ago',
+        'a month ago',
+        ' months ago',
+        'a year ago',
+        ' years ago'
+        ]
     let index = 0;
-    let sec = endDate.getTime()-startDate.getTime();
-    while(!isInInterval(sec, intervals[index].begin, intervals[index].end)){
+    let sec = endDate.getTime() - startDate.getTime();
+    while( !isInInterval(sec, intervals[index].begin, intervals[index].end) ){
         index++;
     }
-    if (index>1 && index%2 == 0){
+    if (index > 1 && index%2 == 0){
         switch (index) {
             case 2:
-                return Math.round((sec-1)/1000/60) + f[index];
+                return Math.round( (sec-1) / 1000 / 60) + f[index];
             case 4:
-                return Math.round((sec-1)/1000/3600) + f[index];
+                return Math.round( (sec-1) / 1000 / 3600) + f[index];
             case 6:
-                return Math.round((sec-1)/3600/24/1000) + f[index];
+                return Math.round( (sec-1) / 3600 / 24 / 1000) + f[index];
             case 8:
-                return Math.round((sec-1)/3600/24/30/1000) + f[index];
+                return Math.round( (sec-1) / 3600 / 24 / 30 / 1000) + f[index];
             case 10:
-                return Math.round((sec-1)/3600/24/30/12/1000) + f[index];
+                return Math.round( (sec-1) / 3600 / 24 / 30 / 12 / 1000) + f[index];
         }
     }
     else return f[index];
@@ -490,13 +493,13 @@ function toNaryString(num, n) {
  */
 function getCommonDirectoryPath(pathes) {
     let res = ''
-    let minLen = pathes.reduce((acc, val) => acc>val.length?val.length: acc, Number.POSITIVE_INFINITY);
-    for (let i = 0; i<minLen; i++){
+    let minLen = pathes.reduce((acc, val) => acc > val.length ? val.length: acc, Number.POSITIVE_INFINITY);
+    for (let i = 0; i < minLen; i++){
         let f = true
-        for (let j = 0; j<pathes.length; j++){
-            if (pathes[j][i]!=pathes[0][i]) f = false;
+        for (let j = 0; j < pathes.length; j++){
+            if (pathes[j][i] != pathes[0][i]) f = false;
         }
-        if (f) res=res+pathes[0][i];
+        if (f) res = res + pathes[0][i];
         else break;
     }
     return res.slice(0, res.lastIndexOf('/')+1);
@@ -523,12 +526,12 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
     let res = Array()
-    for (let i = 0; i<m1.length;i++){
+    for (let i = 0; i < m1.length; i++){
         let res1 = Array();
-        for (let j = 0; j<m1.length;j++){
+        for (let j = 0; j < m1.length; j++){
             let res2 = 0;
-            for (let k = 0; k<m1[i].length;k++){
-                res2 += m1[i][k]*m2[k][j];
+            for (let k = 0; k < m1[i].length; k++){
+                res2 += m1[i][k] * m2[k][j];
             }
             res1.push(res2);
         }
@@ -571,11 +574,23 @@ function getMatrixProduct(m1, m2) {
 function evaluateTicTacToePosition(position) {
    
     for (let i of [0,1,2]){
-            if(position[i][1] == position[i][0] && position[i][1] == position[i][2] && position[i][2]) return position[i][1];
-            if(position[1][i] == position[0][i] && position[1][i] == position[2][i] && position[i][2]) return position[2][i];
+            if(position[i][1] == position[i][0] && 
+               position[i][1] == position[i][2] && 
+               position[i][2]) 
+                return position[i][1];
+            if(position[1][i] == position[0][i] && 
+               position[1][i] == position[2][i] && 
+               position[i][2]) 
+                return position[2][i];
     }
-    if(position[1][1] == position[0][0] && position[1][1] == position[2][2] && position[2][2]) return position[1][1];
-    if(position[0][2] == position[1][1] && position[1][1] == position[2][0] && position[0][2]) return position[2][0];
+    if(position[1][1] == position[0][0] && 
+       position[1][1] == position[2][2] && 
+       position[2][2]) 
+        return position[1][1];
+    if(position[0][2] == position[1][1] && 
+       position[1][1] == position[2][0] && 
+       position[0][2]) 
+        return position[2][0];
     return undefined;
 }
 
