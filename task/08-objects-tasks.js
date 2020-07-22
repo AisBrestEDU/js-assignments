@@ -211,8 +211,8 @@ function Selector(type, text) {
                 break;
         }
         return str;
-    }
-}
+    };
+};
 
 
 module.exports = {
