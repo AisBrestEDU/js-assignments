@@ -146,7 +146,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  */
 function getLastDigit(value) {
   const str = String(value);
-  return str[str.length - 1];
+  return Number(str[str.length - 1]);
 }
 
 /**
