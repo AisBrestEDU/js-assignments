@@ -23,8 +23,11 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
-}
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = () => this.width * this.height;
+};
+
 
 
 /**
@@ -38,7 +41,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +57,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -106,35 +109,109 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+
+let order = ['element', 'id', 'class', 'attr', 'pseudoClass', 'pseudoElement'];
 const cssSelectorBuilder = {
-
-    element: function(value) {
-        throw new Error('Not implemented');
+    selectors: [],
+    isUnique: function (type) {
+        for (let sel of this.selectors) {
+            if (sel.type === type) {
+                return false;
+            }
+        }
+        return true;
     },
-
-    id: function(value) {
-        throw new Error('Not implemented');
+    isCorrectOrder: function () {
+        for (let i = 0; i < this.selectors.length - 1; i++) {
+            if (order.indexOf(this.selectors[i].type) > order.indexOf(this.selectors[i + 1].type)) {
+                return false;
+            }
+        }
+        return true;
     },
-
-    class: function(value) {
-        throw new Error('Not implemented');
+    addSelector: function (type, value) {
+        let newBuilder = Object.create(this);
+        newBuilder.selectors = Array.from(this.selectors);
+        newBuilder.selectors.push(new Selector(type, value));
+        if (!newBuilder.isCorrectOrder()) {
+            throw "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
+        }
+        return newBuilder;
     },
-
-    attr: function(value) {
-        throw new Error('Not implemented');
+    element: function (value) {
+        if (!this.isUnique('element')) {
+            throw "Element, id and pseudo-element should not occur more then one time inside the selector";
+        }
+        return this.addSelector('element', value);
     },
-
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
+    id: function (value) {
+        if (!this.isUnique('id')) {
+            throw "Element, id and pseudo-element should not occur more then one time inside the selector";
+        }
+        return this.addSelector('id', value);
     },
-
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
+    class: function (value) {
+        return this.addSelector('class', value);
     },
-
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+    attr: function (value) {
+        return this.addSelector('attr', value);
     },
+    pseudoClass: function (value) {
+        return this.addSelector('pseudoClass', value);
+    },
+    pseudoElement: function (value) {
+        if (!this.isUnique('pseudoElement')) {
+            throw "Element, id and pseudo-element should not occur more then one time inside the selector";
+        }
+        return this.addSelector('pseudoElement', value);
+    },
+    stringify: function () {
+        let str = "";
+        for (let sel of this.selectors) {
+            str += sel.print();
+        }
+        return str;
+    },
+    combine: function (selector1, combinator, selector2) {
+        let newBuilder = Object.create(this);
+        newBuilder.selectors = Array.from(selector1.selectors);
+        newBuilder.selectors.push(new Selector('combinator', combinator));
+        for (let sel of selector2.selectors) {
+            newBuilder.selectors.push(sel);
+        }
+        return newBuilder;
+    },
+};
+function Selector(type, text) {
+    this.type = type;
+    this.text = text;
+    this.print = function () {
+        let str;
+        switch (type) {
+            case 'combinator':
+                str = " " + this.text + " ";
+                break;
+            case 'element':
+                str = this.text;
+                break;
+            case 'id':
+                str = "#" + this.text;
+                break;
+            case 'class':
+                str = "." + this.text;
+                break;
+            case 'attr':
+                str = "[" + this.text + "]";
+                break;
+            case 'pseudoClass':
+                str = ":" + this.text;
+                break;
+            case 'pseudoElement':
+                str = "::" + this.text;
+                break;
+        }
+        return str;
+    };
 };
 
 
