@@ -137,15 +137,17 @@ function* depthTraversalTree(root) {
  */
 function* breadthTraversalTree(root) {
     let queue = [];
+    let i = 0;
     queue.push(root);
-    while (queue.length) {
-        let node = queue.shift();
+    while (queue.length - i) {
+        let node = queue[i];
         yield node;
         if (node.children) {
             for (let child of node.children) {
                 queue.push(child)
             }
         }
+        ++i
     }
 }
 
