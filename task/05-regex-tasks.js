@@ -1,12 +1,9 @@
-'use strict';
-
-/********************************************************************************************
+/** ******************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
  * https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions           *
  *                                                                                          *
- ********************************************************************************************/
-
+ ******************************************************************************************* */
 
 /**
  * Returns the regexp that matches a GUID string representation
@@ -31,9 +28,8 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-   throw new Error('Not implemented');
+  return /{[0-9aAbBcCdDeEfF]{8}-[0-9aAbBcCdDeEfF]{4}-[0-9aAbBcCdDeEfF]{4}-[0-9aAbBcCdDeEfF]{4}-[0-9aAbBcCdDeEfF]{12}}/;
 }
-
 
 /**
  * Returns the regexp that matches all the strings from first column
@@ -53,9 +49,8 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-   throw new Error('Not implemented');
+  return /.*p[ioa ]t.*/;
 }
-
 
 /**
  * Returns the regexp that matches all IPv4 strings in
@@ -72,9 +67,8 @@ function getRegexForPitSpot() {
  * @return {RegExp}
  */
 function getRegexForIPv4() {
-   throw new Error('Not implemented');
+  return /^(25[0-5]|2[0-4]\d|[01]\d\d|\d\d|\d)(\.(25[0-5]|2[0-4]\d|[01]\d\d|\d\d|\d)){3}$/;
 }
-
 
 /**
  * Returns the regexp that matches all SSN (Social Security Number) codes in
@@ -91,9 +85,8 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-   throw new Error('Not implemented');
+  return /(\d\d[1-9]|\d[1-9]\d|[1-9]\d\d)-(\d[1-9]|[1-9]\d)-(\d\d\d[1-9]|\d\d[1-9]\d|\d[1-9]\d\d|[1-9]\d\d\d)/;
 }
-
 
 /**
  * Returns the password validator regex.
@@ -116,14 +109,13 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-   throw new Error('Not implemented');
+  return new RegExp(`^(?=[a-zA-Z0-9]*[0-9])(?=[a-zA-Z0-9]*[A-Z])(?=[a-zA-Z0-9]*[a-z]).{${minLength},}$`);
 }
 
-
 module.exports = {
-    getRegexForGuid: getRegexForGuid,
-    getRegexForPitSpot: getRegexForPitSpot,
-    getRegexForIPv4: getRegexForIPv4,
-    getRegexForSSN: getRegexForSSN,
-    getPasswordValidator: getPasswordValidator
+  getRegexForGuid,
+  getRegexForPitSpot,
+  getRegexForIPv4,
+  getRegexForSSN,
+  getPasswordValidator,
 };
