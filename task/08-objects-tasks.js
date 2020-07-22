@@ -23,7 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    let rect= {
+        width, 
+        height,
+        getArea: () => width * height
+    }
+    return rect
 }
 
 
@@ -38,7 +43,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj)
 }
 
 
@@ -55,6 +60,7 @@ function getJSON(obj) {
  */
 function fromJSON(proto, json) {
     throw new Error('Not implemented');
+    // return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -109,11 +115,11 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new cssBuilder().element(value)
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new cssBuilder().id(value)
     },
 
     class: function(value) {
@@ -137,6 +143,57 @@ const cssSelectorBuilder = {
     },
 };
 
+
+class cssBuilder {
+    constructor(){
+        this.css = {
+            element : undefined,
+            id : undefined,
+            classes: [],
+            attributes: [],
+            pseudoClasses: [],
+            pseudoElement: undefined
+
+        }
+    }
+    element(val) {
+        this.css.element = val
+        return this
+    }
+    id(val){
+        this.css.id = val
+        return this
+    }
+    class(val) {
+        this.css.class = val
+        return this
+    }
+    attr(val) {
+        this.css.attr = val
+        return this
+    }
+
+    pseudoClass(val) {
+        this.css.pseudoClass = val
+        return this
+    }
+
+    pseudoElement(val) {
+        this.css.pseudoElement = val
+        return this
+    }
+    combine(selector1, combinator, selector2) {
+        return this
+    }
+    
+
+    stringify() {
+        return ( 
+            ( this.css.element ? `${this.css.element}` : '') 
+            + (this.css.id ? `#${this.css.id}` : '')
+        )
+    }
+}
 
 module.exports = {
     Rectangle: Rectangle,
