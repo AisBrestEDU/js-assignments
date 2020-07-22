@@ -577,7 +577,10 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+   var len = Math.floor(arr.length / 2),
+   len2 = arr.length % 2;
+   return arr.map((v, i) => arr[
+      len2 && i === len ? i : (i + len + (i <= len ? len2 : 0)) % arr.length]);
 }
 
 
