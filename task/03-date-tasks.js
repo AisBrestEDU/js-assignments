@@ -85,10 +85,11 @@ function isLeapYear(date) {
  */
 function timeSpanToString(startDate, endDate) {
    let rez = endDate - startDate;
-   let h = String( Math.trunc(rez / 3600000 % 100) );
-   let m = Math.trunc(rez / 60000 % 60).toString();s
-   let s = Math.trunc(rez / 1000 % 60).toString();
-   let ms = Math.trunc(rez % 1000).toString();
+   let h =  String( Math.trunc(rez / 3600000 % 100) );
+   let m = String( Math.trunc(rez / 60000 % 60).toString())
+   let s = String( Math.trunc(rez / 1000 % 60).toString())
+   let ms = String( Math.trunc(rez % 1000).toString() )
+   
    return (h.padStart(2, '0') + ':' + m.padStart(2, '0') + ':' + s.padStart(2, '0') + '.' + ms.padStart(3, '0'));
 }
 
