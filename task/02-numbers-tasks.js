@@ -111,7 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    let cosA = (x1*x2 + y1*y2) / (Math.sqrt(x1**2 + y1 ** 2) * (Math.sqrt(x2 ** 2 + y2 **2)))
+    let cosA = (x1*x2 + y1*y2) / (Math.sqrt(Math.pow(x1, 2) + Math.pow(y1, 2)) * (Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2))))
     return Math.acos(cosA)
 }
 
@@ -128,7 +128,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    return value%10
+    return value % 10
 }
 
 
@@ -161,7 +161,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(a**2 + b**2 + c**2) 
+    return Math.sqrt(a*a + b*b + c*c) 
 }
 
 /**
@@ -182,7 +182,7 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    return Math.round(num / (10 ** pow) ) * (10 ** pow)
+    return Math.round(num / ( Math.pow(10, pow)) ) * Math.pow(10, pow)
 }
 
 /**
