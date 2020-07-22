@@ -445,11 +445,10 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   return arr.sort((a, b) => {
-      if (a.country === b.country){
-         return a.city < b.city ? -1 : 1
-      }
-      else return a.country < b.country ? -1 : 1
+   return arr.sort((a,b)=>{
+      if(a.country < b.country) { return -1; }
+      if(a.country > b.country) { return 1; }
+      if(a.city < b.city) { return -1; }
    })
 }
 
@@ -540,12 +539,12 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
    return array.reduce((map, el) => {
-   	      if (!(map.has(keySelector(el)))) {
-           map.set(keySelector(el), [])
-         } 
-         map.get(keySelector(el)).push(valueSelector(el))
-         return map
-       }, new Map())
+   if (!(map.has(keySelector(el)))) {
+   map.set(keySelector(el), [])
+   } 
+   map.get(keySelector(el)).push(valueSelector(el))
+   return map
+   }, new Map())
 }
 
 
