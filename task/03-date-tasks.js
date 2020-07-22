@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +56,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+   return (year % 400 === 0 || year % 4 === 0 && year % 100 !== 0);
 }
 
 
@@ -76,7 +77,22 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let timespan = endDate - startDate;
+   let hours = parseInt(timespan / 3600000);
+   let minutes = parseInt((timespan % 3600000) / 60000);
+   let seconds = parseInt((timespan % 60000) / 1000);
+   let millisec = timespan % 1000;
+   minutes = minutes < 10 ? '0' + minutes : minutes;
+   seconds = seconds < 10 ? '0' + seconds : seconds;
+   hours = hours < 10 ? '0' + hours : hours;
+   millisec =
+      millisec < 10
+         ? '0' + '0' + millisec
+         : millisec < 10
+         ? '0' + millisec
+         : millisec;
+   
+   return `${hours}:${minutes}:${seconds}.${millisec}`;
 }
 
 
@@ -94,8 +110,25 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hour = date.getUTCHours();
+   if (hour > 12) {
+      hour = date.getUTCHours() - 12;
+   }
+   else {
+      hour = date.getUTCHours();
+   }
+   let hours = 0.5 * (60 * hour + date.getUTCMinutes());
+   let minutes = 6 * date.getUTCMinutes();
+   let dif = hours - minutes;
+   if (dif > 180) {
+      dif = hours - minutes - 180;
+   }
+   else {
+      dif = hours - minutes;
+   }
+   return Math.PI * Math.abs(dif) / 180;
 }
+
 
 
 module.exports = {
