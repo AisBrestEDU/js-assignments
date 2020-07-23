@@ -377,7 +377,45 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    function myRound(number) {
+        return number * 10 % 10 == 5 ? Math.trunc(number) : Math.round(number);
+    }
+
+    let timeSpan = (endDate - startDate) / 1000;
+    if (timeSpan <= 45) {
+        return `a few seconds ago`;
+    }
+    if (timeSpan <= 90) {
+        return `a minute ago`;
+    }
+    timeSpan = timeSpan / 60;
+    if (timeSpan <= 45) {
+        return `${myRound(timeSpan)} minutes ago`;
+    }
+    if (timeSpan <= 90) {
+        return `an hour ago`;
+    }
+    timeSpan = timeSpan / 60;
+    if (timeSpan <= 22) {
+        return `${myRound(timeSpan)} hours ago`;
+    }
+    if (timeSpan <= 36) {
+        return `a day ago`;
+    }
+    timeSpan = timeSpan / 24;
+    if (timeSpan <= 25) {
+        return `${myRound(timeSpan)} days ago`;
+    }
+    if (timeSpan <= 45) {
+        return `a month ago`;
+    }
+    if (timeSpan <= 345) {
+        return `${myRound(timeSpan / 30)} months ago`;
+    }
+    if (timeSpan <= 545) {
+        return `a year ago`;
+    }
+    return `${myRound(timeSpan / 365)} years ago`;
 }
 
 
@@ -401,7 +439,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);
 }
 
 
