@@ -87,8 +87,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-  if (a + b > c && a + c > b && b + c > a) return true;
-  return false;
+  return a + b > c && a + c > b && b + c > a;
 }
 
 /**
@@ -124,12 +123,10 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  if (
+  return (
     rect2.top < rect1.top + rect1.height &&
     rect2.left < rect1.left + rect1.width
-  )
-    return true;
-  return false;
+  );
 }
 
 /**
@@ -275,14 +272,12 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-  let num, digits, flag, sum;
-  flag = true;
-  sum = 0;
-  digits = (ccn + '').split('').reverse();
+  let sum = 0;
+  let digits = (ccn + '').split('').reverse();
   for (let i = 0; i < digits.length; i++) {
-    num = digits[i];
+    let num = digits[i];
     num = parseInt(num, 10);
-    if ((flag = !flag)) {
+    if (i % 2) {
       num *= 2;
     }
     if (num > 9) {
@@ -344,19 +339,15 @@ function isBracketsBalanced(str) {
     '<': '>',
   };
   for (let i = 0; i < str.length; i++) {
-    if (str[i] === '(' || str[i] === '{' || str[i] === '[' || str[i] === '<') {
+    if (Object.keys(map).includes(str[i])) {
       stack.push(str[i]);
     } else {
-      let last = stack.pop();
-      if (str[i] !== map[last]) {
+      if (str[i] !== map[stack.pop()]) {
         return false;
       }
     }
   }
-  if (stack.length !== 0) {
-    return false;
-  }
-  return true;
+  return !stack.length;
 }
 
 /**
@@ -401,14 +392,17 @@ function timespanToHumanString(startDate, endDate) {
   if (period / 60 <= 90) return 'an hour ago';
   if (period / 60 / 60 <= 22) return `${round(period / 60 / 60)} hours ago`;
   if (period / 60 / 60 <= 36) return 'a day ago';
-  if (period / 60 / 60 / 24 <= 25)
+  if (period / 60 / 60 / 24 <= 25) {
     return `${round(period / 60 / 60 / 24)} days ago`;
+  }
   if (period / 60 / 60 / 24 <= 45) return 'a month ago';
-  if (period / 60 / 60 / 24 <= 345)
+  if (period / 60 / 60 / 24 <= 345) {
     return `${round(period / 60 / 60 / 24 / 30)} months ago`;
+  }
   if (period / 60 / 60 / 24 <= 545) return 'a year ago';
-  if (period / 60 / 60 / 24 > 545)
+  if (period / 60 / 60 / 24 > 545) {
     return `${round(period / 60 / 60 / 24 / 365)} years ago`;
+  }
 }
 
 /**
