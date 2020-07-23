@@ -391,7 +391,7 @@ function getFalsyValuesCount(arr) {
   let falsy = [null, undefined, NaN, false, 0, ''];
   return arr.reduce((sum, cur) => {
     if (falsy.includes(cur)) return ++sum;
-    else return sum;
+    return sum;
   }, 0);
 }
 
@@ -412,7 +412,7 @@ function getFalsyValuesCount(arr) {
 function findAllOccurences(arr, item) {
   return arr.reduce((sum, cur) => {
     if (cur === item) return ++sum;
-    else return sum;
+    return sum;
   }, 0);
 }
 

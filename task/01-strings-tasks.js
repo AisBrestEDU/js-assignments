@@ -252,7 +252,8 @@ function encodeToRot13(str) {
       return ch.charCodeAt() + 13 > 122
         ? String.fromCharCode(97 + ch.charCodeAt() + 13 - 123)
         : String.fromCharCode(ch.charCodeAt() + 13);
-    } else return ch;
+    }
+    return ch;
   });
   return tmp.join('');
 }

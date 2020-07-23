@@ -55,7 +55,7 @@ function parseDataFromIso8601(value) {
  */
 function isLeapYear(date) {
   let year = new Date(date).getFullYear();
-  return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 /**
@@ -82,7 +82,7 @@ function timeSpanToString(startDate, endDate) {
   let str = [seconds / 3600, (seconds % 3600) / 60, seconds % 60]
     .map(function (v) {
       v = Math.floor(v).toString();
-      return v.length == 1 ? '0' + v : v;
+      return v.length === 1 ? '0' + v : v;
     })
     .join(':');
 
