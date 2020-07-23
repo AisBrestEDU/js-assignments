@@ -8,6 +8,7 @@
  *                                                                                                *
  **************************************************************************************************/
 
+ 
 /**
  * Returns the rectagle object with width and height parameters and getArea() method
  *
@@ -21,11 +22,15 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
+
+
 function Rectangle(width, height) {
   this.width = width;
   this.height = height;
   Rectangle.prototype.getArea = () => width * height;
 }
+
+
 /**
  * Returns the JSON representation of specified object
  *
@@ -39,6 +44,7 @@ function Rectangle(width, height) {
 function getJSON(obj) {
   return JSON.stringify(obj);
 }
+
 
 /**
  * Returns the object of specified type from JSON representation
@@ -54,6 +60,7 @@ function getJSON(obj) {
 function fromJSON(proto, json) {
   return Object.setPrototypeOf(JSON.parse(json), proto);
 }
+
 
 /**
  * Css selectors builder
@@ -104,74 +111,92 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
-  selector: '',
-  element: function (value) {
-    this.error(1);
-    let obj = Object.create(cssSelectorBuilder);
-    obj.selector = `${this.selector}${value}`;
-    obj.order = 1;
-    return obj;
-  },
-  id: function (value) {
-    this.error(2);
-    let obj = Object.create(cssSelectorBuilder);
-    obj.selector = `${this.selector}#${value}`;
-    obj.order = 2;
-    return obj;
-  },
-  class: function (value) {
-    this.error(3);
-    let obj = Object.create(cssSelectorBuilder);
-    obj.selector = `${this.selector}.${value}`;
-    obj.order = 3;
-    return obj;
-  },
-  attr: function (value) {
-    this.error(4);
-    let obj = Object.create(cssSelectorBuilder);
-    obj.selector = `${this.selector}[${value}]`;
-    obj.order = 4;
-    return obj;
-  },
-  pseudoClass: function (value) {
-    this.error(5);
-    let obj = Object.create(cssSelectorBuilder);
-    obj.selector = `${this.selector}:${value}`;
-    obj.order = 5;
-    return obj;
-  },
-  pseudoElement: function (value) {
-    this.error(6);
-    let obj = Object.create(cssSelectorBuilder);
-    obj.selector = `${this.selector}::${value}`;
-    obj.order = 6;
-    return obj;
-  },
+  element: (value) => new BaseElement().element(value),
+  id: (value) => new BaseElement().id(value),
+  class: (value) => new BaseElement().class(value),
+  attr: (value) => new BaseElement().attr(value),
+  pseudoClass: (value) => new BaseElement().pseudoClass(value),
+  pseudoElement: (value) => new BaseElement().pseudoElement(value),
   combine: function (selector1, combinator, selector2) {
-    let obj = Object.create(cssSelectorBuilder);
-    obj.selector = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
-    return obj;
-  },
-  stringify: function () {
-    return this.selector;
-  },
-  error: function (order) {
-    if (this.order === order && (order === 1 || order === 2 || order === 6)) {
-      throw new Error(
-        'Element, id and pseudo-element should not occur more then one time inside the selector'
-      );
-    }
-    if (order < this.order) {
-      throw new Error(
-        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
-      );
-    }
+    return new BaseElement().combine(selector1, combinator, selector2);
   },
 };
 
+class BaseElement {
+  constructor() {
+    this.selector = '';
+    this.index = 0;
+  }
+  errorQuantity() {
+    throw new Error(
+      'Element, id and pseudo-element should not occur more then one time inside the selector'
+    );
+  }
+  errorOrder() {
+    throw new Error(
+      'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+    );
+  }
+  element(name) {
+    if (this.index === 1) {
+      this.errorQuantity();
+    } else if (this.index > 1) {
+      this.errorOrder();
+    }
+    this.selector = `${this.selector}${name}`;
+    this.index = 1;
+    return this;
+  }
+  id(name) {
+    if (this.index === 2) {
+      this.errorQuantity();
+    } else if (this.index > 2) {
+      this.errorOrder();
+    }
+
+    this.selector = `${this.selector}#${name}`;
+    this.index = 2;
+    return this;
+  }
+  class(name) {
+    if (this.index > 3) this.errorOrder();
+    this.selector = `${this.selector}.${name}`;
+    this.index = 3;
+    return this;
+  }
+  attr(name) {
+    if (this.index > 4) this.errorOrder();
+    this.selector = `${this.selector}[${name}]`;
+    this.index = 4;
+    return this;
+  }
+  pseudoClass(name) {
+    if (this.index > 5) {
+      this.errorOrder();
+    }
+    this.selector = `${this.selector}:${name}`;
+    this.index = 5;
+    return this;
+  }
+  pseudoElement(name) {
+    if (this.index === 6) this.errorQuantity();
+    this.selector = `${this.selector}::${name}`;
+    this.index = 6;
+    return this;
+  }
+  combine(selector1, combinator, selector2) {
+    this.selector = `${selector1.selector} ${combinator} ${selector2.selector}`;
+    return this;
+  }
+  stringify() {
+    return this.selector;
+  }
+}
+
+
 module.exports = {
-  Rectangle: Rectangle,
-  getJSON: getJSON,
-  fromJSON: fromJSON,
-  cssSelectorBuilder: cssSelectorBuilder,
+    Rectangle: Rectangle,
+    getJSON: getJSON,
+    fromJSON: fromJSON,
+    cssSelectorBuilder: cssSelectorBuilder,
 };
