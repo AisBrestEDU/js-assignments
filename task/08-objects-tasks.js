@@ -111,6 +111,70 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
+class cssBuilder {
+    constructor(){
+        this._element = undefined,
+        this._id = undefined,
+        this._classes = [],
+        this._attrs = [],
+        this._pseudoClasses = [],
+        this._pseudoElement = undefined
+    }
+    element(val) {
+        this._element = val
+        return this
+    }
+    id(val){
+        this._id = val
+        return this
+    }
+    class(val) {
+        this._classes.push(val)
+        return this
+    }
+    attr(val) {
+        this._attrs.push(val)
+        return this
+    }
+
+    pseudoClass(val) {
+        this._pseudoClasses.push(val)
+        return this
+    }
+
+    pseudoElement(val) {
+        this._pseudoElement = val
+        return this
+    }
+    // combine(selector1, combinator, selector2) {
+    //     return this
+    // }
+    
+
+    stringify() {
+        return ( 
+            ( this._element ? `${this._element}` : '') +
+            (this._id ? `#${this._id}` : '') +
+            (this._classes.length ? '.' + this._classes.join('.') : '') +
+            (this._attrs.length ? this._attrs.map(elem => `[${elem}]`).join('') : '') +
+            (this._pseudoClasses.length ? ':' + this._pseudoClasses.join(':') : '') +
+            (this._pseudoElement !== undefined ? '::' + this._pseudoElement : '') 
+        )
+    }
+}
+
+class CssCombinedPath {
+    constructor(firstSelector, combinator, secondSelector) {
+        this.firstSelector = firstSelector;
+        this.combinator = combinator;
+        this.secondSelector = secondSelector;
+    }
+
+    stringify() {
+        return `${this.firstSelector.stringify()} ${this.combinator} ${this.secondSelector.stringify()}`;
+    }
+}
+
 
 const cssSelectorBuilder = {
 
@@ -139,61 +203,13 @@ const cssSelectorBuilder = {
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        // throw new Error('Not implemented');
+        return new CssCombinedPath(selector1, combinator, selector2);
     },
 };
 
 
-class cssBuilder {
-    constructor(){
-        this.css = {
-            element : undefined,
-            id : undefined,
-            classes: [],
-            attributes: [],
-            pseudoClasses: [],
-            pseudoElement: undefined
 
-        }
-    }
-    element(val) {
-        this.css.element = val
-        return this
-    }
-    id(val){
-        this.css.id = val
-        return this
-    }
-    class(val) {
-        this.css.class = val
-        return this
-    }
-    attr(val) {
-        this.css.attr = val
-        return this
-    }
-
-    pseudoClass(val) {
-        this.css.pseudoClass = val
-        return this
-    }
-
-    pseudoElement(val) {
-        this.css.pseudoElement = val
-        return this
-    }
-    combine(selector1, combinator, selector2) {
-        return this
-    }
-    
-
-    stringify() {
-        return ( 
-            ( this.css.element ? `${this.css.element}` : '') 
-            + (this.css.id ? `#${this.css.id}` : '')
-        )
-    }
-}
 
 module.exports = {
     Rectangle: Rectangle,
