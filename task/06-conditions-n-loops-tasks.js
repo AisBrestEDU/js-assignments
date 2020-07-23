@@ -548,7 +548,52 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    let coords = [
+        [
+            [0, 0],
+            [0, 1],
+            [0, 2]
+        ],
+        [
+            [1, 0],
+            [1, 1],
+            [1, 2]
+        ],
+        [
+            [2, 0],
+            [2, 1],
+            [2, 2]
+        ],
+        [
+            [0, 0],
+            [1, 0],
+            [2, 0]
+        ],
+        [
+            [0, 1],
+            [1, 1],
+            [2, 1]
+        ],
+        [
+            [0, 2],
+            [1, 2],
+            [2, 2]
+        ],
+        [
+            [0, 0],
+            [1, 1],
+            [2, 2]
+        ],
+        [
+            [0, 2],
+            [1, 1],
+            [2, 0]
+        ]
+    ];
+    let isWin = (c => coords.some(arr => arr.every(e => position[e[0]][e[1]] == c)));
+    return isWin('X') ? 'X' :
+        isWin('0') ? '0' :
+        undefined;
 }
 
 
