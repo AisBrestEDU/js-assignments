@@ -24,7 +24,6 @@
 function parseDataFromRfc2822(value) {
    // throw new Error('Not implemented');
    return new Date(value).valueOf();
-   
 }
 
 /**
@@ -60,20 +59,18 @@ function parseDataFromIso8601(value) {
  */
 function isLeapYear(date) {
    // throw new Error('Not implemented');
-   let d = new Date(date).getFullYear();
-   if( d % 4 != 0){
-      return false;
-   }else 
-      if(d % 100 == 0){
-         if(d % 400 == 0){
-            return true;
-         }
-         else
-            return false;
+   let year = new Date(date).getFullYear();
+   if(year % 4 !== 0)
+      return false
+   else
+      if(year % 100 === 0){
+         if(year % 400 === 0)
+            return true
+         return false;
       }
-      else{
-         return true;
-      }
+
+      return true;  
+
 }
 
 
@@ -103,20 +100,20 @@ function timeSpanToString(startDate, endDate) {
    let s = Math.floor(t / 1000);
    t = t - (s * 1000);   
    let hs = h.toString(); let ms = m.toString(); let ss = s.toString(); let ts = t.toString();
-   if(hs.length != 2){
+   if(hs.length !== 2){
       hs = '0' + hs;
-   };
-   if(ms.length != 2){
+   }
+   if(ms.length !== 2){
       ms = '0' + ms;
-   };
-   if(ss.length != 2){
+   }
+   if(ss.length !== 2){
       ss = '0' + ss;
-   };
-   if(ts.length != 3){
+   }
+   if(ts.length !== 3){
       for(let i = ts.length; i < 3; i++){
          ts = '0' + ts;
       }
-   };
+   }
 
    return `${hs}:${ms}:${ss}.${ts}`;
 }
@@ -137,34 +134,37 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
    //  throw new Error('Not implemented');
-   let pi = Math.PI;
-   let tableR = new Map();
-      tableR.set(0, 0);
-      tableR.set(30, pi/6);
-      tableR.set(45, pi/4);
-      tableR.set(60, pi/3);
-      tableR.set(90, pi/2);
-      tableR.set(180, pi);
-   
-   let d = new Date(date);
-   let h = d.getUTCHours();
-   if(h>=12){
-      h -= 12;      
-   }
-   let m = d.getUTCMinutes();
-   let hh = 0.5 * (60 * h + m);
-   let mh = 6 * m;
-   let ang = Math.abs(hh - mh);  
-   if(ang > 180)
-      ang -= 180;
-   let resR = tableR.get(Math.abs(ang));
-   if(resR == null && resR == undefined){
-      return ang*pi/180
-   }
-   else
+    //  throw new Error('Not implemented');
+    let pi = Math.PI;
+    let tableR = new Map();
+       tableR.set(0, 0);
+       tableR.set(30, pi/6);
+       tableR.set(45, pi/4);
+       tableR.set(60, pi/3);
+       tableR.set(90, pi/2);
+       tableR.set(180, pi);
+    
+    let d = new Date(date);
+    let h = d.getUTCHours();
+    if(h>=12){
+       h -= 12;      
+    }
+    let m = d.getUTCMinutes();
+    let hh = 0.5 * (60 * h + m);
+    let mh = 6 * m;
+    let ang = Math.abs(hh - mh);  
+    if(ang > 180)
+       ang -= 180;
+    let resR = tableR.get(Math.abs(ang));
+    if(resR !== null && resR !== undefined){
+         return resR;
+       
+    }
+    return ang*pi/180;
+      
+ }
 
-   return resR;
-}
+
 
 
 module.exports = {
