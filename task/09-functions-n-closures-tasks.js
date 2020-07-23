@@ -117,10 +117,9 @@ function retry(func, attempts) {
     for (let i = 0; i < attempts; i++) {
       try {
         return func()
-      } catch (e) {
-        if (i === attempts - 1) throw e;
-      }
+      } catch (e) { }
     }
+    return func();
   }
 }
 
@@ -202,12 +201,12 @@ function getIdGeneratorFunction(startFrom) {
 
 
 module.exports = {
-  getComposition: getComposition,
-  getPowerFunction: getPowerFunction,
-  getPolynom: getPolynom,
-  memoize: memoize,
-  retry: retry,
-  logger: logger,
-  partialUsingArguments: partialUsingArguments,
-  getIdGeneratorFunction: getIdGeneratorFunction,
+    getComposition: getComposition,
+    getPowerFunction: getPowerFunction,
+    getPolynom: getPolynom,
+    memoize: memoize,
+    retry: retry,
+    logger: logger,
+    partialUsingArguments: partialUsingArguments,
+    getIdGeneratorFunction: getIdGeneratorFunction,
 };
