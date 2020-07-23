@@ -59,8 +59,8 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
-    // return Object.setPrototypeOf(JSON.parse(json), proto);
+    // throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -113,68 +113,85 @@ function fromJSON(proto, json) {
  */
 class cssBuilder {
     constructor(){
+        this.order = 0,
         this._element = undefined,
         this._id = undefined,
         this._classes = [],
         this._attrs = [],
         this._pseudoClasses = [],
-        this._pseudoElement = undefined
+        this._pseudoElement = undefined,
+        this._selectors = [],
+        this.oneTimeError = 'Element, id and pseudo-element should not occur more then one time inside the selector'
+        this.orderError = 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
     }
+
+    
+    checkOrder(order) {
+        if (this.order > order) throw new Error(this.orderError);               
+        this.order = order;
+    }
+
     element(val) {
+        if (this._element)
+            throw new Error(this.oneTimeError)
+
+        this.checkOrder(1);
         this._element = val
-        return this
+        return this;
     }
+
     id(val){
+        if (this._id )
+            throw new Error(this.oneTimeError)
+
+        this.checkOrder(2)
         this._id = val
         return this
     }
     class(val) {
-        this._classes.push(val)
+        this.checkOrder(3)
+        this._classes.push(val)        
         return this
     }
     attr(val) {
-        this._attrs.push(val)
+        this.checkOrder(4)
+        this._attrs.push(val)        
         return this
     }
 
     pseudoClass(val) {
+        this.checkOrder(5)
         this._pseudoClasses.push(val)
         return this
     }
 
     pseudoElement(val) {
+        if (this._pseudoElement )
+            throw new Error(this.oneTimeError)
+
+        this.checkOrder(6)
         this._pseudoElement = val
         return this
     }
-    // combine(selector1, combinator, selector2) {
-    //     return this
-    // }
-    
+
+    combine(combinator, selector2) {
+        this._selectors.push({ combinator, selector2 })
+        return this
+    }    
 
     stringify() {
-        return ( 
-            ( this._element ? `${this._element}` : '') +
-            (this._id ? `#${this._id}` : '') +
-            (this._classes.length ? '.' + this._classes.join('.') : '') +
+        return  (
+            (this._element ? `${this._element}` : '')
+            +(this._id ? `#${this._id}` : '') 
+            +(this._classes.length ? '.' + this._classes.join('.') : '') +
             (this._attrs.length ? this._attrs.map(elem => `[${elem}]`).join('') : '') +
             (this._pseudoClasses.length ? ':' + this._pseudoClasses.join(':') : '') +
             (this._pseudoElement !== undefined ? '::' + this._pseudoElement : '') 
-        )
+            + (this._selectors.length ? this._selectors.map(elem => ` ${elem.combinator} ` + elem.selector2.stringify()).join('') : '')
+        )        
     }
+
 }
-
-class CssCombinedPath {
-    constructor(firstSelector, combinator, secondSelector) {
-        this.firstSelector = firstSelector;
-        this.combinator = combinator;
-        this.secondSelector = secondSelector;
-    }
-
-    stringify() {
-        return `${this.firstSelector.stringify()} ${this.combinator} ${this.secondSelector.stringify()}`;
-    }
-}
-
 
 const cssSelectorBuilder = {
 
@@ -187,29 +204,25 @@ const cssSelectorBuilder = {
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new cssBuilder().class(value)
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new cssBuilder().attr(value)
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new cssBuilder().pseudoClass(value)
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new cssBuilder().pseudoElement(value)
     },
 
     combine: function(selector1, combinator, selector2) {
-        // throw new Error('Not implemented');
-        return new CssCombinedPath(selector1, combinator, selector2);
+        return selector1.combine(combinator, selector2);
     },
 };
-
-
-
 
 module.exports = {
     Rectangle: Rectangle,
