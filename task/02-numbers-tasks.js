@@ -23,7 +23,6 @@
  */
 function getRectangleArea(width, height) {
     return width * height;
-    throw new Error('Not implemented');
 }
 
 
@@ -42,7 +41,6 @@ function getCicleCircumference(radius) {
     let tmp;
     tmp = (2 * Math.PI * radius);
     return tmp;
-    throw new Error('Not implemented');
 }
 
 /**
@@ -59,7 +57,6 @@ function getCicleCircumference(radius) {
  */
 function getAverage(value1, value2) {
     return value1 / 2 + value2 / 2;
-    throw new Error('Not implemented');
 }
 
 /**
@@ -79,7 +76,6 @@ function getAverage(value1, value2) {
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2))
-    throw new Error('Not implemented');
 }
 
 /**
@@ -96,7 +92,6 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  */
 function getLinearEquationRoot(a, b) {
     return (0 - b) / a;
-    throw new Error('Not implemented');
 }
 
 
@@ -123,7 +118,6 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
     let len_vect2 = Math.abs(x2 + y2);
     let result = Math.acos(sklr / (len_vect1 * len_vect2));
     return result;
-    throw new Error('Not implemented');
 }
 
 /**
@@ -140,8 +134,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  */
 function getLastDigit(value) {
     let result = value.toString().slice(-1);
-    return result;
-    throw new Error('Not implemented');
+    return parseInt(result);
 }
 
 
@@ -159,7 +152,6 @@ function getLastDigit(value) {
 function parseNumberFromString(value) {
     let result = parseFloat(value, 10);
     return result;
-    throw new Error('Not implemented');
 }
 
 /**

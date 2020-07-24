@@ -23,8 +23,8 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 function findElement(arr, value) {
-    if (arr.indexOf(value) != -1) return arr.indexOf(value);
-    else return -1;
+    if (arr.indexOf(value) !== -1) return arr.indexOf(value);
+    return -1;
 }
 
 /**
@@ -258,7 +258,7 @@ function getMovingSum(arr) {
 function getSecondItems(arr) {
     let new_arr = new Array();
      arr.map(each_el => {
-        if (arr.indexOf(each_el) % 2 != 0) new_arr.push(each_el);
+        if (arr.indexOf(each_el) % 2 !== 0) new_arr.push(each_el);
      });
     return new_arr;
 }
@@ -315,7 +315,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-    return arr.filter(elem => elem > 0 && typeof elem == 'number').length;
+    return arr.filter(elem => elem > 0 && typeof elem === 'number').length;
 }
  
 /** 
@@ -549,7 +549,7 @@ function getIntervalArray(start, end) {
 function distinct(arr) {
     let new_arr = new Array();
     arr.map(each_el => {
-        if (arr[arr.indexOf(each_el)] != new_arr[new_arr.indexOf(each_el)]) new_arr.push(each_el);
+        if (arr[arr.indexOf(each_el)] !== new_arr[new_arr.indexOf(each_el)]) new_arr.push(each_el);
     });
     return new_arr;
 }
@@ -631,7 +631,7 @@ function getElementByIndexes(arr, indexes) {
     let new_arr = new Array();
     let arr_index = 0;
     indexes.map(each_el => {
-        if (each_el != 0) arr_index = each_el;
+        if (each_el !== 0) arr_index = each_el;
     });
     new_arr = flattenDeep(arr);
     function flattenDeep(arr1) {
