@@ -62,7 +62,7 @@ function isLeapYear(date) {
             if (year % 400 === 0) {
                 return true;
             }
-            else return false;
+            return false;
         }
          return true;
     }
