@@ -100,7 +100,7 @@ function timeSpanToString(startDate, endDate) {
 
    function convertStringTo2DigitsString(str) {
       let stringToString = '';
-      if (str.indexOf('.') == 1 || str.indexOf(',') == 1) {
+      if (str.indexOf('.') === 1 || str.indexOf(',') === 1) {
          stringToString = '0' + str;
       } else {
          stringToString += str;

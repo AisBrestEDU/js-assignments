@@ -213,29 +213,28 @@ function getRectangleString(width, height) {
 
     if (width < 2 || height < 2) {
         return rectangle;
-    } else {
-        rectangle += leftTopCorner;
-        horizontalFunction();
-        rectangle += rightTopCorner + newline;
-        verticalFunction();
-        rectangle += leftBottomCorner;
-        horizontalFunction();
-        rectangle += rightBottomCorner + newline;
+    } 
+    rectangle += leftTopCorner;
+    horizontalFunction();
+    rectangle += rightTopCorner + newline;
+    verticalFunction();
+    rectangle += leftBottomCorner;
+    horizontalFunction();
+    rectangle += rightBottomCorner + newline;
 
-        function verticalFunction() {
-            for (let i = 0; i < height - 2; i++) {
-                rectangle += vertical;
-                for (let i = 0; i < width - 2; i++) {
-                    rectangle += ' ';
-                }
-                rectangle += vertical + newline;
-            }
-        }
-
-        function horizontalFunction() {
+    function verticalFunction() {
+        for (let i = 0; i < height - 2; i++) {
+            rectangle += vertical;
             for (let i = 0; i < width - 2; i++) {
-                rectangle += horizontal;
+                rectangle += ' ';
             }
+            rectangle += vertical + newline;
+        }
+    }
+
+    function horizontalFunction() {
+        for (let i = 0; i < width - 2; i++) {
+            rectangle += horizontal;
         }
     }
     return rectangle;

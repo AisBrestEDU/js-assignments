@@ -13,7 +13,7 @@
   "author": "aorgish",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "mocha": "^8.0.1",
     "mocha-eslint": "^6.0.0"
   },

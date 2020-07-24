@@ -484,7 +484,7 @@ function sortCitiesArray(arr) {
          return 1;
       } else if (a.country < b.country) {
          return -1;
-      } else {
+      } 
          if (a.city > b.city) {
             return 1;
          }
@@ -492,7 +492,7 @@ function sortCitiesArray(arr) {
             return -1;
          }
          return 0;
-      }
+      
    });
    return arr;
 }
