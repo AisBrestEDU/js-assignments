@@ -23,7 +23,9 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width=width;
+    this.height=height;
+    Rectangle.prototype.getArea = function() {return width * height};
 }
 
 
@@ -38,7 +40,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +56,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json),proto);
 }
 
 
@@ -109,33 +111,142 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return new Combination(selector1, combinator, selector2);
     },
 };
+
+class CssSelector {
+    constructor() {
+        // [order , content, quantity check]
+        this.selector = {
+            element: [1, '', true],
+            id: [2, '', true],
+            class: [3, [], true],
+            attr: [4, [], true],
+            pseudoClass: [5, [], true],
+            pseudoElement: [6, '', true],
+        };
+        this.stringResult = '';
+        this.order = 0;
+    }
+
+    element(value) {
+        if (this.order <= this.selector.element[0]) {
+            if (this.selector.element[2]) {
+                this.selector.element[1] = value;
+                this.selector.element[2] = false;
+                this.order = this.selector.element[0]
+                return this;
+            }
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    id(value) {
+        if (this.order <= this.selector.id[0]) {
+            if (this.selector.id[2]) {
+                this.selector.id[1] = value;
+                this.selector.id[2] = false;
+                this.order = this.selector.id[0]
+                return this;
+            }
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector'); 
+        }
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    class(value) {
+        if (this.order <= this.selector.class[0]) {
+            this.selector.class[1].push(value);
+            this.selector.class[2] = false;
+            this.order = this.selector.class[0]
+            return this;
+        }
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    attr(value) {
+        if (this.order <= this.selector.attr[0]) {
+            this.selector.attr[1].push(value);
+            this.selector.attr[2] = false;
+            this.order = this.selector.attr[0]
+            return this;
+        }
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    pseudoClass(value) {
+        if (this.order <= this.selector.pseudoClass[0]) {
+            this.selector.pseudoClass[1].push(value);
+            this.selector.pseudoClass[2] = false;
+            this.order = this.selector.pseudoClass[0]
+            return this;
+        }
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    pseudoElement(value) {
+        if (this.order <= this.selector.pseudoElement[0]) {
+            if (this.selector.pseudoElement[2]) {
+                this.selector.pseudoElement[1] = value;
+                this.selector.pseudoElement[2] = false;
+                this.order = this.selector.pseudoElement[0]
+                return this;
+            }
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+
+    stringify() {
+        if (!this.selector.element[2]) this.stringResult += `${this.selector.element[1]}`;
+        if (!this.selector.id[2]) this.stringResult += `#${this.selector.id[1]}`;
+        if (!this.selector.class[2]) this.stringResult += `.${this.selector.class[1].join('.')}`;
+        if (!this.selector.attr[2]) this.stringResult += `[${this.selector.attr[1].join('][')}]`;
+        if (!this.selector.pseudoClass[2]) this.stringResult += `:${this.selector.pseudoClass[1].join(':')}`;
+        if (!this.selector.pseudoElement[2]) this.stringResult += `::${this.selector.pseudoElement[1]}`;
+        console.log(this);
+        return this.stringResult;
+    }
+}
+
+class Combination {
+    constructor(selector1, combinator, selector2) {
+        this.selector1 = selector1;
+        this.combinator = combinator;
+        this.selector2 = selector2;
+    }
+
+    stringify() {
+        if ([' ', '+', '~', '>'].includes(this.combinator)) return `${this.selector1.stringify() } ${this.combinator} ${this.selector2.stringify()}`;
+        throw new Error('Please use proper combinator')
+    }
+}
 
 
 module.exports = {
