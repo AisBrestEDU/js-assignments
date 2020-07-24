@@ -77,22 +77,22 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-  // let duration = endDate-startDate
-  // let hours = Math.floor(duration / (3600*1000))
-  // if(hours<10) hours = '0' + hours
-  // let minutes = Math.floor((duration - (hours*3600*1000))/(60*1000))
-  // if(minutes<10) minutes = '0' + minutes
-  // let seconds = Math.floor((duration - (hours*3600*1000)-(minutes*60*1000))/1000)
-  // if(seconds<10) seconds = '0' + seconds
-  // let milliseconds = duration - (hours*3600*1000) - (minutes*60*1000) - (seconds*1000)
-  // if( milliseconds<100)  milliseconds = '0' +  milliseconds
-  // if( milliseconds<10)  milliseconds = '0' +  milliseconds
-  //
-  // console.log(new Date(endDate - startDate).toISOString().slice(11, -1))
-  //
-  // return  `${hours}:${minutes}:${seconds}.${milliseconds}`
+  let duration = endDate-startDate
+  let hours = Math.floor(duration / (3600*1000))
+  if(hours<10) hours = '0' + hours
+  let minutes = Math.floor((duration - (hours*3600*1000))/(60*1000))
+  if(minutes<10) minutes = '0' + minutes
+  let seconds = Math.floor((duration - (hours*3600*1000)-(minutes*60*1000))/1000)
+  if(seconds<10) seconds = '0' + seconds
+  let milliseconds = duration - (hours*3600*1000) - (minutes*60*1000) - (seconds*1000)
+  if( milliseconds<100)  milliseconds = '0' +  milliseconds
+  if( milliseconds<10)  milliseconds = '0' +  milliseconds
   
-  return new Date(endDate - startDate).toISOString().slice(11, -1);
+  // console.log(new Date(endDate - startDate).toISOString().slice(11, -1))
+  
+  return  `${hours}:${minutes}:${seconds}.${milliseconds}`
+  
+  // return new Date(endDate - startDate).toISOString().slice(11, -1);
 }
 
 
