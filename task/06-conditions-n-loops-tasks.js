@@ -30,9 +30,9 @@
  *
  */
 function getFizzBuzz(num) {
-    if (num%3===0 & num%5===0) return "FizzBuzz";
-    else if (num%3===0) return "Fizz";
-    else if (num%5===0) return "Buzz";
+    if (num % 3 === 0 & num % 5 === 0) return "FizzBuzz";
+    else if (num % 3 === 0) return "Fizz";
+    else if (num % 5 === 0) return "Buzz";
     else return num;
 }
 
@@ -49,10 +49,9 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    let sum=1, count=1;
-    while (count<=n){
-        sum*=count;
-        count++;
+    let sum = 1;
+    for (let count = 1; count <= n; count++) {
+        sum *= count;
     };
     return sum;
 }
@@ -71,10 +70,9 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    let sum=0, count=n1;
-    while (count<=n2){
-        sum+=count;
-        count++;
+    let sum = 0;
+    for (let count = n1; count <= n2; count++){
+        sum += count;
     }
     return sum;
 }
@@ -95,7 +93,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    return (a+b>c & a+c>b &b+c>a) ? true :false;
+    return (a + b > c & a + c > b & b + c > a);
 }
 
 
@@ -165,7 +163,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    if (Math.sqrt(Math.pow(circle.center.x-point.x,2)+Math.pow(circle.center.y-point.y,2))<circle.radius) return true;
+    if (Math.sqrt( Math.pow(circle.center.x-point.x, 2) + Math.pow( circle.center.y - point.y, 2)) < circle.radius) return true;
     else return false;
 }
 
@@ -182,7 +180,7 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    let arr=str.replace(/ /g, "").split(''), result={};
+    let arr = str.replace( / /g, "" ).split(''), result={};
     for (let i = 0; i < arr.length; ++i)
     {
         if (result[arr[i]] != undefined)
@@ -190,8 +188,8 @@ function findFirstSingleChar(str) {
         else
             result[arr[i]] = 1;
     }
-    for (var key in result){
-        if (result[key]===1) return key;
+    for (let key in result){
+        if (result[key] === 1) return key;
     }
     return null;
 }
@@ -219,16 +217,16 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    let str="";
-    if (isStartIncluded) str=str.concat("[");
-    else str=str.concat("(");
-    if (a<b){
-        if (isEndIncluded) str=str.concat(a+", "+b+"]");
-        else str=str.concat(a+", "+b+")");
+    let str = "";
+    if (isStartIncluded) str = str.concat("[");
+    else str = str.concat("(");
+    if (a < b){
+        if (isEndIncluded) str = str.concat(a + ", " + b + "]");
+        else str = str.concat(a + ", " + b + ")");
     }
     else {
-        if (isEndIncluded) str=str.concat(b+", "+a+"]");
-        else str=str.concat(b+", "+a+")");
+        if (isEndIncluded) str = str.concat(b + ", " + a + "]");
+        else str = str.concat(b+", "+a+")");
     }
     return str;
 }
@@ -265,10 +263,10 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    let arr=[];
-    while (num>0){
-        arr.push(num%10);
-        num=Math.floor(num/10);
+    let arr = [];
+    while (num > 0){
+        arr.push(num % 10);
+        num = Math.floor(num / 10);
     }
     return parseInt(arr.join(""));
 }
@@ -302,9 +300,10 @@ function isCreditCardNumber(ccn) {
     for (i = 0, len = digits.length; i < len; i++) {
         digit = digits[i];
         digit = parseInt(digit, 10);
-        if ((flag = !flag)) {
+        if ((flag === false)) {
             digit *= 2;
-        }
+            flag = true;
+        } else flag = false;
         if (digit > 9) {
             digit -= 9;
         }
@@ -329,16 +328,16 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    let sum=0;
+    let sum = 0;
     while (true) {
-        while (num>0){
-            sum+=num%10;
-            num=Math.floor(num/10);
+        while (num > 0){
+            sum += num % 10;
+            num = Math.floor(num / 10);
         }
-        if (sum<9) return sum;
+        if (sum < 9) return sum;
         else {
-            num=sum; 
-            sum=0;
+            num = sum; 
+            sum = 0;
         }
     }   
 }
@@ -414,44 +413,22 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    const time_s=(endDate-startDate)/1000;
-    if (time_s>45) {
-        if (time_s>90){
-            if (time_s/60>45){
-                if (time_s/60>90){
-                    if (time_s/3600>22){
-                        if (time_s/3600>36){
-                            if (time_s/86400>25){
-                                if (time_s/86400>45){
-                                    if (time_s/86400>345){
-                                        if (time_s/86400>545) return `${Math.round(time_s/86400/363.333)} years ago`;
-                                        else return `a year ago` ;
-                                    }
-                                    else return `${Math.round(time_s/86400/30)} months ago`;
-                                }
-                                else return `a month ago`;
-                            }
-                            else {
-                                if ((time_s/3600/24)-Math.floor(time_s/3600/24)<=0.5) return `${Math.floor(time_s/3600/24)} days ago`;
-                                else return `${Math.round(time_s/3600/24)} days ago`;
-                            }
-                        }
-                        else return `a day ago`;
-                    }
-                    else {
-                        if ((time_s/60/60)-Math.floor(time_s/60/60)<=0.5) return `${Math.floor(time_s/60/60)} hours ago`;
-                        else return `${Math.round(time_s/60/60)} hours ago`;
-                    }
-                }
-                else return `an hour ago`;
-            }
-            else {
-                if ((time_s/60)-Math.floor(time_s/60)<=0.5) return `${Math.floor(time_s/60)} minutes ago`;
-                else return `${Math.round(time_s/60)} minutes ago`;}
-        }
-        else return `a minute ago`;
-    }
-    else return `a few seconds ago`;
+    const time_s=(endDate-startDate);
+    const sec = 1000;
+    let min = 60 * sec;
+    let hour = 60 * min;
+    let day = 24 * hour;
+    if ( time_s <= 45 * sec) return 'a few seconds ago';
+    if ( time_s <= 90 * sec) return 'a minute ago';
+    if (time_s <= 45 * min) return `${Math.round((time_s - 1) / min)} minutes ago`;
+    if (time_s <= 90 * min) return 'an hour ago';
+    if (time_s <= 22 * hour) return `${Math.round((time_s - 1) / hour)} hours ago`;
+    if (time_s <= 36 * hour) return 'a day ago';
+    if (time_s <= 25 * day) return `${Math.round((time_s - 1) / day)} days ago`;
+    if (time_s <= 45 * day) return 'a month ago';
+    if (time_s <= 345 * day) return `${Math.round(time_s / day / 30)} months ago`;
+    if (time_s <= 545 * day) return 'a year ago';
+    if (time_s >= 546 * day) return `${Math.round(time_s / day / 365)} years ago`;
 }
 
 
@@ -492,13 +469,13 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    let arr= pathes.concat().sort(), elem1= arr[0], elem2= arr[arr.length-1], length= elem1.length, i= 0, position=0;
-    while(i<length && elem1.charAt(i)=== elem2.charAt(i)) {
-        position++
-        if (elem1.charAt(i)==="/") position=0;
+    let arr = pathes.concat().sort(), elem1 = arr[0], elem2 = arr[arr.length-1], length = elem1.length, i = 0, position = 0;
+    while(i < length && elem1.charAt(i) === elem2.charAt(i)) {
+        position++;
+        if (elem1.charAt(i) === "/") position = 0;
         i++;
     }
-    return i===length ? elem1.substring(0, i) : elem1.substring(0, i-position);
+    return i === length ? elem1.substring(0, i) : elem1.substring(0, i - position);
 }
 
 
@@ -570,15 +547,15 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    if (position[0][0]===position[0][1] && position[0][0]===position[0][2] && position[0][0]!==undefined) return position[0][0];
-    if (position[1][0]===position[1][1] && position[1][0]===position[1][2] && position[1][2]!==undefined) return position[1][0];
-    if (position[2][0]===position[2][1] && position[2][0]===position[2][2] && position[2][2]!==undefined) return position[2][0];
-    if (position[0][0]===position[1][0] && position[0][0]===position[2][0] && position[2][0]!==undefined) return position[0][0];
-    if (position[0][1]===position[1][1] && position[0][1]===position[2][1] && position[2][1]!==undefined) return position[0][1];
-    if (position[0][2]===position[1][2] && position[0][2]===position[2][2] && position[2][2]!==undefined) return position[0][2];
-    if (position[0][0]===position[1][1] && position[0][0]===position[2][2] && position[2][2]!==undefined) return position[0][0];
-    if (position[0][2]===position[1][1] && position[0][2]===position[2][0] && position[2][0]!==undefined) return position[0][2];
-    return undefined;
+    if (position[0][0] === position[0][1] && position[0][0] === position[0][2] && position[0][0] !== undefined) return position[0][0];
+    else if (position[1][0] === position[1][1] && position[1][0] === position[1][2] && position[1][2] !== undefined) return position[1][0];
+    else if (position[2][0] === position[2][1] && position[2][0] === position[2][2] && position[2][2] !== undefined) return position[2][0];
+    else if (position[0][0] === position[1][0] && position[0][0] === position[2][0] && position[2][0] !== undefined) return position[0][0];
+    else if (position[0][1] === position[1][1] && position[0][1] === position[2][1] && position[2][1] !== undefined) return position[0][1];
+    else if (position[0][2] === position[1][2] && position[0][2] === position[2][2] && position[2][2] !== undefined) return position[0][2];
+    else if (position[0][0] === position[1][1] && position[0][0] === position[2][2] && position[2][2] !== undefined) return position[0][0];
+    else if (position[0][2] === position[1][1] && position[0][2] === position[2][0] && position[2][0] !== undefined) return position[0][2]
+    else return undefined;
 }
 
 
