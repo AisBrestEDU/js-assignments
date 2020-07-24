@@ -239,7 +239,7 @@ function encodeToRot13(str) {
         str2 += outBase[j];
       }
     }
-  };
+  }
   return str2;
 }
 
