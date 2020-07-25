@@ -215,9 +215,9 @@ function getRectangleString(width, height) {
     var shape="";
     for (var h=0; h<height; h++) {
         
-        if (h==0){
+        if (h===0){
            shape +=  '┌' + '─'.repeat(width-2) + '┐\n';
-        }else if (h==height-1){
+        }else if (h===height-1){
            shape += '└' + '─'.repeat(width-2) + '┘\n';
         }
         else{
@@ -249,8 +249,8 @@ function encodeToRot13(str) {
     let arr_en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     let end_sring = "";
     for (let symb=0; symb<str.length; symb++){
-        if (arr_en.includes(str[symb].toLowerCase())==true){ 
-           if (str[symb] == str[symb].toUpperCase()){
+        if (arr_en.includes(str[symb].toLowerCase())===true){ 
+           if (str[symb] === str[symb].toUpperCase()){
                 if (arr_en.indexOf(str[symb].toLowerCase()) + 13>=26){
                 end_sring += arr_en[arr_en.indexOf(str[symb].toLowerCase())-13].toUpperCase();
            }
@@ -267,7 +267,7 @@ function encodeToRot13(str) {
                }
            }
         }
-        else if (str[symb]==" "){
+        else if (str[symb]===" "){
             end_sring += " ";
         }
         else {
@@ -293,7 +293,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if (typeof value == 'string' || value instanceof String)
+    if (typeof value === 'string' || value instanceof String)
     {
         return true;
     }else {

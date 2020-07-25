@@ -64,11 +64,11 @@ function isLeapYear(date) {
          if (year % 400 === 0) {
             return true;
           }
-         else return false;
+       return false;
       }
-      else return true;
+       return true;
       }
-   else return false;
+    return false;
    }
 /**
  * Returns the string represention of the timespan between two dates.
@@ -87,30 +87,14 @@ function isLeapYear(date) {
  */
 
 function timeSpanToString(startDate, endDate) {
-      let date1 = new Date(startDate),
-      date2 = new Date(endDate);
-      let result = "";
-      let tmp;
-      tmp = date2.getDay() - date1.getDay();
-      if ((date2.getHours() - date1.getHours()) < 10 && tmp === 0) {
-            result = '0' + (date2.getHours() - date1.getHours()) + ':';
-      }
-      else result = (date2.getHours() + tmp * 24) - date1.getHours() + ':';
-      if ((date2.getMinutes() - date1.getMinutes()) < 10) {
-         result += '0' + (date2.getMinutes() - date1.getMinutes()) + ':';
-      }
-      else result += (date2.getMinutes() - date1.getMinutes()) + ':';
-      if ((date2.getSeconds() - date1.getSeconds()) < 10) {
-         result += '0' + (date2.getSeconds() - date1.getSeconds()) + '.';
-      }
-      else result += (date2.getSeconds() - date1.getSeconds()) + '.';
-      if ((date2.getMilliseconds() - date1.getMilliseconds()) < 10) {
-         result += '00' + (date2.getMilliseconds() - date1.getMilliseconds()); 
-      } else if ((date2.getMilliseconds() - date1.getMilliseconds()) < 100) {
-         result += '0' + (date2.getMilliseconds() - date1.getMilliseconds());
-      }
-      else result += (date2.getMilliseconds() - date1.getMilliseconds());
-      return result;
+   let result;
+   result = (0.5 * (60 * date.getUTCHours() - 11 * date.getUTCMinutes()));
+   if (result > 180) {
+   result = Math.abs(360 - result);
+   }
+   if (date.getUTCHours() > 12 && result > 180) result = result - 180;
+   result = Math.abs( Math.PI * result / 180);
+   return result;
    }
 
 
