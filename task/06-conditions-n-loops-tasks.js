@@ -309,7 +309,7 @@ function isCreditCardNumber(ccn) {
 function getDigitalRoot(num) {
     function getSum(n) {
         let res = 0;
-        while (n != 0) {
+        while (n !== 0) {
             res += n % 10;
             n = Math.floor(n / 10);
         }
@@ -426,9 +426,8 @@ function timespanToHumanString(startDate, endDate) {
     else if(seconds / 60 / 60 / 24 <= 545){
         return "a year ago";
     }
-    else{
-        return `${roundDate(seconds / 60 / 60 / 24 / 30 / 12)} years ago`;
-    }
+    
+    return `${roundDate(seconds / 60 / 60 / 24 / 30 / 12)} years ago`;
 }
 
 /**
@@ -474,7 +473,7 @@ function toNaryString(num, n) {
 function getCommonDirectoryPath(pathes) {
     let result = pathes[0];
     for (let i = 0; i < pathes.length - 1; i++) {
-        if (pathes[i][0] != "/" || pathes[i + 1][0] != "/") {
+        if (pathes[i][0] !== "/" || pathes[i + 1][0] !== "/") {
             return "";
         }
         result =
@@ -558,7 +557,7 @@ function evaluateTicTacToePosition(position) {
         let count = 1;
 
         for (let j = 1; j < position.length; j++) {
-            if (position[i][j - 1] != position[i][j] || !position[i][j]) {
+            if (position[i][j - 1] !== position[i][j] || !position[i][j]) {
                 break;
             }
             else {
@@ -572,7 +571,7 @@ function evaluateTicTacToePosition(position) {
 
         count = 1;
         for (let j = 1; j < position.length; j++) {
-            if (position[j - 1][i] != position[j][i] || !position[j][i]){
+            if (position[j - 1][i] !== position[j][i] || !position[j][i]){
                 break;
             }
             else {
@@ -587,7 +586,7 @@ function evaluateTicTacToePosition(position) {
 
     let count = 1;
     for (let j = 1; j < position.length; j++) {
-        if (position[j - 1][j - 1] != position[j][j] || !position[j][j]) {
+        if (position[j - 1][j - 1] !== position[j][j] || !position[j][j]) {
             break;
         }
         else {
@@ -602,15 +601,14 @@ function evaluateTicTacToePosition(position) {
     count = 1;
     for (let j = position.length - 1; j > 0; j--) {
         if (
-            position[position.length - 1 - j][j] !=
+            position[position.length - 1 - j][j] !==
             position[position.length - j][j - 1] ||
             !position[position.length - j][j - 1]
         ){
             return undefined;
         }
-        else {
-            count++;
-        }
+        
+        count++;
 
         if (count === position.length) {
             return position[j][j];
