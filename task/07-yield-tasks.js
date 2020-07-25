@@ -33,17 +33,17 @@
  *
  */
 function* get99BottlesOfBeer() {
-    for(let i = 99; i > 2; i--){
-            yield   `${i} bottles of beer on the wall, ${i} bottles of beer.`
-            yield `Take one down and pass it around, ${i-1} bottles of beer on the wall.`  
+    for (let i = 99; i > 2; i--) {
+        yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
+        yield `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`;
     }
 
-    yield '2 bottles of beer on the wall, 2 bottles of beer.'
-    yield 'Take one down and pass it around, 1 bottle of beer on the wall.'
-    yield '1 bottle of beer on the wall, 1 bottle of beer.'
-    yield 'Take one down and pass it around, no more bottles of beer on the wall.'
-    yield 'No more bottles of beer on the wall, no more bottles of beer.'
-    yield 'Go to the store and buy some more, 99 bottles of beer on the wall.'
+    yield "2 bottles of beer on the wall, 2 bottles of beer.";
+    yield "Take one down and pass it around, 1 bottle of beer on the wall.";
+    yield "1 bottle of beer on the wall, 1 bottle of beer.";
+    yield "Take one down and pass it around, no more bottles of beer on the wall.";
+    yield "No more bottles of beer on the wall, no more bottles of beer.";
+    yield "Go to the store and buy some more, 99 bottles of beer on the wall.";
 }
 
 
@@ -57,15 +57,17 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    yield 0
-    yield 1
+    yield 0;
+    yield 1;
 
-    let a = 0, b = 1, i = 3;
-    while(1) {
+    let a = 0,
+        b = 1,
+        i = 3;
+    while (1) {
         let c = a + b;
         a = b;
         b = c;
-        yield b
+        yield b;
     }
 }
 
@@ -101,17 +103,18 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    let stack = [root]
-  
-    while (stack.length) {      
-        let curr = stack.pop()
-        yield curr
+    let stack = [root];
 
-        if (curr.children){
-            for(let i = curr.children.length-1; i >= 0; i--)
-                stack.push(curr.children[i])
+    while (stack.length) {
+        let curr = stack.pop();
+        yield curr;
+
+        if (curr.children) {
+            for (let i = curr.children.length - 1; i >= 0; i--) {
+                stack.push(curr.children[i]);
+            }
         }
-    } 
+    }
 }
 
 
@@ -137,18 +140,19 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    let queue = [root]
-    let res = []
-    
-    while (queue.length) {      
-        let curr = queue.shift()
-        res.push(curr)
-        
-        yield curr
+    let queue = [root];
+    let res = [];
 
-        if (curr.children){
-            for(let child of curr.children)
-                queue.push(child)
+    while (queue.length) {
+        let curr = queue.shift();
+        res.push(curr);
+
+        yield curr;
+
+        if (curr.children) {
+            for (let child of curr.children) {
+                queue.push(child);
+            }
         }
     }
 }
@@ -168,36 +172,38 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    let src1 = source1()
-    let src2 = source2()
+    let src1 = source1();
+    let src2 = source2();
 
-    let val1 = src1.next()
-    let val2 = src2.next()
-    while(!val1.done || !val2.done){
-        if(val1.value > val2.value){
-            if(val2.value != undefined)
-                yield val2.value
-            if(val1.value != undefined)
-                yield val1.value
+    let val1 = src1.next();
+    let val2 = src2.next();
+    while (!val1.done || !val2.done) {
+        if (val1.value > val2.value) {
+            if (val2.value != undefined) {
+                yield val2.value;
+            }
+            if (val1.value != undefined) {
+                yield val1.value;
+            }
+        } else {
+            if (val1.value != undefined) {
+                yield val1.value;
+            }
+            if (val2.value != undefined) {
+                yield val2.value;
+            }
         }
-        else{
-            if(val1.value != undefined)
-                yield val1.value
-            if(val2.value != undefined)
-                yield val2.value
 
-        }
-
-        val1 = src1.next()
-        val2 = src2.next()
+        val1 = src1.next();
+        val2 = src2.next();
     }
 }
 
 /**
  * Resolve Promises and take values step by step.
- * 
+ *
  * @params {Iterable.<Promise>} generator
- * @return {Promise} Promise with value returned via return 
+ * @return {Promise} Promise with value returned via return
  *
  * @example
  *   async((function*() {
@@ -209,25 +215,24 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    const iterator = generator()
-    let current = iterator.next()
+    const iterator = generator();
+    let current = iterator.next();
 
     return current.value.then(() => {
-        let promises = []
-        try{
-            promises.push(current.value)
-            while(1){
-                promises.push(iterator.next().value)
+        let promises = [];
+        try {
+            promises.push(current.value);
+            while (1) {
+                promises.push(iterator.next().value);
             }
-        }
-        finally{
-            return Promise.all(promises).then(values => {
+        } finally {
+            return Promise.all(promises).then((values) => {
                 return values.reduce((accumulator, current) => {
-                    return accumulator + current
-                }, 0)
-            })
+                    return accumulator + current;
+                }, 0);
+            });
         }
-    })
+    });
 }
 
 module.exports = {
