@@ -1,4 +1,4 @@
-'use strict';
+"use strict"
 
 /**************************************************************************************************
  *                                                                                                *
@@ -7,7 +7,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object        *
  *                                                                                                *
  **************************************************************************************************/
-
 
 /**
  * Returns the rectagle object with width and height parameters and getArea() method
@@ -23,14 +22,13 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    this.width = width;
-    this.height = height;
+  this.width = width
+  this.height = height
 }
 
 Rectangle.prototype.getArea = function () {
-    return this.width * this.height;
+  return this.width * this.height
 }
-
 
 /**
  * Returns the JSON representation of specified object
@@ -43,9 +41,8 @@ Rectangle.prototype.getArea = function () {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-  return JSON.stringify(obj);
+  return JSON.stringify(obj)
 }
-
 
 /**
  * Returns the object of specified type from JSON representation
@@ -59,9 +56,8 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    return Object.setPrototypeOf( JSON.parse(json), proto)
+  return Object.setPrototypeOf(JSON.parse(json), proto)
 }
-
 
 /**
  * Css selectors builder
@@ -112,40 +108,135 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
+  element: (value) => new Selector().element(value),
+  id: (value) => new Selector().id(value),
+  class: (value) => new Selector().class(value),
+  attr: (value) => new Selector().attr(value),
+  pseudoClass: (value) => new Selector().pseudoClass(value),
+  pseudoElement: (value) => new Selector().pseudoElement(value),
+  combine: (selector1, combinator, selector2) =>
+    new Selector().combine(selector1, combinator, selector2),
+}
 
-    element: function(value) {
-        throw new Error('Not implemented');
-    },
+class Selector {
+  constructor() {
+    this.index_of_selector = 0
+    this.elementValue = null
+    this.idValue = null
+    this.classes = []
+    this.attributes = []
+    this.pseudoClasses = []
+    this.pseudoElementValue = null
+    this.selectors = [
+      "element",
+      "id",
+      "class",
+      "attr",
+      "pseudoClass",
+      "pseudoElement",
+      "combine",
+    ]
+    this.combinator = null
+    this.selector2 = null
+  }
 
-    id: function(value) {
-        throw new Error('Not implemented');
-    },
+  check_order(curr_elem) {
+    if (this.index_of_selector > this.selectors.indexOf(curr_elem)) {
+      throw new Error(
+        "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element"
+      )
+    }
+    this.index_of_selector = this.selectors.indexOf(curr_elem)
+  }
 
-    class: function(value) {
-        throw new Error('Not implemented');
-    },
+  element(value) {
+    this.check_order("element")
+    if (!this.elementValue) {
+      this.elementValue = value
+    } else {
+      throw new Error(
+        "Element, id and pseudo-element should not occur more then one time inside the selector"
+      )
+    }
+    return this
+  }
 
-    attr: function(value) {
-        throw new Error('Not implemented');
-    },
+  id(value) {
+    this.check_order("id")
+    if (!this.idValue) {
+      this.idValue = value
+    } else {
+      throw new Error(
+        "Element, id and pseudo-element should not occur more then one time inside the selector"
+      )
+    }
+    return this
+  }
 
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
-    },
+  class(value) {
+    this.check_order("class")
+    this.classes.push(value)
+    return this
+  }
 
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
-    },
+  attr(value) {
+    this.check_order("attr")
+    this.attributes.push(value)
+    return this
+  }
 
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
-};
+  pseudoClass(value) {
+    this.check_order("pseudoClass")
+    this.pseudoClasses.push(value)
+    return this
+  }
 
+  pseudoElement(value) {
+    this.check_order("pseudoElement")
+    if (!this.pseudoElementValue) {
+      this.pseudoElementValue = value
+    } else {
+      throw new Error(
+        "Element, id and pseudo-element should not occur more then one time inside the selector"
+      )
+    }
+    return this
+  }
+
+  combine(selector1, symbol, selector2) {
+    this.check_order("combine")
+    Object.assign(this, selector1)    
+    this.symbol = symbol
+    this.selector2 = selector2
+    return this
+  }
+
+  stringify() {
+    let result = ""
+    if (this.elementValue) {
+      result += this.elementValue
+    }
+    if (this.idValue) {
+      result += "#" + this.idValue
+    }
+
+    this.classes.forEach((item) => (result += "." + item))
+    this.attributes.forEach((item) => (result += "[" + item + "]"))
+    this.pseudoClasses.forEach((item) => (result += ":" + item))
+
+    if (this.pseudoElementValue) {
+      result += "::" + this.pseudoElementValue
+    }
+    if (this.symbol && this.selector2) {
+      result += " " + this.symbol + " " + this.selector2.stringify()
+    }
+    return result
+  }
+}
 
 module.exports = {
-    Rectangle: Rectangle,
-    getJSON: getJSON,
-    fromJSON: fromJSON,
-    cssSelectorBuilder: cssSelectorBuilder
-};
+  Rectangle: Rectangle,
+  getJSON: getJSON,
+  fromJSON: fromJSON,
+  cssSelectorBuilder: cssSelectorBuilder,
+}
