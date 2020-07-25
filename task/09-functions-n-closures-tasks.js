@@ -26,7 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    return x=>f(g(x))
+    return x => f( g(x) )
 }
 
 
@@ -67,11 +67,13 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    if (arguments.length===0) return null
-    let arr=Array.from(arguments).reverse();
+    if (arguments.length === 0) return null;
+
+    let arr = Array.from(arguments).reverse();
+
     return function Polynom(value) {
-        return arr.reduce((sum, curr, index)=>{
-            return sum+curr*Math.pow(value, index) 
+        return arr.reduce( (sum, curr, index) => {
+            return sum + curr * Math.pow(value, index) 
             }, 0);
     };
 }
@@ -92,8 +94,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    let value=func()
-    return ()=>{return value}
+    let value = func();
+    return () => value
 }
 
 
@@ -114,15 +116,15 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     return function TryFunc(){
-        while (attempts>0){
+        for (; attempts > 0;){
             try {
-                return func()
+                return func();
             }
             catch (e){
-                attempts-=1
-                if(attempts===0) throw new Error("fulyError");
+                attempts-=1;
             }
         }
+        throw new Error("fulyError");
     }
 }
 
@@ -197,7 +199,7 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    return () => {return startFrom++}
+    return () => startFrom++;
 }
 
 
