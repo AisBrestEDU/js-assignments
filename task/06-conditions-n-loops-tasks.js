@@ -51,9 +51,11 @@ function getFizzBuzz(num) {
  */
 function getFactorial(n) {
     let res = 1;
-    while(n){
-        res *= n--;
+
+    for (n; n > 0; n--) {
+        res *= n;
     }
+
     return res;
     throw new Error('Not implemented');
 }
@@ -73,9 +75,11 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
     let res=0;
-    while(n1<=n2){
-        res += n1++;
+
+    for (n1, n2; n1 <= n2; n1++){
+        res += n1;
     }
+
     return res;
     throw new Error('Not implemented');
 }
@@ -134,13 +138,17 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    if ((rect1.left + rect1.width) <= rect2.left || (rect1.top + rect1.height) <= rect2.top) { 
+    if (
+        (rect1.left + rect1.width) <= rect2.left || 
+        (rect1.top + rect1.height) <= rect2.top
+    ) { 
         return false; 
-    }
-    if ((rect2.left + rect2.width ) <= rect1.left || (rect2.top + rect2.height) <= rect1.top) { 
+    } else if (
+        (rect2.left + rect2.width ) <= rect1.left || 
+        (rect2.top + rect2.height) <= rect1.top
+    ) { 
         return false; 
-    } 
-    return true; 
+    } else return true; 
     throw new Error('Not implemented');
 }
 
@@ -246,7 +254,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  */
 function reverseString(str) {
     let res = '';
-    for (var i = str.length - 1; i >= 0; i--) {
+    for (let i = str.length - 1; i >= 0; i--) {
         res += str[i];
     }
     return res; 
@@ -269,7 +277,7 @@ function reverseString(str) {
 function reverseInteger(num) {
     let str = num.toString();
     let res = '';
-    for (var i = str.length - 1; i >= 0; i--) {
+    for (let i = str.length - 1; i >= 0; i--) {
         res += str[i];
     }
     return +res;
