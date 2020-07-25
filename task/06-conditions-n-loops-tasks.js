@@ -181,6 +181,7 @@ function isInsideCircle(circle, point) {
  */
 function findFirstSingleChar(str) {
     let arr = str.replace( / /g, "" ).split(''), result={};
+
     for (let i = 0; i < arr.length; ++i)
     {
         if (result[arr[i]] != undefined)
@@ -218,6 +219,7 @@ function findFirstSingleChar(str) {
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
     let str = "";
+
     if (isStartIncluded) str = str.concat("[");
     else str = str.concat("(");
     if (a < b){
@@ -228,6 +230,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
         if (isEndIncluded) str = str.concat(b + ", " + a + "]");
         else str = str.concat(b+", "+a+")");
     }
+
     return str;
 }
 
@@ -246,6 +249,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  */
 function reverseString(str) {
     let arr = str.split("").reverse();
+
     return arr.join("");
 }
 
@@ -264,10 +268,12 @@ function reverseString(str) {
  */
 function reverseInteger(num) {
     let arr = [];
+
     while (num > 0){
         arr.push(num % 10);
         num = Math.floor(num / 10);
     }
+
     return parseInt(arr.join(""));
 }
 
@@ -294,9 +300,11 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
     let digit, digits, flag, sum, i, len;
+
     flag = true;
     sum = 0;
     digits = (ccn + '').split('').reverse();
+
     for (i = 0, len = digits.length; i < len; i++) {
         digit = digits[i];
         digit = parseInt(digit, 10);
@@ -329,6 +337,7 @@ function isCreditCardNumber(ccn) {
  */
 function getDigitalRoot(num) {
     let sum = 0;
+
     while (true) {
         while (num > 0){
             sum += num % 10;
@@ -367,6 +376,7 @@ function getDigitalRoot(num) {
 function isBracketsBalanced(str) {
     let brackets = "[]{}()<>";
     let arr = [];
+
     for(let bracket of str) {
         let bracketsIndex = brackets.indexOf(bracket);
         if(bracketsIndex % 2 === 0) {
@@ -413,11 +423,13 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    const time_s=(endDate-startDate);
+    const time_s = endDate-startDate;
     const sec = 1000;
+
     let min = 60 * sec;
     let hour = 60 * min;
     let day = 24 * hour;
+
     if ( time_s <= 45 * sec) return 'a few seconds ago';
     if ( time_s <= 90 * sec) return 'a minute ago';
     if (time_s <= 45 * min) return `${Math.round((time_s - 1) / min)} minutes ago`;
@@ -469,7 +481,7 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    let arr = pathes.concat().sort(), elem1 = arr[0], elem2 = arr[arr.length-1], length = elem1.length, i = 0, position = 0;
+    let arr = pathes.concat().sort(), elem1 = arr[0], elem2 = arr[arr.length - 1], length = elem1.length, i = 0, position = 0;
     while(i < length && elem1.charAt(i) === elem2.charAt(i)) {
         position++;
         if (elem1.charAt(i) === "/") position = 0;
@@ -503,7 +515,9 @@ function getMatrixProduct(m1, m2) {
     rowsM2 = m2.length,
     colsM2 = m2[0].length,
     result = [];
+
     if (colsM1 != rowsM2) return false;
+    
     for (let i = 0; i < rowsM1; i++) result[i] = [];
     for (let k = 0; k < colsM2; k++) {
         for (let i = 0; i < rowsM1; i++) {
