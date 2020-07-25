@@ -34,9 +34,10 @@
  */
 function* get99BottlesOfBeer() {
     let number = 99;
-    for (number; number >1; number--){
+
+    for (number; number > 1; number--){
         yield  `${number} bottles of beer on the wall, ${number} bottles of beer.`;
-        yield  number-1!==1 ? `Take one down and pass it around, ${number-1} bottles of beer on the wall.` 
+        yield  number-1!==1 ? `Take one down and pass it around, ${number - 1} bottles of beer on the wall.` 
             : `Take one down and pass it around, 1 bottle of beer on the wall.`;
     }
     yield '1 bottle of beer on the wall, 1 bottle of beer.';
@@ -57,8 +58,10 @@ function* get99BottlesOfBeer() {
  */
 function* getFibonacciSequence() {
     yield 0;
+
     let number1 = 1;
     let munber2 = 1;
+
     while (true){  
         let current = munber2;
         munber2 = number1;
@@ -100,6 +103,7 @@ function* getFibonacciSequence() {
  */
 function* depthTraversalTree(root) {
     let stack = [root];
+
     while (stack.length) {
         let elem = stack.pop();
         if (elem.children) 
@@ -133,7 +137,8 @@ function* depthTraversalTree(root) {
  */
 function* breadthTraversalTree(root) {
     let nodes = [root], index = 0;
-    while ((nodes.length - index) > 0) {
+
+    while ( (nodes.length - index) > 0) {
         let node = nodes[index];
         yield node;
         if(node.children){
@@ -208,6 +213,7 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     let iter = generator();
+    
     function handle(result){
         if(result.done) return Promise.resolve(result.value);
         return Promise.resolve(result.value).then((res) => {
