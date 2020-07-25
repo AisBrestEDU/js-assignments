@@ -36,7 +36,8 @@ function* get99BottlesOfBeer() {
     let number = 99;
     for (number; number >1; number--){
         yield  `${number} bottles of beer on the wall, ${number} bottles of beer.`;
-        yield  number-1!==1 ? `Take one down and pass it around, ${number-1} bottles of beer on the wall.` : `Take one down and pass it around, 1 bottle of beer on the wall.`;
+        yield  number-1!==1 ? `Take one down and pass it around, ${number-1} bottles of beer on the wall.` 
+            : `Take one down and pass it around, 1 bottle of beer on the wall.`;
     }
     yield '1 bottle of beer on the wall, 1 bottle of beer.';
     yield  'Take one down and pass it around, no more bottles of beer on the wall.';
@@ -161,12 +162,32 @@ function* breadthTraversalTree(root) {
 function* mergeSortedSequences(source1, source2) {
     let sour1 = source1();
     let sour2 = source2();
-    while (true) {
-        let s1 = sour1.next();
-        let s2 = sour2.next();
-        if (s1.done) yield s2.value;
-        else if(s2.done) yield s1.value;
-        else yield * [s1.value, s2.value].sort((a,b) => {return a-b});
+    let s1 = sour1.next();
+    let s2 = sour2.next();
+
+    while (!s1.done && !s2.done) {
+        if (s1.value < s2.value) {
+            yield s1.value;
+            s1 = sour1.next();
+        }
+        if (s2.value < s1.value) {
+            yield s2.value;
+            s2 = sour2.next();
+        }
+        if (s1.value === s2.value) {
+            yield s1.value;
+            yield s2.value;
+            s1 = sour1.next();
+            s2 = sour2.next();
+        }
+    }
+    while (!s1.done) {
+        yield s1.value;
+        s1 = sour1.next();
+    }
+    while (!s2.done) {
+        yield s2.value;
+        s2 = sour2.next();
     }
 }
 
