@@ -124,8 +124,8 @@ class CombineSelector {
 
 class SelectorsBuilder {
 
-    static multipleDeclarationErrorText = "Element, id and pseudo-element should not occur more then one time inside the selector";
-    static wrongOrderErrorMessage = "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
+    multipleDeclarationErrorText = "Element, id and pseudo-element should not occur more then one time inside the selector";
+    wrongOrderErrorMessage = "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
 
     constructor(name) {
         this.elementName = "";
@@ -143,30 +143,30 @@ class SelectorsBuilder {
     element(name) {
         if (!this.elementName) {
             if (!this.checkValues(this.idName)) {
-                throw new Error(SelectorsBuilder.wrongOrderErrorMessage);
+                throw new Error(this.wrongOrderErrorMessage);
             }
             this.elementName = name;
             return this;
         }
 
-        throw new Error(SelectorsBuilder.multipleDeclarationErrorText)
+        throw new Error(this.multipleDeclarationErrorText)
     }
 
     id(name) {
         if (!this.idName) {
             if (!this.checkValues(this.classes, this.pseudoElementName)) {
-                throw new Error(SelectorsBuilder.wrongOrderErrorMessage);
+                throw new Error(this.wrongOrderErrorMessage);
             }
             this.idName = `#${name}`;
             return this;
         }
 
-        throw new Error(SelectorsBuilder.multipleDeclarationErrorText);
+        throw new Error(this.multipleDeclarationErrorText);
     }
 
     class(name) {
         if (!this.checkValues(this.attrName)) {
-            throw new Error(SelectorsBuilder.wrongOrderErrorMessage);
+            throw new Error(this.wrongOrderErrorMessage);
         }
         this.classes.push(`.${name}`);
         return this;
@@ -174,7 +174,7 @@ class SelectorsBuilder {
 
     attr(name) {
         if (!this.checkValues(this.pseudoClasses)) {
-            throw new Error(SelectorsBuilder.wrongOrderErrorMessage);
+            throw new Error(this.wrongOrderErrorMessage);
         }
         this.attrName = `[${name}]`;
         return this;
@@ -182,7 +182,7 @@ class SelectorsBuilder {
 
     pseudoClass(name) {
         if (!this.checkValues(this.pseudoElementName)) {
-            throw new Error(SelectorsBuilder.wrongOrderErrorMessage);
+            throw new Error(this.wrongOrderErrorMessage);
         }
         this.pseudoClasses.push(`:${name}`);
         return this;
@@ -194,7 +194,7 @@ class SelectorsBuilder {
             return this;
         }
 
-        throw new Error(SelectorsBuilder.multipleDeclarationErrorText);
+        throw new Error(this.multipleDeclarationErrorText);
     }
 
     checkValues(...args) {
