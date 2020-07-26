@@ -25,9 +25,9 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.acos(x))
  *
  */
-function getComposition(f,g) {
-    return function(x){
-        return f(g(x))
+function getComposition(f, g) {
+    return function (x) {
+        return f(g(x));
     }
 }
 
@@ -49,8 +49,8 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    return function(n){
-        return n**exponent
+    return function (n) {
+        return n ** exponent;
     }
 }
 
@@ -70,21 +70,21 @@ function getPowerFunction(exponent) {
  */
 function getPolynom(...args) {
     const functions = [
-        function(){
-            return null
+        function () {
+            return null;
         },
-        function(x){
-            return args[0]
+        function (x) {
+            return args[0];
         },
-        function(x){
-            return args[0]*x + args[1]
+        function (x) {
+            return args[0] * x + args[1];
         },
-        function(x){
-            return args[0]*(x**2) + args[1]*x + args[2]
+        function (x) {
+            return args[0] * (x ** 2) + args[1] * x + args[2];
         }
     ]
-    
-    return functions[args.length]
+
+    return functions[args.length];
 }
 
 
@@ -103,9 +103,9 @@ function getPolynom(...args) {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    const value = func()
-    return function(){
-        return value
+    const value = func();
+    return function () {
+        return value;
     }
 }
 
@@ -126,15 +126,15 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    return function(){
-        let i = 0
-        let exception
-        while(i++ < attempts){
-            try{
-                return func()
+    return function () {
+        let i = 0;
+        let exception;
+        while (i++ < attempts) {
+            try {
+                return func();
             }
-            catch(ex){
-                exception = ex
+            catch (ex) {
+                exception = ex;
             }
         }
         throw exception
@@ -166,11 +166,11 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    return function(...args){
-        logFunc(`${func.name}(${JSON.stringify(args).slice(1,-1)}) starts`)
-        const res = func(...args)
-        logFunc(`${func.name}(${JSON.stringify(args).slice(1,-1)}) ends`)  
-        return res
+    return function (...args) {
+        logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) starts`);
+        const res = func(...args);
+        logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) ends`);
+        return res;
     }
 }
 
@@ -189,9 +189,9 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    const outerArgs = [...arguments].slice(1)
-    return function(...args){
-        return fn(...outerArgs,...args)
+    const outerArgs = [...arguments].slice(1);
+    return function (...args) {
+        return fn(...outerArgs, ...args);
     }
 }
 
@@ -213,8 +213,8 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    return function(){
-        return startFrom++
+    return function () {
+        return startFrom++;
     }
 }
 
