@@ -179,17 +179,17 @@ function* mergeSortedSequences(source1, source2) {
     let val2 = src2.next();
     while (!val1.done || !val2.done) {
         if (val1.value > val2.value) {
-            if (val2.value != undefined) {
+            if (val2.value !== undefined) {
                 yield val2.value;
             }
-            if (val1.value != undefined) {
+            if (val1.value !== undefined) {
                 yield val1.value;
             }
         } else {
-            if (val1.value != undefined) {
+            if (val1.value !== undefined) {
                 yield val1.value;
             }
-            if (val2.value != undefined) {
+            if (val2.value !== undefined) {
                 yield val2.value;
             }
         }
@@ -219,19 +219,27 @@ function async(generator) {
     let current = iterator.next();
 
     return current.value.then(() => {
-        let promises = [];
-        try {
-            promises.push(current.value);
-            while (1) {
-                promises.push(iterator.next().value);
+        let promises = [],
+        result = null
+            if(promises.length != 0){
+                return result
             }
-        } finally {
+            promises.push(current.value);
+            let alive = true;
+            while (alive) {
+                try {
+                    promises.push(iterator.next().value);
+                }
+                catch {
+                    break;
+                }
+            }
+            
             return Promise.all(promises).then((values) => {
                 return values.reduce((accumulator, current) => {
                     return accumulator + current;
                 }, 0);
-            });
-        }
+            });   
     });
 }
 
