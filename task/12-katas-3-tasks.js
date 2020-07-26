@@ -28,7 +28,43 @@
  *   'NULL'      => false 
  */
 function findStringInSnakingPuzzle(puzzle, searchStr) {
-    throw new Error('Not implemented');
+  let firstLetter = searchStr[0];
+  let origString = searchStr;
+  searchStr = searchStr.slice(1);
+  let coords = [];
+  for (let i = 0; i < puzzle.length; i++) {
+    for (let j = 0; j < puzzle[i].length; j++) {
+      if (puzzle[i][j] === firstLetter) {
+        coords.push(`${i},${j}`);
+        let x = i,
+            y = j;
+        while (searchStr) {
+          if (!coords.includes(`${x},${y + 1}`) && puzzle[x][y + 1] === searchStr[0]) {
+            coords.push(`${x},${y + 1}`);
+            searchStr = searchStr.slice(1);
+            y = y + 1;
+          } else if (!coords.includes(`${x},${y - 1}`) && puzzle[x][y - 1] === searchStr[0]) {
+            coords.push(`${x},${y - 1}`);
+            searchStr = searchStr.slice(1);
+            y = y - 1;
+          } else if (x < puzzle.length - 1 && !coords.includes(`${x + 1},${y}`) && puzzle[x + 1][y] === searchStr[0]) {
+            coords.push(`${x + 1},${y}`);
+            searchStr = searchStr.slice(1);
+            x = x + 1;
+          } else if (x > 0 && !coords.includes(`${x - 1},${y}`) && puzzle[x - 1][y] === searchStr[0]) {
+            coords.push(`${x - 1},${y}`);
+            searchStr = searchStr.slice(1);
+            x = x - 1;
+          } else {
+            searchStr = origString.slice(1);
+            break;
+          }
+        }
+        if (!searchStr) return true;
+      }
+    }
+  }
+  return false;
 }
 
 
@@ -45,7 +81,23 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
 function* getPermutations(chars) {
-    throw new Error('Not implemented');
+  let charsAr = chars.split('');
+  let resultAr = [];
+  resultAr.push(charsAr.shift());
+
+  while (charsAr.length) {
+    let strLen = resultAr[0].length;
+    let arLen = resultAr.length;
+    let curSym = charsAr.shift();
+    for (let j = 0; j < arLen; j++) {
+      let curStr = resultAr.shift();
+      for (let i = 0; i <= strLen; i++) {
+        resultAr.push(curStr.slice(0, i) + curSym + curStr.slice(i));
+      }
+    }
+  }
+
+  for (let str of resultAr) yield str;
 }
 
 
@@ -65,7 +117,24 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-    throw new Error('Not implemented');
+  let curMax = 0,
+    account = 0,
+    stocksAmount = 0;
+  for (let i = quotes.length - 1; i >= 0; i--) {
+    if (quotes[i] > curMax) {
+      account += stocksAmount * curMax;
+      curMax = quotes[i];
+      stocksAmount = 0;
+    } else {
+      stocksAmount++;
+      account -= quotes[i];
+    }
+    if (i == 0) {
+      account += stocksAmount * curMax;
+      curMax = quotes[i];
+    }
+  }
+  return account;
 }
 
 
@@ -91,13 +160,36 @@ function UrlShortener() {
 
 UrlShortener.prototype = {
 
-    encode: function(url) {
-        throw new Error('Not implemented');
-    },
-    
-    decode: function(code) {
-        throw new Error('Not implemented');
-    } 
+  encode: function (url) {
+    let short = '';
+    for (let i = 0; i < url.length; i += 2) {
+      let x = this.urlAllowedChars.indexOf(url[i]);
+      let y = url[i + 1] ? this.urlAllowedChars.indexOf(url[i + 1]) : null;
+      let code;
+      if (y) {
+        code = (x + y) * (x + y + 1) / 2 + x
+      } else {
+        code = x;
+      }
+      short += String.fromCharCode(code);
+    }
+    return short;
+  },
+
+  decode: function (code) {
+    let long = '';
+    for (let i = 0; i < code.length; i++) {
+      let charCode = code[i].charCodeAt();
+      if (charCode < 100) {
+        long += this.urlAllowedChars[charCode];
+      } else {
+        let w = Math.floor((Math.sqrt(8 * charCode + 1) - 1) / 2);
+        let t = (w ** 2 + w) / 2;
+        long += this.urlAllowedChars[charCode - t] + this.urlAllowedChars[w - (charCode - t)];
+      }
+    }
+    return long;
+  }
 }
 
 
