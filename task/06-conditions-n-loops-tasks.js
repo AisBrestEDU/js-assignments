@@ -30,16 +30,20 @@
  *
  */
 function getFizzBuzz(num) {
-    let fizz = 'Fizz';
-    let buzz = 'Buzz';
-    let fizzbuzz = 'FizzBuzz';
-    if (num % 3 === 0 && num % 5 === 0) {
-        return fizzbuzz;
-    } else if (num % 5 === 0) {
-        return buzz;
-    } else if (num % 3 === 0) {
-        return fizz;
-    } return num;
+    
+    if (num % 15 === 0) {
+        return 'FizzBuzz'
+    }
+
+    if (num % 5 === 0) {
+        return 'Buzz'
+    } 
+    
+    if (num % 3 === 0) {
+        return 'Fizz'
+    } 
+
+    return num;
 }
 
 
@@ -99,9 +103,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if (a + b > c && a + c > b && b + c > a) {
-        return true;
-    } return false;
+    return (a + b > c && a + c > b && b + c > a)
 }
 
 
@@ -186,10 +188,8 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    if ((point.x - circle.center.x) * (point.x - circle.center.x) + 
-        (point.y - circle.center.y) * (point.y - circle.center.y) < circle.radius * circle.radius) {
-            return true; 
-    } return false; 
+    return ((point.x - circle.center.x) * (point.x - circle.center.x) + 
+           (point.y - circle.center.y) *    (point.y - circle.center.y) < circle.radius * circle.radius); 
 }
 
 
@@ -237,15 +237,23 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    let str = [a, b];
-    let arr = str.sort();
+    
+    const str = [a, b];
+    const arr = str.sort();
+
     if (isStartIncluded && isEndIncluded) { 
-        return `[${arr[0]}, ${arr[1]}]`;
-    } else if (isStartIncluded && !isEndIncluded) { 
-        return `[${arr[0]}, ${arr[1]})`;
-    } else if (!isStartIncluded && isEndIncluded) { 
-        return `(${arr[0]}, ${arr[1]}]`;
-    }  return `(${arr[0]}, ${arr[1]})`;
+        return `[${arr[0]}, ${arr[1]}]`
+    }
+
+    if (isStartIncluded && !isEndIncluded) { 
+        return `[${arr[0]}, ${arr[1]})`
+    }
+
+    if (!isStartIncluded && isEndIncluded) { 
+        return `(${arr[0]}, ${arr[1]}]`
+    }
+
+    return `(${arr[0]}, ${arr[1]})`
 }
 
 
@@ -389,13 +397,17 @@ function isBracketsBalanced(str) {
             arr.push(str[i]);
         } else {
             let last = arr.pop();
-            if (str[i] !== map[last]) {return false}
+            if (str[i] !== map[last]) {
+                return false
+            }
         }
     }
-        if (arr.length !== 0) {
-            return false
-        }
-    return true;
+
+    if (arr.length !== 0) {
+        return false
+    }
+
+    return true
 }
 
 
@@ -495,7 +507,6 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    //throw new Error('Not implemented');
     let path = "";
     const array = pathes.map((item) => item.replace(/\w*\..*/, ""));
     const newArray = array.map((item) => item.replace(/\//gi, "/ ").split(" "));
