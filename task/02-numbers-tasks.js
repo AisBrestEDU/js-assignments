@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width*height;
+    return width * height;
 }
 
 
@@ -188,11 +188,7 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    let int = num / Math.pow(10, pow);
-    let roundedInt = Math.round(int);
-    let bigInt = roundedInt + '0'.repeat(pow);
-    let parsendBigInt = parseInt(bigInt);
-    return parsendBigInt;
+    return Math.round(num / Math.pow(10, pow)) * Math.pow(10, pow)
 }
 
 /**
@@ -237,9 +233,8 @@ function isPrime(number) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (isNaN(parseInt(value))) {
-        return def;
-    } return parseInt(value);
+    if (+value) return +value
+    return def
 }
 
 module.exports = {

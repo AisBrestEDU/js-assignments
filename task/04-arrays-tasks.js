@@ -431,24 +431,12 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-  let sortedArr = arr.sort(function (a, b) {
-      if (a.country > b.country) {
-        return 1;
-      }
-      if (a.country < b.country) {
-        return -1;
-      }
-      
-      if (a.city > b.city) {
-         return 1;
-       }
-       if (a.city < b.city) {
-         return -1;
-       }
-       return 0;
-});
-   return sortedArr;
-}
+   return arr.sort((a, b) => {
+     return a.country === b.country
+       ? a.city.localeCompare(b.city)
+       : a.country.localeCompare(b.country)
+   });
+ }
 
 /**
  * Creates an indentity matrix of the specified size
