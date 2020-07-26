@@ -34,7 +34,21 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+  let result = '';
+  let numbers = {
+    top: [[' _ '], ['   '], [' _ '], [' _ '], ['   '], [' _ '], [' _ '], [' _ '], [' _ '], [' _ ']],
+    middle: [['| |'], ['  |'], [' _|'], [' _|'], ['|_|'], ['|_ '], ['|_ '], ['  |'], ['|_|'], ['|_|']],
+    bottom: [['|_|'], ['  |'], ['|_ '], [' _|'], ['  |'], [' _|'], ['|_|'], ['  |'], ['|_|'], [' _|']]
+  }
+  for (let i = 0; i < 27; i += 3) {
+    let top = bankAccount.slice(i, i + 3);
+    let middle = bankAccount.slice(i + 28, i + 31);
+    let bottom = bankAccount.slice(i + 56, i + 59);
+    for (let j = 0; j < 10; j++) {
+      if (top == numbers.top[j] && middle == numbers.middle[j] && bottom == numbers.bottom[j]) result += j;
+    }
+  }
+  return result;
 }
 
 
@@ -63,7 +77,15 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+  while (text) {
+    let line = text.slice(0, columns);
+    text = text.slice(columns);
+    while (text && line[line.length - 1] !== ' ' && text[0] !== ' ') {
+      text = line[line.length - 1].concat(text);
+      line = line.slice(0, line.length - 1);
+    }
+    yield line.trim();
+  }
 }
 
 
@@ -75,7 +97,7 @@ function* wrapText(text, columns) {
  * @return {PokerRank} rank
  *
  * @example
- *   [ '4♥','5♥','6♥','7♥','8♥' ] => PokerRank.StraightFlush
+ *   [ ' 4♥','5♥','6♥','7♥','8♥' ] => PokerRank.StraightFlush
  *   [ 'A♠','4♠','3♠','5♠','2♠' ] => PokerRank.StraightFlush
  *   [ '4♣','4♦','4♥','4♠','10♥' ] => PokerRank.FourOfKind
  *   [ '4♣','4♦','5♦','5♠','5♥' ] => PokerRank.FullHouse
@@ -88,19 +110,59 @@ function* wrapText(text, columns) {
  *   [ 'A♥','K♥','Q♥','2♦','3♠' ] =>  PokerRank.HighCard
  */
 const PokerRank = {
-    StraightFlush: 8,
-    FourOfKind: 7,
-    FullHouse: 6,
-    Flush: 5,
-    Straight: 4,
-    ThreeOfKind: 3,
-    TwoPairs: 2,
-    OnePair: 1,
-    HighCard: 0
+  StraightFlush: 8,
+  FourOfKind: 7,
+  FullHouse: 6,
+  Flush: 5,
+  Straight: 4,
+  ThreeOfKind: 3,
+  TwoPairs: 2,
+  OnePair: 1,
+  HighCard: 0
 }
 
 function getPokerHandRank(hand) {
-    throw new Error('Not implemented');
+  let sequence = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+  let storage = {};
+
+  let handRanks = hand.map(x => x.slice(0, x.length - 1)).sort((a, b) => {
+    if (a == b) return 0;
+    if (a == 'A' && b < 8) return -1;
+    if (b == 'A' && a < 8) return 1;
+    if (a == 'A') return 1;
+    if (b == 'A') return -1;
+    if (a == 'K') return 1;
+    if (b == 'K') return -1;
+    if (a == 'Q') return 1;
+    if (b == 'Q') return -1;
+    if (a == 'J') return 1;
+    if (b == 'J') return -1;
+    if (Number(a) > Number(b)) return 1;
+    return -1;
+  })
+  let handSuits = hand.map(x => x.slice(x.length - 1));
+
+
+  let ind = sequence.indexOf(handRanks[0]);
+  let straight = sequence.slice(ind, ind + 5);
+  if (handRanks.every((el, i) => el === straight[i])) {
+    if (handSuits.every(x => x === handSuits[0])) return PokerRank.StraightFlush;
+    return PokerRank.Straight;
+  }
+  if (handSuits.every(x => x === handSuits[0])) return PokerRank.Flush;
+
+
+  for (let i of handRanks) {
+    if (!storage[i[0]]) storage[i[0]] = 1;
+    else storage[i[0]]++;
+  }
+  let numOfOccurences = Object.values(storage);
+  if (numOfOccurences.includes(4)) return PokerRank.FourOfKind;
+  else if (numOfOccurences.includes(3) && numOfOccurences.includes(2)) return PokerRank.FullHouse;
+  else if (numOfOccurences.includes(2) && numOfOccurences.length == 3) return PokerRank.TwoPairs;
+  else if (numOfOccurences.includes(3)) return PokerRank.ThreeOfKind;
+  else if (numOfOccurences.includes(2)) return PokerRank.OnePair;
+  else return PokerRank.HighCard;
 }
 
 
@@ -135,7 +197,87 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-   throw new Error('Not implemented');
+  let matrix = [[]],
+    angles = {},
+    currentSide = 0,
+    res = '',
+    height = 0;
+
+  for (let i of figure) {
+    if (i === '\n') matrix.push([]);
+    else matrix[matrix.length - 1].push(i);
+  }
+
+  let i = 0;
+  while (matrix.some(x => x.includes('+'))) {
+    let el = matrix[height][i];
+    if (currentSide === 0) {
+      if (el === '+') {
+        angles.topLeft = [height, i];
+        res += el;
+        matrix[height].splice(i, 1, '-');
+        currentSide++;
+      } else if (i === matrix[height].length - 1) {
+        height++;
+        i = 0;
+        continue;
+      }
+
+    } else if (currentSide === 1) {
+      if (el === '+') {
+        angles.topRight = [height, i];
+        res += el + '\n';
+        if (matrix[height].slice(i + 1, matrix[height].length).every(x => x !== '+')) {
+          matrix[height].splice(i, 1, '-')
+        };
+        height++;
+        currentSide++;
+        i = angles.topLeft[1];
+        continue;
+      }
+      res += el;
+
+    } else if (currentSide === 2) {
+      if (i === angles.topRight[1]) {
+        res += el + '\n';
+        height++;
+        i = angles.topLeft[1];
+        continue;
+      }
+      if (el === '+' && i === angles.topLeft[1]) {
+        if (matrix[height][i + 1] !== '-' && matrix[height][i + 1] !== '+') {
+          res += '|';
+          i++;
+          continue;
+        }
+
+        if ((matrix[height].slice(0, i).every(x => x !== '+') || matrix.slice(0, height).map(z => z.slice(0, i)).every(x => x.every(y => y !== '+'))) && (height + 1 === undefined || (matrix[height + 1][i] !== '|' && matrix[height + 1][i] !== '+'))) matrix[height].splice(i, 1, '-');
+        currentSide++;
+      }
+      res += el;
+    } else if (currentSide === 3) {
+      if (el === '+') {
+        if (i !== angles.topRight[1]) {
+          res += '-';
+          i++;
+          continue;
+        }
+        if ((matrix[height].slice(i + 1, matrix[height].length).every(x => x !== '+') || matrix.slice(0, height).map(z => z.slice(i + 1, z.length)).every(x => x.every(y => y !== '+'))) && (height + 1 === undefined || (matrix[height + 1][i] !== '|' && matrix[height + 1][i] !== '+'))) matrix[height].splice(i, 1, '-');
+        currentSide++;
+      }
+      res += el;
+    }
+    if (currentSide === 4) {
+      res += '\n';
+      yield res;
+      currentSide = 0;
+      res = '';
+      height = 0;
+      i = 0;
+      continue;
+    }
+    i++;
+  }
 }
 
 
