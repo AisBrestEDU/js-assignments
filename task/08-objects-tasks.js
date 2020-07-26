@@ -124,9 +124,6 @@ class CombineSelector {
 
 class SelectorsBuilder {
 
-    multipleDeclarationErrorText = "Element, id and pseudo-element should not occur more then one time inside the selector";
-    wrongOrderErrorMessage = "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
-
     constructor(name) {
         this.elementName = "";
         this.idName = "";
@@ -134,6 +131,8 @@ class SelectorsBuilder {
         this.attrName = "";
         this.pseudoClasses = [];
         this.pseudoElementName = "";
+        this.multipleDeclarationErrorText = "Element, id and pseudo-element should not occur more then one time inside the selector";
+        this.wrongOrderErrorMessage = "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
     }
 
     get fullName() {
