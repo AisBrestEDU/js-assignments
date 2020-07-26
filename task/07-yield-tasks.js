@@ -221,7 +221,7 @@ function async(generator) {
     return current.value.then(() => {
         let promises = [],
         result = null
-            if(promises.length != 0){
+            if(promises.length !== 0){
                 return result
             }
             promises.push(current.value);
@@ -234,7 +234,7 @@ function async(generator) {
                     break;
                 }
             }
-            
+
             return Promise.all(promises).then((values) => {
                 return values.reduce((accumulator, current) => {
                     return accumulator + current;
