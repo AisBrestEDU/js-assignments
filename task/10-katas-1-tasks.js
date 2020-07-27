@@ -19,7 +19,7 @@ const { breadthTraversalTree } = require("./07-yield-tasks");
  *  ]
  */
 function createCompassPoints() {
-    var sides = ["N", "E", "S", "W"]; // use array of cardinal directions only!
+    let sides = ["N", "E", "S", "W"]; // use array of cardinal directions only!
     
     let j = 0,
     left,
@@ -34,6 +34,7 @@ function createCompassPoints() {
         center = `${sides[j % 4]}${sides[(j + 1) % 4]}`;
         center = (i % 4) >= 2 ? center.split("").reverse().join("") : center;
         right = sides[(j + 1) % 4];
+
 
         if(i % 2 === 0){
             result.push({
