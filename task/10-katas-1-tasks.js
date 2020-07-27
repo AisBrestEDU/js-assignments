@@ -43,7 +43,7 @@ function createCompassPoints() {
         }
         else{
             [left,right] = [right, left]
-            
+
             result.push({
                 abbreviation : `${center}`,
                 azimuth : azimuth
@@ -112,11 +112,11 @@ function* expandBraces(str) {
     let result = [str],
     sent = [];
 
-    while(result.length != 0){
+    while(result.length !== 0){
         const changeLine = result[0];
         let sub = changeLine.substring(changeLine.indexOf("}") - changeLine.substring(0,changeLine.indexOf("}")).split("").reverse().join("").indexOf("{"), changeLine.indexOf("}"));
         
-        if(sub != ""){
+        if(sub !== ""){
             result.splice(0,1);
         }
 
@@ -273,12 +273,12 @@ function extractRanges(nums) {
         let j = i,
             isInc = true;
         while (j < nums.length - 1 && isInc) {
-            if (nums[j] != nums[j + 1] - 1) isInc = false;
+            if (nums[j] !== nums[j + 1] - 1) isInc = false;
             j++;
         }
 
         if (j - !isInc - i < 2) {
-            if (i != 0) {
+            if (i !== 0) {
                 result += ",";
                 i++;
             }
