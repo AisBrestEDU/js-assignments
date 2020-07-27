@@ -170,7 +170,7 @@ function getZigZagMatrix(n) {
         result[k] = [];
     }
 
-    var i = 1,
+    let i = 1,
         j = 1;
 
     for (let k = 0; k < n * n; k++) {
@@ -229,7 +229,7 @@ function canDominoesMakeRow(dominoes) {
     let odds = 0,
         i = 1,
         flatDoms = dominoes.flat();
-    while (odds != 3 && i < 10) {
+    while (odds !== 3 && i < 10) {
         let count = flatDoms.reduce((accumulator, current) => {
             if (i === current) {
                 accumulator++;
