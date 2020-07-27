@@ -18,7 +18,39 @@
  */
 function createCompassPoints() {
     let sides = ['N','E','S','W'];  // use array of cardinal directions only!
-    throw new Error('Not implemented');
+    let result = [];
+    let dev1,
+        dev,
+        azim = 360,
+        az,
+        deg,
+        count;
+
+    for (let i = 0; i < 32; i++) {
+
+        az = i * azim / 32;
+        deg = az;
+
+        count = 0;
+        while (deg >= 90) {
+            deg = deg - 90;
+            count++;
+        }
+
+        if (count > 2) dev = sides[0];else dev = sides[count + 1];
+
+        if (sides[count] === sides[0] || sides[count] === sides[2]) dev1 = sides[count] + dev;else dev1 = dev + sides[count];
+
+        if (deg === 0) result.push({ abbreviation: sides[count], azimuth: az });
+        if (deg === 11.25) result.push({ abbreviation: sides[count] + 'b' + dev, azimuth: az });
+        if (deg === 22.5) result.push({ abbreviation: sides[count] + dev1, azimuth: az });
+        if (deg === 33.75) result.push({ abbreviation: dev1 + 'b' + sides[count], azimuth: az });
+        if (deg === 45) result.push({ abbreviation: dev1, azimuth: az });
+        if (deg === 56.25) result.push({ abbreviation: dev1 + 'b' + dev, azimuth: az });
+        if (deg === 67.5) result.push({ abbreviation: dev + dev1, azimuth: az });
+        if (deg === 78.75) result.push({ abbreviation: dev + 'b' + sides[count], azimuth: az });
+    }
+    return result;
 }
 
 
@@ -56,7 +88,28 @@ function createCompassPoints() {
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-    throw new Error('Not implemented');
+    const queue = [],
+        regex = new RegExp("{([0-9a-zA-Z.,]+)}", 'i'),
+        itemSet = new Set;
+
+    queue.push(str);
+
+    while (queue.length) {
+        let item = queue.shift();
+        let matches = item.match(regex);
+
+        // eslint-disable-next-line eqeqeq
+        if (matches != null) {
+            let array = matches[1].split(',');
+
+            array.forEach(curr => {
+                queue.push(item.replace(matches[0], curr));
+            });
+        } else if (!itemSet.has(item)) {
+            itemSet.add(item);
+            yield item;
+        }
+    }
 }
 
 
@@ -88,7 +141,29 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    let arr = Array.from({ length: n }, (element, index) => {
+        element = new Array(n).fill(0);
+        element[index] = 0;
+        return element;
+    });
+    function overallCode(v1, v2) {
+        if (v1 < n) v1++;else v2 += 2;
+        if (v2 > 1) v2--;
+    }
+    let i = 1,
+        j = 1;
+    for (let k = 0; k < n * n; k++) {
+        arr[i - 1][j - 1] = k;
+        // eslint-disable-next-line eqeqeq
+        if ((i + j) % 2 == 0) {
+            if (j < n) j++;else i += 2;
+            if (i > 1) i--;
+        } else {
+            if (i < n) i++;else j += 2;
+            if (j > 1) j--;
+        }
+    }
+    return arr;
 }
 
 
@@ -113,7 +188,36 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    function task10(current, value, left) {
+        // eslint-disable-next-line eqeqeq
+        if (left == 0) {
+            result = true;
+            return;
+        }
+
+        visited[current] = true;
+
+        for (let i = 0; i < dominoes.length; i++)
+            if (!visited[i]) {
+                // eslint-disable-next-line eqeqeq
+                if (dominoes[i].indexOf(value) != -1) {
+                    // eslint-disable-next-line eqeqeq
+                    task10(i, dominoes[i][0] == value ? dominoes[i][1] : dominoes[i][0], left - 1);
+                }
+            }
+
+        visited[current] = false;
+    }
+
+    let result = false,
+        visited = Array.from({length: dominoes.length}, () => false);
+
+    for (let i = 0; i < dominoes.length; i++) {
+        task10(i, dominoes[i][0], dominoes.length - 1);
+        task10(i, dominoes[i][1], dominoes.length - 1);
+    }
+
+    return result;
 }
 
 
@@ -137,7 +241,16 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let result = '';
+    for (let i = 0; i < nums.length - 1; i++) {
+        let j = i;
+
+        while (nums[j] === nums[j + 1] - 1) j++;
+
+        if (nums[i] + 1 !== nums[i + 1] && i !== nums.length - 2) result += `${ nums[i] },`;else if (nums[i] + 1 === nums[i + 1] && nums[i] + 2 !== nums[i + 2]) result += `${ nums[i] },${ nums[i + 1] },`;else result += `${ nums[i] }-${ nums[j] },`;
+        i = j;
+    }
+    return result.slice(0, -1);
 }
 
 module.exports = {
