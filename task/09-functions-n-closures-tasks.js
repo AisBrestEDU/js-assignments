@@ -26,9 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    return function(x) {
-        return f(g(x));
-      };
+    return (x) => f(g(x))
 }
 
 
@@ -50,7 +48,6 @@ function getComposition(f,g) {
  */
 function getPowerFunction(exponent) {
     return (x) => Math.pow(x, exponent);
-    
 }
 
 
@@ -194,11 +191,7 @@ function partialUsingArguments(fn, ...args1) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    let it = startFrom;	
-    return () => {	
-      it += 1;	
-      return it - 1;	
-    };
+   return () => startFrom++
 }
 
 
