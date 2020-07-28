@@ -99,14 +99,14 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    let s = [];
-    s.push(root);
-    while (s.length > 0) {
-        let v = s.pop();
-        yield v;
-        if (v.hasOwnProperty('children')) {
-            for (let child of v.children.reverse()) {
-                s.push(child);
+    let stack = [];
+    stack.push(root);
+    while (stack.length > 0) {
+        let vertex = stack.pop();
+        yield vertex;
+        if (vertex.hasOwnProperty('children')) {
+            for (let child of vertex.children.reverse()) {
+                stack.push(child);
             }
         }
     }
@@ -135,15 +135,15 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    let q = [];
-    q.push(root);
+    let stack = [];
+    stack.push(root);
     let i = 0;
-    while (q.length - i > 0) {
-        let v = q[i];
-        yield v;
-        if (v.hasOwnProperty('children')) {
-            for (let child of v.children) {
-                q.push(child);
+    while (stack.length - i > 0) {
+        let vertex = stack[i];
+        yield vertex;
+        if (vertex.hasOwnProperty('children')) {
+            for (let child of vertex.children) {
+                stack.push(child);
             }
         }
         i++;
@@ -171,7 +171,7 @@ function* mergeSortedSequences(source1, source2) {
     let first = firstSeq.next();
     let second = secondSeq.next();
 
-    while (first.done == false && second.done == false) {
+    while (first.done === false && second.done === false) {
         if (first.value < second.value) {
             yield first.value;
             first = firstSeq.next();
@@ -181,12 +181,12 @@ function* mergeSortedSequences(source1, source2) {
         }
     }
 
-    while (first.done == false) {
+    while (first.done === false) {
         yield first.value;
         first = firstSeq.next();
     }
 
-    while (second.done == false) {
+    while (second.done === false) {
         yield second.value;
         second = secondSeq.next();
     }
@@ -212,18 +212,18 @@ function async(generator) {
     
     return Promise.resolve()
         .then(function handleNext(value) {
-            var next = it.next(value);
+            let next = it.next(value);
 
             return (function handleResult(next) {
                 if (next.done) {
                     return next.value;
-                } else {
-                    return Promise.resolve(next.value)
-                        .then(handleNext, function handleErr(err) {
-                            return Promise.resolve(it.throw(err))
-                                .then(handleResult);
-                        });
                 }
+
+                return Promise.resolve(next.value)
+                    .then(handleNext, function handleErr(err) {
+                        return Promise.resolve(it.throw(err))
+                            .then(handleResult);
+                    });
             })(next);
         });
 }
