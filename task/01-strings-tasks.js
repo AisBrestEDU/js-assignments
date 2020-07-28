@@ -372,5 +372,5 @@ module.exports = {
   getRectangleString: getRectangleString,
   encodeToRot13: encodeToRot13,
   isString: isString,
-  getCardId: getCardId,
+  getCardId: getCardId
 };
