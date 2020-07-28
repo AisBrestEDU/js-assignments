@@ -116,12 +116,12 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     return function TryFunc(){
-        for (; attempts > 0;){
+        for (let i=attempts; i > 0;){
             try {
                 return func();
             }
             catch (e){
-                attempts-=1;
+                i-=1;
             }
         }
         throw new Error("fulyError");
