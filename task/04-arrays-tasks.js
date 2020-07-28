@@ -27,13 +27,13 @@ function findElement(arr, value) {
 
 /**
  * Generates an array of odd numbers of the specified length
- *
+ * 
  * @param {number} len
  * @return {array}
- *
+ * 
  * @example
- *    1 => [ 1 ]
- *    2 => [ 1, 3 ]
+ *    1 => [ 1 ] 
+ *    2 => [ 1, 3 ] 
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
@@ -45,14 +45,14 @@ function generateOdds(len) {
 
 /**
  * Returns the doubled array - elements of the specified array are repeated twice using original order
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
- *    ['Ace', 10, true]  => ['Ace', 10, true,   'Ace', 10, true]
+ *    ['Ace', 10, true]  => ['Ace', 10, true,   'Ace', 10, true]  
  *    [0, 1, 2, 3, 4, 5] => [0, 1, 2, 3, 4, 5,   0, 1, 2, 3, 4, 5]
- *    [] => []
+ *    [] => [] 
  */
 function doubleArray(arr) {
   return [...arr, ...arr];
@@ -60,14 +60,14 @@ function doubleArray(arr) {
 
 /**
  * Returns an array of positive numbers from the specified array in original order
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *    [ 0, 1, 2, 3, 4, 5 ] => [ 1, 2, 3, 4, 5 ]
  *    [-1, 2, -5, -4, 0] => [ 2 ]
- *    [] => []
+ *    [] => [] 
  */
 function getArrayOfPositives(arr) {
   return arr.filter((n) => n > 0);
@@ -75,10 +75,10 @@ function getArrayOfPositives(arr) {
 
 /**
  * Returns the array with strings only in the specified array (in original order)
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *    [ 0, 1, 'cat', 3, true, 'dog' ] => [ 'cat', 'dog' ]
  *    [ 1, 2, 3, 4, 5 ] => []
@@ -92,10 +92,10 @@ function getArrayOfStrings(arr) {
  * Removes falsy values from the specified array
  * Falsy values: false, null, 0, "", undefined, and NaN.
  * (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#Description)
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *    [ 0, false, 'cat', NaN, true, '' ] => [ 'cat', true ]
  *    [ 1, 2, 3, 4, 5, 'false' ]         => [ 1, 2, 3, 4, 5, 'false' ]
@@ -109,10 +109,10 @@ function removeFalsyValues(arr) {
 
 /**
  * Returns the array of useprcase strings from the specified array
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *    [ 'permanent-internship', 'glutinous-shriek', 'multiplicative-elevation' ] => [ 'PERMANENT-INTERNSHIP', 'GLUTINOUS-SHRIEK', 'MULTIPLICATIVE-ELEVATION' ]
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
@@ -123,10 +123,10 @@ function getUpperCaseStrings(arr) {
 
 /**
  * Returns the array of string lengths from the specified string array.
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *    [ '', 'a', 'bc', 'def', 'ghij' ]  => [ 0, 1, 2, 3, 4 ]
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
@@ -137,11 +137,11 @@ function getStringsLength(arr) {
 
 /**
  * Inserts the item into specified array at specified index
- *
+ * 
  * @param {array} arr
  * @param {any} item
- * @param {number} index
- *
+ * @param {number} index 
+ * 
  * @example
  *    [ 1, 3, 4, 5 ], 2, 1  => [ 1, 2, 3, 4, 5 ]
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
