@@ -1,4 +1,4 @@
-'use strict';
+"use strict"
 
 /********************************************************************************************
  *                                                                                          *
@@ -7,7 +7,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield        *
  *                                                                                          *
  ********************************************************************************************/
-
 
 /**
  * Returns the lines sequence of "99 Bottles of Beer" song:
@@ -33,22 +32,22 @@
  *
  */
 function* get99BottlesOfBeer() {
-  for (let i = 99; i > 2; i--)
-  {
-    yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
-    yield `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`;
+  for (let i = 99; i > 2; i--) {
+    yield `${i} bottles of beer on the wall, ${i} bottles of beer.`
+    yield `Take one down and pass it around, ${
+      i - 1
+    } bottles of beer on the wall.`
   }
-  
-  yield `2 bottles of beer on the wall, 2 bottles of beer.`;
-  yield `Take one down and pass it around, 1 bottle of beer on the wall.`;
-  
-  yield "1 bottle of beer on the wall, 1 bottle of beer.";
-  yield "Take one down and pass it around, no more bottles of beer on the wall.";
-  
-  yield "No more bottles of beer on the wall, no more bottles of beer.";
-  yield "Go to the store and buy some more, 99 bottles of beer on the wall.";
-}
 
+  yield `2 bottles of beer on the wall, 2 bottles of beer.`
+  yield `Take one down and pass it around, 1 bottle of beer on the wall.`
+
+  yield "1 bottle of beer on the wall, 1 bottle of beer."
+  yield "Take one down and pass it around, no more bottles of beer on the wall."
+
+  yield "No more bottles of beer on the wall, no more bottles of beer."
+  yield "Go to the store and buy some more, 99 bottles of beer on the wall."
+}
 
 /**
  * Returns the Fibonacci sequence:
@@ -60,16 +59,15 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-  let fn1 = 0;
-    let fn2 = 1;
-    while (true){
-        yield fn1;
-        let current = fn2;
-        fn2 = fn1;
-        fn1 = fn1 + current;
-    }
+  let fn1 = 0
+  let fn2 = 1
+  while (true) {
+    yield fn1
+    let current = fn2
+    fn2 = fn1
+    fn1 = fn1 + current
+  }
 }
-
 
 /**
  * Traverses a tree using the depth-first strategy
@@ -106,13 +104,12 @@ function* depthTraversalTree(root) {
   newRoot.push(root)
   while (newRoot.length) {
     let node = newRoot.pop()
-    yield node;
+    yield node
     if (node.children) {
       newRoot = newRoot.concat(node.children.reverse())
     }
   }
 }
-
 
 /**
  * Traverses a tree using the breadth-first strategy
@@ -140,13 +137,12 @@ function* breadthTraversalTree(root) {
   newRoot.push(root)
   while (newRoot.length) {
     let node = newRoot.pop()
-    yield node;
+    yield node
     if (node.children) {
       newRoot = node.children.reverse().concat(newRoot)
     }
   }
 }
-
 
 /**
  * Merges two yield-style sorted sequences into the one sorted sequence.
@@ -162,37 +158,70 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1Fn, source2Fn) {
-  let source1 = source1Fn();
-  let source2 = source2Fn();
-  let first = source1.next().value;
-  let second = source2.next().value;
-  while(first !== undefined || second !== undefined) {
-    if(first !== undefined && second !== undefined) {
+  let source1 = source1Fn()
+  let source2 = source2Fn()
+  let first = source1.next().value
+  let second = source2.next().value
+  while (first !== undefined || second !== undefined) {
+    if (first !== undefined && second !== undefined) {
       if (first < second) {
-        yield first;
-        first = source1.next().value;
+        yield first
+        first = source1.next().value
+      } else {
+        yield second
+        second = source2.next().value
       }
-      else {
-        yield second;
-        second = source2.next().value;
-      }
-    }
-    else if(first !== undefined) {
-      yield first;
-      first = source1.next().value;
-    }
-    else if(second !== undefined){
-      yield second;
-      second = source2.next().value;
+    } else if (first !== undefined) {
+      yield first
+      first = source1.next().value
+    } else if (second !== undefined) {
+      yield second
+      second = source2.next().value
     }
   }
 }
 
+/**
+ * Resolve Promises and take values step by step.
+ *
+ * @params {Iterable.<Promise>} generator
+ * @return {Promise} Promise with value returned via return
+ *
+ * @example
+ *   async((function*() {
+ *      var a = yield new Promise((resolve)=> setTimeout(()=>resolve(5)));
+ *      var b = yield Promise.resolve(6);
+ *      return a + b;
+ *   }).then(value=>console.log(value))  => 11
+ *
+ *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
+ */
+function async(generator) {  
+  const thisGenerator = generator.call(this)
+
+  function handle(result) {
+    if (result.done) return Promise.resolve(result.value)
+    return Promise.resolve(result.value).then(
+      function (res) {
+        return handle(thisGenerator.next(res))
+      },
+      function (err) {
+        return handle(thisGenerator.throw(err))
+      }
+    )
+  }
+  try {
+    return handle(thisGenerator.next())
+  } catch (err) {
+    return Promise.reject(err)
+  }  
+}
 
 module.exports = {
-    get99BottlesOfBeer: get99BottlesOfBeer,
-    getFibonacciSequence: getFibonacciSequence,
-    depthTraversalTree: depthTraversalTree,
-    breadthTraversalTree: breadthTraversalTree,
-    mergeSortedSequences: mergeSortedSequences
-};
+  get99BottlesOfBeer: get99BottlesOfBeer,
+  getFibonacciSequence: getFibonacciSequence,
+  depthTraversalTree: depthTraversalTree,
+  breadthTraversalTree: breadthTraversalTree,
+  mergeSortedSequences: mergeSortedSequences,
+  async: async,
+}
