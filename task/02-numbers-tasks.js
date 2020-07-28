@@ -227,16 +227,16 @@ function toNumber(value, def) {
 }
 
 module.exports = {
-  getRectangleArea: getRectangleArea,
-  getCicleCircumference: getCicleCircumference,
-  getAverage: getAverage,
-  getDistanceBetweenPoints: getDistanceBetweenPoints,
-  getLinearEquationRoot: getLinearEquationRoot,
-  getAngleBetweenVectors: getAngleBetweenVectors,
-  getLastDigit: getLastDigit,
-  parseNumberFromString: parseNumberFromString,
-  getParallelipidedDiagonal: getParallelipidedDiagonal,
-  roundToPowerOfTen: roundToPowerOfTen,
-  isPrime: isPrime,
-  toNumber: toNumber,
+    getRectangleArea: getRectangleArea,
+    getCicleCircumference: getCicleCircumference,
+    getAverage: getAverage,
+    getDistanceBetweenPoints: getDistanceBetweenPoints,
+    getLinearEquationRoot: getLinearEquationRoot,
+    getAngleBetweenVectors: getAngleBetweenVectors,
+    getLastDigit: getLastDigit,
+    parseNumberFromString: parseNumberFromString,
+    getParallelipidedDiagonal: getParallelipidedDiagonal,
+    roundToPowerOfTen: roundToPowerOfTen,
+    isPrime: isPrime,
+    toNumber: toNumber
 };
