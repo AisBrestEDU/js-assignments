@@ -614,5 +614,5 @@ module.exports = {
     toNaryString: toNaryString,
     getCommonDirectoryPath: getCommonDirectoryPath,
     getMatrixProduct: getMatrixProduct,
-    evaluateTicTacToePosition : evaluateTicTacToePosition,
+    evaluateTicTacToePosition : evaluateTicTacToePosition
 };
