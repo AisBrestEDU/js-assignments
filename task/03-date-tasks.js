@@ -113,9 +113,9 @@ function angleBetweenClockHands(date) {
 }
 
 module.exports = {
-  parseDataFromRfc2822: parseDataFromRfc2822,
-  parseDataFromIso8601: parseDataFromIso8601,
-  isLeapYear: isLeapYear,
-  timeSpanToString: timeSpanToString,
-  angleBetweenClockHands: angleBetweenClockHands,
+    parseDataFromRfc2822: parseDataFromRfc2822,
+    parseDataFromIso8601: parseDataFromIso8601,
+    isLeapYear: isLeapYear,
+    timeSpanToString: timeSpanToString,
+    angleBetweenClockHands: angleBetweenClockHands
 };
