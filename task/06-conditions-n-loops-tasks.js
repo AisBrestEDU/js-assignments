@@ -138,21 +138,21 @@ function doRectanglesOverlap(rect1, rect2) {
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
- * Circle is an object of
+ * Circle is an object of 
  *  {
  *     center: {
- *       x: 5,
+ *       x: 5,       
  *       y: 5
- *     },
+ *     },        
  *     radius: 20
  *  }
- *
- * Point is object of
+ * 
+ * Point is object of 
  *  {
  *     x: 5,
  *     y: 5
  *  }
- *
+ * 
  * @param {object} circle
  * @param {object} point
  * @return {bool}
@@ -160,7 +160,7 @@ function doRectanglesOverlap(rect1, rect2) {
  * @example:
  *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
- *
+ *   
  */
 function isInsideCircle(circle, point) {
   let dist = Math.sqrt(
