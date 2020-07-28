@@ -203,8 +203,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   let newArr = arr.map(a => a.join(','));
-   return newArr.join('\n');
+   return arr.map(a => a.join(',')).join('\n');
 }
 
 /**
@@ -238,7 +237,7 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   var newArr = [];
+   let newArr = [];
    newArr.push(arr[0]);
    arr.reduce(function (a, b) {
       newArr.push(a + b);
@@ -337,8 +336,8 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   let newArr = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-   return arr.sort((a, b) => newArr.indexOf(a) - newArr.indexOf(b));
+   const numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+   return arr.sort((a, b) => numbers.indexOf(a) - numbers.indexOf(b));
 }
 
 /** 
