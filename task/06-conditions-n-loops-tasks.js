@@ -477,16 +477,16 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-  let commom = '';
+  let common = '';
   for (let i = 0; i < pathes[0].length; i++) {
       for (let j = 1; j < pathes.length; j++) {
           if (pathes[0].charAt(i) !== pathes[j].charAt(i)) {
-              commom = pathes[0].slice(0, i);
-              return commom.slice(0, commom.lastIndexOf('/') + 1);
+              common = pathes[0].slice(0, i);
+              return common.slice(0, common.lastIndexOf('/') + 1);
           }
       }
   }
-  return commom;
+  return common;
 }
 
 /**
