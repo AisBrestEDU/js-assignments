@@ -30,9 +30,9 @@
  *
  */
 function getFizzBuzz(num) {
-    return num % 15 == 0 ? 'FizzBuzz'
-           : num % 3 == 0 ? 'Fizz'
-           : num % 5 == 0 ? 'Buzz'
+    return num % 15 === 0 ? 'FizzBuzz'
+           : num % 3 === 0 ? 'Fizz'
+           : num % 5 === 0 ? 'Buzz'
            : num;
 }
 
@@ -197,7 +197,7 @@ function findFirstSingleChar(str) {
     }
 
     for (let i = 0; i < str.length; i++) {
-        if (charCountArray[str[i]] == 1) {
+        if (charCountArray[str[i]] === 1) {
             return str[i];
         }
     }
@@ -302,7 +302,7 @@ function isCreditCardNumber(ccn) {
     for (let i = 0; i <= nDigits - 2; i++) {
         let digit = Number(ccnString[i]);
 
-        if (i % 2 == parity) {
+        if (i % 2 === parity) {
             digit *= 2;
         }
 
@@ -313,7 +313,7 @@ function isCreditCardNumber(ccn) {
         sum += digit;
     }
 
-    return sum % 10 == 0;
+    return sum % 10 === 0;
 }
 
 
@@ -372,20 +372,20 @@ function isBracketsBalanced(str) {
     let bracketsArray = [];
 
     for (let character of str) {
-        if (character == '[') {
+        if (character === '[') {
             bracketsArray.push(']');
-        } else if (character == '(') {
+        } else if (character === '(') {
             bracketsArray.push(')')
-        } else if (character == '{') {
+        } else if (character === '{') {
             bracketsArray.push('}')
-        } else if (character == '<') {
+        } else if (character === '<') {
             bracketsArray.push('>')
-        } else if (bracketsArray.length == 0 || bracketsArray.pop() != character) {
+        } else if (bracketsArray.length === 0 || bracketsArray.pop() !== character) {
             return false;
         }
     }
 
-    return bracketsArray.length == 0;
+    return bracketsArray.length === 0;
 }
 
 
@@ -434,7 +434,7 @@ function timespanToHumanString(startDate, endDate) {
 
     let elapsedMinutes = elapsedSeconds / 60;
     if (elapsedMinutes <= 45) {
-        if (elapsedMinutes % Math.floor(elapsedMinutes) == 0.5) {
+        if (elapsedMinutes % Math.floor(elapsedMinutes) === 0.5) {
             elapsedMinutes = Math.floor(elapsedMinutes);
         }
         return `${Math.round(elapsedMinutes)} minutes ago`;
@@ -446,7 +446,7 @@ function timespanToHumanString(startDate, endDate) {
 
     let elapsedHours = elapsedMinutes / 60;
     if (elapsedHours <= 22) {
-        if (elapsedHours % Math.floor(elapsedHours) == 0.5) {
+        if (elapsedHours % Math.floor(elapsedHours) === 0.5) {
             elapsedHours = Math.floor(elapsedHours);
         }
         return `${Math.round(elapsedHours)} hours ago`;
@@ -458,7 +458,7 @@ function timespanToHumanString(startDate, endDate) {
 
     let elapsedDays = elapsedHours / 24;
     if (elapsedDays <= 25) {
-        if (elapsedDays % Math.floor(elapsedDays) == 0.5) {
+        if (elapsedDays % Math.floor(elapsedDays) === 0.5) {
             elapsedDays = Math.floor(elapsedDays);
         }
         return `${Math.round(elapsedDays)} days ago`;
@@ -475,9 +475,9 @@ function timespanToHumanString(startDate, endDate) {
     if (elapsedDays <= 545) {
         return 'a year ago';
     }
-    else {
-        return `${Math.round(elapsedDays / 365)} years ago`;
-    }
+    
+
+    return `${Math.round(elapsedDays / 365)} years ago`;
 }
 
 
@@ -531,7 +531,7 @@ function getCommonDirectoryPath(pathes) {
         let commonPath = '';
 
         for (let j = 0; j < pathes[i].length; j++) {
-            if (pathes[i][j] == commonDirectory[j]) {
+            if (pathes[i][j] === commonDirectory[j]) {
                 commonPath += pathes[i][j];
             } else {
                 break;
@@ -615,22 +615,22 @@ function getMatrixProduct(m1, m2) {
  */
 function evaluateTicTacToePosition(position) {
     for (let i = 0; i < 3; i++) {
-        if (position[i][0] != undefined && position[i][0] == position[i][1] && position[i][0] == position[i][2]) {
+        if (position[i][0] !== undefined && position[i][0] === position[i][1] && position[i][0] === position[i][2]) {
             return position[i][0];
         }
     }
 
     for (let i = 0; i < 3; i++) {
-        if (position[0][i] != undefined && position[0][i] == position[1][i] && position[0][i] == position[2][i]) {
+        if (position[0][i] !== undefined && position[0][i] === position[1][i] && position[0][i] === position[2][i]) {
             return position[0][i];
         }
     }
 
-    if (position[0][0] != undefined && position[0][0] == position[1][1] && position[0][0] == position[2][2]) {
+    if (position[0][0] !== undefined && position[0][0] === position[1][1] && position[0][0] === position[2][2]) {
         return position[0][0];
     }
 
-    if (position[0][2] != undefined && position[0][2] == position[1][1] && position[0][2] == position[2][0]) {
+    if (position[0][2] !== undefined && position[0][2] === position[1][1] && position[0][2] === position[2][0]) {
         return position[0][2];
     }
 
