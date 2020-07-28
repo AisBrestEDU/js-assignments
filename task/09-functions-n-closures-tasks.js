@@ -213,12 +213,12 @@ function getIdGeneratorFunction(startFrom) {
 }
 
 module.exports = {
-   getComposition: getComposition,
-   getPowerFunction: getPowerFunction,
-   getPolynom: getPolynom,
-   memoize: memoize,
-   retry: retry,
-   logger: logger,
-   partialUsingArguments: partialUsingArguments,
-   getIdGeneratorFunction: getIdGeneratorFunction,
+    getComposition: getComposition,
+    getPowerFunction: getPowerFunction,
+    getPolynom: getPolynom,
+    memoize: memoize,
+    retry: retry,
+    logger: logger,
+    partialUsingArguments: partialUsingArguments,
+    getIdGeneratorFunction: getIdGeneratorFunction,
 };
