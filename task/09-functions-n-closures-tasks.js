@@ -25,10 +25,7 @@
  *
  */
 function getComposition(f, g) {
-  function inner(x) {
-    return f(g(x));
-  }
-  return inner;
+  return x => f(g(x));
 }
 
 /**
@@ -48,10 +45,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  function exp(x) {
-    return Math.pow(x, exponent);
-  }
-  return exp;
+  return x => Math.pow(x, exponent);
 }
 
 /**
@@ -127,18 +121,15 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-  function try_func() {
-    for (let i = 0; i <= attempts; i++) {
-      try {
-        return func();
-      } catch (err) {
-        if (i === attempts) {
-          throw err;
-        }
+  return () => {for (let i = 0; i <= attempts; i++) {
+    try {
+      return func();
+    } catch (err) {
+      if (i === attempts) {
+        throw err;
       }
     }
-  }
-  return try_func;
+  }};
 }
 
 /**
@@ -222,12 +213,12 @@ function getIdGeneratorFunction(startFrom) {
 }
 
 module.exports = {
-  getComposition: getComposition,
-  getPowerFunction: getPowerFunction,
-  getPolynom: getPolynom,
-  memoize: memoize,
-  retry: retry,
-  logger: logger,
-  partialUsingArguments: partialUsingArguments,
-  getIdGeneratorFunction: getIdGeneratorFunction,
+   getComposition: getComposition,
+   getPowerFunction: getPowerFunction,
+   getPolynom: getPolynom,
+   memoize: memoize,
+   retry: retry,
+   logger: logger,
+   partialUsingArguments: partialUsingArguments,
+   getIdGeneratorFunction: getIdGeneratorFunction,
 };
