@@ -308,10 +308,10 @@ function isCreditCardNumber(ccn) {
       num[i] *= 2;
     }
   }
-  let total_sum = num.reduce((sum, cur) => {
+  let totalSum = num.reduce((sum, cur) => {
     return sum + cur;
   }, 0);
-  if (total_sum % 10 === 0) {
+  if (totalSum % 10 === 0) {
     return true;
   }
   return false;
@@ -416,59 +416,29 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-  let time = [
-    45000,
-    90000,
-    2700000,
-    5400000,
-    79200000,
-    129600000,
-    2160000000,
-    3888000000,
-    29808000000,
-    47088000000,
-    47174400000,
-  ];
-  let res = [
-    ['a few seconds ago', 0],
-    ['a minute ago', 0],
-    [' minutes ago', 60000],
-    ['an hour ago', 0],
-    [' hours ago', 3600000],
-    ['a day ago', 0],
-    [' days ago', 86400000],
-    ['a month ago', 0],
-    [' months ago', 2592000000],
-    ['a year ago', 0],
-    [' years ago', 31556952000],
-  ];
-  let date1 = startDate.getTime();
-  let date2 = endDate.getTime();
-  let millsec = date2 - date1;
+  let minute = 60;
+  let hour = 60 * minute;
+  let day = 24 * hour;
+  let month = 30 * day;
+  let year = 365 * day;
+  let diff = (endDate - startDate) / 1000;
 
-  function evaluate(m) {
-    for (let i = 0; i < time.length; i++) {
-      if (m <= time[i]) {
-        return i;
-      }
-    }
-    return time.length - 1;
+  function Round(num) {
+      if (num - Math.floor(num) > 0.5) return Math.round(num);
+      return Math.floor(num);   
   }
-  function answer() {
-    let i = evaluate(millsec);
-    if (res[i][1] !== 0) {
-      let t = millsec / res[i][1];
-      let ch = `${t}`.split('.');
-      if (!Number.isInteger(t) && ch[1].length > 1 && +ch[1].charAt(0) >= 5) {
-        t = Math.round(t);
-      } else {
-        t = Math.floor(t);
-      }
-      return t + res[i][0];
-    }
-    return res[i][0];
-  }
-  return answer();
+
+  if (diff <= 45) return 'a few seconds ago';
+  if (diff <= 90) return 'a minute ago';
+  if (diff <= 45 * minute) return `${Round(diff / minute)} minutes ago`;
+  if (diff <= 90 * minute) return 'an hour ago';
+  if (diff <= 22 * hour) return `${Round(diff / hour)} hours ago`;
+  if (diff <= 36 * hour) return 'a day ago';
+  if (diff <= 25 * day) return `${Round(diff / day)} days ago`;
+  if (diff <= 45 * day) return 'a month ago';
+  if (diff <= 345 * day) return `${Round(diff / month)} months ago`;
+  if (diff <= 545 * day) return 'a year ago';
+  return `${Round(diff / year)} years ago`;
 }
 
 /**
@@ -507,39 +477,16 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-  function common(a, b) {
-    let len = 0;
-    let arr = [];
-    let flag = true;
-    if (a.length > b.length) {
-      len = b.length;
-    } else {
-      len = a.length;
-    }
-    for (let i = 0; flag && i < len; i++) {
-      if (a.charAt(i) === b.charAt(i)) {
-        arr.push(a.charAt(i));
-      } else {
-        flag = false;
+  let commom = '';
+  for (let i = 0; i < pathes[0].length; i++) {
+      for (let j = 1; j < pathes.length; j++) {
+          if (pathes[0].charAt(i) !== pathes[j].charAt(i)) {
+              commom = pathes[0].slice(0, i);
+              return commom.slice(0, commom.lastIndexOf('/') + 1);
+          }
       }
-    }
-    arr = arr.join('');
-    arr = arr.slice(0, arr.lastIndexOf('/') + 1);
-    return arr;
   }
-  let com = common(pathes[0], pathes[1]);
-  if (pathes.length === 2) {
-    return com;
-  }
-
-  if (pathes.length > 2) {
-    for (let i = 2; i < pathes.length; i++) {
-      if (pathes[i].indexOf(com) !== 0) {
-        return '';
-      }
-    }
-  }
-  return com;
+  return commom;
 }
 
 /**
@@ -650,22 +597,22 @@ function evaluateTicTacToePosition(position) {
 }
 
 module.exports = {
-  getFizzBuzz: getFizzBuzz,
-  getFactorial: getFactorial,
-  getSumBetweenNumbers: getSumBetweenNumbers,
-  isTriangle: isTriangle,
-  doRectanglesOverlap: doRectanglesOverlap,
-  isInsideCircle: isInsideCircle,
-  findFirstSingleChar: findFirstSingleChar,
-  getIntervalString: getIntervalString,
-  reverseString: reverseString,
-  reverseInteger: reverseInteger,
-  isCreditCardNumber: isCreditCardNumber,
-  getDigitalRoot: getDigitalRoot,
-  isBracketsBalanced: isBracketsBalanced,
-  timespanToHumanString: timespanToHumanString,
-  toNaryString: toNaryString,
-  getCommonDirectoryPath: getCommonDirectoryPath,
-  getMatrixProduct: getMatrixProduct,
-  evaluateTicTacToePosition: evaluateTicTacToePosition,
+    getFizzBuzz: getFizzBuzz,
+    getFactorial: getFactorial,
+    getSumBetweenNumbers: getSumBetweenNumbers,
+    isTriangle: isTriangle,
+    doRectanglesOverlap: doRectanglesOverlap,
+    isInsideCircle: isInsideCircle,
+    findFirstSingleChar: findFirstSingleChar,
+    getIntervalString: getIntervalString,
+    reverseString: reverseString,
+    reverseInteger: reverseInteger,
+    isCreditCardNumber: isCreditCardNumber,
+    getDigitalRoot: getDigitalRoot,
+    isBracketsBalanced: isBracketsBalanced,
+    timespanToHumanString: timespanToHumanString,
+    toNaryString: toNaryString,
+    getCommonDirectoryPath: getCommonDirectoryPath,
+    getMatrixProduct: getMatrixProduct,
+    evaluateTicTacToePosition: evaluateTicTacToePosition,
 };
