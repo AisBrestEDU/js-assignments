@@ -210,7 +210,6 @@ function partialUsingArguments(fn) {
 function getIdGeneratorFunction(startFrom) {
     let x = startFrom
     return () => x++;
-    
     throw new Error('Not implemented');
 }
 
