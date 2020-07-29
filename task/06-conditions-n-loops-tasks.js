@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**************************************************************************************************
  *                                                                                                *
@@ -7,6 +7,7 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration              *
  *                                                                                                *
  **************************************************************************************************/
+
 
 /**
  * Returns the 'Fizz','Buzz' or an original number using the following rules:
@@ -35,6 +36,7 @@ function getFizzBuzz(num) {
     return result === "" ? num : result;
 }
 
+
 /**
  * Returns the factorial of the specified integer n.
  *
@@ -53,6 +55,7 @@ function getFactorial(n) {
     }
     return result;
 }
+
 
 /**
  * Returns the sum of integer numbers between n1 and n2 (inclusive).
@@ -76,6 +79,7 @@ function getSumBetweenNumbers(n1, n2) {
     return result;
 }
 
+
 /**
  * Returns true, if a triangle can be built with the specified sides a,b,c and false in any other ways.
  *
@@ -90,30 +94,31 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(a, b, c) {
+function isTriangle(a,b,c) {
     return a + b > c && b + c > a && a + c > b;
 }
 
+
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
- * Each rectangle representing by object
+ * Each rectangle representing by object 
  *  {
  *     top: 5,
  *     left: 5,
  *     width: 20,
  *     height: 10
  *  }
- *
+ * 
  *  (5;5)
- *     -------------
- *     |           |
+ *     -------------  
+ *     |           | 
  *     |           |  height = 10
- *     -------------
- *        width=20
- *
+ *     ------------- 
+ *        width=20    
+ * 
  * NOTE: Please use canvas coordinate space (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#The_grid),
  * it differs from Cartesian coordinate system.
- *
+ * 
  * @param {object} rect1
  * @param {object} rect2
  * @return {bool}
@@ -121,10 +126,10 @@ function isTriangle(a, b, c) {
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top: 5, left: 5, width: 20, height: 20 }    =>  true
- *
+ * 
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
- *
+ *  
  */
 function doRectanglesOverlap(rect1, rect2) {
     return (
@@ -133,23 +138,24 @@ function doRectanglesOverlap(rect1, rect2) {
     );
 }
 
+
 /**
  * Returns true, if point lies inside the circle, otherwise false.
- * Circle is an object of
+ * Circle is an object of 
  *  {
  *     center: {
- *       x: 5,
+ *       x: 5,       
  *       y: 5
- *     },
+ *     },        
  *     radius: 20
  *  }
- *
- * Point is object of
+ * 
+ * Point is object of 
  *  {
  *     x: 5,
  *     y: 5
  *  }
- *
+ * 
  * @param {object} circle
  * @param {object} point
  * @return {bool}
@@ -157,7 +163,7 @@ function doRectanglesOverlap(rect1, rect2) {
  * @example:
  *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
- *
+ *   
  */
 function isInsideCircle(circle, point) {
     return (
@@ -165,6 +171,7 @@ function isInsideCircle(circle, point) {
         (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2
     );
 }
+
 
 /**
  * Returns the first non repeated char in the specified strings otherwise returns null.
@@ -189,6 +196,7 @@ function findFirstSingleChar(str) {
             }, 0)
     );
 }
+
 
 /**
  * Returns the string representation of math interval, specified by two points and include / exclude flags.
@@ -218,6 +226,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
         }`;
 }
 
+
 /**
  * Reverse the specified string (put all chars in reverse order)
  *
@@ -234,6 +243,7 @@ function reverseString(str) {
     return str.split("").reverse().join("");
 }
 
+
 /**
  * Reverse the specified integer number (put all digits in reverse order)
  *
@@ -249,6 +259,7 @@ function reverseString(str) {
 function reverseInteger(num) {
     return num.toString().split("").reverse().join("");
 }
+
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
@@ -292,6 +303,7 @@ function isCreditCardNumber(ccn) {
     return res % 10 === 0;
 }
 
+
 /**
  * Returns the digital root of integer:
  *   step1 : find sum of all digits
@@ -324,6 +336,7 @@ function getDigitalRoot(num) {
     return result;
 }
 
+
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
  * Balanced means that is, whether it consists entirely of pairs of opening/closing brackets
@@ -343,7 +356,7 @@ function getDigitalRoot(num) {
  *   '[[][][[]]]' => true
  *   '[[][]][' => false
  *   '{)' = false
- *   '{[(<{[]}>)]}' = true
+ *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
     let brackets = "[]{}()<>";
@@ -358,6 +371,7 @@ function isBracketsBalanced(str) {
     }
     return stack.length === 0;
 }
+
 
 /**
  * Returns the human readable string of time period specified by the start and end time.
@@ -430,6 +444,7 @@ function timespanToHumanString(startDate, endDate) {
     return `${roundDate(seconds / 60 / 60 / 24 / 30 / 12)} years ago`;
 }
 
+
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of specified number.
  * See more about
@@ -458,6 +473,7 @@ function toNaryString(num, n) {
     return result;
 }
 
+
 /**
  * Returns the commom directory path for specified array of full filenames.
  *
@@ -485,6 +501,7 @@ function getCommonDirectoryPath(pathes) {
 
     return result === "//" ? "/" : result;
 }
+
 
 /**
  * Returns the product of two specified matrixes.
@@ -521,6 +538,7 @@ function getMatrixProduct(m1, m2) {
 
     return result;
 }
+
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
@@ -615,6 +633,7 @@ function evaluateTicTacToePosition(position) {
         }
     }
 }
+
 
 module.exports = {
     getFizzBuzz: getFizzBuzz,
