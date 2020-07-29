@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return (value1+value2);
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return (`Hello, ${firstName} ${lastName}!`);
 }
 
 /**
@@ -69,7 +69,11 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    let arr = value.split('');
+    let index = arr.indexOf(' ');
+    arr.splice(0,index+1);
+    arr.splice(-1,1);
+    return (arr.join(''));
 }
 
 
@@ -84,7 +88,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value[0];
 }
 
 /**
@@ -99,7 +103,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +118,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    return value.repeat(count);
 }
 
 /**
@@ -130,7 +134,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value,'');
 }
 
 /**
@@ -145,7 +149,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.slice(1,-1);
 }
 
 
@@ -160,7 +164,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toUpperCase();
 }
 
 /**
@@ -174,7 +178,8 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    let arr = str.split(';');
+    return arr;
 }
 
 /**
@@ -201,7 +206,14 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let horizontalLine = String.fromCharCode(9472);
+    let str = `${String.fromCharCode(9484)}${horizontalLine.repeat(width-2)}${String.fromCharCode(9488)}\n`;
+    let space = ' ';
+    for(let i=0;i<height-2;i++){
+        str += `${String.fromCharCode(9474)}${space.repeat(width-2)}${String.fromCharCode(9474)}\n`;
+    }
+    str += `${String.fromCharCode(9492)}${horizontalLine.repeat(width-2)}${String.fromCharCode(9496)}\n`;
+    return str;
 }
 
 
@@ -221,7 +233,26 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    let arr = str.split('');
+    for (let i=0;i<arr.length;i++){
+        let numberUTF = arr[i].codePointAt(0);
+        if(numberUTF>64 && numberUTF<91){
+            numberUTF += 13;
+            if(numberUTF>90) {
+                let del = numberUTF-90;
+                numberUTF = 64+del;
+            }
+            arr[i] = String.fromCharCode(numberUTF);
+        } else if(numberUTF>96 && numberUTF<123){
+            numberUTF += 13;
+            if(numberUTF>122) {
+                let del = numberUTF-122;
+                numberUTF = 96+del;
+            }
+            arr[i] = String.fromCharCode(numberUTF);
+        }
+    }
+    return (str = arr.join(''));
 }
 
 /**
@@ -238,7 +269,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    return Object.prototype.toString.call(value) === "[object String]";
 }
 
 
@@ -267,7 +298,77 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let arr = value.split('');
+    let id = 0;
+    if(arr[arr.length-1].codePointAt(0)==9827){
+        if(isNaN(arr[0])){
+            if(arr[0].codePointAt(0)==74){
+                id += 10;
+            }else if(arr[0].codePointAt(0)==81){
+                id += 11;
+            }else if(arr[0].codePointAt(0)==75){
+                id += 12;
+            }
+        }else{
+            if(arr.length==2){
+                id += arr[0]-1;
+            }else{
+                id += 9;
+            }
+        }
+    }else if(arr[arr.length-1].codePointAt(0)==9830){
+        id = 13;
+        if(isNaN(arr[0])){
+            if(arr[0].codePointAt(0)==74){
+                id += 10;
+            }else if(arr[0].codePointAt(0)==81){
+                id += 11;
+            }else if(arr[0].codePointAt(0)==75){
+                id += 12;
+            }
+        }else{
+            if(arr.length==2){
+                id += arr[0]-1;
+            }else{
+                id += 9;
+            }
+        }
+    }else if(arr[arr.length-1].codePointAt(0)==9829){
+        id = 26;
+        if(isNaN(arr[0])){
+            if(arr[0].codePointAt(0)==74){
+                id += 10;
+            }else if(arr[0].codePointAt(0)==81){
+                id += 11;
+            }else if(arr[0].codePointAt(0)==75){
+                id += 12;
+            }
+        }else{
+            if(arr.length==2){
+                id += arr[0]-1;
+            }else{
+                id += 9;
+            }
+        }
+    }else if(arr[arr.length-1].codePointAt(0)==9824){
+        id = 39;
+        if(isNaN(arr[0])){
+            if(arr[0].codePointAt(0)==74){
+                id += 10;
+            }else if(arr[0].codePointAt(0)==81){
+                id += 11;
+            }else if(arr[0].codePointAt(0)==75){
+                id += 12;
+            }
+        }else{
+            if(arr.length==2){
+                id += arr[0]-1;
+            }else{
+                id += 9;
+            }
+        }
+    }
+    return id;
 }
 
 

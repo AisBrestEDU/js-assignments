@@ -22,7 +22,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   let date = new Date(value);
+   return date;
 }
 
 /**
@@ -37,7 +38,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   let date = new Date(value);
+   return date;
 }
 
 
@@ -56,7 +58,11 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+   if (year%400==0) return true;
+   else if (year%100==0) return false;
+   else if (year%4==0) return true;
+   else return false;
 }
 
 
@@ -76,7 +82,20 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let timespan = endDate.getTime() - startDate.getTime();
+   let timespanHour = parseInt(timespan/3600000);
+   let timespanMin = parseInt((timespan - timespanHour*3600000)/60000);
+   let timeSec = parseInt((timespan - timespanHour*3600000 - timespanMin*60000)/1000);
+   let timespanMil = timespan - timespanHour*3600000 - timespanMin*60000 - timeSec*1000;
+   let timespanString = "" + ((timespanHour < 10) ? "0" : "") + timespanHour;
+   timespanString += ((timespanMin < 10) ? ":0" : ":") + timespanMin;
+   timespanString += ((timeSec < 10) ? ":0" : ":") + timeSec;
+   if(timespanMil < 10){
+      timespanString += ".00" + timespanMil;
+   } else if(timespanMil<100){
+      timespanString += ".0" + timespanMil;
+   } else timespanString += "." + timespanMil;
+   return timespanString;
 }
 
 
@@ -94,7 +113,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let thisDate = new Date(date);
+   let hours = (thisDate.getUTCHours()>12) ? thisDate.getUTCHours() - 12 : thisDate.getUTCHours();
+   let minutes = thisDate.getUTCMinutes();
+   let angle = Math.abs(0.5*(60*hours-11*minutes));
+   angle = angle > 180 ? Math.abs((360 - angle)*Math.PI/180) : Math.abs(angle*Math.PI/180);
+   return angle;
 }
 
 
