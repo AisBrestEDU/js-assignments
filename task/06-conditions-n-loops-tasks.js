@@ -399,31 +399,31 @@ function timespanToHumanString(startDate, endDate) {
     if(seconds <= 45){
         return "a few seconds ago";
     }
-    else if(seconds <= 90){
+    if(seconds <= 90){
         return "a minute ago";
     }
-    else if(seconds / 60 <= 45){
+    if(seconds / 60 <= 45){
         return `${roundDate(seconds / 60)} minutes ago`;
     }
-    else if(seconds / 60 <= 90){
+    if(seconds / 60 <= 90){
         return "an hour ago";
     }
-    else if(seconds / 60 / 60 <= 22){
+    if(seconds / 60 / 60 <= 22){
         return `${roundDate(seconds / 60 / 60)} hours ago`;
     }
-    else if(seconds / 60 / 60 <= 36){
+    if(seconds / 60 / 60 <= 36){
         return "a day ago";
     }
-    else if(seconds / 60 / 60 / 24 <= 25){
+    if(seconds / 60 / 60 / 24 <= 25){
         return `${roundDate(seconds / 60 / 60 / 24)} days ago`;
     }
-    else if(seconds / 60 / 60 / 24 <= 45){
+    if(seconds / 60 / 60 / 24 <= 45){
         return "a month ago";
     }
-    else if(seconds / 60 / 60 / 24 <= 345){
+    if(seconds / 60 / 60 / 24 <= 345){
         return `${roundDate(seconds / 60 / 60 / 24 / 30)} months ago`;
     }
-    else if(seconds / 60 / 60 / 24 <= 545){
+    if(seconds / 60 / 60 / 24 <= 545){
         return "a year ago";
     }
     
