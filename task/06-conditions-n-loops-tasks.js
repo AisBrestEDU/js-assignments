@@ -30,14 +30,14 @@
  *
  */
 function getFizzBuzz(num) {
-    if (num % 15 == 0)
+    if (num % 15 === 0)
         return 'FizzBuzz';
-    else if (num % 3 == 0)
+    else if (num % 3 === 0)
         return 'Fizz';
-    else if (num % 5 == 0)
+    else if (num % 5 === 0)
         return 'Buzz';
-    else
-        return num;
+    
+    return num;
 }
 
 
@@ -186,7 +186,7 @@ function isInsideCircle(circle, point) {
 function findFirstSingleChar(str) {
     for (let i = 0; i < str.length; i++) {
         let c = str[i];
-        if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1)
+        if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1)
             return c;
     }
     return null;
@@ -292,9 +292,9 @@ function isCreditCardNumber(ccn) {
     let str = String(ccn);
     for (let i = 0; i < str.length; i++) {
         let digit = parseInt(str[str.length - i - 1]);
-        checksum += (i % 2 + 1) * digit - (i % 2 != 0 && digit >= 5 ? 9 : 0);
+        checksum += (i % 2 + 1) * digit - (i % 2 !== 0 && digit >= 5 ? 9 : 0);
     }
-    return checksum % 10 == 0;
+    return checksum % 10 === 0;
 }
 
 
@@ -353,18 +353,17 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
     let stack = [];
-    function isOpening(c) { return ['(', '[', '{', '<'].indexOf(c) != -1; };
+    function isOpening(c) { return ['(', '[', '{', '<'].indexOf(c) !== -1; }
     const pairs = { ')' : '(', ']' : '[', '}' : '{', '>' : '<' };
     for (let i = 0; i < str.length; i++) {
         let c = str[i];
         if (isOpening(c)) {
             stack.push(c);
-        } else {
-            if (stack.length == 0 || stack.pop() != pairs[c])
-                return false;
+        } else if (stack.length === 0 || stack.pop() !== pairs[c]) {
+            return false;
         }
     }
-    return stack.length == 0;
+    return stack.length === 0;
 }
 
 
@@ -427,9 +426,8 @@ function timespanToHumanString(startDate, endDate) {
         return `${round(interval / m)} months ago`
     } else if (interval <= 545 * d) {
         return 'a year ago';
-    } else {
-        return `${round(interval / y)} years ago`;
     }
+    return `${round(interval / y)} years ago`;
 }
 
 
@@ -484,7 +482,7 @@ function getCommonDirectoryPath(pathes) {
     for (let i = 0; i < min; i++) {
         let piece = splitted[0][i];
         for (let j = 0; j < pathes.length; j++)
-            if (splitted[j][i] != piece) return common;
+            if (splitted[j][i] !== piece) return common;
         common += piece + '/';
     }
     return common;
@@ -559,7 +557,7 @@ function getMatrixProduct(m1, m2) {
  */
 function evaluateTicTacToePosition(position) {
     function win(c1, c2, c3) {
-        return (c1 == '0' || c1 == 'X') && c1 == c2 && c2 == c3;
+        return (c1 === '0' || c1 === 'X') && c1 === c2 && c2 === c3;
     }
     
     const dxs = [1, -1, 1, -1], dys = [1, 1, -1, -1];
