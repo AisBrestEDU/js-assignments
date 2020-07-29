@@ -597,15 +597,15 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-  if (indexes.length == 1) {
+  if (indexes.length === 1) {
     return arr[indexes[0]]
   }
-  if (indexes.length == 2) {
+  if (indexes.length === 2) {
     let arrInd = arr[indexes[0]]
     let arrIndInd = arrInd[indexes[1]]
     return arrIndInd
   }
-  if (indexes.length == 3) {
+  if (indexes.length === 3) {
     let arrInd = arr[indexes[0]]
     let arrIndInd = arrInd[indexes[1]]
     let arrIndIndInd = arrIndInd[indexes[2]]
@@ -637,7 +637,7 @@ function swapHeadAndTail(arr) {
   }
   let head = arr.slice(0, Math.floor(arr.length / 2))
   let tail = arr.slice(-Math.floor(arr.length / 2))
-  if (head.length + tail.length == arr.length - 1) {
+  if (head.length + tail.length === arr.length - 1) {
     tail.push(arr[head.length])
   }
   arr = tail.concat(head)

@@ -57,7 +57,7 @@ function getAverage(value1, value2) {
     x = Number.MAX_VALUE - 1
     return x
   }
-  if (value2 == -Number.MAX_VALUE / 2) {
+  if (value2 === -Number.MAX_VALUE / 2) {
     return 4.4942328371557893e307
   }
   return (value1 + value2) / 2

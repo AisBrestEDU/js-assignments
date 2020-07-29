@@ -15,7 +15,7 @@ module.exports = {
     "no-lonely-if": "error",
     "no-proto": "error",
     "no-else-return": "error",
-    // "eqeqeq": "error",
+    eqeqeq: "error",
     "no-lone-blocks": "error",
     "no-cond-assign": "error",
     "no-debugger": "error",
