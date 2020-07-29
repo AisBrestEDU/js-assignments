@@ -117,30 +117,13 @@ function* getFibonacciSequence() {
  */
 function* depthTraversalTree(root) {
     let stack = [];
-    let index = [0];
-    let key = 0;
     yield root;
-    let current = root;
-    stack.push(root);
-    while (key >= 0) {
-        current = stack[key];
-        if (current.children != undefined) {
-            if (current.children.length > index[key]) {
-                stack.push(current.children[index[key]]);
-                index.push(0);
-                yield current.children[index[key]];
-                key++;
-            } else {
-                stack.pop();
-                index.pop();
-                key--;
-                index[key]++
-            }
-        } else {
-            stack.pop();
-            index.pop();
-            key--;
-            index[key]++; 
+    stack = stack.concat(root.children.reverse());
+    while (stack.length) {
+        let current = stack.pop();
+        yield current;
+        if (current.children) {
+            stack = stack.concat(current.children.reverse());
         }
     }
 }
