@@ -26,7 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    return x => f( g(x) )
+    return x => f( g(x) );
 }
 
 
@@ -48,7 +48,7 @@ function getComposition(f,g) {
  */
 function getPowerFunction(exponent) {
     return function Pow(value){
-        return Math.pow(value, exponent)
+        return Math.pow(value, exponent);
     }
 }
 
@@ -73,7 +73,7 @@ function getPolynom() {
 
     return function Polynom(value) {
         return arr.reduce( (sum, curr, index) => {
-            return sum + curr * Math.pow(value, index) 
+            return sum + curr * Math.pow(value, index);
             }, 0);
     };
 }
@@ -116,12 +116,11 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     return function TryFunc(){
-        for (let i=attempts; i > 0;){
+        for (let i=attempts; i > 0; i--){
             try {
                 return func();
             }
             catch (e){
-                i-=1;
             }
         }
         throw new Error("fulyError");
