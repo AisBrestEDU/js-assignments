@@ -69,22 +69,13 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom(...args) {
-    const functions = [
-        function () {
-            return null;
-        },
-        function (x) {
-            return args[0];
-        },
-        function (x) {
-            return args[0] * x + args[1];
-        },
-        function (x) {
-            return args[0] * (x ** 2) + args[1] * x + args[2];
+    return function(x){
+        let result = null;
+        for(let i = 0; i < args.length; i++){
+            result += args[i] * (x** (args.length - i - 1));
         }
-    ]
-
-    return functions[args.length];
+        return result;
+    }
 }
 
 
