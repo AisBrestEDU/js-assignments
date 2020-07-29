@@ -120,8 +120,7 @@ function retry(func, attempts) {
             try {
                 return func();
             }
-            catch (e){
-            }
+            catch (e) {null}
         }
         throw new Error("fulyError");
     }
