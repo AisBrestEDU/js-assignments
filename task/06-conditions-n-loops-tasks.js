@@ -100,7 +100,6 @@ function isTriangle(a,b,c) {
         return true;
     } 
     return false
-    }
 }
 
 
