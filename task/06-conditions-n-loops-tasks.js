@@ -314,8 +314,8 @@ function isCreditCardNumber(ccn) {
                 return item = item - 9
             } 
             return item
-        } else 
-            return item
+        }  
+        return item
     })
     let summ = arr2.reduce((sum, item) => {
         return sum += +item
@@ -386,9 +386,8 @@ function isBracketsBalanced(str) {
                 return false
             } else if(stack[stack.length - 1] !== closeIndex) {
                 return false
-            } else {
-                stack.pop()
-            }           
+            }
+            stack.pop()          
         }
     }
     if (stack.length === 0) {
