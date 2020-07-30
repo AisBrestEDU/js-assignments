@@ -97,10 +97,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if ( a + b > c && a + c > b && b + c > a){
-        return true;
-    } 
-    return false
+    return a + b > c && a + c > b && b + c > a;
 }
 
 
@@ -137,10 +134,7 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    if(rect1.top + rect1.height > rect2.top && rect1.left + rect1.width > rect2.left) {
-        return true
-    } 
-    return false
+    return rect1.top + rect1.height > rect2.top && rect1.left + rect1.width > rect2.left
 }
 
 
@@ -174,10 +168,7 @@ function isInsideCircle(circle, point) {
     let x = point.x - circle.center.x;
     let y = point.y - circle.center.y;
     let line = Math.sqrt(x*x + y*y);
-    if(line < circle.radius) {
-        return true
-    } 
-    return false
+    return line < circle.radius
 }
 
 
@@ -193,21 +184,17 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    let arr = str.split('').sort().filter(item => item !== ' ');
-    let char = '';
-    if( arr[0] !== arr[1]) {
-        return arr[0]
-    }
-    for (let i = 0; i < arr.length -1; i++) {
-        if(arr[i] !== arr[i-1] && arr[i] !== arr[i+1]){
-            return arr[i];
-        }
-    }
-    if(arr[arr.length - 2] !== arr[arr.length - 1]) {
-        return arr[arr.length -1]
-    } 
-    return null
+    let arr = str.split('').sort().filter(item => item != ' ');
     
+    for (let i = 0; i < arr.length; i++) {
+        if(arr[i] === arr[i+1]) {
+            continue
+        } else if(arr[i] === arr[i-1]){
+            continue
+        }
+        return arr[i]
+    }
+    return null  
 }
 
 
@@ -279,8 +266,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    let str = new String(num)
-    return +str.split('').reverse().join('')
+    return num.toString().split('').reverse().join('')
 }
 
 
@@ -321,10 +307,7 @@ function isCreditCardNumber(ccn) {
     let summ = arr2.reduce((sum, item) => {
         return sum += +item
     }, 0) + +x[0];
-    if( summ % 10 === 0 ) {
-        return true
-    } 
-    return false
+    return summ % 10 === 0 
 }
 
 
@@ -343,7 +326,10 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    return num % 9
+    while(num > 9){
+        num = num.toString().split('').reduce((sum, item) => sum += +item, 0)
+    }
+    return num
 }
 
 
@@ -391,10 +377,7 @@ function isBracketsBalanced(str) {
             stack.pop()          
         }
     }
-    if (stack.length === 0) {
-        return true
-    } 
-    return false
+    return stack.length === 0
 }
 
 
@@ -501,8 +484,6 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/web/scripts/app.js',  'home/setting.conf'] => ''
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
- * [ "", "web", "images", "image1.png"]
- * [ "", "web", "images", "image2.png"]
  */
 function getCommonDirectoryPath(pathes) {
     let pathlen = pathes.length,
