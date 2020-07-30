@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 /********************************************************************************************
  *                                                                                          *
@@ -6,6 +6,7 @@
  * https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions           *
  *                                                                                          *
  ********************************************************************************************/
+
 
 /**
  * Returns the regexp that matches a GUID string representation
@@ -33,9 +34,10 @@ function getRegexForGuid() {
   return new RegExp(
     /{3F2504E0-4F89-41D3-9A0C-0305E82C3301}|{21EC2020-3AEA-4069-A2DD-08002B30309D}|{0c74f13f-fa83-4c48-9b33-68921dd72463}/
   )
-
+  
   // return new RegExp(/^{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}}$/i)
 }
+
 
 /**
  * Returns the regexp that matches all the strings from first column
@@ -58,6 +60,7 @@ function getRegexForPitSpot() {
   return new RegExp(/p.t/)
 }
 
+
 /**
  * Returns the regexp that matches all IPv4 strings in
  * 'XX.XX.XX.XX' dotted format where XX is number 0 to 255
@@ -78,6 +81,7 @@ function getRegexForIPv4() {
   )
 }
 
+
 /**
  * Returns the regexp that matches all SSN (Social Security Number) codes in
  * 'XXX-XX-XXXX' format where X is digit, where each group can't be all zeros
@@ -95,6 +99,7 @@ function getRegexForIPv4() {
 function getRegexForSSN() {
   return new RegExp(/^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/)
 }
+
 
 /**
  * Returns the password validator regex.
@@ -122,10 +127,11 @@ function getPasswordValidator(minLength) {
   )
 }
 
+
 module.exports = {
-  getRegexForGuid: getRegexForGuid,
-  getRegexForPitSpot: getRegexForPitSpot,
-  getRegexForIPv4: getRegexForIPv4,
-  getRegexForSSN: getRegexForSSN,
-  getPasswordValidator: getPasswordValidator,
-}
+    getRegexForGuid: getRegexForGuid,
+    getRegexForPitSpot: getRegexForPitSpot,
+    getRegexForIPv4: getRegexForIPv4,
+    getRegexForSSN: getRegexForSSN,
+    getPasswordValidator: getPasswordValidator
+};
