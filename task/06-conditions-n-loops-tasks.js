@@ -30,11 +30,11 @@
  *
  */
 function getFizzBuzz(num) {
-    if( num % 3 == 0 && num % 5 == 0) {
+    if( num % 3 === 0 && num % 5 === 0) {
         return 'FizzBuzz'
-    } else if(num % 3 == 0) {
+    } else if(num % 3 === 0) {
         return 'Fizz'
-    } else if(num % 5 == 0) {
+    } else if(num % 5 === 0) {
         return 'Buzz'
     } else return num
 }
@@ -73,7 +73,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    let sum =0
+    let sum = 0
     for (let i = n1; i <= n2; i++){
         sum += i
     }
@@ -189,17 +189,17 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    let arr = str.split('').sort().filter(item => item != ' ');
+    let arr = str.split('').sort().filter(item => item !== ' ');
     let char = '';
-    if( arr[0] != arr[1]) {
+    if( arr[0] !== arr[1]) {
         return arr[0]
     }
     for (let i = 0; i < arr.length -1; i++) {
-        if(arr[i] != arr[i-1] && arr[i] != arr[i+1]){
+        if(arr[i] !== arr[i-1] && arr[i] !== arr[i+1]){
             return arr[i];
         }
     }
-    if(arr[arr.length - 2] != arr[arr.length - 1]) {
+    if(arr[arr.length - 2] !== arr[arr.length - 1]) {
         return arr[arr.length -1]
     } else return null
     
@@ -304,7 +304,7 @@ function isCreditCardNumber(ccn) {
     let arr = str.split('').reverse()
     let x = arr.splice(0,1)
     let arr2 = arr.map((item, i) => {
-        if( i % 2 == 0) {
+        if( i % 2 === 0) {
             item = item * 2;
             if( item >= 10) {
                 return item = item - 9
@@ -314,7 +314,7 @@ function isCreditCardNumber(ccn) {
     let summ = arr2.reduce((sum, item) => {
         return sum += +item
     }, 0) + +x[0];
-    if( summ % 10 == 0 ) {
+    if( summ % 10 === 0 ) {
         return true
     } else return false
 }
@@ -375,16 +375,16 @@ function isBracketsBalanced(str) {
         }
         if(closeBrack.indexOf(arr[i]) >= 0) {
             closeIndex = closeBrack.indexOf(arr[i])
-            if(stack.length == 0) {
+            if(stack.length === 0) {
                 return false
-            } else if(stack[stack.length - 1] != closeIndex) {
+            } else if(stack[stack.length - 1] !== closeIndex) {
                 return  false
             } else {
                 stack.pop()
             }           
         }
     }
-    if (stack.length == 0) {
+    if (stack.length === 0) {
         return true
     } else return false
 }
@@ -507,16 +507,16 @@ function getCommonDirectoryPath(pathes) {
              prom.push(pathArr[j][i]);
         }
         if(prom.every((item, i, arr) =>{
-            return item == arr[0]
+            return item === arr[0]
         })) {
             result.push(prom[0])
         }
     }
-    if (result.length == 1){
+    if (result.length === 1){
         return '/'
     } else if(result.length < minLen && result.length > 1) {
         return result.join('/') + '/'
-    } else if (result.length == 0) {
+    } else if (result.length === 0) {
         return ''
     }
     return result.join('/')
@@ -597,21 +597,21 @@ function getMatrixProduct(m1, m2) {
 function evaluateTicTacToePosition(position) {
     let result;
     position.forEach(item => {
-        if(item.every(elem => elem === 'X')  && item.reduce((sum,item) => (sum += item.length),0) == 3){
+        if(item.every(elem => elem === 'X')  && item.reduce((sum,item) => (sum += item.length),0) === 3){
             return result = 'X'
-        } else if(item.every(elem => elem === '0') && item.reduce((sum,item) => (sum += item.length),0) == 3){
+        } else if(item.every(elem => elem === '0') && item.reduce((sum,item) => (sum += item.length),0) === 3){
             return result = '0'
         }
     })   
-    if(result != null){
+    if(result !== null){
         return result
     } 
-    if((position[0][0] == position[1][1] && position[2][2] == position[0][0]) || (position[0][2] == position[1][1] && position[2][0] == position[0][2])){
-        return position[1][1] == 'X' ? 'X' : position[1][1] == '0'? '0': undefined
+    if((position[0][0] === position[1][1] && position[2][2] === position[0][0]) || (position[0][2] === position[1][1] && position[2][0] === position[0][2])){
+        return position[1][1] === 'X' ? 'X' : position[1][1] === '0'? '0': undefined
     }
     for (let i = 0; i < 3; i++){
-        if(position[0][i] == position[1][i] && position[2][i] == position[0][i]){
-            return position[0][i] == 'X' ? 'X' : position[0][i] == '0'? '0': undefined
+        if(position[0][i] === position[1][i] && position[2][i] === position[0][i]){
+            return position[0][i] === 'X' ? 'X' : position[0][i] === '0'? '0': undefined
         }
     }
     
