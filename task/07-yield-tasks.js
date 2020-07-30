@@ -35,7 +35,7 @@
 function* get99BottlesOfBeer() {
     let count  = 99;
     while(count > 0){
-        if(count == 1){
+        if(count === 1){
             yield `${count} bottle of beer on the wall, ${count} bottle of beer.`
             yield `Take one down and pass it around, no more bottles of beer on the wall.`
             yield 'No more bottles of beer on the wall, no more bottles of beer.'
@@ -44,7 +44,7 @@ function* get99BottlesOfBeer() {
         } else {
             yield `${count} bottles of beer on the wall, ${count} bottles of beer.`
             count--;
-            if (count == 1) {
+            if (count === 1) {
                 yield `Take one down and pass it around, ${count} bottle of beer on the wall.`
             } else {
                 yield `Take one down and pass it around, ${count} bottles of beer on the wall.`
@@ -114,7 +114,7 @@ function* depthTraversalTree(root) {
     queue.push(root);
     while(i >= 0) {
         currentNode = queue[i];
-        if(currentNode.children != undefined) {
+        if(currentNode.children !== undefined) {
             if(currentNode.children.length > count[i]) {
                 queue.push(currentNode.children[count[i]]);
                 count.push(0)
@@ -138,7 +138,7 @@ function* depthTraversalTree(root) {
 }
     /*while (queue.length > i) {
         let currentNode = queue[i];
-        if(currentNode.children != undefined) { 
+        if(currentNode.children !== undefined) { 
             for(let j = currentNode.children.length - 1; j >= 0; j--){
                 queue.splice( i+1, 0, currentNode.children[j] );
             }
@@ -179,7 +179,7 @@ function* breadthTraversalTree(root) {
     queue.push(root)
     while (queue.length > i) {
         let currentNode = queue[i];
-        if(currentNode.children != undefined) {
+        if(currentNode.children !== undefined) {
             for( const child of currentNode.children) {
                 queue.push(child);
             }
@@ -212,9 +212,9 @@ function* mergeSortedSequences(source1, source2) {
     
             a = first.next().value,
             b = second.next().value;
-            if(a == undefined){
+            if(a === undefined){
                 yield b;
-            } else if( b == undefined){
+            } else if( b === undefined){
                 yield a;
             }else {
                 yield Math.min(a,b);
