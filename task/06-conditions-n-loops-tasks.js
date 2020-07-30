@@ -612,7 +612,7 @@ function evaluateTicTacToePosition(position) {
             return result = '0'
         }
     })   
-    if(result !== null){
+    if(result !== undefined){
         return result
     } 
     if((position[0][0] === position[1][1] && position[2][2] === position[0][0]) || (position[0][2] === position[1][1] && position[2][0] === position[0][2])){
