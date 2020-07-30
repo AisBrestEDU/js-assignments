@@ -115,12 +115,13 @@ function memoize(func) {
  */
 function retry(func, attempts) {
     return function () {
-        while (attempts !== 0) {
+        for (let i = 0; i <= attempts; i++) {
             try {
                 return func()
-            } catch (e) {
-                // console.log('I is in TV))')
+            } catch(e) {
+                if (i === attempts) throw e;
             }
+            
         }
     }
 }
