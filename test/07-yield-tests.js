@@ -472,7 +472,7 @@ describe('07-yield-tasks', function() {
     });
 
     it.optional('async should resolve Promises and take values step by step', () => {
-            return new Promise((resolve, reject)=> {
+        return new Promise((resolve, reject)=> {
             tasks.async(function*() {
                 let a = yield new Promise((resolve)=> setTimeout(()=>resolve(5), 100)),
                     b = yield Promise.resolve(6),
@@ -506,7 +506,6 @@ describe('07-yield-tasks', function() {
             });
         });
     });
-
 
     var paths = [
         'task/07-yield-tasks.js'
