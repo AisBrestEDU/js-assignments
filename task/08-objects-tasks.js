@@ -108,17 +108,17 @@ class MySuperSelector {
         this.part = part
     }
     element(value){
-        if(this.part == 'element') {
+        if(this.part === 'element') {
             throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
-        }else if(this.part != undefined){
+        }else if(this.part !== undefined){
             throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
         }
         return new MySuperSelector(this.value, 'element')
     }
     id(value){
-        if(this.part == 'id') {
+        if(this.part === 'id') {
             throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
-        }else if(this.part != "element") {
+        }else if(this.part !== "element") {
             throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
         }
         this.value = this.value + "#"+ value;
@@ -126,7 +126,7 @@ class MySuperSelector {
         
     }
     class(value) {
-        if(this.part != "element" && this.part != "id" && this.part != "class"){
+        if(this.part !== "element" && this.part !== "id" && this.part !== "class"){
             throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
         }
         this.value = this.value + "." + value;
@@ -134,7 +134,7 @@ class MySuperSelector {
     }
 
     attr(value) {
-        if(this.part != "element" && this.part != "id" && this.part != "class" && this.part != "attr") {
+        if(this.part !== "element" && this.part !== "id" && this.part !== "class" && this.part !== "attr") {
             throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
         }
         this.value = this.value + "[" + value + "]";
@@ -142,7 +142,7 @@ class MySuperSelector {
     }
 
     pseudoClass(value) {
-        if(this.part == 'pseudoElement') {
+        if(this.part === 'pseudoElement') {
             throw new Error ("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element") 
         }
         this.value = this.value + ":" + value;
@@ -150,7 +150,7 @@ class MySuperSelector {
     }
 
     pseudoElement(value) {
-        if(this.part == 'pseudoElement') {
+        if(this.part === 'pseudoElement') {
             throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
         }
         this.value = this.value + "::" + value;
