@@ -139,7 +139,8 @@ function isTriangle(a,b,c) {
 function doRectanglesOverlap(rect1, rect2) {
     if(rect1.top + rect1.height > rect2.top && rect1.left + rect1.width > rect2.left) {
         return true
-    } else return false
+    } 
+    return false
 }
 
 
@@ -175,7 +176,8 @@ function isInsideCircle(circle, point) {
     let line = Math.sqrt(x*x + y*y);
     if(line < circle.radius) {
         return true
-    } else return false
+    } 
+    return false
 }
 
 
@@ -203,7 +205,8 @@ function findFirstSingleChar(str) {
     }
     if(arr[arr.length - 2] !== arr[arr.length - 1]) {
         return arr[arr.length -1]
-    } else return null
+    } 
+    return null
     
 }
 
@@ -318,7 +321,8 @@ function isCreditCardNumber(ccn) {
     }, 0) + +x[0];
     if( summ % 10 === 0 ) {
         return true
-    } else return false
+    } 
+    return false
 }
 
 
@@ -388,7 +392,8 @@ function isBracketsBalanced(str) {
     }
     if (stack.length === 0) {
         return true
-    } else return false
+    } 
+    return false
 }
 
 
@@ -455,7 +460,8 @@ function timespanToHumanString(startDate, endDate) {
         return `${minutsRound} minutes ago`
     } else if( sec > 45 && sec <= 90) {
         return "a minute ago"
-    } else return "a few seconds ago"
+    } 
+    return "a few seconds ago"
 }
 
 
