@@ -312,8 +312,10 @@ function isCreditCardNumber(ccn) {
             item = item * 2;
             if( item >= 10) {
                 return item = item - 9
-            } else return item
-        } else return item
+            } 
+            return item
+        } else 
+            return item
     })
     let summ = arr2.reduce((sum, item) => {
         return sum += +item
@@ -383,7 +385,7 @@ function isBracketsBalanced(str) {
             if(stack.length === 0) {
                 return false
             } else if(stack[stack.length - 1] !== closeIndex) {
-                return  false
+                return false
             } else {
                 stack.pop()
             }           
