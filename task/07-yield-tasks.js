@@ -106,51 +106,22 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    let queue = [],
-    count = [0],
-    i = 0;
-    yield root
-    let currentNode = root;
-    queue.push(root);
-    while(i >= 0) {
-        currentNode = queue[i];
-        if(currentNode.children !== undefined) {
-            if(currentNode.children.length > count[i]) {
-                queue.push(currentNode.children[count[i]]);
-                count.push(0)
-                yield currentNode.children[count[i]];
-                i++;
-            }else{
-                queue.pop();
-                count.pop()
-                i--;
-                count[i]++
+    let node = [root];
+    let lastIndex;
+    while(node.length !== 0) {
+        lastIndex = node.length -1
+        if(node[lastIndex].children){
+            let elem = node.pop();
+            yield elem
+            for(let i = elem.children.length -1; i >= 0; i--){
+                node.push(elem.children[i])
             }
-        }else{
-            queue.pop();
-            count.pop()
-            i--;
-            count[i]++
-        
-        
+        } else{
+            yield node.pop()
         }
     }
 }
-    /*while (queue.length > i) {
-        let currentNode = queue[i];
-        if(currentNode.children !== undefined) { 
-            for(let j = currentNode.children.length - 1; j >= 0; j--){
-                queue.splice( i+1, 0, currentNode.children[j] );
-            }
-        }
-        yield queue[i]
-        i++;
-    }*/
-
-
-
-    
-
+ 
 
 /**
  * Traverses a tree using the breadth-first strategy
