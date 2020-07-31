@@ -26,15 +26,7 @@
  *   
  */
 function getComposition(f,g) {
-    let func2 = function(x) {
-        return g(x)
-    }
-    let func1 = function(x) {
-        return f(func2(x))
-    }
-    return func1
-    
-    
+    return x => f((x => g(x))(x))
 }
 
 
@@ -55,11 +47,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    let func = function(x){
-        return Math.pow(x,exponent);
-    }
-    return func
-    
+    return x => Math.pow(x,exponent)
 }
 
 
@@ -108,15 +96,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    let cache = new Map();
-    let result = func()
-    return function() {
-        if (cache.has(result)) {
-            return cache.get(result);
-        } 
-        cache.set(result, result);
-        return result;
-  };
+    let result = func();
+    return () => (result)
 }
 
 
@@ -200,13 +181,15 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(fn, ...args1) {
+function partialUsingArguments(fn) {
+    let func = arguments[0]
+    let args1 = []
     
-    let func2 = function(...args2) {
-        return fn(...args1,...args2)
+    for(let i = 1; i < arguments.length; i++){
+        args1.push(arguments[i])
     }
-    
-    return func2
+
+    return (...args2) => func(...args1,...args2)
 }
 
 
