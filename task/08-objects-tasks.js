@@ -158,7 +158,7 @@ class Selector {
             throw 'Element, id and pseudo-element should not occur more then one time inside the selector'
         }
         return this
-    };
+    }
 
     id (value) {
         this.result+= `#${value}`
@@ -169,28 +169,28 @@ class Selector {
             throw 'Element, id and pseudo-element should not occur more then one time inside the selector'
         }
         return this
-    };
+    }
 
     class (value) {
         this.result+= `.${value}`
         this.order.push(3)
         this.checkOrder()
         return this
-    };
+    }
 
     attr (value) {
         this.result+= `[${value}]`
         this.order.push(4)
         this.checkOrder()
         return this
-    };
+    }
 
     pseudoClass (value) {
         this.result+= `:${value}`
         this.order.push(5)
         this.checkOrder()
         return this
-    };
+    }
 
     pseudoElement (value) {
         this.result+= `::${value}`
@@ -201,12 +201,12 @@ class Selector {
             throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector')
         }
         return this
-    };
+    }
 
     combine (selector1, combinator, selector2) {
         this.result+= `${selector1.result} ${combinator} ${selector2.result}`
         return this
-    };
+    }
 
     stringify () {
         return this.result
