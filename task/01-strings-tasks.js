@@ -229,13 +229,13 @@ function encodeToRot13(str) {
     const inputBase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const outBase =   'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
     let str2 = '';
-    for(let i = 0; i<str.length; i++) {
-        if(str[i] === ' ' || str[i] === '!' || str[i] === '?') {
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === ' ' || str[i] === '!' || str[i] === '?') {
             str2 += str[i];
             continue;
         }
-        for(let j = 0; j<inputBase.length; j++) {
-            if(str[i] === inputBase[j]) {
+        for (let j = 0; j < inputBase.length; j++) {
+            if (str[i] === inputBase[j]) {
                 str2 += outBase[j];
             }
         }
@@ -257,7 +257,8 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return {}.toString.call(value) === "[object String]"
+    if (value instanceof String) return true
+    return typeof(value) === "string"
 }
 
 
@@ -290,7 +291,7 @@ function getCardId(value) {
         'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
         'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
         'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠']
-    for(let i = 0; i<arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         if (value === arr[i]) return i;
     }
 }

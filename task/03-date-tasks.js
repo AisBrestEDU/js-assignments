@@ -77,22 +77,18 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-  let duration = endDate-startDate
-  let hours = Math.floor(duration / (3600*1000))
-  if(hours<10) hours = '0' + hours
-  let minutes = Math.floor((duration - (hours*3600*1000))/(60*1000))
-  if(minutes<10) minutes = '0' + minutes
-  let seconds = Math.floor((duration - (hours*3600*1000)-(minutes*60*1000))/1000)
-  if(seconds<10) seconds = '0' + seconds
-  let milliseconds = duration - (hours*3600*1000) - (minutes*60*1000) - (seconds*1000)
-  if( milliseconds<100)  milliseconds = '0' +  milliseconds
-  if( milliseconds<10)  milliseconds = '0' +  milliseconds
-  
-  // console.log(new Date(endDate - startDate).toISOString().slice(11, -1))
-  
+  let duration = endDate  - startDate
+  let hours = Math.floor(duration / (3600 * 1000))
+  if  (hours  < 10) hours = '0' + hours
+  let minutes = Math.floor((duration - ( hours * 3600  * 1000)) / (60 * 1000))
+  if  (minutes  < 10) minutes = '0' + minutes
+  let seconds = Math.floor((duration - (hours * 3600  * 1000) - ( minutes * 60  * 1000))  / 1000)
+  if  (seconds < 10) seconds = '0' + seconds
+  let milliseconds = duration - (hours * 3600  * 1000) - (minutes * 60  * 1000) - (seconds  * 1000)
+  if  (milliseconds  < 100)  milliseconds = '0' +  milliseconds
+  if  (milliseconds  < 10)  milliseconds = '0' +  milliseconds
+
   return  `${hours}:${minutes}:${seconds}.${milliseconds}`
-  
-  // return new Date(endDate - startDate).toISOString().slice(11, -1);
 }
 
 
@@ -111,13 +107,13 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
   let hours = date.getUTCHours()
-  if(hours>12) hours -= 12;
+  if  ( hours > 12) hours -= 12;
   const minutes = date.getMinutes()
   const angleHours = 0.5 * (60 * hours + minutes)
-  const angleMinutes = minutes*6 // 1 minute = 6 degree
+  const angleMinutes = minutes * 6 // 1 minute = 6 degree
   let angle = angleHours - angleMinutes
-  if(angle < 0) angle = -angle
-  if(angle > 180) angle -= 180
+  if (angle < 0) angle = -angle
+  if (angle > 180) angle -= 180
   return Math.PI * angle / 180
 }
 
