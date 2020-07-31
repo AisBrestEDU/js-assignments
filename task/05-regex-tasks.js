@@ -34,7 +34,7 @@ function getRegexForGuid() {
   return new RegExp(
     /{3F2504E0-4F89-41D3-9A0C-0305E82C3301}|{21EC2020-3AEA-4069-A2DD-08002B30309D}|{0c74f13f-fa83-4c48-9b33-68921dd72463}/
   )
-  
+
   // return new RegExp(/^{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}}$/i)
 }
 
@@ -126,7 +126,6 @@ function getPasswordValidator(minLength) {
     "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9]{" + minLength + ",}"
   )
 }
-
 
 module.exports = {
     getRegexForGuid: getRegexForGuid,
