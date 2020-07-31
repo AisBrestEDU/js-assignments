@@ -149,7 +149,7 @@ class Selector {
         this.order = []
     }
 
-    element = (value) => {
+    element (value) {
         this.result+= value
         this.elementCounter++
         this.order.push(1)
@@ -160,7 +160,7 @@ class Selector {
         return this
     };
 
-    id = (value) => {
+    id (value) {
         this.result+= `#${value}`
         this.idCounter++
         this.order.push(2)
@@ -171,7 +171,7 @@ class Selector {
         return this
     };
 
-    class = (value) => {
+    class (value) {
         this.result+= `.${value}`
         this.order.push(3)
         this.checkOrder()
@@ -185,14 +185,14 @@ class Selector {
         return this
     };
 
-    pseudoClass = (value) => {
+    pseudoClass (value) {
         this.result+= `:${value}`
         this.order.push(5)
         this.checkOrder()
         return this
     };
 
-    pseudoElement = (value) => {
+    pseudoElement (value) {
         this.result+= `::${value}`
         this.pseudoElementCounter++
         this.order.push(6)
@@ -203,14 +203,16 @@ class Selector {
         return this
     };
 
-    combine = (selector1, combinator, selector2) => {
+    combine (selector1, combinator, selector2) {
         this.result+= `${selector1.result} ${combinator} ${selector2.result}`
         return this
     };
 
-    stringify = () => this.result
+    stringify () {
+        return this.result
+    }
 
-    checkOrder = () => {
+    checkOrder () {
         this.order.forEach((selector, index, arr) => {
             if (selector > arr[index + 1]) {
                 throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element')
