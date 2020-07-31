@@ -178,7 +178,7 @@ class Selector {
         return this
     };
 
-    attr = (value) => {
+    attr (value) {
         this.result+= `[${value}]`
         this.order.push(4)
         this.checkOrder()
