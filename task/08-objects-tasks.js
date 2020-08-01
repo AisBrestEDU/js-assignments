@@ -123,13 +123,13 @@ const cssSelectorBuilder = {
 
 class Selector {
     constructor() {
-        this.index_of_selector = 0
-        this.elementValue = null
-        this.idValue = null
-        this.classes = []
-        this.attributes = []
-        this.pseudoClasses = []
-        this.pseudoElementValue = null
+        this.index_of_selector = 0;
+        this.elementValue = null;
+        this.idValue = null;
+        this.classes = [];
+        this.attributes = [];
+        this.pseudoClasses = [];
+        this.pseudoElementValue = null;
         this.selectors = [
             "element",
             "id",
@@ -138,11 +138,11 @@ class Selector {
             "pseudoClass",
             "pseudoElement",
             "combine",
-        ]
-        this.combinator = null
-        this.selector2 = null
+        ];
+        this.combinator = null;
+        this.selector2 = null;
     }
-    
+
     check_order(curr_elem) {
         if (this.index_of_selector > this.selectors.indexOf(curr_elem)) {
             throw new Error(
@@ -151,7 +151,7 @@ class Selector {
         }
         this.index_of_selector = this.selectors.indexOf(curr_elem)
     }
-    
+
     element(value) {
         this.check_order("element")
         if (!this.elementValue) {
@@ -163,7 +163,7 @@ class Selector {
         }
         return this
     }
-    
+
     id(value) {
         this.check_order("id")
         if (!this.idValue) {
@@ -175,25 +175,25 @@ class Selector {
         }
         return this
     }
-    
+
     class(value) {
         this.check_order("class")
         this.classes.push(value)
         return this
     }
-    
+
     attr(value) {
         this.check_order("attr")
         this.attributes.push(value)
         return this
     }
-    
+
     pseudoClass(value) {
         this.check_order("pseudoClass")
         this.pseudoClasses.push(value)
         return this
     }
-    
+
     pseudoElement(value) {
         this.check_order("pseudoElement")
         if (!this.pseudoElementValue) {
@@ -205,7 +205,7 @@ class Selector {
         }
         return this
     }
-    
+
     combine(selector1, symbol, selector2) {
         this.check_order("combine")
         Object.assign(this, selector1)
@@ -213,7 +213,7 @@ class Selector {
         this.selector2 = selector2
         return this
     }
-    
+
     stringify() {
         let result = ""
         if (this.elementValue) {
@@ -222,11 +222,11 @@ class Selector {
         if (this.idValue) {
             result += "#" + this.idValue
         }
-        
+
         this.classes.forEach((item) => (result += "." + item))
         this.attributes.forEach((item) => (result += "[" + item + "]"))
         this.pseudoClasses.forEach((item) => (result += ":" + item))
-        
+
         if (this.pseudoElementValue) {
             result += "::" + this.pseudoElementValue
         }
