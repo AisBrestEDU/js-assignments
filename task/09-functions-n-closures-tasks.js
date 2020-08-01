@@ -25,11 +25,7 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.acos(x))
  *
  */
-function getComposition(f,g) {
-    return function (x) {
-        return f(g(x))
-    }
-}
+ const getComposition = (f,g) => x => f(g(x))
 
 
 /**
@@ -48,9 +44,7 @@ function getComposition(f,g) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(exponent) {
-    return (n) => Math.pow(n, exponent)
-}
+const getPowerFunction = (exponent) => n => Math.pow(n, exponent)
 
 
 /**
@@ -121,7 +115,7 @@ function retry(func, attempts) {
             } catch(e) {
                 if (i === attempts) throw e;
             }
-            
+
         }
     }
 }
@@ -152,15 +146,12 @@ function retry(func, attempts) {
  */
 function logger(func, logFunc) {
     return function () {
-        let funcName = `${func.name}(${JSON.stringify(Array.from(arguments)).slice(
-          1,
-          -1
-        )})`
-        
+        let funcName = `${func.name}(${JSON.stringify(Array.from(arguments)).slice(1, -1)})`
+
         logFunc(`${funcName} starts`)
         let result = func.apply(this, arguments)
         logFunc(`${funcName} ends`)
-        
+
         return result
     }
 }
@@ -179,9 +170,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(fn, ...args) {
-    return (...args2) => fn(...args, ...args2)
-}
+const partialUsingArguments = (fn, ...args) => (...args2) => fn(...args, ...args2)
 
 
 /**
@@ -200,9 +189,7 @@ function partialUsingArguments(fn, ...args) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(startFrom) {
-    return () => startFrom++
-}
+const getIdGeneratorFunction = startFrom => () => startFrom++
 
 
 module.exports = {
