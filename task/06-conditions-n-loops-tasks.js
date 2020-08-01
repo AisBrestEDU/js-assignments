@@ -37,7 +37,6 @@ function getFizzBuzz(num) {
     } else if (num % 5 === 0) {
         return "Buzz"
     } return num
-    
 }
 
 
@@ -74,7 +73,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    let sum = n1
+    let sum = n1;
     for (let i = n1 + 1; i <= n2; i++) {
         sum += i
     }
@@ -97,13 +96,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if (
-      (a < b + c && a >= b && a >= c) ||
-      (b < a + c && b >= a && b >= c) ||
-      (c < a + b && c >= a && c >= b)
-    )
-        return true
-    return false
+    return a < b + c && b < a + c && c < a + b;
 }
 
 
@@ -309,9 +302,7 @@ function isCreditCardNumber(ccn) {
         .map((x) => parseInt(x))
         .map((x, idx) => (idx % 2 ? x * 2 : x))
         .map((x) => (x > 9 ? (x % 10) + 1 : x))
-        .reduce((accum, x) => (accum += x)) %
-      10 ===
-      0
+        .reduce((accum, x) => (accum += x)) % 10 === 0
     )
 }
 
@@ -333,7 +324,6 @@ function isCreditCardNumber(ccn) {
 function getDigitalRoot(num) {
     let str = "" + num
     let arr = str.split("")
-    let sum = 0
     let res = arr.reduce(function (sum, current) {
         return sum + +current
     }, 0)
@@ -378,7 +368,7 @@ function isBracketsBalanced(str) {
     if (str === "[{}]") return true
     if (str === "[{(<()[]{}<>>)}]") return true
     if (str === "{<>}{()}[[]](())") return true
-    
+
     for (let i = 0; i < str.length; i++) {
         if (arr.length === 0) {
             if (str[i] === "}") return false
@@ -386,7 +376,6 @@ function isBracketsBalanced(str) {
             if (str[i] === ")") return false
             if (str[i] === ">") return false
         }
-        
         if (arr.length) {
             if (arr[arr.length - 1] === "{" && str[i] !== "}") return false
             if (arr[arr.length - 1] === "[" && str[i] !== "]") return false
@@ -402,8 +391,7 @@ function isBracketsBalanced(str) {
             continue
         }
     }
-    if (arr.length) return false
-    return true
+    return arr.length === 0
 }
 
 
@@ -463,7 +451,7 @@ function timespanToHumanString(startDate, endDate) {
         // second: 'a few seconds ago',
         // milliseconds: 'a few seconds ago'
     }
-    
+
     if (duration > 545 * amountMillisecond.day)
         return `${Math.round(duration / amountMillisecond.year)} ${comment.years}`
     else if (
@@ -554,38 +542,15 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    let newPathesForCompare = []
-    let newPathesAfterCompare = []
-    let firstSymbolPath = "/"
-    
-    pathes.forEach((item, index) => {
-        let sharePathes = []
-        
-        if (item[0] !== "/") {
-            firstSymbolPath = ""
-            sharePathes = item.slice(1).split("/")
-        } else sharePathes = item.split("/")
-        
-        if (!index) newPathesForCompare = newPathesForCompare.concat(sharePathes)
-        else
-            sharePathes.forEach((item, index2) => {
-                if (item === newPathesForCompare[index2])
-                    newPathesAfterCompare[index2] = item
-                else {
-                    newPathesForCompare[index2] = item
-                    newPathesAfterCompare[index2] = ""
-                }
-            })
-    })
-    
-    newPathesAfterCompare = newPathesAfterCompare.filter((item) => item !== "")
-    
-    if (newPathesAfterCompare.length)
-        return `${firstSymbolPath}${newPathesAfterCompare.join("/")}/`
-    else if (!newPathesAfterCompare.length && firstSymbolPath === "/")
-        return `${firstSymbolPath}${newPathesAfterCompare.join("/")}`
-    else if (!newPathesAfterCompare.length && firstSymbolPath === "")
-        return `${newPathesAfterCompare.join("/")}`
+    let result;
+    for (let i = 0; i < pathes[0].length; i++) {
+        for (let j = 1; j < pathes.length; j++) {
+            if (pathes[0][i] !== pathes[j][i]) {
+                result = pathes[0].slice(0, i);
+                return result.slice(0, result.lastIndexOf('/') + 1);
+            }
+        }
+    }
 }
 
 
@@ -611,11 +576,11 @@ function getMatrixProduct(m1, m2) {
     const result = []
     for (let i = 0; i < m1.length; i++) {
         result.push(new Array(m2[0].length))
-        
+
         for (let j = 0; j < result[i].length; j++) {
             result[i][j] = 0
         }
-        
+
         for (let j = 0; j < result[i].length; j++) {
             for (let k = 0; k < m1[0].length; k++) {
                 result[i][j] += m1[i][k] * m2[k][j]
@@ -662,14 +627,12 @@ function evaluateTicTacToePosition(position) {
           position[i][0] === position[i][1] &&
           position[i][0] === position[i][2] &&
           position[i][0] !== undefined
-        )
-            return position[i][0]
+        ) return position[i][0]
         if (
           position[0][i] === position[1][i] &&
           position[0][i] === position[2][i] &&
           position[0][i] !== undefined
-        )
-            return position[0][i]
+        ) return position[0][i]
     }
     let diagonal1 = true,
       diagonal2 = true
@@ -679,7 +642,7 @@ function evaluateTicTacToePosition(position) {
     }
     if (diagonal1 && position[0][0] !== undefined) return position[0][0]
     if (diagonal2 && position[0][2] !== undefined) return position[0][2]
-    
+
     return undefined
 }
 
