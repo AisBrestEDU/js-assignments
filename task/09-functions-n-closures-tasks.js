@@ -26,7 +26,9 @@
  *
  */
 function getComposition(f,g) {
-    throw new Error('Not implemented');
+    return function (x) {
+        return f(g(x))
+    }    
 }
 
 
@@ -47,7 +49,9 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+    return function (x) {
+        return Math.pow(x, exponent)  
+    }
 }
 
 
@@ -65,7 +69,12 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+    const args = [...arguments]
+    return function (x) {
+        return args.reduce((res, elem, index) => {
+            return res + elem * Math.pow(x, args.length - index -1 )
+        },0)
+    }
 }
 
 
@@ -84,7 +93,10 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+    const memoizeFunc = func()
+    return function() {
+        return memoizeFunc
+    }
 }
 
 
@@ -104,7 +116,16 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+    let counter = 0
+    return function() {
+        while (counter < attempts) {
+            try {
+                return func();
+            } catch {
+                if (++counter >= attempts) throw new Error("fulyError");
+            }
+        }
+    }
 }
 
 
@@ -132,7 +153,13 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+    return function (...args) {
+        const parameters = args.map((elem) => JSON.stringify(elem) )
+        logFunc(`${func.name}(${parameters}) starts`)
+        const res = func(...args)
+        logFunc(`${func.name}(${parameters}) ends`)
+        return res
+    }
 }
 
 
@@ -150,7 +177,10 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+    const args = [...arguments].slice(1)
+    return function() {
+        return [...args, ...arguments].join('')
+    }
 }
 
 
@@ -171,7 +201,9 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+    return function () {
+       return startFrom++
+    }
 }
 
 
