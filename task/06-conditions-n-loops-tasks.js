@@ -333,7 +333,7 @@ function isBracketsBalanced(str) {
 
     while (a !== str) {
         a = str;
-        str = str.replace(/<\>|\(\)|\[\]|\{\}/g, () => '');
+        str = str.replace(/<\>|\(\)|\[\]|{\}/g, () => '');
     }
 
     return str.length === 0;
