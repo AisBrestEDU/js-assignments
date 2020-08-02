@@ -52,8 +52,6 @@ function* get99BottlesOfBeer() {
 
 }
 
-for (let k of get99BottlesOfBeer()) {
-}
 
 /**
  * Returns the Fibonacci sequence:
