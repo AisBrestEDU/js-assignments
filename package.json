@@ -9,7 +9,9 @@
   "author": "aorgish",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^8.0.1"
+    "eslint": "^7.4.0",
+    "mocha": "^8.0.1",
+    "mocha-eslint": "^6.0.0"
   },
   "repository": {
     "type": "git",
