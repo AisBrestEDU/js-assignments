@@ -329,14 +329,16 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-    let a;
+    var brackets = "[]{}()<>";
+    var stack = [];
+    var char, position;
+    for (var i = 0; char = str[i]; i++) {
+        position = brackets.indexOf(char);
 
-    while (a !== str) {
-        a = str;
-        str = str.replace(/<\>|\(\)|\[\]|{\}/g, () => '');
+        if (position % 2 === 0) stack.push(position + 1);else if (stack.length === 0 || stack.pop() !== position) return false;
     }
 
-    return str.length === 0;
+    return stack.length === 0;
 }
 
 
