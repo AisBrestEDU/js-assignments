@@ -17,8 +17,45 @@
  *  ]
  */
 function createCompassPoints() {
-    let sides = ['N','E','S','W'];  // use array of cardinal directions only!
-    throw new Error('Not implemented');
+    let sides = ['N', 'E', 'S', 'W'];  // use array of cardinal directions only!
+    let resultArr = [];
+    let gen = generate32Abbreviations();
+    for (let i = 0; i <= 348.75; i += 11.25) {
+        resultArr.push({ abbreviation: gen.next().value, azimuth: i });
+    }
+    return resultArr;
+
+    function* generateAbbreviationsNESW(direction1, direction2) {
+        yield `${direction1}b${direction2}`;
+        yield `${direction1}${direction1}${direction2}`;
+        yield `${direction1}${direction2}b${direction1}`;
+        yield `${direction1}${direction2}`;
+        yield `${direction1}${direction2}b${direction2}`;
+        yield `${direction2}${direction1}${direction2}`;
+        yield `${direction2}b${direction1}`;
+    }
+
+    function* generateAbbreviationsESWN(direction1, direction2) {
+        yield `${direction1}b${direction2}`;
+        yield `${direction1}${direction2}${direction1}`;
+        yield `${direction2}${direction1}b${direction1}`;
+        yield `${direction2}${direction1}`;
+        yield `${direction2}${direction1}b${direction2}`;
+        yield `${direction2}${direction2}${direction1}`;
+        yield `${direction2}b${direction1}`;
+    }
+
+    function* generate32Abbreviations() {
+        yield sides[0];
+        yield* generateAbbreviationsNESW(sides[0], sides[1]);
+        yield sides[1];
+        yield* generateAbbreviationsESWN(sides[1], sides[2]);
+        yield sides[2];
+        yield* generateAbbreviationsNESW(sides[2], sides[3]);
+        yield sides[3];
+        yield* generateAbbreviationsESWN(sides[3], sides[0]);
+        yield sides[0];
+    }
 }
 
 
@@ -56,7 +93,27 @@ function createCompassPoints() {
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-    throw new Error('Not implemented');
+    for (let element of new Set(expandBracesToArray(str))) {
+        yield element;
+    }
+
+    function expandBracesToArray(bracesStr, resultArr = []) {
+        let matches = new RegExp('{[\\w,]+}').exec(bracesStr);
+        if (matches === null) {
+            resultArr.push(bracesStr);
+        }
+        else {
+            let firstMatch = matches[0];
+            let arr = [];
+            for (let alternative of firstMatch.substring(1, firstMatch.length - 1).split(',')) {
+                arr.push(bracesStr.replace(firstMatch, alternative));
+            }
+            for (let str of arr) {
+                expandBracesToArray(str, resultArr);
+            }
+        }
+        return resultArr;
+    }
 }
 
 
@@ -88,7 +145,38 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    let matrix = [];
+    for (let i = 0; i < n; i++) {
+        matrix[i] = [];
+    }
+
+    let i = 1, j = 1;
+    for (let e = 0; e < n * n; e++) {
+        matrix[i - 1][j - 1] = e;
+        if ((i + j) % 2 === 0) {
+            if (j < n) {
+                j++;
+            }
+            else {
+                i += 2;
+            }
+            if (i > 1) {
+                i--;
+            }
+        } else {
+            if (i < n) {
+                i++;
+            }
+            else {
+                j += 2;
+            }
+            if (j > 1) {
+                j--;
+            }
+        }
+    }
+
+    return matrix;
 }
 
 
@@ -113,7 +201,23 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    let tiles = [];
+    for (let i = 0; i < dominoes.length; i++) {
+        tiles.push([dominoes[i][0], i]);
+        tiles.push([dominoes[i][1], i]);
+    }
+    for (let i = 0; i < dominoes.length * 2; i++) {
+        let index = tiles.slice(1).findIndex(v => v[0] === tiles[0][0] && v[1] !== tiles[0][1]);
+        if (index !== -1) {
+            tiles.splice(0, 1);
+            tiles.splice(index, 1);
+            i++;
+        }
+        else {
+            tiles.push(tiles.shift());
+        }
+    }
+    return tiles.length <= 2;
 }
 
 
@@ -137,13 +241,25 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let resultStr = '';
+    let rangeLength = 1;
+    nums.push(nums[0]); // terminating value, for finishing enter else scope
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] - nums[i - 1] === 1) {
+            rangeLength++;
+        }
+        else {
+            resultStr += rangeLength > 2 ? `${nums[i - rangeLength]}-${nums[i - 1]},` : rangeLength === 2 ? `${nums[i - 2]},${nums[i - 1]},` : `${nums[i - 1]},`;
+            rangeLength = 1;
+        }
+    }
+    return resultStr.slice(0, -1);
 }
 
 module.exports = {
-    createCompassPoints : createCompassPoints,
-    expandBraces : expandBraces,
-    getZigZagMatrix : getZigZagMatrix,
-    canDominoesMakeRow : canDominoesMakeRow,
-    extractRanges : extractRanges
+    createCompassPoints: createCompassPoints,
+    expandBraces: expandBraces,
+    getZigZagMatrix: getZigZagMatrix,
+    canDominoesMakeRow: canDominoesMakeRow,
+    extractRanges: extractRanges
 };
