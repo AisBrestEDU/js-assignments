@@ -109,13 +109,13 @@ function isTriangle(a,b,c) {
  *     width: 20,
  *     height: 10
  *  }
- *
+ * 
  *  (5;5)
  *     -------------  
  *     |           | 
  *     |           |  height = 10
  *     ------------- 
- *        width=20   
+ *        width=20    
  * 
  * NOTE: Please use canvas coordinate space (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#The_grid),
  * it differs from Cartesian coordinate system.
@@ -145,9 +145,9 @@ function doRectanglesOverlap(rect1, rect2) {
  * Circle is an object of 
  *  {
  *     center: {
- *       x: 5,    
+ *       x: 5,      
  *       y: 5
- *     },     
+ *     },       
  *     radius: 20
  *  }
  * 
