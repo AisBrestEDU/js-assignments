@@ -33,7 +33,26 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    let bottles;
+    let bottlesLeft;
+    for (let i = 99; i >= 1; i--) {
+        if (i === 1) {
+            bottles = "bottle";
+            bottlesLeft = "no more bottles of beer on the wall.";
+        } else {
+            bottles = "bottles";
+            if((i-1)===1)
+                bottlesLeft = i - 1 + " bottle of beer on the wall.";
+            else bottlesLeft = i - 1 + " bottles of beer on the wall.";
+        }
+
+        yield  (i+ " " + bottles + " of beer on the wall, "+i+ " " + bottles + " of beer.");
+        yield ("Take one down and pass it around, "+bottlesLeft);
+        if(i===1) {
+            yield  'No more bottles of beer on the wall, no more bottles of beer.';
+            yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
+        }
+    }
 }
 
 
@@ -47,12 +66,22 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+
+    let previous_first = 0, previous_second = 1, next = 1;
+
+    while(true) {
+        yield previous_first;
+        next = previous_first + previous_second;
+        previous_first = previous_second;
+        previous_second = next;
+
+
+    }
 }
 
 
 /**
- * Traverses a tree using the depth-first strategy
+     * Traverses a tree using the depth-first strategy
  * See details: https://en.wikipedia.org/wiki/Depth-first_search
  *
  * Each node have child nodes in node.children array.
@@ -82,7 +111,19 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let stack=[root];
+    let n;
+    while(stack.length>0) {
+        n = stack.pop();
+        yield n;
+          if (!n.children) {
+            continue;
+        }
+
+        for (let i = n.children.length-1; i>=0; i--) {
+            stack.push(n.children[i]);
+        }
+    }
 }
 
 
@@ -108,7 +149,20 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let stack=[root];
+    let n;
+    while(stack.length>0) {
+        n = stack.shift();
+        yield n;
+        if (!n.children) {
+            continue;
+         }
+        //
+        // stack.push(...n.children);
+        for (let i =0; i <n.children.length; i++) {
+            stack.push(n.children[i]);
+        }
+    }
 }
 
 
@@ -126,7 +180,24 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+   let gen1 = source1();
+   let gen2 = source2();
+   while(true){
+       let t = gen1.next();
+       let g = gen2.next();
+       if(t.done  === false && g.done === false){
+           if(t.value < g.value){
+               yield t.value; yield g.value;
+           }
+           else{
+               yield g.value; yield t.value;
+           }
+       }else{
+           if(t.done === false) yield t.value;
+           if(g.done === false) yield g.value;
+       }
+
+   }
 }
 
 /**
@@ -145,7 +216,37 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
+    //https://www.digitalocean.com/community/tutorials/understanding-generators-in-javascript-ru
+    function asyncAlt(generatorFunction) {
+        // Return a function
+        return function() {
+            // Create and assign the generator object
+            const generator = generatorFunction()
+
+            // Define a function that accepts the next iteration of the generator
+            function resolve(next) {
+                // If the generator is closed and there are no more values to yield,
+                // resolve the last value
+                if (next.done) {
+                    return Promise.resolve(next.value)
+                }
+
+                // If there are still values to yield, they are promises and
+                // must be resolved.
+                return Promise.resolve(next.value).then(response => {
+                    return resolve(generator.next(response))
+                })
+            }
+
+            // Begin resolving promises
+            return resolve(generator.next())
+        }
+    }
+    return new Promise((resolve, reject)=>{
+        let t =  asyncAlt(generator);
+        t().then(response => resolve(response) , (err)=> reject(err));
+    })
+
 }
 
 

@@ -23,9 +23,15 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+            this.width = width;
+            this.height = height;
+            this.getArea = getArea;
+            //Rectangle.prototype.getArea = function () { return this.a + this.b + this.c; }; можно и так
 }
 
+function getArea(){
+    return this.width*this.height;
+}
 
 /**
  * Returns the JSON representation of specified object
@@ -38,7 +44,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -47,16 +53,15 @@ function getJSON(obj) {
  *
  * @param {Object} proto
  * @param {string} json
- * @return {object}
+ * @return {Object}
  *
  * @example
  *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return new proto.constructor(...Object.values(JSON.parse(json)));
 }
-
 
 /**
  * Css selectors builder
@@ -107,35 +112,73 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
-
-    element: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    id: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    class: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    attr: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
-    },
-
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
-    },
+    element: (value) => new myEl().element(value),
+    id: (value) => new myEl().id(value),
+    class: (value) => new myEl().class(value),
+    attr: (value) => new myEl().attr(value),
+    pseudoClass: (value) => new myEl().pseudoClass(value),
+    pseudoElement: (value) => new myEl().pseudoElement(value),
+    combine: (selector1, combinator, selector2) => new myEl().combine(selector1, combinator, selector2),
 };
+class myEl {
+    constructor() {
+        this.selector = '';
+        this.type = 0;
+        this.uniqueError = 'Element, id and pseudo-element should not occur more then one time inside the selector';
+        this.orderError = 'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element';
+
+    }
+    element(value) {
+        this.checkType(1);
+        this.selector += value;
+        return this;
+    }
+
+    id(value) {
+        this.checkType(2);
+        this.selector += `#${value}`;
+        return this;
+    }
+
+    class(value) {
+        this.checkType(3);
+        this.selector += `.${value}`;
+        return this;
+    }
+
+    attr(value) {
+        this.checkType(4);
+        this.selector += `[${value}]`;
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.checkType(5);
+        this.selector += `:${value}`;
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.checkType(6);
+        this.selector += `::${value}`;
+        return this;
+    }
+
+    combine(selector1, combinator, selector2) {
+        this.selector = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
+        return this;
+    }
+
+    stringify() {
+        return this.selector;
+    }
+
+    checkType(type) {
+        if (type < this.type) throw this.orderError;
+        if (type === this.type && [1, 2, 6].includes(type)) throw this.uniqueError;
+        this.type = type;
+    }
+}
 
 
 module.exports = {
