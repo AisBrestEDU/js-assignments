@@ -327,7 +327,7 @@ function getPositivesCount(arr) {
  * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *   [] => []
  *   [ 'nine','one' ]                 => [ 'one', 'nine' ]
@@ -366,13 +366,13 @@ function sortDigitNamesByNumericOrder(arr) {
 function getItemsSum(arr) {
    return arr.reduce((sum, current) => sum + current, 0)
 }
-
-/**
+ 
+/** 
  * Returns the number of all falsy value in the specified array
- *
+ * 
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *  [] => 0
  *  [ 1, '', 3 ] => 1
@@ -408,11 +408,11 @@ function findAllOccurences(arr, item) {
 }
 
 /**
- * Concatenates all elements from specified array into single string with ',' delimeter
- *
- * @param {array} arr
+ * Concatenates all elements from specified array into single string with ',' delimeter  
+ * 
+ * @param {array} arr 
  * @return {string}
- *
+ * 
  * @example
  *    [0, false, 'cat', NaN, true, '']  => '0,false,cat,NaN,true,'
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
@@ -471,7 +471,7 @@ function sortCitiesArray(arr) {
  *           [0,1,0,0,0],
  *     5 =>  [0,0,1,0,0],
  *           [0,0,0,1,0],
- *           [0,0,0,0,1]]  
+ *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
    let arr = new Array(n)
@@ -511,7 +511,7 @@ function getIntervalArray(start, end) {
  *
  * @param {array} arr
  * @return {array}
- *
+ * 
  * @example
  *   [ 1, 2, 3, 3, 2, 1 ] => [ 1, 2, 3 ]
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
@@ -548,7 +548,7 @@ function distinct(arr) {
  *            => 
  *   Map {
  *    "Belarus" => ["Brest", "Grodno", "Minsk"],
- *    "Russia" => ["Omsk", "Samara"],
+ *    "Russia" => ["Omsk", "Samara"], 
  *    "Poland" => ["Lodz"]
  *   }
  */
@@ -620,7 +620,7 @@ function getElementByIndexes(arr, indexes) {
 
 /**
  * Swaps the head and tail of the specified array:
- * the head (first half) of array move to the end, the tail (last half) move to the start.
+ * the head (first half) of array move to the end, the tail (last half) move to the start. 
  * The middle element (if exists) leave on the same position.
  * 
  *  
