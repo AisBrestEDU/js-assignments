@@ -9,7 +9,7 @@
  *                                                                                           *
  *********************************************************************************************/
 
- 
+
 /**
  * Returns an index of the specified element in array or -1 if element is not found
  *
@@ -281,18 +281,9 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   // let arr2 = []
-   // for (let i = 0; i < arr.length; i++) {
-   //   for (let j = 0; j < i + 1; j++) {
-   //     arr2.push(arr[i])
-   //   }
-   // }
-   // return arr2
    return arr.reduce(
-     (result, value, index) =>
-       result.concat(Array.from({ length: index + 1 }, () => value)),
-     []
-   )
+       (result, value, index) =>
+           result.concat(Array.from({ length: index + 1 }, () => value)), [])
 }
 
 
@@ -459,8 +450,8 @@ function toStringList(arr) {
 function sortCitiesArray(arr) {
    return arr.sort((a, b) => {
       return a.country === b.country
-        ? a.city.localeCompare(b.city)
-        : a.country.localeCompare(b.country)
+          ? a.city.localeCompare(b.city)
+          : a.country.localeCompare(b.country)
    })
 }
 
