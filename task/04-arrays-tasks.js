@@ -356,7 +356,7 @@ function sortDigitNamesByNumericOrder(arr) {
  * 
  * @param {array} arr
  * @return {number}
- *
+ * 
  * @example
  *   [] => 0
  *   [ 1, 2, 3 ]           => 6
