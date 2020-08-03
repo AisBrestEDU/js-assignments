@@ -145,9 +145,9 @@ function doRectanglesOverlap(rect1, rect2) {
  * Circle is an object of 
  *  {
  *     center: {
- *       x: 5,      
+ *       x: 5,       
  *       y: 5
- *     },       
+ *     },        
  *     radius: 20
  *  }
  * 
