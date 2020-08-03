@@ -30,7 +30,9 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    if ((num%3 == 0) && (num%5 == 0)) return 'FizzBuzz';
+    if (num%3 == 0) return 'Fizz';
+    return (num%5 == 0) ? 'Buzz' : num;
 }
 
 
@@ -46,7 +48,12 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let factorial = 1;
+    for (let i = 1; i <= n; i++) {
+        factorial *= i;
+    }
+
+    return factorial;
 }
 
 
@@ -63,7 +70,12 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    for (let i = n1; i <= n2; i++) {
+        sum = sum + i;
+    }
+
+    return sum;
 }
 
 
@@ -82,7 +94,9 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    let array = [a, b, c];
+    array.sort();
+    return (array[0] + array[1]) > array[2];
 }
 
 
@@ -119,7 +133,7 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    return rect2.left < (rect1.left + rect1.width) && rect2.top < (rect1.top + rect1.height);
 }
 
 
@@ -150,7 +164,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+   return circle.radius > Math.sqrt(Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2));
 }
 
 
@@ -166,7 +180,17 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    let map = new Map();
+    str.split('').map(function(item) {
+        if (!map.get(item)) {
+            map.set(item, 0);
+        }
+        map.set(item, map.get(item)+1);
+    })
+
+    const isEqualsOne = (element) => element == 1;
+    let nonRepeatedChar = Array.from(map.keys())[Array.from(map.values()).findIndex(isEqualsOne)];
+    return nonRepeatedChar ? nonRepeatedChar : null;
 }
 
 
@@ -192,7 +216,8 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    return a < b ? (isStartIncluded ? '['+ a : '(' + a) + ', ' + (isEndIncluded ? b + ']' : b + ')') :
+    (isStartIncluded ? '['+ b : '(' + b) + ', ' + (isEndIncluded ? a + ']' : a + ')');
 }
 
 
@@ -209,7 +234,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    return str.split('').reverse().join('');
 }
 
 
@@ -226,7 +251,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    return Number(String(num).split('').reverse().join(''));
 }
 
 
@@ -251,7 +276,33 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let parity = (String(ccn).split('').length %2 == 0);
+    let arr = ('' + ccn).split('').map(function(digit)  {return + digit;});
+     
+    function changeItem(item) {
+        item = item *2;
+        if (item > 9) {
+            item = item -9;
+        }
+        return item;
+    }
+
+    let sum = arr.reduce(function(total, current, index) {
+        if ((index - 1 == 0) && parity) {
+            total = changeItem(total);
+        }
+
+        if ((index %2 == 0) && parity) {
+            current = changeItem(current);
+        }
+
+        if ((index %2 != 0) && !parity) {
+            current = changeItem(current);
+        }
+        return total + current;
+    })
+ 
+    return sum%10 == 0;
 }
 
 
@@ -270,7 +321,10 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    let numArr = ('' + num).split('').map(function(digit)  {return + digit;});
+    const reducer = (total, item) => total + item;
+    let sumArr = ('' + numArr.reduce(reducer)).split('').map(function(digit)  {return + digit;});
+    return sumArr.length > 1 ? sumArr[0] + sumArr[sumArr.length-1] : sumArr[0];
 }
 
 
@@ -296,7 +350,49 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    function getSymbolMap() {
+        return new Map([['[', 0],[']', 0],['{', 0],['}', 0],['(', 0],[')', 0],['<', 0],['>', 0]]);
+    }
+
+    function checkBalancedBrackets(symbolMap, result) {
+        Array.from(symbolMap.values()).reduce(function(total, item, index) {
+            if (index%2 != 0 && item != total) {
+                result = false;
+            }
+            return item;
+        })
+        return result;
+    }
+
+    let symbolMap = getSymbolMap();
+    let resultBool = true; 
+    let strArray = str.split('');
+
+    strArray.map(function(item, index) {
+        symbolMap.set(item, symbolMap.get(item) + 1);
+    
+        if (item == ']' || item == '}' || item == ')' || item == '>') {
+            if (Array.from(symbolMap.values())[Array.from(symbolMap.keys()).findIndex((symbol => symbol == item))-1] < symbolMap.get(item)) {
+                resultBool = false;
+            } 
+
+            let itemReverse = Array.from(symbolMap.keys())[Array.from(symbolMap.keys()).findIndex((symbol => symbol == item))-1];
+
+            if (index != 0) {
+                let tempSymbolMap = getSymbolMap();
+                let check = 1;
+                for (let i = index-1; i != 0; i--) {
+                    if (strArray[i] == item) check++;
+                    if (strArray[i] == itemReverse) check--;
+                    if (check == 0) break;
+                    tempSymbolMap.set(strArray[i], tempSymbolMap.get(strArray[i]) + 1);
+                }
+                resultBool = checkBalancedBrackets(tempSymbolMap, resultBool);
+            }
+        }   
+    })
+
+    return checkBalancedBrackets(symbolMap, resultBool);
 }
 
 
@@ -332,7 +428,29 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    const sec = 1000;
+    const min = sec * 60;
+    const hour = min * 60;
+    const day = hour * 24;
+    const month = day * 30;
+    const year = month * 12;
+    let duration = endDate - startDate;
+
+    let result = '';
+
+    if (0 <= duration && duration <= sec * 45) result = 'a few seconds ago';
+    if (sec * 45 < duration && duration <= sec * 90) result = 'a minute ago';
+    if (sec * 90 < duration && duration <= min * 45) result = Math.round((duration-1) /min) + ' minutes ago';
+    if (min * 45 < duration && duration <= min * 90) result = 'an hour ago';
+    if (min * 90 < duration && duration <= hour * 22) result = Math.round((duration-1) /hour) + ' hours ago';
+    if (hour * 22 < duration && duration <= hour * 36) result = 'a day ago';
+    if (hour * 36 < duration && duration <= day * 25) result = Math.round((duration-1) /day) + ' days ago';
+    if (day * 25 < duration && duration <= day * 45) result = 'a month ago'; 
+    if (day * 45 < duration && duration <= day * 345) result = Math.round((duration-1) /month) + ' months ago';
+    if (day * 345 < duration && duration <= day * 545) result = 'a year ago';
+    if (day * 546 < duration) result = Math.round((duration-1) /year) + ' years ago';
+
+   return result;
 }
 
 
@@ -356,7 +474,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);
 }
 
 
@@ -373,7 +491,23 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    return pathes.reduce(function(total, current) {
+        let directoryPath = '';
+        let tempPath = ''; 
+
+        for (let i = 0; i < current.length; i++) {
+            if (i == total.length || current[i] != total[i]) {
+                break;
+            } else {
+                tempPath += current[i];
+                if (current[i] == '/') {
+                    directoryPath += tempPath;
+                    tempPath = '';
+                }
+            }
+        }
+        return directoryPath;
+    })
 }
 
 
@@ -396,7 +530,20 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let resultArray = new Array();
+    for (let i = 0; i < m1.length; i++) {
+        let tempArray = new Array();
+        for (let j = 0; j < m1.length; j++) {
+            let resultItem = 0;
+            for (let k = 0; k < m2.length; k++) {
+                resultItem += m1[i][k] * m2[k][j];
+            }
+            tempArray.push(resultItem);
+        }
+        resultArray.push(tempArray);
+    }
+
+    return resultArray;
 }
 
 
@@ -431,7 +578,44 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    let vertical = JSON.parse(JSON.stringify(position)).reduce(function(total, current) {
+        for (let i = 0; i < position.length; i++) {
+            if (total[i] != current[i]) current[i] = '';
+        }
+        return current;
+    })
+
+    let matchSet = new Set(vertical);
+
+    JSON.parse(JSON.stringify(position)).reduce(function(total, current, index) {
+        if (total[position.length-index] != current[position.length-index-1]) {
+            current[position.length-index-1] = '';
+        }
+
+        if (position.length-1 == index) matchSet.add(current[0]);
+        return current;
+    })
+   
+    JSON.parse(JSON.stringify(position)).reduce(function(total, current, index) {
+        if (total[index-1] != current[index]) {
+            current[index] = '';
+        }
+
+        if (position.length-1 == index) matchSet.add(current[position.length-1]);
+        return current;
+    })
+
+    position.map(function(item) {
+        let counterX = 0;
+        let counter0 = 0;
+        for (let elem of item) {
+            if (elem == 'X') counterX++;
+            if (elem == '0') counter0++;
+            if ((counterX == 3) || (counter0 == 3)) matchSet.add(elem);
+        }
+    })
+    
+    return (matchSet.has('X') && !matchSet.has('0')) ? 'X' : (matchSet.has('0') && !matchSet.has('X')) ? '0' : undefined;
 }
 
 
