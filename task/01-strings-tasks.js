@@ -119,7 +119,7 @@ function repeatString(value, count) {
 
 /**
  * Remove the first occurrence of string inside another string
- *
+ * 
  * @param {string} str
  * @param {string} value
  * @return {string}
