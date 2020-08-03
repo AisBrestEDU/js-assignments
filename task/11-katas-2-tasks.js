@@ -34,7 +34,47 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    let numberStr = bankAccount.split('\n');
+    let numberArray = [];
+    for (let i = 0; i < numberStr[0].length; i += 3) {
+        numberArray.push(numberStr[0].substring(i, i + 3) + '\n' + numberStr[1].substring(i, i + 3) + '\n' + numberStr[2].substring(i, i + 3));
+    }
+    let resultNumber = '';
+    for (let number of numberArray) {
+        switch (number) {
+            case ' _ ' + '\n' + '| |' + '\n' + '|_|':
+                resultNumber += '0';
+                break;
+            case '   ' + '\n' + '  |' + '\n' + '  |':
+                resultNumber += '1';
+                break;
+            case ' _ ' + '\n' + ' _|' + '\n' + '|_ ':
+                resultNumber += '2';
+                break;
+            case ' _ ' + '\n' + ' _|' + '\n' + ' _|':
+                resultNumber += '3';
+                break;
+            case '   ' + '\n' + '|_|' + '\n' + '  |':
+                resultNumber += '4';
+                break;
+            case ' _ ' + '\n' + '|_ ' + '\n' + ' _|':
+                resultNumber += '5';
+                break;
+            case ' _ ' + '\n' + '|_ ' + '\n' + '|_|':
+                resultNumber += '6';
+                break;
+            case ' _ ' + '\n' + '  |' + '\n' + '  |':
+                resultNumber += '7';
+                break;
+            case ' _ ' + '\n' + '|_|' + '\n' + '|_|':
+                resultNumber += '8';
+                break;
+            case ' _ ' + '\n' + '|_|' + '\n' + ' _|':
+                resultNumber += '9';
+                break;
+        }
+    }
+    return Number.parseInt(resultNumber);
 }
 
 
@@ -63,7 +103,20 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    for (let i = 0; i < text.length; i += columns) {
+        if (text[i + columns] === ' ') {
+            yield text.substring(i, i + columns);
+            i++;
+        }
+        else if (i + columns > text.length) {
+            yield text.substring(i);
+        }
+        else {
+            let subStr = text.substring(i, text.substring(i, i + columns).lastIndexOf(' ') + i);
+            yield subStr;
+            i -= columns - subStr.length - 1;
+        }
+    }
 }
 
 
@@ -100,7 +153,59 @@ const PokerRank = {
 }
 
 function getPokerHandRank(hand) {
-    throw new Error('Not implemented');
+    let ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    let handRanks = hand.map(v => v.slice(0, -1)).sort((a, b) => ranks.indexOf(a) - ranks.indexOf(b));
+    let handSuits = hand.map(v => v.slice(-1));
+    if ((ranks.indexOf(handRanks[0]) + 1 === ranks.indexOf(handRanks[1]) &&
+        ranks.indexOf(handRanks[1]) + 1 === ranks.indexOf(handRanks[2]) &&
+        ranks.indexOf(handRanks[2]) + 1 === ranks.indexOf(handRanks[3]) &&
+        ranks.indexOf(handRanks[3]) + 1 === ranks.indexOf(handRanks[4]) ||
+        ranks.indexOf(handRanks[0]) === 0 &&
+        ranks.indexOf(handRanks[1]) === 1 &&
+        ranks.indexOf(handRanks[2]) === 2 &&
+        ranks.indexOf(handRanks[3]) === 3 &&
+        ranks.indexOf(handRanks[4]) === 12) &&
+        handSuits.every(v => v === handSuits[0])) {
+        return PokerRank.StraightFlush;
+    }
+    if (handRanks.slice(0, 4).every(v => v === handRanks[0]) || handRanks.slice(1).every(v => v === handRanks[1])) {
+        return PokerRank.FourOfKind;
+    }
+    if (handRanks.slice(0, 2).every(v => v === handRanks[0]) && handRanks.slice(2).every(v => v === handRanks[2]) ||
+        handRanks.slice(0, 3).every(v => v === handRanks[0]) && handRanks.slice(3).every(v => v === handRanks[3])) {
+        return PokerRank.FullHouse;
+    }
+    if (handSuits.every(v => v === handSuits[0])) {
+        return PokerRank.Flush;
+    }
+    if ((ranks.indexOf(handRanks[0]) + 1 === ranks.indexOf(handRanks[1]) &&
+        ranks.indexOf(handRanks[1]) + 1 === ranks.indexOf(handRanks[2]) &&
+        ranks.indexOf(handRanks[2]) + 1 === ranks.indexOf(handRanks[3]) &&
+        ranks.indexOf(handRanks[3]) + 1 === ranks.indexOf(handRanks[4]) ||
+        ranks.indexOf(handRanks[0]) === 0 &&
+        ranks.indexOf(handRanks[1]) === 1 &&
+        ranks.indexOf(handRanks[2]) === 2 &&
+        ranks.indexOf(handRanks[3]) === 3 &&
+        ranks.indexOf(handRanks[4]) === 12)) {
+        return PokerRank.Straight;
+    }
+    if (handRanks.slice(0, 3).every(v => v === handRanks[0]) ||
+        handRanks.slice(1, 4).every(v => v === handRanks[1]) ||
+        handRanks.slice(2).every(v => v === handRanks[2])) {
+        return PokerRank.ThreeOfKind;
+    }
+    if (handRanks.slice(0, 2).every(v => v === handRanks[0]) && handRanks.slice(2, 4).every(v => v === handRanks[2]) ||
+        handRanks.slice(0, 2).every(v => v === handRanks[0]) && handRanks.slice(3).every(v => v === handRanks[3]) ||
+        handRanks.slice(1, 3).every(v => v === handRanks[1]) && handRanks.slice(3).every(v => v === handRanks[3])) {
+        return PokerRank.TwoPairs;
+    }
+    if (handRanks.slice(0, 2).every(v => v === handRanks[0]) ||
+        handRanks.slice(1, 3).every(v => v === handRanks[1]) ||
+        handRanks.slice(2, 4).every(v => v === handRanks[2]) ||
+        handRanks.slice(3).every(v => v === handRanks[3])) {
+        return PokerRank.OnePair;
+    }
+    return PokerRank.HighCard;
 }
 
 
@@ -135,12 +240,62 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-   throw new Error('Not implemented');
+    let plusIndices = [];
+    let lines = figure.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+        for (let j = 0; j < lines[i].length; j++) {
+            if (lines[i][j] === '+' ) {
+                plusIndices.push([i, j]);
+            }
+        }
+    }
+
+    let rectanglesCorners = [];
+    for (let indices of plusIndices) {
+        let topLeft = lines[indices[0] + 1][indices[1]] === '|' || lines[indices[0] + 1][indices[1]] === '+'? indices : undefined;
+        let bottomLeft = topLeft ? plusIndices.find(v => v[1] === topLeft[1] && v[0] > topLeft[0]) : undefined;
+        let bottomRight = bottomLeft ? plusIndices.find(v => v[0] === bottomLeft[0] && v[1] > bottomLeft[1]) : undefined;
+        let topRight = topLeft && bottomRight ? plusIndices.find(v => v[0] === topLeft[0] && v[1] === bottomRight[1] && (lines[v[0] + 1][v[1]] === '|' || lines[v[0] + 1][v[1]] === '+')) : undefined;
+        if (topLeft && topRight && bottomLeft && bottomRight) {
+            rectanglesCorners.push([topLeft, bottomRight]);
+        }
+
+        topRight = topLeft ? plusIndices.find(v => v[0] === topLeft[0] && v[1] > topLeft[1] && (lines[v[0] + 1][v[1]] === '|' || lines[v[0] + 1][v[1]] === '+')) : undefined;
+        bottomRight = topRight ? plusIndices.find(v => v[1] === topRight[1] && v[0] > topRight[0]) : undefined;
+        bottomLeft = bottomRight ? plusIndices.find(v => v[0] === bottomRight[0] && v[1] === topLeft[1]) : undefined;
+        if (topRight && bottomLeft && bottomRight && !rectanglesCorners.find(v => v[0] === topLeft && v[1] === bottomRight)) {
+            rectanglesCorners.push([topLeft, bottomRight]);
+        }
+    }
+
+    for (let corner of rectanglesCorners) {
+        let rectangle = '';
+        let rectangleHeight = corner[1][0] - corner[0][0] + 1;
+        let rectangleWidth = corner[1][1] - corner[0][1] + 1;
+        for (let i = 0; i < rectangleHeight; i++) {
+            for (let j = 0; j < rectangleWidth; j++) {
+                if (i === 0 && j === 0 || i === rectangleHeight - 1 && j === 0 || i === 0 && j === rectangleWidth - 1 || i === rectangleHeight - 1 && j === rectangleWidth - 1) {
+                    rectangle += '+';
+                }
+                else if ((i === 0 || i === rectangleHeight - 1) && j !== 0 && j !== rectangleWidth - 1) {
+                    rectangle += '-';
+                }
+                else if ((j === 0 || j === rectangleWidth - 1) && i !== 0 && i !== rectangleHeight - 1) {
+                    rectangle += '|';
+                }
+                else {
+                    rectangle += ' ';
+                }
+            }
+            rectangle += '\n';
+        }
+        yield rectangle;
+    }
 }
 
 
 module.exports = {
-    parseBankAccount : parseBankAccount,
+    parseBankAccount: parseBankAccount,
     wrapText: wrapText,
     PokerRank: PokerRank,
     getPokerHandRank: getPokerHandRank,
