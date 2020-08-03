@@ -421,48 +421,21 @@ function timespanToHumanString(startDate, endDate) {
         days = hours / 24,
         month = days / 30,
         year = month /12,
-        res = '';
+        res=""
 
-    switch(true) {
-        case (chang >= 0 && seconds <= 45):
-            res = 'a few seconds ago';
-            break;
-        case (seconds > 45 && seconds <= 90):
-            res = 'a minute ago';
-            break;
-        case (seconds > 90 && minutes <= 45):
-            res = `${minutes <= 2 ? Math.ceil(minutes) : minutes % 1 === 0.5 ? Math.floor(minutes) : Math.round(minutes)} minutes ago`;
-            break;
-        case (minutes > 45 && minutes <= 90):
-            res = 'an hour ago';
-            break;
-        case (minutes > 90 && hours <= 22):
-            res = `${hours <= 2 ? Math.ceil(hours) : hours % 1 === 0.5 ? Math.floor(hours) : Math.round(hours)} hours ago`;
-            break;
-        case (hours >=22 && hours <= 36):
-            res = 'a day ago';
-            break;
-        case (hours > 36 && days <= 25):
-            res = `${days <= 2 ? Math.ceil(days) : days % 1 === 0.5 ? Math.floor(days) : Math.round(days)} days ago`;
-            break;
-        case (days > 25 && days <= 45):
-            res = 'a month ago';
-            break;
-        case (days > 45 && days <= 345):
-            res = `${month <= 2 ? Math.ceil(month) : month % 1 === 0.5 ? Math.floor(month) : Math.round(month)} months ago`;
-            break;
-        case (days > 345 && days <= 545):
-            res = 'a year ago';
-            break;
-        case (days > 545):
-            res = `${year <= 2 ? Math.ceil(year) : month % 1 === 0.5 ? Math.floor(year) : Math.round(year)} years ago`;
-            break;
-        default:
-            res = 'fatal';
-            break;
-        }
+    return (chang >= 0 && seconds <= 45)? res='a few seconds ago':
+        (seconds > 45 && seconds <= 90)? res='a minute ago':
+            (seconds > 90 && minutes <= 45)? res=`${minutes <= 2 ? Math.ceil(minutes) : minutes % 1 === 0.5 ? Math.floor(minutes) : Math.round(minutes)} minutes ago`:
+                (minutes > 45 && minutes <= 90)? res='an hour ago':
+                    (minutes > 90 && hours <= 22)? res=`${hours <= 2 ? Math.ceil(hours) : hours % 1 === 0.5 ? Math.floor(hours) : Math.round(hours)} hours ago`:
+                        (hours >=22 && hours <= 36)? res='a day ago':
+                            (hours > 36 && days <= 25)? res=`${days <= 2 ? Math.ceil(days) : days % 1 === 0.5 ? Math.floor(days) : Math.round(days)} days ago`:
+                                (days > 25 && days <= 45)? res = 'a month ago':
+                                    (days > 45 && days <= 345)? res=`${month <= 2 ? Math.ceil(month) : month % 1 === 0.5 ? Math.floor(month) : Math.round(month)} months ago`:
+                                        (days > 345 && days <= 545)? res = 'a year ago':
+                                            (days > 545)? res=`${year <= 2 ? Math.ceil(year) : month % 1 === 0.5 ? Math.floor(year) : Math.round(year)} years ago`:
+                                                res="fatal";
 
-        return res;
 }
 
 
