@@ -174,7 +174,7 @@ function getParallelipidedDiagonal(a,b,c) {
 
 /**
  * Returns the number rounded to specified power of 10.
- *
+ *  
  * @param {number} num
  * @param {number} pow
  * @return {number}
@@ -199,7 +199,7 @@ function roundToPowerOfTen(num, pow) {
  *
  * @param {number} n
  * @return {bool}
- *
+ * 
  * @example:
  *   4 => false
  *   5 => true
