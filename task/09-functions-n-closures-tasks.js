@@ -112,7 +112,7 @@ function retry(func, attempts) {
             try {
                 return func();
             } catch {
-                
+                null;
             }
         };
         throw new Error('fulyError');
