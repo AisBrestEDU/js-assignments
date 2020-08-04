@@ -209,12 +209,12 @@ function getRectangleString(width, height) {
     let str = ""
     for(let h = 0; h < height; h++ ) {
         for(let w = 0; w < width; w++) {              
-          if (h==0 && w == 0) str += '┌'
-          else if (h==0 && w == width-1) str += '┐'
-          else if (h==height-1 && w == 0) str += '└'
-          else if (h==height-1 && w == width-1) str += '┘'
-          else if (w==0 || w == width-1) str += '│'
-          else if (h==0 || h == height-1) str += '─'
+          if (h === 0 && w === 0) str += '┌'
+          else if (h === 0 && w === width-1) str += '┐'
+          else if (h === height-1 && w === 0) str += '└'
+          else if (h === height-1 && w === width-1) str += '┘'
+          else if (w === 0 || w === width-1) str += '│'
+          else if (h === 0 || h === height-1) str += '─'
           else str += ' '
         }
         str += "\n"

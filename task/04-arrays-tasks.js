@@ -97,7 +97,7 @@ function getArrayOfPositives(arr) {
  */
 function getArrayOfStrings(arr) {
    let res = arr.filter(elem => {
-      return typeof(elem)  == "string"
+      return typeof(elem)  === "string"
    })
    return res
 }
@@ -268,7 +268,7 @@ function toArrayOfSquares(arr) {
 function getMovingSum(arr) {
    let start 
    let res = arr.map( (elem, index) => {      
-      if(index == 0) {
+      if(index === 0) {
          start = elem
          return elem
       }
@@ -294,7 +294,7 @@ function getMovingSum(arr) {
 function getSecondItems(arr) {
    let res = []
    arr.filter( (elem, index) => {
-      if(index % 2 != 0) res.push(elem)
+      if(index % 2 !== 0) res.push(elem)
    })
 
    return res
@@ -364,7 +364,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
    let n = 0
    arr.filter(elem => {
-      if( typeof(elem) == "number" && elem > 0) n++
+      if( typeof(elem) === "number" && elem > 0) n++
    })
 
    return n
@@ -500,7 +500,7 @@ function sortCitiesArray(arr) {
    arr.sort( (a, b) => {
       if (a.country > b.country) return 1
       if (a.country < b.country) return -1
-      if (a.country == b.country) {
+      if (a.country === b.country) {
          if (a.city > b.city) return 1
          if (a.city < b.city) return -1
       }
@@ -686,7 +686,7 @@ function swapHeadAndTail(arr) {
    let lenght = arr.length;
    let tail = arr.slice(-(lenght / 2));
    let head = arr.slice(0, (lenght / 2));
-   if (lenght % 2 != 0 && lenght > 1) {
+   if (lenght % 2 !== 0 && lenght > 1) {
        array = [...tail, arr[Math.floor(lenght / 2)], ...head];
        return array;
    }
