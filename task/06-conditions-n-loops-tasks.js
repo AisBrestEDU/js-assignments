@@ -337,7 +337,9 @@ function getDigitalRoot(num) {
             sum = sum + Math.floor(num % 10) 
             num = num / 10
         }        
-        if(sum < 10) break
+        if (sum < 10) {
+            break;
+        }
         else {
             num = sum 
             sum = 0
