@@ -140,9 +140,10 @@ function doRectanglesOverlap(rect1, rect2) {
 
     if ( bottom1 < rect2.top  || bottom2 < rect1.top ) {
         return false
-    } else  if ( rect2.left > right1 || rect1.left > right2 )
+    } else  if ( rect2.left > right1 || rect1.left > right2 ){
         return false
-    else return  true
+    }  
+    return  true
 }
 
 
