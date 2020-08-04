@@ -182,16 +182,13 @@ function* mergeSortedSequences(source1, source2) {
             yield a.value;
             a = first.next();
         }
+        else if(a.value < b.value){
+            yield a.value;
+            a = first.next();
+        }
         else{
-
-            if(a.value < b.value){
-                yield a.value;
-                a = first.next();
-            }
-            else{
-                yield b.value;
-                b = second.next();
-            }
+            yield b.value;
+            b = second.next();
         }
     }
 }
