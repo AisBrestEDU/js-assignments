@@ -30,9 +30,9 @@
  *
  */
 function getFizzBuzz(num) {
-    if(num % 15 == 0) return 'FizzBuzz'
-    if(num % 3 == 0) return 'Fizz'
-    if(num % 5 == 0) return 'Buzz'
+    if(num % 15 === 0) return 'FizzBuzz'
+    if(num % 3 === 0) return 'Fizz'
+    if(num % 5 === 0) return 'Buzz'
 
     return num
 }
@@ -50,7 +50,7 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    var res= 1;
+    let res = 1;
     while(n){
         res *= n--;
     }
@@ -140,11 +140,9 @@ function doRectanglesOverlap(rect1, rect2) {
 
     if ( bottom1 < rect2.top  || bottom2 < rect1.top ) {
         return false
-    } else {
-        if ( rect2.left > right1 || rect1.left > right2 )
-            return false
-        else return  true
-    }
+    } else  if ( rect2.left > right1 || rect1.left > right2 )
+        return false
+    else return  true
 }
 
 
@@ -384,7 +382,7 @@ function isBracketsBalanced(str) {
 
     if (closingBrackets.indexOf(ch) > -1) {
       matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)]
-      if (stack.length == 0 || (stack.pop() != matchingOpeningBracket)) {
+      if (stack.length === 0 || (stack.pop() !== matchingOpeningBracket)) {
         return false
       }
     } else {
@@ -392,7 +390,7 @@ function isBracketsBalanced(str) {
     }
   }
 
-  return (stack.length == 0)
+  return (stack.length === 0)
 }
 
 
@@ -450,7 +448,7 @@ function timespanToHumanString(startDate, endDate) {
     else if (day > 545) return `${roundTime(year)} years ago`
 
     function roundTime(num){
-        return (num % 1 == 0.5) ? Math.floor(num) : Math.round(num)
+        return (num % 1 === 0.5) ? Math.floor(num) : Math.round(num)
     }
 }
 
@@ -526,7 +524,7 @@ function getCommonDirectoryPath(pathes) {
 function getMatrixProduct(m1, m2) {
     let res = [];
 
-    if (m1[0].length != m2.length) return false;
+    if (m1[0].length !== m2.length) return false;
 
     for (let i = 0; i < m1.length; i++) res[i] = [];
 
@@ -589,7 +587,7 @@ function evaluateTicTacToePosition(position) {
     }
 
     function checkField(x1, x2, x3) {
-        return x1 === x2 && x2 === x3 && x1 != undefined;
+        return x1 === x2 && x2 === x3 && x1 !== undefined;
     }
 }
 
