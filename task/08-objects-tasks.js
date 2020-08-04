@@ -172,7 +172,7 @@ class CssSelector  {
         
         this.order = order;
     }
-};
+}
 
 const cssSelectorBuilder = {
   element: (value) => new CssSelector().element(value),
