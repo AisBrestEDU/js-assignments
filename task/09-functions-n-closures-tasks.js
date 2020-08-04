@@ -109,7 +109,9 @@ function retry(func, attempts) {
         for (let i = 0; i < attempts; i++){
             try {
                 return func()
-            } catch(e){}            
+            } catch(e){
+                if (i === attempts) throw e
+            }            
         }
         return func()
     }
