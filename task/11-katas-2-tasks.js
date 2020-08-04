@@ -34,42 +34,42 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    let numberStr = bankAccount.split('\n');
-    let numberArray = [];
-    for (let i = 0; i < numberStr[0].length; i += 3) {
-        numberArray.push(numberStr[0].substring(i, i + 3) + '\n' + numberStr[1].substring(i, i + 3) + '\n' + numberStr[2].substring(i, i + 3));
+    let numberStrings = bankAccount.split('\n');
+    let numbersArray = [];
+    for (let i = 0; i < numberStrings[0].length; i += 3) {
+        numbersArray.push(numberStrings[0].substring(i, i + 3) + '\n' + numberStrings[1].substring(i, i + 3) + '\n' + numberStrings[2].substring(i, i + 3));
     }
     let resultNumber = '';
-    for (let number of numberArray) {
+    for (let number of numbersArray) {
         switch (number) {
-            case ' _ ' + '\n' + '| |' + '\n' + '|_|':
+            case ' _ \n| |\n|_|':
                 resultNumber += '0';
                 break;
-            case '   ' + '\n' + '  |' + '\n' + '  |':
+            case '   \n  |\n  |':
                 resultNumber += '1';
                 break;
-            case ' _ ' + '\n' + ' _|' + '\n' + '|_ ':
+            case ' _ \n _|\n|_ ':
                 resultNumber += '2';
                 break;
-            case ' _ ' + '\n' + ' _|' + '\n' + ' _|':
+            case ' _ \n _|\n _|':
                 resultNumber += '3';
                 break;
-            case '   ' + '\n' + '|_|' + '\n' + '  |':
+            case '   \n|_|\n  |':
                 resultNumber += '4';
                 break;
-            case ' _ ' + '\n' + '|_ ' + '\n' + ' _|':
+            case ' _ \n|_ \n _|':
                 resultNumber += '5';
                 break;
-            case ' _ ' + '\n' + '|_ ' + '\n' + '|_|':
+            case ' _ \n|_ \n|_|':
                 resultNumber += '6';
                 break;
-            case ' _ ' + '\n' + '  |' + '\n' + '  |':
+            case ' _ \n  |\n  |':
                 resultNumber += '7';
                 break;
-            case ' _ ' + '\n' + '|_|' + '\n' + '|_|':
+            case ' _ \n|_|\n|_|':
                 resultNumber += '8';
                 break;
-            case ' _ ' + '\n' + '|_|' + '\n' + ' _|':
+            case ' _ \n|_|\n _|':
                 resultNumber += '9';
                 break;
         }
