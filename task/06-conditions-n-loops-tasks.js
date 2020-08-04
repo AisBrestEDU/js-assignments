@@ -332,19 +332,15 @@ function getDigitalRoot(num) {
     let sum = 0 
     if(num === 0) return 0
 
-    while (true){
+    do {
+        sum = 0
         while ( num >= 1){        
             sum = sum + Math.floor(num % 10) 
             num = num / 10
-        }        
-        if (sum < 10) {
-            break;
-        }
-        else {
-            num = sum 
-            sum = 0
-        }
-    }
+        } 
+        num = sum 
+        
+    } while (sum > 9)
     return sum
 }
 
