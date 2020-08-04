@@ -26,8 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    return function(x) 
-    {
+    return function(x) {
         return f(g(x));
     }
 }
@@ -50,8 +49,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    return function(x) 
-    {
+    return function(x) {
         return Math.pow(x, exponent);
     }
 }
@@ -84,7 +82,7 @@ function getPolynom() {
             return totalSum;
         };
     }
-    else return null;
+    return null;
 }
 
 /**
@@ -125,12 +123,10 @@ function memoize(func) {
 function retry(func, attempts) {
     return function() {
         for(let i = 1; i <= attempts; i++) {
-            try 
-            {
+            try {
                 return func();
             } 
-            catch (error) 
-            {
+            catch (error) {
                 if(i == attempts) 
                 {
                     throw error;
@@ -190,8 +186,7 @@ function logger(func, logFunc) {
  */
 function partialUsingArguments(fn) {
     let array = Array.from(arguments).slice(1);
-    return function() 
-    {
+    return function() {
         return fn.apply(this, array.concat(Array.from(arguments)));
     }
 }
@@ -214,8 +209,7 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    return () => 
-    {
+    return () => {
         return startFrom++;
     }
 }
