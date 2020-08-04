@@ -30,9 +30,9 @@
  *
  */
 function getFizzBuzz(num) {
-    if (num%15==0) return 'FizzBuzz'; 
-    if (num%5==0) return 'Buzz';
-    if (num%3==0) return 'Fizz';
+    if (num % 15 === 0) return 'FizzBuzz'; 
+    if (num % 5 === 0) return 'Buzz';
+    if (num % 3 === 0) return 'Fizz';
     return num; 
 }
 
@@ -52,7 +52,7 @@ function getFactorial(n) {
     let sumOfFactorial = 1;
     for(let i = 1; i <= n; i ++)
     {
-        sumOfFactorial*=i;
+        sumOfFactorial *= i;
     }
     return sumOfFactorial;
 }
@@ -72,8 +72,7 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
     let sum = 0;
-    for( let i = n1; i<=n2; i ++)
-    {
+    for( let i = n1; i <= n2; i ++){
         sum+=i;
     }
     return sum;
@@ -94,15 +93,12 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(a,b,c) {
-    if(a+b>c && a+c>b && b+c>a) 
+function isTriangle(a, b, c) {
+    if(a + b > c && a + c > b && b + c > a) 
     {
         return true;
     }
-    else 
-    {
         return false;
-    }
 }
 
 
@@ -144,8 +140,7 @@ function doRectanglesOverlap(rect1, rect2) {
         {
             return true;
         }
-        
-        else return false;
+        return false;
 }
 
 
@@ -227,26 +222,9 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    let resultString = "";
-    let smallerNumber = 0;
-    
-     a > b ? (smallerNumber = b) : (smallerNumber = a , a = b);
-
-    return resultString =`${chekingBrackets(isStartIncluded,"open")}${smallerNumber}, ${a}${chekingBrackets(isEndIncluded,"cloced")}`;
-
-     function chekingBrackets(brackets, openClocedBrakets)
-     {
-         let resultBracket = "";
-         let brackers ="()[]";
-         if(openClocedBrakets === "open")
-         {
-           return brackets === true ? (resultBracket = brackers[2]) : (resultBracket = brackers[0]);
-         }
-         else(openClocedBrakets === "cloced")
-         {
-           return brackets === true ? (resultBracket = brackers[3]) : (resultBracket = brackers[1]);
-         }
-     }
+    let startBrackets = isStartIncluded ? '[' : '(';
+    let endBrackets = isEndIncluded ? ']' : ')';
+    return `${startBrackets }${Math.min(a, b)}, ${Math.max(a, b)}${endBrackets}`;
 }
 
 
@@ -263,12 +241,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    let resultReverseString = '';
-    for (let i = str.length -1; i >= 0; i--) 
-    {
-        resultReverseString += str[i];
-    }
-    return resultReverseString;
+    return str.split('').reverse().join('');
 }
 
 
@@ -285,13 +258,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    let resultReversInteger = 0;
-    while (num != 0) {
-        resultReversInteger *= 10;
-        resultReversInteger += num % 10;
-        num = (num - num % 10)/10;
-    }
-    return resultReversInteger;
+    return Number(num.toString().split('').reverse().join(''));
 }
 
 
@@ -367,7 +334,7 @@ function getDigitalRoot(num) {
         {
             return countSumOfDigitals(sumDigitals);
         }
-        else return sumDigitals;
+        return sumDigitals;
     }
 }
 
@@ -419,13 +386,7 @@ function isBracketsBalanced(str) {
             }
         }
     }
-
-    if (arrTemp.length != 0) 
-    {
-        return false;
-    }
-
-    return true;
+    return (arrTemp.length == 0);
 }
 
 
