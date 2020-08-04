@@ -114,7 +114,7 @@ function retry(func, attempts) {
             } catch {
                 null;
             }
-        };
+        }
         throw new Error('fulyError');
     };
 }
