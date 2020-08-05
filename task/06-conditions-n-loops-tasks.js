@@ -337,10 +337,8 @@ function isBracketsBalanced(str) {
 
         if (bracketsIndex % 2 === 0) {
             stack.push(bracketsIndex + 1)
-        } else {
-            if (stack.pop() !== bracketsIndex) {
-                return false;
-            }
+        } else if (stack.pop() !== bracketsIndex) {
+            return false;
         }
     }
     return stack.length === 0
