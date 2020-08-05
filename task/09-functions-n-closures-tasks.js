@@ -111,6 +111,7 @@ function retry(func, attempts) {
             try {
                 return func()
             } catch (e) {
+                console.log(e);
             }
         }
         return func()
