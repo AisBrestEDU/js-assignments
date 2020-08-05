@@ -175,12 +175,12 @@ const cssSelectorBuilder = {
     },
     checkUnique(x) {
         if (this.propID === x && [1, 2, 6].includes(x)) {
-            throw new Error ('Element, id or pseudo-element occurs more then one time inside the selector');
+            throw new Error ('Element, id and pseudo-element should not occur more then one time inside the selector');
         }
     },
     checkOrder(x) {
         if (this.propID > x) {
-            throw new Error('Selector parts order is incorrect');
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
         }
     },
     stringify() {
