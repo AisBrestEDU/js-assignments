@@ -111,104 +111,80 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-class Selector {
-    result = [];
-    currentItems = [];
-
-    stringify() {
-        return this.result;
-    }
-
-    element(value) {
-        this.checkReplay(1);
-        this.result += value;
-
-        return this;
-    }
-
-    id(value) {
-        this.checkReplay(2);
-        this.result += '#' + value;
-
-        return this;
-    }
-
-    class(value) {
-        this.checkReplay(3);
-        this.result += '.' + value;
-
-        return this;
-    }
-
-    attr(value) {
-        this.checkReplay(4);
-        this.result += '[' + value + ']';
-
-        return this;
-    }
-
-    pseudoClass (value) {
-        this.checkReplay(5);
-        this.result += ':' + value;
-
-        return this;
-    }
-
-    pseudoElement (value) {
-        this.checkReplay(6);
-        this.result += '::' + value;
-
-        return this;
-    }
-
-    combine(selector1, combinator, selector2){
-        this.result = selector1.result + ' ' + combinator + ' ' + selector2.result;
-
-        return this;
-    }
-
-    checkReplay(item) {
-        if(this.currentItems.length > 0){
-
-            if(this.currentItems.some((value) => item < value)){
-                throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
-            }
-            if( this.currentItems.some((value) => item == value) && (item == 1 || item == 2 || item == 6)){
-                throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
-            }
-        }
-        this.currentItems.push(item);
-    }
-}
-
 const cssSelectorBuilder = {
+    string: '',
 
     element: function(value) {
-        return new Selector().element(value);
+        let obj1 = Object.create(cssSelectorBuilder);
+        obj1.string = `${this.string}${value}`;
+        obj1.propID = 1;
+        this.checkCorrect(obj1.propID);
+        return obj1;
     },
 
     id: function(value) {
-        return new Selector().id(value);
+        let obj2 = Object.create(cssSelectorBuilder);
+        obj2.string = `${this.string}#${value}`;
+        obj2.propID = 2;
+        this.checkCorrect(obj2.propID);
+        return obj2;
     },
 
     class: function(value) {
-        return new Selector().class(value);
+        let obj3 = Object.create(cssSelectorBuilder);
+        obj3.string = `${this.string}.${value}`;
+        obj3.propID = 3;
+        this.checkCorrect(obj3.propID);
+        return obj3;
     },
 
     attr: function(value) {
-        return new Selector().attr(value);
+        let obj4 = Object.create(cssSelectorBuilder);
+        obj4.string = `${this.string}[${value}]`;
+        obj4.propID = 4;
+        this.checkCorrect(obj4.propID);
+        return obj4;
     },
 
     pseudoClass: function(value) {
-        return new Selector().pseudoClass(value);
+        let obj5 = Object.create(cssSelectorBuilder);
+        obj5.string = `${this.string}:${value}`;
+        obj5.propID = 5;
+        this.checkCorrect(obj5.propID);
+        return obj5;
     },
 
     pseudoElement: function(value) {
-        return new Selector().pseudoElement(value);
+        let obj6 = Object.create(cssSelectorBuilder);
+        obj6.string = `${this.string}::${value}`;
+        obj6.propID = 6;
+        this.checkCorrect(obj6.propID);
+        return obj6;
     },
 
     combine: function(selector1, combinator, selector2) {
-        return new Selector().combine(selector1, combinator, selector2);
+        let obj7 = Object.create(cssSelectorBuilder);
+        obj7.string = `${selector1.string} ${combinator} ${selector2.string}`;
+        return obj7;
+    },
+
+
+    checkCorrect(x) {
+        this.checkUnique(x);
+        this.checkOrder(x);
+    },
+    checkUnique(x) {
+        if (this.propID === x && [1, 2, 6].includes(x)) {
+            throw new Error ('Element, id or pseudo-element occurs more then one time inside the selector');
+        }
+    },
+    checkOrder(x) {
+        if (this.propID > x) {
+            throw new Error('Selector parts order is incorrect');
+        }
+    },
+    stringify() {
+        return this.string;
     },
 };
 
