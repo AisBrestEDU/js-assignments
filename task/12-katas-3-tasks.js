@@ -28,7 +28,57 @@
  *   'NULL'      => false 
  */
 function findStringInSnakingPuzzle(puzzle, searchStr) {
-    throw new Error('Not implemented');
+    let firstLetterPositions = [], lettersPositions = [];
+    for (let i = 0; i < puzzle.length; i++) {
+        for (let j = 0; j < puzzle[0].length; j++) {
+            if (puzzle[i][j] === searchStr[0]) {
+                firstLetterPositions.push([i, j]);
+            }
+        }
+    }
+
+    for (let position of firstLetterPositions) {
+        lettersPositions.length = 0;
+        lettersPositions.push(position);
+        if (findWord(searchStr.substring(1), position)) {
+            return true;
+        }
+    }
+
+    return false;
+
+    function findWord(word, position) {
+        if (!word) {
+            return true;
+        }
+
+        for (let letter of word) {
+            let nextLetterPosition = findNextLetter(letter, position);
+            if (nextLetterPosition && lettersPositions.findIndex(p => p[0] === nextLetterPosition[0] && p[1] === nextLetterPosition[1]) === -1) {
+                lettersPositions.push(nextLetterPosition);
+                return findWord(word.substring(1), nextLetterPosition);
+            }
+            return false;
+        }
+
+        function findNextLetter(letter, position) {
+            let row = position[0];
+            let column = position[1];
+            if (column - 1 >= 0 && puzzle[row][column - 1] === letter) {
+                return [row, column - 1];
+            }
+            if (column + 1 <= puzzle[0].length && puzzle[row][column + 1] === letter) {
+                return [row, column + 1];
+            }
+            if (row - 1 >= 0 && puzzle[row - 1][column] === letter) {
+                return [row - 1, column];
+            }
+            if (row + 1 <= puzzle.length && puzzle[row + 1][column] === letter) {
+                return [row + 1, column];
+            }
+            return null;
+        }
+    }
 }
 
 
@@ -45,7 +95,16 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
 function* getPermutations(chars) {
-    throw new Error('Not implemented');
+    if (chars.length === 1) {
+        yield chars;
+    }
+    else {
+        for (let char of chars) {
+            for (let permutation of getPermutations(chars.replace(char, ''))) {
+                yield char + permutation;
+            }
+        }
+    }
 }
 
 
@@ -65,7 +124,21 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-    throw new Error('Not implemented');
+    let buy = [];
+    let profit = 0;
+    let maxQuote = Math.max(...quotes);
+    let maxQuoteIndex = quotes.indexOf(maxQuote);
+    for (let i = 0; i < quotes.length; i++) {
+        if (i < maxQuoteIndex) {
+            buy.push(quotes[i]);
+        }
+        if (i === maxQuoteIndex) {
+            for (let buyQuote of buy) {
+                profit += maxQuote - buyQuote;
+            }
+            return profit + (maxQuoteIndex < quotes.length - 1 ? getMostProfitFromStockQuotes(quotes.slice(maxQuoteIndex + 1)) : 0);
+        }
+    }
 }
 
 
@@ -84,20 +157,31 @@ function getMostProfitFromStockQuotes(quotes) {
  * 
  */
 function UrlShortener() {
-    this.urlAllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
-                           "abcdefghijklmnopqrstuvwxyz"+
-                           "0123456789-_.~!*'();:@&=+$,/?#[]";
+    this.urlAllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+        "abcdefghijklmnopqrstuvwxyz" +
+        "0123456789-_.~!*'();:@&=+$,/?#[]";
 }
 
 UrlShortener.prototype = {
 
-    encode: function(url) {
-        throw new Error('Not implemented');
+    encode: function (url) {
+        let encoded = "";
+        for (let i = 0; i < url.length; i += 2) {
+            encoded += String.fromCharCode(url.charCodeAt(i) << 8 | url.charCodeAt(i + 1));
+        }
+        return encoded;
     },
-    
-    decode: function(code) {
-        throw new Error('Not implemented');
-    } 
+
+    decode: function (code) {
+        let decoded = '';
+        for (let i = 0; i < code.length; i++) {
+            let charCode = code.charCodeAt(i);
+            let b = charCode & 255;
+            let a = (charCode >> 8) & 255;
+            decoded += b === 0 ? String.fromCharCode(a) : String.fromCharCode(a) + String.fromCharCode(b);
+        }
+        return decoded;
+    }
 }
 
 
