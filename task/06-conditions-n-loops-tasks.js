@@ -32,7 +32,7 @@
 function getFizzBuzz(num) {
     if (num % 3 === 0 && num % 5 === 0) return 'FizzBuzz'
         else if(num % 3 === 0) return 'Fizz'
-            else if(num % 5 === 0) return 'Buzz'
+            else if(num % 5 === 0) {return 'Buzz';}
                 else return num;
     
     //throw new Error('Not implemented');
@@ -98,7 +98,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a) return false
+    if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a) { return false; }
         else return true;
 
     //throw new Error('Not implemented');
@@ -194,7 +194,7 @@ function findFirstSingleChar(str) {
     for (let i = 0; i <= str.length; i++)
     {
         for ( let j = 0; j <= str.length; j++)
-            if (i != j) 
+            if (i !== j) 
                 if (str[j] === str[i]) nrep = false;
 
         if (nrep === true) return str[i];
@@ -357,7 +357,7 @@ function getDigitalRoot(num) {
             if (sum > 9) {
                 num2 = sum;
                 sum = 0;
-            };
+            }
         }
     }
 
@@ -587,7 +587,7 @@ function getCommonDirectoryPath(pathes) {
         if (equal) str += elem1[i];
     }
 
-    if ( str[str.length-1] === '/' ) return str
+    if ( str[str.length-1] === '/' ) {return str; }
     else {
         for (let i = str.length-1; i >= 0; i--) {
             if (str[i] !== '/') {str = str.slice(0, i);  }
@@ -624,7 +624,7 @@ function getMatrixProduct(m1, m2) {
          m2cols = m2[0].length,
          result = [];
 
-    if (m1cols != m2rows) return false;
+    if (m1cols !== m2rows) return false;
 
     for (let i = 0; i < m1rows; i++) result[i] = [];
 
