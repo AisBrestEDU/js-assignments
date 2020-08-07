@@ -26,7 +26,12 @@
  *
  */
 function getComposition(f,g) {
-    throw new Error('Not implemented');
+
+    return function(x) {
+        return f(g(x));
+      };
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -47,7 +52,12 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+
+    return function(x) {
+        return Math.pow(x,exponent);
+    }
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -65,7 +75,55 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+
+    let a = 0;
+    let b = 0;
+    let c = 0;
+    
+    if (arguments.length === 3) {
+        for (let i = 0; i < arguments.length; i++) {
+            if (arguments[i] && i === 0) {
+                a = arguments[0];
+            }
+            if (arguments[i] && i === 1) {
+                b = arguments[1];
+            }
+            if (arguments[i] && i === 2) {
+                c = arguments[2];
+            }
+        }
+    }
+
+    if (arguments.length === 2) {
+        for (let i = 0; i < arguments.length; i++) {
+            if (arguments[i] && i === 0) {
+                b = arguments[0];
+            }
+            if (arguments[i] && i === 1) {
+                c = arguments[1];
+            }
+
+        }
+    }
+    if (arguments.length === 1) {
+        for (let i = 0; i < arguments.length; i++) {
+            if (arguments[i] && i === 0) {
+                c = arguments[0];
+            }
+
+
+        }
+    }
+
+    return function (x) {
+        let y = a * Math.pow(x,a) + b * x + c;
+        if(y===0){
+            return null;
+        }
+        return y;
+    }
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -84,7 +142,18 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+
+    let memory = null;
+    return function(arg){
+        if(memory===null){
+            memory = func(); 
+            return memory;
+        }
+
+        return memory;        
+    }
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -104,7 +173,23 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+
+    return function () {
+
+        for (let retries = 0; ; retries++) {
+            try {
+                return func();
+            } catch (e) {
+                if (retries < attempts) {
+                    continue;
+                } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -132,7 +217,22 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+
+    return function (...args) {    
+        
+        let a =  JSON.stringify(args);
+        let b = a.substring(1, a.length-1);
+             
+        logFunc(func.name + "(" + b + ") starts"); 
+
+        let z =  func(...args);     
+        
+        logFunc(func.name + "(" + b + ") ends");
+     
+        return z;
+    }
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -150,7 +250,19 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+
+    let args = [];
+    for (let i = 1; i < arguments.length; i++) {
+        args.push(arguments[i]);
+    }
+    return function () {
+        for (let f = 0; f < arguments.length; f++) {
+            args.push(arguments[f]);
+        }
+        return fn(...args);
+    }
+
+    //throw new Error('Not implemented');
 }
 
 
@@ -171,7 +283,19 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+    
+    let id = startFrom;
+    let bool = false;
+    return function(){
+        if(bool){
+            id++;
+            return id;            
+        }
+        bool = true;
+        return id;        
+    }
+
+    //throw new Error('Not implemented');
 }
 
 
