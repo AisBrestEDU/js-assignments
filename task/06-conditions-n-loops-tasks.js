@@ -30,9 +30,9 @@
  *
  */
 function getFizzBuzz(num) {
-    if (num % 3 == 0 && num % 5 == 0) return 'FizzBuzz'
-        else if(num % 3 == 0) return 'Fizz'
-            else if(num % 5 == 0) return 'Buzz'
+    if (num % 3 === 0 && num % 5 === 0) return 'FizzBuzz'
+        else if(num % 3 === 0) return 'Fizz'
+            else if(num % 5 === 0) return 'Buzz'
                 else return num;
     
     //throw new Error('Not implemented');
@@ -195,9 +195,9 @@ function findFirstSingleChar(str) {
     {
         for ( let j = 0; j <= str.length; j++)
             if (i != j) 
-                if (str[j] == str[i]) nrep = false;
+                if (str[j] === str[i]) nrep = false;
 
-        if (nrep == true) return str[i];
+        if (nrep === true) return str[i];
         nrep = true;
     }
 
@@ -325,7 +325,7 @@ function isCreditCardNumber(ccn) {
         evenChar = !evenChar;
     }
 
-	return (sum % 10) == 0;
+	return (sum % 10) === 0;
     
     //throw new Error('Not implemented');
 }
@@ -349,10 +349,10 @@ function getDigitalRoot(num) {
     let num2 = num,
         sum = 0;
 
-    while (num2.toString().length != 1) {
+    while (num2.toString().length !== 1) {
         sum += num2 % 10;
         num2 = (num2 - num2 % 10) / 10;
-        if (num2.toString().length == 1) {
+        if (num2.toString().length === 1) {
             sum += num2;
             if (sum > 9) {
                 num2 = sum;
@@ -567,9 +567,9 @@ function getCommonDirectoryPath(pathes) {
         elem1 = pathes[i];
         elem2 = pathes[i-1];
 
-        if (elem1[0] != elem2[0]) return ''
+        if (elem1[0] !== elem2[0]) return ''
         else
-            if (elem1[1] != elem2[1]) return '/'
+            if (elem1[1] !== elem2[1]) return '/'
             else  if (pathes[i].length < minlng) minlng = pathes[i].length; 
     }
 
@@ -578,8 +578,8 @@ function getCommonDirectoryPath(pathes) {
     outer: for (let i = 0; i <= minlng; i++) {
         for (let j = 1; j <= pathes.length-1; j++) {
             elem2 = pathes[j];
-            if ( elem1[j] != '/') {
-                    if ( elem1[i] == elem2[i]) equal = true;
+            if ( elem1[j] !== '/') {
+                    if ( elem1[i] === elem2[i]) equal = true;
                     else break outer;
                 }
             else str += '/';
@@ -587,10 +587,10 @@ function getCommonDirectoryPath(pathes) {
         if (equal) str += elem1[i];
     }
 
-    if ( str[str.length-1] == '/' ) return str
+    if ( str[str.length-1] === '/' ) return str
     else {
         for (let i = str.length-1; i >= 0; i--) {
-            if (str[i] != '/') {str = str.slice(0, i);  }
+            if (str[i] !== '/') {str = str.slice(0, i);  }
             else return str;
         }
     }
@@ -674,21 +674,21 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    if (((position[0][0] == position[1][1]) && (position[1][1] == position[2][2])) 
-        || ((position[0][0] == position[1][0]) && (position[1][0] == position[2][0])) 
-        || ((position[0][0] == position[0][1]) && (position[0][1] == position[0][2])) 
-        && (position[0][0] != undefined)) 
+    if (((position[0][0] === position[1][1]) && (position[1][1] === position[2][2])) 
+        || ((position[0][0] === position[1][0]) && (position[1][0] === position[2][0])) 
+        || ((position[0][0] === position[0][1]) && (position[0][1] === position[0][2])) 
+        && (position[0][0] !== undefined)) 
         return position[0][0]; 
 
-    if (((position[2][2] == position[2][1]) && (position[2][1] == position[2][0])) 
-        || ((position[2][2] == position[1][2]) && (position[1][2] == position[0][2])) 
-        && (position[2][2] != undefined)) 
+    if (((position[2][2] === position[2][1]) && (position[2][1] === position[2][0])) 
+        || ((position[2][2] === position[1][2]) && (position[1][2] === position[0][2])) 
+        && (position[2][2] !== undefined)) 
         return position[2][2];
 
-    if (((position[1][0] == position[1][1]) && (position[1][1] == position[1][2])) 
-        || ((position[0][1] == position[1][1]) && (position[1][1] == position[2][1])) 
-        || ((position[0][2] == position[1][1]) && (position[1][1] == position[2][0])) 
-        && (position[1][1] != undefined)) 
+    if (((position[1][0] === position[1][1]) && (position[1][1] === position[1][2])) 
+        || ((position[0][1] === position[1][1]) && (position[1][1] === position[2][1])) 
+        || ((position[0][2] === position[1][1]) && (position[1][1] === position[2][0])) 
+        && (position[1][1] !== undefined)) 
         return position[1][1];
 
     return undefined;
