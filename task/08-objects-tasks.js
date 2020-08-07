@@ -30,7 +30,7 @@
 
 Rectangle.prototype.getArea = function getArea() {
     return this.width * this.height;
-};
+}
 
 /**
  * Returns the JSON representation of specified object
