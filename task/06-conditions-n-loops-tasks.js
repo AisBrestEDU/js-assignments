@@ -273,7 +273,7 @@ function isCreditCardNumber(ccn) {
     let arr = ccn.toString().split('');
 
     for (let i = arr.length - 1, j = 0; i >= 0; i-- , j++) {
-        if (j % 2 != 0) {
+        if (j % 2 !== 0) {
             let multiTemp = arr[i] * 2;
 
             if (10 <= multiTemp) result += multiTemp - 9
