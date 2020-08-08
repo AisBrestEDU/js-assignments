@@ -330,19 +330,19 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
     while (str.length !== 0) {
-        while (str.indexOf('[]') != -1) {
+        while (str.indexOf('[]') !== -1) {
             str = str.replace('[]', '');
         }
 
-        while (str.indexOf('()') != -1) {
+        while (str.indexOf('()') !== -1) {
             str = str.replace('()', '');
         }
 
-        while (str.indexOf('{}') != -1) {
+        while (str.indexOf('{}') !== -1) {
             str = str.replace('{}', '');
         }
 
-        while (str.indexOf('<>') != -1) {
+        while (str.indexOf('<>') !== -1) {
             str = str.replace('<>', '');
         }
 
@@ -478,7 +478,7 @@ function getCommonDirectoryPath(pathes) {
 
     for (let i = 0; i < pathes[0].length; i++) {
         for (let j = 1; j < pathes.length; j++) {
-            if (pathes[0][i] != pathes[j][i]) {
+            if (pathes[0][i] !== pathes[j][i]) {
                 let end = result.lastIndexOf('/');
 
                 return result.slice(0, end + 1);
@@ -561,20 +561,20 @@ function getMatrixProduct(m1, m2) {
  */
 function evaluateTicTacToePosition(position) {
     for (let i = 0; i < position.length; i++) {
-        if (position[i][0] === position[i][1] && position[i][1] === position[i][2] && position[i][0] != undefined) {
+        if (position[i][0] === position[i][1] && position[i][1] === position[i][2] && position[i][0] !== undefined) {
             return position[i][0];
         }
 
-        else if (position[0][i] === position[1][i] && position[1][i] === position[2][i] && position[0][i] != undefined) {
+        else if (position[0][i] === position[1][i] && position[1][i] === position[2][i] && position[0][i] !== undefined) {
             return position[0][i];
         }
     }
 
-    if (position[0][0] === position[1][1] && position[1][1] === position[2][2] && position[0][0] != undefined) {
+    if (position[0][0] === position[1][1] && position[1][1] === position[2][2] && position[0][0] !== undefined) {
         return position[0][0];
     }
 
-    if (position[0][2] === position[1][1] && position[1][1] === position[2][0] && position[0][0] != undefined) {
+    if (position[0][2] === position[1][1] && position[1][1] === position[2][0] && position[0][0] !== undefined) {
         return position[0][2];
     }
 
