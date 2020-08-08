@@ -386,7 +386,7 @@ function isBracketsBalanced(str) {
             }
         }
     }
-    return (arrTemp.length == 0);
+    return (arrTemp.length === 0);
 }
 
 
