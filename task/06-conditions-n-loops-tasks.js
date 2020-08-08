@@ -329,7 +329,7 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    while (str.length != 0) {
+    while (str.length !== 0) {
         while (str.indexOf('[]') != -1) {
             str = str.replace('[]', '');
         }
