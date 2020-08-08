@@ -32,9 +32,9 @@
 function getFizzBuzz(num) {
     if (num % 15 === 0)
         return 'FizzBuzz';
-    else if (num % 3 === 0)
+    if (num % 3 === 0)
         return 'Fizz';
-    else if (num % 5 === 0)
+    if (num % 5 === 0)
         return 'Buzz';
     
     return num;
@@ -258,12 +258,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    let result = 0;
-    for (let i = num.toString().length - 1; i >= 0; i--) {
-        result += (num % 10) * 10**i;
-        num = Math.floor(num / 10);
-    }
-    return result;
+    return parseInt(num.toString().split('').reverse().join(''));
 }
 
 
@@ -313,20 +308,14 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    function sum(num) {
-        let sum = 0;
-        while (num > 0) {
-            sum += num % 10;
-            num = Math.floor(num / 10);
-        }
-        return sum;
+    let sum = num;
+    let reducerFunc = (acc, val) => acc + parseInt(val);
+
+    while (sum > 9) {
+    sum = sum.toString().split('').reduce(reducerFunc, 0);
     }
 
-    let result = num;
-    do {
-        result = sum(result);
-    } while (result > 9);
-    return result;
+    return sum;
 }
 
 
@@ -408,23 +397,32 @@ function timespanToHumanString(startDate, endDate) {
     let interval = endDate - startDate;
     if (interval <= 45 * s) {
         return 'a few seconds ago';
-    } else if (interval <= 90 * s) {
+    }
+    if (interval <= 90 * s) {
         return 'a minute ago';
-    } else if (interval <= 45 * min) {
+    }
+    if (interval <= 45 * min) {
         return `${round(interval / min)} minutes ago`;
-    } else if (interval <= 90 * min) {
+    }
+    if (interval <= 90 * min) {
         return 'an hour ago';
-    } else if (interval <= 22 * h) {
+    }
+    if (interval <= 22 * h) {
         return `${round(interval / h)} hours ago`;
-    } else if (interval <= 36 * h) {
+    }
+    if (interval <= 36 * h) {
         return 'a day ago';
-    } else if (interval <= 25 * d) {
-        return `${round(interval / d)} days ago`
-    } else if (interval <= 45 * d) {
+    }
+    if (interval <= 25 * d) {
+        return `${round(interval / d)} days ago`;
+    }
+    if (interval <= 45 * d) {
         return 'a month ago';
-    } else if (interval <= 345 * d) {
-        return `${round(interval / m)} months ago`
-    } else if (interval <= 545 * d) {
+    }
+    if (interval <= 345 * d) {
+        return `${round(interval / m)} months ago`;
+    }
+    if (interval <= 545 * d) {
         return 'a year ago';
     }
     return `${round(interval / y)} years ago`;
@@ -560,21 +558,26 @@ function evaluateTicTacToePosition(position) {
         return (c1 === '0' || c1 === 'X') && c1 === c2 && c2 === c3;
     }
     
-    const dxs = [1, -1, 1, -1], dys = [1, 1, -1, -1];
-    const xs = [0, 2, 0, 2], ys = [0, 0, 2, 2];
-    for (let i = 0; i < 4; i++) {
-        let x = xs[i], y = ys[i], dx = dxs[i], dy = dys[i];
-        let isWin = win(position[x][y], position[x + dx][y + dy], position[x + 2 * dx][y + 2 * dy])
-                || win(position[x][y], position[x][y + dy], position[x][y + 2 * dy])
-                || win(position[x][y], position[x + dx][y], position[x + 2 * dx][y]);
-
-        if (isWin) return position[x][y];
+    // check diagonals
+    if (win(position[0][0], position[1][1], position[2][2])
+            || win(position[2][0], position[1][1], position[0][2])) {
+    return position[1][1];
     }
-    
+    // check upper horizontal and left vertical lines
+    if (win(position[0][0], position[1][0], position[2][0])
+        || win(position[0][0], position[0][1], position[0][2])) {
+    return position[0][0];
+    }
+    // check bottom horizontal and right vertical lines
+    if (win(position[0][2], position[1][2], position[2][2])
+        || win(position[2][0], position[2][1], position[2][2])) {
+    return position[2][2];
+    }
     // check horizontal/vertical that goes through the center
-    let isWin = win(position[1][0], position[1][1], position[1][2])
-            || win(position[0][1], position[1][1], position[2][1]);
-    if (isWin) return position[1][1];
+    if (win(position[1][0], position[1][1], position[1][2])
+        || win(position[0][1], position[1][1], position[2][1])) {
+    return position[1][1];
+    }
 
     return undefined;
 }
