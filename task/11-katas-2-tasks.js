@@ -34,7 +34,33 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    let digits = [
+        " _ | ||_|",
+        "     |  |",
+        " _  _||_ ",
+        " _  _| _|",
+        "   |_|  |",
+        " _ |_  _|",
+        " _ |_ |_|",
+        " _   |  |",
+        " _ |_||_|",
+        " _ |_| _|"
+    ],
+    result = "",
+    i = 0;
+
+    while(i < bankAccount.length/3 - 1){
+        let letter = "";
+        for(let j = 0; j< 3; j++){
+            for(let k = 0; k < 3; k++){
+                letter += bankAccount[bankAccount.length/3 * j + i + k];    
+            }
+        }
+
+        result += digits.indexOf(letter);
+        i+=3;
+    }
+    return result;
 }
 
 
@@ -63,7 +89,22 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    let words = text.split(" "),
+    line = "";
+    
+    for(let i = 0; i< words.length; i++){
+        if((line.length + words[i].length <= columns)){
+            line += `${words[i]} `;
+        }
+        else{
+            yield line.substr(0, line.length - 1);
+            line = `${words[i]} `;
+        }
+
+        if(i === words.length - 1){
+            yield line.substr(0, line.length - 1);
+        }
+    }
 }
 
 
@@ -100,7 +141,84 @@ const PokerRank = {
 }
 
 function getPokerHandRank(hand) {
-    throw new Error('Not implemented');
+    function isOneSuit(current){
+        return current[current.length - 1] === hand[0][hand[0].length - 1];
+    }
+
+    function pairsCount(accumulator, current){
+        current === 2 ? accumulator++ : accumulator;
+        return accumulator
+    }
+    
+    function isInc(ranks, cardsRank){
+        let isInc = true;
+        for(let i = 0; i < ranks.length - 1; i++){
+            if(cardsRank.indexOf(ranks[i]) + 1 != cardsRank.indexOf(ranks[i+1])){
+                isInc = false;
+                break;
+            }
+        }
+
+        return isInc;
+    }
+
+    let cardsRank = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"],
+    juniorStraight = ["2", "3", "4", "5", "A"],
+    ranks = hand.map(current => current.slice(0, current.length - 1)).sort((a,b) => {
+        if (cardsRank.indexOf(a) > cardsRank.indexOf(b)) {
+            return 1;
+          }
+          if (cardsRank.indexOf(a) < cardsRank.indexOf(b)) {
+            return -1;
+          }
+          return 0;
+    }),
+    repeats = [];
+
+    if(hand.every(isOneSuit)){
+        if(ranks.every(current => current === juniorStraight[ranks.indexOf(current)])){
+            return PokerRank.StraightFlush;
+        }
+
+        if(isInc(ranks, cardsRank)){
+            return PokerRank.StraightFlush;
+        }
+        else{
+            return PokerRank.Flush;
+        }
+    }
+
+    for(let i = 0; i < ranks.length; i++){
+        if(!ranks.includes(ranks[i], i + 1)){
+            repeats.push(ranks.reduce((accumulator, current) => {
+                ranks[i] === current ? accumulator++ : accumulator;
+                return accumulator;    
+            }, 0));
+        }
+    }
+
+    if(repeats.some(item => item === 4)){
+        return PokerRank.FourOfKind;
+    }
+
+    if(repeats.some(item => item === 3) && repeats.some(item => item === 2)){
+        return PokerRank.FullHouse;
+    }
+
+    if(repeats.some(item => item === 3)){
+        return PokerRank.ThreeOfKind;
+    }
+
+    if(isInc(ranks, cardsRank) || ranks.every(current => current === juniorStraight[ranks.indexOf(current)])){
+        return PokerRank.Straight;
+    }
+
+    let pairsAmmount = repeats.length != 0 ? repeats.reduce(pairsCount, 0) : 0;
+    if(pairsAmmount >= 1){
+        return pairsAmmount === 1 ? PokerRank.OnePair : PokerRank.TwoPairs; 
+    }
+
+    return PokerRank.HighCard;
 }
 
 
@@ -135,7 +253,56 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-   throw new Error('Not implemented');
+    let figureStrings = figure.split('\n'),
+    rectangles = ["", ""],
+    isWrite = true;
+
+    for(let i = 0; i < figureStrings.length-1; i++){
+        let face = figureStrings[i].trim();
+        const separatorsAmount = face.split("").reduce((accumulator, current) => {
+            if(current === "|"){
+                accumulator++;
+            }
+            return accumulator;
+        }, 0);
+
+
+        isWrite = separatorsAmount === 0 ? !isWrite : isWrite;
+        if(separatorsAmount === 0){
+            if(!isWrite){
+                continue;
+            }
+            else if(isWrite && rectangles[0] === ""){
+                let smallRectangle = "++\n++\n";
+                for(let j = 0; j < face.length - 1; j++){
+                    yield smallRectangle;
+                }
+            }
+            else{
+                let horizontalFace = `+${"-".repeat(rectangles[0].substring(0, rectangles[0].substring(1, rectangles[0].length-1).indexOf("|")).length)}+`;
+                let shape = `${horizontalFace}\n${rectangles[0]}${horizontalFace}\n`;
+                yield shape;
+                rectangles[0] = "";
+
+                if(rectangles[1] !== ""){
+                    horizontalFace = `+${"-".repeat(rectangles[1].substring(0, rectangles[1].substring(1, rectangles[1].length-1).indexOf("|")).length)}+`;
+                    shape = `${horizontalFace}\n${rectangles[1]}${horizontalFace}\n`;
+                    yield shape;
+                    rectangles[1] = "";
+                }
+                isWrite = !isWrite;
+            }
+        }
+        else if(separatorsAmount === 2){
+            rectangles[0] += face + "\n";
+        }
+        else if(separatorsAmount === 3){
+            rectangles[0] += face.substr(0, face.substring(1, face.length - 1).indexOf("|")+2) + "\n";
+            rectangles[1] += face.substr(face.substring(1, face.length-1).indexOf("|")+1) + "\n";
+        }
+    }
+
+
 }
 
 
