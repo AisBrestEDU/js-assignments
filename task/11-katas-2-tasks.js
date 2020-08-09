@@ -153,7 +153,7 @@ function getPokerHandRank(hand) {
     function isInc(ranks, cardsRank){
         let isInc = true;
         for(let i = 0; i < ranks.length - 1; i++){
-            if(cardsRank.indexOf(ranks[i]) + 1 != cardsRank.indexOf(ranks[i+1])){
+            if(cardsRank.indexOf(ranks[i]) + 1 !== cardsRank.indexOf(ranks[i+1])){
                 isInc = false;
                 break;
             }
@@ -183,9 +183,8 @@ function getPokerHandRank(hand) {
         if(isInc(ranks, cardsRank)){
             return PokerRank.StraightFlush;
         }
-        else{
-            return PokerRank.Flush;
-        }
+        
+        return PokerRank.Flush;
     }
 
     for(let i = 0; i < ranks.length; i++){
@@ -213,7 +212,7 @@ function getPokerHandRank(hand) {
         return PokerRank.Straight;
     }
 
-    let pairsAmmount = repeats.length != 0 ? repeats.reduce(pairsCount, 0) : 0;
+    let pairsAmmount = repeats.length !== 0 ? repeats.reduce(pairsCount, 0) : 0;
     if(pairsAmmount >= 1){
         return pairsAmmount === 1 ? PokerRank.OnePair : PokerRank.TwoPairs; 
     }
