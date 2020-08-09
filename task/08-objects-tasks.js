@@ -23,9 +23,10 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = () => width * height;
 }
-
 
 /**
  * Returns the JSON representation of specified object
@@ -38,7 +39,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +55,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -105,35 +106,75 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
+const indices = { 'type':0, 'id':1, 'class':2, 'attribute':3, 'pseudo-class':4, 'pseudo-element':5 };
+const generators = {'type':s => s, 'id':s => `#${s}`, 'class':s => `.${s}`,
+    'attribute':s => `[${s}]`, 'pseudo-class':s => `:${s}`, 'pseudo-element':s => `::${s}`};
+
+function Decorator(value, selectorName, included = null) {
+    this.index = indices[selectorName];
+    this.string = generators[selectorName](value);
+    this.included = included;
+
+    if (included !== null) {
+        if (this.index < included.index) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+        if (['type', 'id', 'pseudo-element'].includes(selectorName)
+                && this.index === included.index) {
+            throw new Error ('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+
+    this.appendSelector = function(other, combinator) {
+        this.string = `${this.string} ${combinator} `;
+        const result = other;
+        while (other.included !== null) {
+            other = other.included;
+        }
+        other.included = this;
+        return result;
+    }
+
+    this.stringify = function() {
+        return (this.included === null ? '' : this.included.stringify()) + this.string;
+    };
+
+    this.element = value => new Decorator(value, 'type', this);
+    this.id = value => new Decorator(value, 'id', this);
+    this.class = value => new Decorator(value, 'class', this);
+    this.attr = value => new Decorator(value, 'attribute', this);
+    this.pseudoClass = value => new Decorator(value, 'pseudo-class', this);
+    this.pseudoElement = value => new Decorator(value, 'pseudo-element', this);
+}
 
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new Decorator(value, 'type');
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new Decorator(value, 'id');
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new Decorator(value, 'class');
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new Decorator(value, 'attribute');
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new Decorator(value, 'pseudo-class');
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new Decorator(value, 'pseudo-element');
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return selector1.appendSelector(selector2, combinator);
     },
 };
 
