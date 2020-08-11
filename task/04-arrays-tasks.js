@@ -554,9 +554,6 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
    let map = new Map();
-   let count = array.length;
-
-
    array.map(((value, index) => {
       value = keySelector(array[index])
       if (map.has(value)) {
@@ -567,15 +564,6 @@ function group(array, keySelector, valueSelector) {
       }
    }))
    return map;
-
-   /*for (let key, i = 0; i < count; ++i) {
-      key = keySelector(array[i]);
-      if (map.has(key))
-         map.get(key).push(valueSelector(array[i]));
-      else
-         map.set(key, [valueSelector(array[i])]);
-   }
-   return map;*/
 }
 
 
