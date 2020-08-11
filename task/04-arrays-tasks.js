@@ -515,11 +515,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   let resultArr = [];
-   arr.filter(function (value) {
-      if (!resultArr.includes(value)) resultArr.push(value);
-   });
-   return resultArr;
+   return arr.filter(((value, index, array) => array.indexOf(value) === index))
 }
 
 /**
@@ -579,7 +575,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   return arr.flatMap(childrenSelector)
+   return arr.map(x => childrenSelector(x)).flat();
 }
 
 
