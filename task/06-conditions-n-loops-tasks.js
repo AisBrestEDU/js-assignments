@@ -30,12 +30,12 @@
  *
  */
 function getFizzBuzz(num) {
-    if(num % 3 == 0 || num % 5 == 0){
+    if(num % 3 === 0 || num % 5 === 0){
         let result ="";
-        if(num % 3 == 0) {
+        if(num % 3 === 0) {
             result += 'Fizz';
         }
-        if(num % 5 == 0){
+        if(num % 5 === 0){
             result += 'Buzz';
         }
         return result;
@@ -99,12 +99,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if(a < b + c && b < a + c && c < a + b){
-        return true;
-    }
-    else{
-        return false;
-    }
+    return a < b + c && b < a + c && c < a + b;
 }
 
 
@@ -193,7 +188,7 @@ function isInsideCircle(circle, point) {
 function findFirstSingleChar(str) {
     str = str.split(' ').join('');
     for(let i = 0; i < str.length; i++){
-        if(str.indexOf(str[i]) == str.lastIndexOf(str[i])){
+        if(str.indexOf(str[i]) === str.lastIndexOf(str[i])){
             return str[i];
         }
     }
@@ -286,9 +281,9 @@ function reverseInteger(num) {
 function isCreditCardNumber(ccn) {
     let reverted = ccn.toString().split('').reverse();
     let s1 = reverted.reduce((acc, v, i)=>
-        i % 2 == 0 ? acc + +v : acc, 0);
+        i % 2 === 0 ? acc + +v : acc, 0);
     let s2 = reverted.reduce((acc, v, i) =>
-         i % 2 != 0 
+         i % 2 !== 0 
             ? acc + (2 * v).toString().split('').reduce((sum, d) => sum + +d, 0)
             : acc, 0);
     return (s1 + s2).toString().endsWith('0');
@@ -494,7 +489,7 @@ function getMatrixProduct(m1, m2) {
         M_2_Rows = m2.length, M_2_Columns = m2[0].length;
     let resultingMatrix;
 
-    if (M_1_Columns != M_2_Rows) return false;
+    if (M_1_Columns !== M_2_Rows) return false;
             
     resultingMatrix = Array(M_1_Rows).fill(null).map(_ => Array(M_2_Columns));
     for (let i = 0; i < M_2_Columns; i++) { 
