@@ -24,10 +24,12 @@
  */
 function Rectangle(width, height) {
     this.width = width;
-    this.height = height;
-    Rectangle.prototype.getArea = () => this.width * this.height;
+    this.height = height;    
 }
 
+Rectangle.prototype.getArea = function () {
+	return this.width * this.height;
+}
 
 /**
  * Returns the JSON representation of specified object
@@ -148,10 +150,10 @@ class CssElementBuilder {
 
     element (value) {  
         if(/[#.:]|\[.+\]/.test(this.selector)) {
-            this.#invalidSequence();
+            this.invalidSequence();
         }
         if(this.selector !== '') {
-            this.#invalidValue();
+            this.invalidValue();
         }
         this.selector = value;
         return this;
@@ -159,10 +161,10 @@ class CssElementBuilder {
 
     id(value) {        
         if(/[.:]|\[.+\]/.test(this.selector)) {
-            this.#invalidSequence();
+            this.invalidSequence();
         }
         if(/#/.test(this.selector)) {
-            this.#invalidValue();
+            this.invalidValue();
         }
         this.selector += `#${value}`;
         return this;
@@ -170,7 +172,7 @@ class CssElementBuilder {
 
     class(value) {
         if(/:|\[.+\]/.test(this.selector)) {
-            this.#invalidSequence();
+            this.invalidSequence();
         }
         this.selector += `.${value}`;
         return this;
@@ -178,7 +180,7 @@ class CssElementBuilder {
     
     attr(value) {
         if(/:/.test(this.selector)) {
-            this.#invalidSequence();
+            this.invalidSequence();
         }
         this.selector += `[${value}]`;
         return this;
@@ -186,7 +188,7 @@ class CssElementBuilder {
 
     pseudoClass(value) {
         if(/::/.test(this.selector)) {
-            this.#invalidSequence();
+            this.invalidSequence();
         }
         this.selector += `:${value}`;
         return this;        
@@ -194,7 +196,7 @@ class CssElementBuilder {
 
     pseudoElement(value) {     
         if(/::/.test(this.selector)) {
-            this.#invalidValue();
+            this.invalidValue();
         }
         this.selector += `::${value}`;
         return this;        
@@ -211,11 +213,11 @@ class CssElementBuilder {
         return this;
     };
 
-    #invalidValue = () => {
+    invalidValue = () => {
         throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
     };
 
-    #invalidSequence = () => {
+    invalidSequence = () => {
         throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
     };
 }
