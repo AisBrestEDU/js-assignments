@@ -22,6 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
+   return new Date(value);
    throw new Error('Not implemented');
 }
 
@@ -37,6 +38,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
+   return new Date(value);
    throw new Error('Not implemented');
 }
 
@@ -56,6 +58,16 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
+ if(date.getFullYear()%4 !=0){
+    return false;
+   }
+    else if(date.getFullYear()%100 !=0){
+      return true;
+   }
+   else if (date.getFullYear()%400 !=0){
+      return false;
+   }
+   else return true;
    throw new Error('Not implemented');
 }
 
@@ -76,6 +88,46 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
+   var time = endDate - startDate;
+
+   var milsec= parseInt(time % 1000);
+   var sec= Math.floor((time /1000) % 60);
+   var min=Math.floor((time /(1000*60))%60);
+   var hours=Math.floor((time / (1000*60*60)) %24);
+
+    if (startDate.getDay()!== endDate.getDay()){
+      hours = hours+24;
+    }
+    else hours = hours;
+
+    if(hours <10){
+       hours = "0"+ hours;
+    }
+       else
+          hours = hours;
+    
+      if (min<10){
+         min = "0"+ min;
+      } 
+    
+
+      if (sec<10){
+         sec = "0"+ sec;
+      } 
+      else sec = sec;
+      
+      if(milsec < 10){
+         "0" + milsec;
+      }
+
+      if (milsec < 100){
+         milsec =  "00" + milsec;
+      }
+
+   
+         
+      
+   return hours + ":"  + min + ":" + sec + "." + milsec;
    throw new Error('Not implemented');
 }
 
@@ -94,6 +146,24 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
+   
+   let hours = date.getHours(); 
+   let minutes = date.getMinutes();
+   let total=0;
+
+   if ((hours-3)>12){
+      total = 0.5*(60*(hours-15)-11*minutes);
+   }
+   else {
+      total = 0.5*(60*(hours-3)-11*minutes);
+   }
+   if(Math.abs(total)>180){
+      return (360-Math.abs(total))*Math.PI/180;
+   }
+   else{
+      return Math.abs(total)*Math.PI/180;
+   }
+   
     throw new Error('Not implemented');
 }
 
