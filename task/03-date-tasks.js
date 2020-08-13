@@ -22,7 +22,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +38,9 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+   return new Date(value);
+
 }
 
 
@@ -56,7 +59,18 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+   let year = date.getFullYear();
+   if ( year % 400 === 0){
+      return true;
+   }
+   if ( year % 100 === 0){
+      return false;
+   }
+   if( year % 4 === 0){
+      return true;
+   }
+   return false;
 }
 
 
@@ -76,7 +90,19 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   //throw new Error('Not implemented');
+   function pad(n, z) {
+      z = z || 2;
+      return ('00' + n).slice(-z);
+   }
+   let s = endDate - startDate;
+   let ms = s % 1000;
+   s = (s - ms) / 1000;
+   let sec = s % 60;
+   s = (s - sec) / 60;
+   let min = s % 60;
+   let hr = (s - min) / 60;
+   return pad(hr) + ':' + pad(min) + ':' + pad(sec) + '.' + pad(ms, 3);
 }
 
 
@@ -94,7 +120,28 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    let hrs = date.getUTCHours();
+
+    if ( hrs > 11){
+      hrs = hrs - 12;
+    }
+
+    let min = date.getMinutes();
+
+    let hAng = hrs * 30 + min * 0.5;
+    let mAng = min * 6;
+    let Ang = Math.abs(hAng - mAng);
+    
+    /*if(Ang > 180){
+       Ang = 360 - Ang;
+    }*/
+
+    Ang = Math.min(Ang, 360 - Ang);
+    let res = Ang * Math.PI / 180;
+
+    return res;
+
 }
 
 
