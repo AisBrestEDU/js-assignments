@@ -58,9 +58,8 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    let a= new Number(value1);
-    let b= new Number(value2);
-    let c= a + b;
+
+    let c= new Number(value1)+new Number(value2);
 
     if (c/2 == Infinity){
         return Number.MAX_VALUE;
