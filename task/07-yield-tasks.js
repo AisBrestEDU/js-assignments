@@ -33,7 +33,21 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    let count = 99
+    while (count > 0) {
+        let bottle = count === 1 ? 'bottle' : 'bottles'
+        yield `${count} bottles of beer on the wall, ${count} ${bottle} of beer.`
+        count--
+        bottle = count === 1 ? 'bottle' : 'bottles'
+        yield `Take one down and pass it around, ${count} ${bottle} of beer on the wall.`
+        if (count === 1) {
+            yield `${count} bottle of beer on the wall, ${count} bottle of beer.`
+            yield `Take one down and pass it around, no more bottles of beer on the wall.`
+            yield `No more bottles of beer on the wall, no more bottles of beer.`
+            yield  `Go to the store and buy some more, 99 bottles of beer on the wall.`
+            count--;
+        }
+    }
 }
 
 
@@ -47,7 +61,16 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    yield 0
+    let [first, second] = [1, 1]
+    yield first
+    yield second
+    let i = 0
+    while (i <= 1000) {
+        yield first + second
+        first = [first + second, second = first][0]
+        i++
+    }
 }
 
 
@@ -82,7 +105,15 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let stack = [root]
+
+    while(stack.length) {
+        let root = stack.pop();
+        yield root;
+        if (root.children) {
+            stack.push(...root.children.reverse())
+        }
+    }
 }
 
 
@@ -108,7 +139,18 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let stack = [root]
+    let index = 0;
+
+    while(stack.length - index) {
+        let root = stack[index];
+        yield root;
+
+        if(root.children) {
+            root.children.forEach((i) => stack.push(i))
+        }
+        index++;
+    }
 }
 
 
@@ -126,14 +168,30 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    throw new Error('Not implemented');
+    let source1Generator = source1()
+    let source2Generator = source2();
+    while (true) {
+        let source1Next = source1Generator.next();
+        let source2Next = source2Generator.next();
+
+        if (source1Next.done) {
+            yield source2Next.value;
+        }
+        else if (source2Next.done){
+            yield source1Next.value;
+        } else {
+            yield Math.min(source1Next.value, source2Next.value);
+            yield Math.max(source1Next.value, source2Next.value);
+        }
+    }
 }
+
 
 /**
  * Resolve Promises and take values step by step.
- * 
+ *
  * @params {Iterable.<Promise>} generator
- * @return {Promise} Promise with value returned via return 
+ * @return {Promise} Promise with value returned via return
  *
  * @example
  *   async((function*() {
@@ -145,7 +203,14 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
+    let sourceGenerator = generator()
+
+    let managePromises = (result) => {
+        return result.done ?  Promise.resolve(result.value) : Promise.resolve(result.value).then((result) =>
+            managePromises(sourceGenerator.next(result)))
+    }
+
+    return managePromises(sourceGenerator.next())
 }
 
 
