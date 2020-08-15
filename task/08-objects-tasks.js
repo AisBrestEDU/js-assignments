@@ -23,9 +23,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
 }
-
+Rectangle.prototype.getArea = function() {
+    return this.width * this.height;
+}
 
 /**
  * Returns the JSON representation of specified object
@@ -38,7 +41,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +57,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -109,33 +112,117 @@ function fromJSON(proto, json) {
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().element(value)
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().id(value)
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().class(value)
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().attr(value)
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().pseudoClass(value)
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new CssSelector().pseudoElement(value)
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        return new CssSelector().combine(selector1, combinator, selector2)
     },
+
 };
+
+class CssSelector {
+    constructor() {
+        this.cssSelectorString = '';
+        this.occurrences = {
+            'id': 0,
+            'element': 0,
+            'pseudoElement': 0,
+        }
+        this.order = []
+    }
+
+    element(value) {
+        this.order.push(1)
+        this.checkOrder()
+        this.checkOccurrences('element')
+        this.cssSelectorString += `${value}`;
+        this.occurrences.element += 1;
+        return this;
+    }
+
+    id(value) {
+        this.order.push(2)
+        this.checkOrder()
+        this.checkOccurrences('id')
+        this.cssSelectorString += `#${value}`;
+        this.occurrences.id += 1;
+        return this;
+    }
+
+    class(value) {
+        this.order.push(3)
+        this.checkOrder()
+        this.cssSelectorString += `.${value}`;
+        return this;
+    }
+
+    attr(value) {
+        this.order.push(4)
+        this.checkOrder()
+        this.cssSelectorString += `[${value}]`;
+        return this;
+    }
+
+    pseudoClass(value) {
+        this.order.push(5)
+        this.checkOrder()
+        this.cssSelectorString += `:${value}`;
+        return this;
+    }
+
+    pseudoElement(value) {
+        this.order.push(6)
+        this.checkOrder()
+        this.checkOccurrences('pseudoElement')
+        this.cssSelectorString += `::${value}`;
+        this.occurrences.pseudoElement += 1;
+        return this;
+    }
+
+    combine(selector1, combinator, selector2) {
+        this.cssSelectorString += `${selector1.cssSelectorString} ${combinator} ${selector2.cssSelectorString}`
+        return this;
+    }
+
+    stringify() {
+        return this.cssSelectorString;
+    }
+
+    checkOrder() {
+        this.order.forEach((value, index, array) => {
+            if (value > array[index + 1]) {
+                throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element')
+            }
+        })
+    }
+
+    checkOccurrences(value) {
+        if (this.occurrences[value] === 1) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+    }
+}
 
 
 module.exports = {
