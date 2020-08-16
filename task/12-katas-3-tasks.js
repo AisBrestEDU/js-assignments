@@ -230,7 +230,7 @@ UrlShortener.prototype = {
     decode: function(code) {
         code = code.substring(8, code.length-4);
         let i = 0;
-        for(var char of code){
+        for(let char of code){
             i = (i*this.base) + this.urlAllowedChars.indexOf(char);
         }
 
