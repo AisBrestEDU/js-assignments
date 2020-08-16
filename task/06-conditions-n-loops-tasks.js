@@ -92,7 +92,7 @@ function getSumBetweenNumbers(n1, n2) {
  */
 function isTriangle(a,b,c) {
     const perimetre = a + b + c;
-    return [a, b, c].filter(a => a < perimetre - a).length === 3 ? true : false;
+    return [a, b, c].filter(a => a < perimetre - a).length === 3;
 }
 
 
@@ -294,7 +294,7 @@ function isCreditCardNumber(ccn) {
         }
         sum += cardNum;
     }
-    return sum % 10 == 0;
+    return sum % 10 === 0;
 }
 
 
