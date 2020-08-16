@@ -28,7 +28,86 @@
  *   'NULL'      => false 
  */
 function findStringInSnakingPuzzle(puzzle, searchStr) {
-    throw new Error('Not implemented');
+    let i = 0,
+        j = 0,
+        searchIndex = 0,
+        indexes = [],
+        permitions = [true, true, true, true],
+        lastStep = -1,
+        startIndex = 1;
+
+    while (i < puzzle.length) {
+        while (j < puzzle[i].length) {
+            if (searchIndex === searchStr.length - 1) {
+                return true;
+            }
+
+            if (puzzle[i][j] === searchStr[searchIndex]) {
+                if (!indexes.some(curr => curr[0] === i && curr[1] === j)) {
+                    indexes.push([i, j]);
+                }
+
+                if ((puzzle[i].length > j + 1) && puzzle[i][j + 1] === searchStr[searchIndex + 1] && permitions[0] && !indexes.includes([i, j + 1])) {
+                    searchIndex++;
+                    j++;
+                    lastStep = 0;
+                    indexes.push([i, j]);
+                    continue;
+                }
+                else if (j !== 0 && puzzle[i][j - 1] === searchStr[searchIndex + 1] && permitions[1] && !indexes.some(curr => curr[0] === i && curr[1] === j - 1)) {
+                    searchIndex++;
+                    j--;
+                    lastStep = 1;
+                    indexes.push([i, j]);
+                    continue;
+                }
+                else if (puzzle.length > i + 1 && puzzle[i + 1][j] === searchStr[searchIndex + 1] && permitions[2] && !indexes.some(curr => curr[0] === i + 1 && curr[1] === j)) {
+                    searchIndex++;
+                    i++;
+                    lastStep = 2;
+                    indexes.push([i, j]);
+                    break;
+                }
+                else if (i !== 0 && puzzle[i - 1][j] === searchStr[searchIndex + 1] && permitions[3] && !indexes.some(curr => curr[0] === i - 1 && curr[1] === j)) {
+                    searchIndex++;
+                    i--;
+                    lastStep = 3;
+                    indexes.push([i, j]);
+                    break;
+                }
+                else {
+
+                    if (lastStep !== -1) {
+                        permitions[lastStep] = false;
+                    }
+
+                    if (indexes.length !== 1) {
+                        let prev = indexes.pop();
+
+                        i = prev[0];
+                        j = prev[1] + 1;
+                    }
+                    else {
+                        j++;
+                    }
+
+                    if (searchIndex > 0) {
+                        searchIndex--;
+                    }
+                }
+            }
+            else {
+                j++;
+            }
+        }
+
+        if (j >= 7) {
+            j = i < 4 ? 0 : j;
+            i = startIndex++;
+        }
+    }
+
+    return false;
 }
 
 
@@ -45,7 +124,27 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
 function* getPermutations(chars) {
-    throw new Error('Not implemented');
+    function getTransposition(chars){
+        let results = [];
+        for (let i = 0; i < chars.length; i++) {
+            if (chars.length > 1) {
+                let result = [],
+                returnValues = getTransposition(chars.replace(chars[i], ""));
+                for(let j = 0; j < returnValues.length; j++){
+                    result.push(chars[i] + returnValues[j]);
+                }
+                results.push(...result);
+            }
+            else{
+                return chars[0];
+            }
+        }
+        return results;
+    }
+
+    for(let result of getTransposition(chars)){
+        yield result;
+    }
 }
 
 
@@ -65,7 +164,22 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-    throw new Error('Not implemented');
+    let profits = [[[quotes[0]*-1, 1]]];
+
+    for(let i = 1; i < quotes.length; i++){
+        let tempProfits = [];
+        for(let j = 0; j <  profits[i-1].length; j++){
+            if(quotes[i] > quotes[i+1] || i === quotes.length - 1){
+                tempProfits.push([profits[i-1][j][0] + quotes[i]*profits[i-1][j][1], 0]);
+            }
+            tempProfits.push([profits[i-1][j][0]-quotes[i], profits[i-1][j][1]+1]);
+        }
+        profits[i] = profits[i-1] = [];
+        profits[i].push(...tempProfits);
+    }
+
+    let result = Math.max(...profits[quotes.length - 1].map(current => current[0]));
+    return result < 0 ? 0 : result;
 }
 
 
@@ -87,17 +201,51 @@ function UrlShortener() {
     this.urlAllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
                            "abcdefghijklmnopqrstuvwxyz"+
                            "0123456789-_.~!*'();:@&=+$,/?#[]";
+    this.largePrime = 7919;
+    this.h0 = 100;
+    this.urls = [];
+    this.base = this.urlAllowedChars.length;
 }
 
 UrlShortener.prototype = {
 
     encode: function(url) {
-        throw new Error('Not implemented');
+        let hash = this.getHash(url);
+        this.urls[hash] = url;
+
+        if(hash === 0){
+            return this.urlAllowedChars[0];
+        }
+
+        let s = "";
+
+        while(hash > 0){
+            s += this.urlAllowedChars[hash % this.base];
+            hash = Math.trunc(hash / this.base);
+        }
+
+        return `https://${s.split("").reverse().join("")}.com`;
     },
-    
+
     decode: function(code) {
-        throw new Error('Not implemented');
-    } 
+        code = code.substring(8, code.length-4);
+        let i = 0;
+        for(var char of code){
+            i = (i*this.base) + this.urlAllowedChars.indexOf(char);
+        }
+
+        return this.urls[i];
+    },
+
+    getHash : function(link){
+        let h = this.h0;
+
+        for(let char of link){
+            h = (h + char.charCodeAt(0)) % this.largePrime
+        }
+
+        return h;
+    }
 }
 
 
