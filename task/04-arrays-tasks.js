@@ -421,9 +421,9 @@ function sortCitiesArray(arr) {
     return arr.sort((a, b) => {
         if (a.country !== b.country) {
             return a.country > b.country ? 1 : -1;
-        } else {
-            return a.city > b.city ? 1 : -1;
         }
+            return a.city > b.city ? 1 : -1;
+        
     });
 }
 
