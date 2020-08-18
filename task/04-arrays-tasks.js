@@ -618,14 +618,6 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-/*     let newArr = [];
-   newArr = arr.reduce((sum, elem) => {
-      if (!sum.includes(elem)) {
-         sum.push(elem);
-      }
-   },[])
-   
-   return newArr;  */
 
       let newArr = [];
    arr.reduce(function(previousValue, currentValue, index, array) {
@@ -639,17 +631,6 @@ function distinct(arr) {
 
    throw new Error('Not implemented');
 }
-/* function distinct1(arr){
-   let newArr=[]
-   for (let i=0; i< arr.length-1; i++ ){
-      let temp = arr[i];
-      newArr[i]=temp;
-      if(temp==arr[i+1]){
-         newArr[i]=arr[i+1];
-      }
-      
-   }
-} */
 
 /**
  * Groups elements of the specified array by key.
