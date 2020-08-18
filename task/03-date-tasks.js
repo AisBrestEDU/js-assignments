@@ -147,23 +147,8 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
    
-   let hours = date.getHours(); 
-   let minutes = date.getMinutes();
-   let total=0;
-
-   if ((hours-3)>12){
-      total = 0.5*(60*(hours-15)-11*minutes);
-   }
-   else {
-      total = 0.5*(60*(hours-3)-11*minutes);
-   }
-   if(Math.abs(total)>180){
-      return (360-Math.abs(total))*Math.PI/180;
-   }
-   else{
-      return Math.abs(total)*Math.PI/180;
-   }
-   
+   let total = date.getHours()-3>12? 0.5*(60*(date.getHours()-15)-11*date.getMinutes()):0.5*(60*(date.getHours()-3)-11*date.getMinutes())
+   return Math.abs(total)>180 ? (360-Math.abs(total))*Math.PI/180:Math.abs(total)*Math.PI/180;
     throw new Error('Not implemented');
 }
 
