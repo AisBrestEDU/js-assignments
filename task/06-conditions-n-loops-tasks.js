@@ -208,10 +208,10 @@ function findFirstSingleChar(str) {
             
             flag = true;
             
-            if(currentLetter == letter){
+            if(currentLetter === letter){
                 continue;
             }
-            if(str[currentLetter ] == str[letter]){
+            if(str[currentLetter ] === str[letter]){
                 flag = false;
                 break;
             }
@@ -286,15 +286,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    
-    let result = 0;
-    
-    while(num){
-        result = num % 10 + result * 10;
-        num = Math.floor(num /= 10);
-    }
-
-    return result;
+    return reverseString(num.toString());
 }
 
 
@@ -409,16 +401,16 @@ function isBracketsBalanced(str) {
         else if(elem.match(/[\]\}\)\>)]/) != null){
             let popElem = stack.pop();
 
-            if( popElem == '[' && elem == ']'){
+            if( popElem === '[' && elem === ']'){
                 continue;
             }
-            if( popElem == '{' && elem == '}'){
+            if( popElem === '{' && elem === '}'){
                 continue;
             }
-            if( popElem == '(' && elem == ')'){
+            if( popElem === '(' && elem === ')'){
                 continue;
             }
-            if( popElem == '<' && elem == '>'){
+            if( popElem === '<' && elem === '>'){
                 continue;
             }
             return false;
