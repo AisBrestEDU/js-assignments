@@ -65,11 +65,9 @@ function* getFibonacciSequence() {
     let [first, second] = [1, 1]
     yield first
     yield second
-    let i = 0
-    while (i <= 1000) {
+    while (true) {
         yield first + second
         first = [first + second, second = first][0]
-        i++
     }
 }
 
@@ -206,8 +204,11 @@ function async(generator) {
     let sourceGenerator = generator()
 
     let managePromises = (result) => {
-        return result.done ?  Promise.resolve(result.value) : Promise.resolve(result.value).then((result) =>
-            managePromises(sourceGenerator.next(result)))
+        if (result.done) {
+            return Promise.resolve(result.value)
+        }
+        return Promise.resolve(result.value).then((result) =>
+                managePromises(sourceGenerator.next(result)))
     }
 
     return managePromises(sourceGenerator.next())
