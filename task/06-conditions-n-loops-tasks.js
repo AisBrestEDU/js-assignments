@@ -458,26 +458,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    switch(n) {
-        case 2:
-            return num.toString(2);
-        case 3:
-            return num.toString(3);
-        case 4:
-            return num.toString(4);
-        case 5:
-            return num.toString(5);
-        case 6:
-            return num.toString(6);
-        case 7:
-            return num.toString(7);
-        case 8:
-            return num.toString(8);
-        case 9:
-            return num.toString(9);
-        case 10:
-            return num.toString();
-    }
+    return num.toString(n);
 }
 
 
