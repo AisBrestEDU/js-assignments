@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+    return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+    return new Date(value);
 }
 
 
@@ -56,7 +56,13 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+    // if (date.getFullYear() % 4 !== 0) return false;
+    // else if (date.getFullYear() % 100 !== 0) return true;
+    // else if (date.getFullYear() % 400 !== 0) return false;
+    //
+    // return true;
+    let time = new Date(date.getFullYear(), 2, 0);
+    return time.getDate() === 29;
 }
 
 
@@ -76,14 +82,27 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    let date = new Date(endDate - startDate);
+    let hours = (date.getUTCDate() - 1) * 24 + date.getUTCHours();
+    //let hours = date.getUTCHours();
+    return  `${setZero(hours, 2)}:`              +
+            `${setZero(date.getMinutes(), 2)}:`  +
+            `${setZero(date.getSeconds(), 2)}.`  +
+            `${setZero(date.getMilliseconds(), 3)}`;
+
+    function setZero(number, base){
+        let str = number.toString();
+        while(str.length < base)
+            str = "0" + str;
+        return str;
+    }
 }
 
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- * 
+ *
  * @param {date} date
  * @return {number}
  *
@@ -94,7 +113,10 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let angle = 0.5 * (60 * date.getUTCHours() - 11 * date.getUTCMinutes()) % 360;
+    if (angle > 180)
+        angle = 360 - angle;
+    return Math.abs(angle) * Math.PI / 180;
 }
 
 
