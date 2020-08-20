@@ -38,7 +38,7 @@ function* get99BottlesOfBeer() {
         yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`;
         yield `Take one down and pass it around, ${--bottles} bottles of beer on the wall.`;
     }
-    if (bottles == 2) {
+    if (bottles === 2) {
         yield '2 bottles of beer on the wall, 2 bottles of beer.';
         yield 'Take one down and pass it around, 1 bottle of beer on the wall.';
         yield '1 bottle of beer on the wall, 1 bottle of beer.';
@@ -172,10 +172,10 @@ function* mergeSortedSequences(source1, source2) {
                 yield second;
                 second = s2.next().value;
             }
-        } else if (first != undefined) {
+        } else if (first !== undefined) {
             yield first;
             first = s1.next().value;
-        } else if (second != undefined) {
+        } else if (second !== undefined) {
             yield second;
             second = s2.next().value;
         }
