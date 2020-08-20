@@ -174,7 +174,7 @@ class Selector {
             if(this.currentItems.some((value) => item < value)){
                 throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
                 }
-            if( this.currentItems.some((value) => item == value) && (item == 1 || item == 2 || item == 6)){
+            if( this.currentItems.some((value) => item === value) && (item === 1 || item === 2 || item === 6)){
                 throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
             } 
         }
