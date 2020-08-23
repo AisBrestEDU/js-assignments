@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   return ((date.getFullYear() % 4 !== 0) || (date.getFullYear() % 100 === 0) && (date.getFullYear() % 400 !== 0)) ? false : true
 }
 
 
@@ -76,7 +76,32 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   const timespanInMs = endDate.getTime() - startDate.getTime();
+   let milliseconds = Math.abs(timespanInMs);
+   const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
+
+   milliseconds -= days * (1000 * 60 * 60 * 24);
+
+   let hours = Math.floor(milliseconds / (1000 * 60 * 60));
+   milliseconds -= hours * (1000 * 60 * 60);
+
+   const mins = Math.floor(milliseconds / (1000 * 60));
+   milliseconds -= mins * (1000 * 60);
+
+   const seconds = Math.floor(milliseconds / (1000));
+   milliseconds -= seconds * (1000);
+   const formatToDoubleDigit = (number) => number < 10 ? `0${number}` : `${number}`;
+   const formatToThreeDigit = (number) => {
+      if (number < 10) {
+         return `00${number}`;
+      } else if (number > 10 && number < 100) {
+         return `0${number}`;
+      }
+      return number;
+   }
+   hours = days * 24 + hours;
+   const result = `${formatToDoubleDigit(hours)}:${formatToDoubleDigit(mins)}:${formatToDoubleDigit(seconds)}.${formatToThreeDigit(milliseconds)}`
+   return result;
 }
 
 
@@ -94,14 +119,20 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   const currentDate = new Date(date);
+   const currentHors = (currentDate.getUTCHours() > 12) ? currentDate.getUTCHours() - 12 : currentDate.getUTCHours();
+   const angleBetweenClockHandsInDegrees = 0.5 * (60 * currentHors - 11 * currentDate.getUTCMinutes())
+   const result = angleBetweenClockHandsInDegrees > 180 ? 360 - angleBetweenClockHandsInDegrees : angleBetweenClockHandsInDegrees;
+
+   return Math.PI / 180 * Math.abs(result);
 }
 
 
+
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
