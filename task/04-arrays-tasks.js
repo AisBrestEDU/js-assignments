@@ -374,12 +374,9 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   if (arr.length === 0)
-      return 0;
-   else
       return arr.reduce(function (a, b) {
          return a + b;
-      });
+      },0);
 }
 
 /** 
@@ -611,7 +608,7 @@ function getElementByIndexes(arr, indexes) {
    // })];
    let result = null;
    indexes.map((dimension, index) => {
-      if (index != indexes.length - 1) arr = arr[dimension];
+      if (index !==indexes.length - 1) arr = arr[dimension];
       else result = arr[dimension];
    });
 
