@@ -80,7 +80,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    return value.substr(0, 1);
+    return value.substring(0, 1);
 }
 
 /**

@@ -289,7 +289,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-    return arr.reverse().slice(0, 3);
+    return arr.sort((a,b)=>a-b).reverse().slice(0, 3);
 }
 
 /**  
