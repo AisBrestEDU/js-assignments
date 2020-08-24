@@ -102,10 +102,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-    if(a+b>c&&a+c>b&&b+c>a){
-        return true
-    }
-    return false
+   return a + b > c && a + c > b && b + c > a
 }
 
 /**
@@ -192,7 +189,7 @@ function isInsideCircle(circle, point) {
  */
 function findFirstSingleChar(str) {
     for( let i = 0; i < str.length; i++) {
-        if (str.indexOf(str[i]) === i && str.lastIndexOf(str[i]) === i) {
+        if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) {
             return str[i];
         }
     }
@@ -310,10 +307,10 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    let res = num.toString().split('').map(el=>+el).reduce((acc,el)=>acc+=el,0)
-
-    if(res > 9){
-      res = res.toString().split('').map(el=>+el).reduce((acc,el)=>acc+=el,0)
+    let res = num.toString().split('').map(el => +el).reduce((acc,el) => acc += el, 0)
+ 
+    while(res > 9){
+        res = res.toString().split('').map(el => +el).reduce((acc,el) => acc +=el, 0)
     }
     return res
 }
