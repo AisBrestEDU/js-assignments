@@ -7,6 +7,7 @@
  *                                                                                          *
  ********************************************************************************************/
 
+
 /**
  * Returns the regexp that matches a GUID string representation
  * '{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}',
@@ -33,6 +34,7 @@ function getRegexForGuid() {
    throw new Error('Not implemented');
 }
 
+
 /**
  * Returns the regexp that matches all the strings from first column
  * but of them from the second
@@ -54,6 +56,7 @@ function getRegexForPitSpot() {
    throw new Error('Not implemented');
 }
 
+
 /**
  * Returns the regexp that matches all IPv4 strings in
  * 'XX.XX.XX.XX' dotted format where XX is number 0 to 255
@@ -72,6 +75,7 @@ function getRegexForIPv4() {
    throw new Error('Not implemented');
 }
 
+
 /**
  * Returns the regexp that matches all SSN (Social Security Number) codes in
  * 'XXX-XX-XXXX' format where X is digit, where each group can't be all zeros
@@ -89,6 +93,7 @@ function getRegexForIPv4() {
 function getRegexForSSN() {
    throw new Error('Not implemented');
 }
+
 
 /**
  * Returns the password validator regex.
@@ -113,6 +118,7 @@ function getRegexForSSN() {
 function getPasswordValidator(minLength) {
    throw new Error('Not implemented');
 }
+
 
 module.exports = {
     getRegexForGuid: getRegexForGuid,
