@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width*height;
+    return width * height;
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return (radius*2)*Math.PI;
+    return (radius * 2) * Math.PI;
 }
 
 /**
@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.hypot((x1-x2),(y1-y2));
+    return Math.hypot( (x1 - x2), (y1 - y2) );
 
 }
 
@@ -90,7 +90,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    return -b/a;
+    return -b / a;
 }
 
 
@@ -112,10 +112,10 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    var vector1 = Math.hypot(x1,y1);
-    var vector2 = Math.hypot(x2,y2);
-    var scalar = x1*x2 + y1*y2;
-    return Math.acos(scalar/(vector1*vector2));
+    var vector1 = Math.hypot(x1, y1);
+    var vector2 = Math.hypot(x2, y2);
+    var scalar = x1 * x2 + y1 * y2;
+    return Math.acos( scalar / (vector1 * vector2) );
 
 }
 
@@ -132,7 +132,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    return value%10;
+    return value % 10;
 }
 
 
@@ -164,8 +164,8 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(a,b,c) {
-    return Math.hypot(a,b,c);
+function getParallelipidedDiagonal(a, b, c) {
+    return Math.hypot(a, b, c);
 }
 
 /**
@@ -186,8 +186,8 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    var number = num/(Math.pow(10, pow));
-    return Math.round(number)*Math.pow(10, pow);
+    var number = num / Math.pow(10, pow);
+    return Math.round(number) * Math.pow(10, pow);
 }
 
 /**
@@ -233,10 +233,11 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (Number.isNaN(Number(value))){
+    if(Number(value)) {
+        return value;
+    } else {
         return def;
-    }    
-    else return Number(value);
+    }
 }
 
 module.exports = {

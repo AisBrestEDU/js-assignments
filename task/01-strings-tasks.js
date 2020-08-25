@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.substr(7,value.length-8);
+    return value.substring(7, value.length-1);
 }
 
 
@@ -114,11 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    var newStr = '';
-    for (let i = 0; i < count; i++){
-        newStr += value;
-    }
-    return newStr;
+    return value.repeat(count);
 }
 
 /**
@@ -322,12 +318,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    var cards = "A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠";
-    var array = cards.split("','");
-
-    for (let i = 0; i < array.length; i++) {
-        return array.indexOf(value, 0);
-    }
+    var ranks = 'A234567891JQK';
+    var suits = '♣♦♥♠';
+    return ranks.indexOf(value[0]) + suits.indexOf(value[value.length-1]) * 13;    
 }
 
 

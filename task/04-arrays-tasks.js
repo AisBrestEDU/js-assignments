@@ -236,7 +236,7 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-   return arr.map(value => value*value);
+   return arr.map(value => value * value);
 }
 
 
@@ -276,8 +276,8 @@ function getMovingSum(arr) {
  */
 function getSecondItems(arr) {
    var array = new Array();
-   arr.map(function(val,ind){
-      if (ind % 2 != 0) array.push(val);
+   arr.map(function(val, ind){
+      if (ind % 2 !== 0) array.push(val);
    })
    return array;
 }
@@ -363,8 +363,8 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   var digits = ['zero','one','two','three','four','five','six','seven','eight','nine'];
-   return arr.sort(function(a,b){
+   var digits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+   return arr.sort(function(a, b){
       return digits.indexOf(a) - digits.indexOf(b);
    })
 }
@@ -382,7 +382,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   return arr.reduce((acc,v) => (acc+v), 0);
+   return arr.reduce( (acc, v) => (acc + v), 0 );
 }
  
 /** 
@@ -419,9 +419,9 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-   return arr.reduce(function(acc,val){
+   return arr.reduce( function(acc, val){
       return acc + (val === item);
-   }, 0)
+   }, 0 )
 }
 
 /**
@@ -619,11 +619,11 @@ function selectMany(arr, childrenSelector) {
  */
 function getElementByIndexes(arr, indexes) {
    let result = null;
-   indexes.map((dimension, index) => {
-      if (index != indexes.length - 1) arr = arr[dimension];
+   indexes.map( (dimension, index) => {
+      if (index !== indexes.length - 1) arr = arr[dimension];
       else result = arr[dimension];
-   });
-
+   } );
+   
    return result;
 }
 
