@@ -361,16 +361,15 @@ function isBracketsBalanced(str) {
 
     if (arrStrBalance.length % 2 !== 0) {
         return false;
-    } else {
-        for (let i = 0; i < str.length + 1; i++) {
-            stack.push(arrStrBalance[i]);
-            if (stack[i] === braceObj[arrStrBalance[i - 1]]) {
-                stack.pop();
-                stack.pop();
-            }
-        }
-        return stack.length === 0;
     }
+    for (let i = 0; i < str.length + 1; i++) {
+        stack.push(arrStrBalance[i]);
+        if (stack[i] === braceObj[arrStrBalance[i - 1]]) {
+            stack.pop();
+            stack.pop();
+        }
+    }
+    return stack.length === 0;
 }
 
 
