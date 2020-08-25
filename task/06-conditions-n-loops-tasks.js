@@ -30,7 +30,13 @@
  *
  */
 function getFizzBuzz(num) {
-    return num % 15 === 0 ? "FizzBuzz" : num % 5 === 0 ? "Buzz" : num % 3 === 0 ? "Fizz" : num;
+    if (num % 15 === 0)
+        return "FizzBuzz";
+    else if (num % 5 === 0)
+        return "Buzz";
+    else if (num % 3 === 0)
+        return "Fizz";
+    return num;
 }
 
 
@@ -333,16 +339,14 @@ function isBracketsBalanced(str) {
 
     let stack = [];
 
-    for (let i = 0; i < str.length; i++){
+    for (let i = 0; i < str.length; i++) {
         if (~closeBrackets.indexOf(str[i]))
             stack.push(str[i]);
         else if (openBrackets.indexOf(str[i]) !== closeBrackets.indexOf(stack.pop()))
             return false;
     }
 
-    if (stack.length > 0)
-        return false;
-    return true;
+    return !(stack.length > 0);
 }
 
 
@@ -383,26 +387,18 @@ function timespanToHumanString(startDate, endDate) {
 
     if (time <= 45 * 1000) return "a few seconds ago";
     else if (time <= 90 * 1000) return "a minute ago";
-    else if (time <= 45 * 60 * 1000)
-    {
+    else if (time <= 45 * 60 * 1000) {
         return `${date.getMilliseconds() > 0 ? date.getMinutes() + 1 : date.getMinutes()} minutes ago`;
-    }
-    else if (time <= 90 * 60 * 1000) return "an hour ago";
-    else if (time <= 60 * 60 * 22 * 1000)
-    {
+    } else if (time <= 90 * 60 * 1000) return "an hour ago";
+    else if (time <= 60 * 60 * 22 * 1000) {
         return `${date.getMilliseconds() > 0 ? date.getUTCHours() + 1 : date.getUTCHours()} hours ago`;
-    }
-    else if (time <= 60 * 60 * 36 * 1000) return "a day ago";
-    else if (time <= 60 * 60 * 24 * 25 * 1000)
-    {
+    } else if (time <= 60 * 60 * 36 * 1000) return "a day ago";
+    else if (time <= 60 * 60 * 24 * 25 * 1000) {
         return `${date.getMilliseconds() > 0 ? date.getDate() : date.getDate() - 1} days ago`;
-    }
-    else if (time <= 60 * 60 * 24 * 45 * 1000) return "a month ago";
-    else if (time <= 60 * 60 * 24 * 345 * 1000)
-    {
+    } else if (time <= 60 * 60 * 24 * 45 * 1000) return "a month ago";
+    else if (time <= 60 * 60 * 24 * 345 * 1000) {
         return `${date.getDate() > 15 ? date.getMonth() + 1 : date.getMonth()} months ago`;
-    }
-    else if (time <= 60 * 60 * 24 * 545 * 1000) return "a year ago";
+    } else if (time <= 60 * 60 * 24 * 545 * 1000) return "a year ago";
     return `${date.getFullYear() - 1970} years ago`;
 }
 
@@ -427,15 +423,15 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    let result = "";
-    do
-    {
-        let modulo = num % n;
-        result = modulo + result;
-
-        num = Math.floor(num / n);
-    }while(num >= n);
-    return num + result;
+    // let result = "";
+    // do {
+    //     let modulo = num % n;
+    //     result = modulo + result;
+    //
+    //     num = Math.floor(num / n);
+    // } while (num >= n);
+    // return num + result;
+    return num.toString(n);
 }
 
 
@@ -454,8 +450,7 @@ function toNaryString(num, n) {
 function getCommonDirectoryPath(pathes) {
     let length = pathes.reduce((len, path) => path.length < len ? path.length : len, Number.MAX_VALUE);
     let i = 0;
-    for (i = 0; i < length; i++)
-    {
+    for (i = 0; i < length; i++) {
         if (!pathes.reduce((same, path) => same && path[i] === pathes[0][i], true))
             break;
     }
@@ -484,11 +479,11 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
     let matrix = [];
-    for (let i = 0; i < m1.length; i++){
+    for (let i = 0; i < m1.length; i++) {
         let row = [];
-        for (let j = 0; j < m2[i].length; j++){
+        for (let j = 0; j < m2[i].length; j++) {
             let sum = 0;
-            for (let k = 0; k < m1[i].length; k++){
+            for (let k = 0; k < m1[i].length; k++) {
                 sum += m1[i][k] * m2[k][j];
             }
             row.push(sum);
