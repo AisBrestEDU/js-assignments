@@ -145,9 +145,10 @@ function* depthTraversalTree(root) {
 function* breadthTraversalTree(root) {
     let stack = [];
     stack.push(root);
+    let i = 0;
 
-    while (stack.length > 0) {
-        let node = stack.shift();
+    while (stack.length !== i) {
+        let node = stack[i++];
         yield node;
         for (let childNode of node.children || [])
             stack.push(childNode);
