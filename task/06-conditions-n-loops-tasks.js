@@ -30,8 +30,16 @@
  *
  */
 function getFizzBuzz(num) {
-    return num % 3 === 0 && num % 5 === 0 ?
-    'FizzBuzz' : num % 3 === 0 ? 'Fizz' : num % 5 === 0 ? 'Buzz' : num;
+    let wordToReturn = num;
+
+    if (num % 3 === 0 && num % 5 === 0) {
+        wordToReturn = 'FizzBuzz';
+    } else if (num % 3 === 0) {
+        wordToReturn = 'Fizz';
+    } else if (num % 5 === 0) {
+        wordToReturn = 'Buzz';
+    }
+    return wordToReturn;
 }
 
 
@@ -420,7 +428,7 @@ function timespanToHumanString(startDate, endDate) {
     else if (day <= 45) {return `a month ago`}
     else if (day <= 345) {return `${toInt(month)} months ago`}
     else if (day <= 545) {return `a year ago`}
-    else {return `${toInt(year)} years ago`}
+    return `${toInt(year)} years ago`;
 }
 
 
