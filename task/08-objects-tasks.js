@@ -109,15 +109,15 @@ function fromJSON(proto, json) {
  */
 
 class Selector {
-    result = '';
-
-    counter = {
-        element: 0,
-        id: 0,
-        pseudoElement: 0
+    constructor() {
+        this.result = '';
+        this.counter = {
+            element: 0,
+            id: 0,
+            pseudoElement: 0
+        };
+        this.order = [];
     }
-
-    order = [];
 
     element(value) {
         this.result += value;
