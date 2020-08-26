@@ -523,35 +523,26 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    var result;
-    var successComb = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
-  
-    // Loop to change voids to null and then apply the flat method
-    for(var i = 0; i < position.length; i++) {
-      position[i].length = 3;
-  
-      for(var j = 0; j < position[i].length; j++) {
-        if(!position[i][j]) {
-          position[i][j] = null;
+    let win = [
+        [[0, 0], [0, 1], [0, 2]],
+        [[1, 0], [1, 1], [1, 2]],
+        [[2, 0], [2, 1], [2, 2]],
+        [[0, 0], [1, 0], [2, 0]],
+        [[0, 1], [1, 1], [2, 1]],
+        [[0, 2], [1, 2], [2, 2]],
+        [[0, 0], [1, 1], [2, 2]],
+        [[2, 0], [1, 1], [0, 2]]
+    ];
+    for (let row of win) {
+        let b = true,
+            v = position[row[0][0]][row[0][1]];
+        if (v !== undefined) {
+            for (let i = 1; i < row.length; i++)
+                b = b && v === position[row[i][0]][row[i][1]];
+            if (b)
+                return v;
         }
-      }
     }
-
-    var currArr = position.flat();
-  
-    successComb.forEach((comb) => {
-      var successArr = comb.map(i => currArr[i]);
-  
-      if(!successArr.includes('0') && !successArr.includes(null)) {
-        result = 'X';
-      } 
-      
-      if(!successArr.includes('X') && !successArr.includes(null)) {
-        result = '0';
-      }
-    })
-  
-    return result;
 }
 
 
