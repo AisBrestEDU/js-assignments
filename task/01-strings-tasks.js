@@ -115,11 +115,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    let str = ""
-    for (let i = 0; i < count; i++){ 
-        str = str + value
-    }
-    return str
+    return value.repeat(parseInt(count));
 }
 
 /**
@@ -292,14 +288,14 @@ function getCardId(value) {
     let cards = []
     let mass = new Map([])
 
-    for (let num = 0; num<suits.length; num++){
-        for (let i = 0; i<ranks.length; i++){
-            cards.push(ranks[i]+suits[num])   
+    for (let num = 0; num < suits.length; num++) {
+        for (let i = 0; i < ranks.length; i++){
+            cards.push(ranks[i] + suits[num])   
         }
     }
 
-    for (let i = 0; i<cards.length; i++){
-        mass.set(cards[i], i)  
+    for (let i = 0; i < cards.length; i++) {
+        mass.set( cards[i], i )  
     }
     
     return mass.get(value)

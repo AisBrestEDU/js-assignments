@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width*height
+    return width * height
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return  Math.PI*radius*2
+    return  Math.PI * radius * 2
 }
 
 /**
@@ -54,7 +54,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return (value1/2 + value2/2)
+    return (value1 / 2 + value2 / 2)
 }
 
 /**
@@ -161,7 +161,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(a*a + b*b + c*c) 
+    return Math.sqrt(a * a + b * b + c * c) 
 }
 
 /**

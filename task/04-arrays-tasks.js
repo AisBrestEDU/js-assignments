@@ -59,10 +59,7 @@ function generateOdds(len) {
  *    [] => [] 
  */
 function doubleArray(arr) {
-   arr.map(elem => {
-      arr.push(elem)
-   })
-   return arr
+   return arr.concat(arr);
 }
 
 
@@ -117,7 +114,7 @@ function getArrayOfStrings(arr) {
  */
 function removeFalsyValues(arr) {
    let res = arr.filter(elem => {
-      return !!elem
+      return elem
    })
    return res
 }
@@ -246,7 +243,7 @@ function toCsvText(arr) {
  */
 function toArrayOfSquares(arr) {
    let res = arr.map(elem => {
-      return elem*elem
+      return elem * elem
    })
    return res
 }
@@ -341,10 +338,9 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   return arr.reverse().filter((elem, index) => {
-      if (index < 3)
-         return elem;
-  });
+  return arr.sort(function (a, b) {
+      return b - a;
+   }).slice(0, 3);
 }
  
  
