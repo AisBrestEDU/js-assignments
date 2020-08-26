@@ -537,10 +537,10 @@ function evaluateTicTacToePosition(position) {
       }
     }
 
-    let currArr = position.flat();
+    var currArr = position.flat();
   
     successComb.forEach((comb) => {
-      let successArr = comb.map(i => currArr[i]);
+      var successArr = comb.map(i => currArr[i]);
   
       if(!successArr.includes('0') && !successArr.includes(null)) {
         result = 'X';
