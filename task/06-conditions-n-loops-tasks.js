@@ -248,9 +248,8 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
         return `(${a}, ${b}]`;
     } else if (isStartIncluded && !isEndIncluded) {
         return `[${a}, ${b})`;
-    } else {
-        return `(${a}, ${b})`;
     }
+    return `(${a}, ${b})`;
 }
 
 
