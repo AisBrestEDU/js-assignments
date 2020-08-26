@@ -89,7 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    return -b/a;
+    return (a === 0 || b === 0) ? 0 : -b/a;
 }
 
 
@@ -169,7 +169,7 @@ function getParallelipidedDiagonal(a,b,c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *  
+ *
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -189,8 +189,8 @@ function roundToPowerOfTen(num, pow) {
  * See: https://en.wikipedia.org/wiki/Primality_test
  *
  * @param {number} n
- * @return {bool}
- * 
+ * @return {boolean}
+ *
  * @example:
  *   4 => false
  *   5 => true
@@ -202,16 +202,12 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    if (n < 4) {
-        return n > 1;
-    } else {
-        for (let i = 2; i <= Math.sqrt(n); i++) {
-            if (n%i === 0) {
-                return false;
-            }
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n%i === 0) {
+            return false;
         }
-        return true;
     }
+    return true;
 }
 
 /**
@@ -230,7 +226,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    return value !== null && !isNaN(Number(value)) ? value : def;
+    return value !== null && !isNaN(Number(value)) ? Number(value) : def;
 }
 
 module.exports = {
