@@ -111,34 +111,75 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
+    string: '',
 
-    element: function(value) {
-        throw new Error('Not implemented');
+    element(value) {
+        this.exception(0);
+        const object = Object.create(cssSelectorBuilder);
+        object.order = 0;
+        object.string = this.string + value;
+        return object;
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    id(value) {
+        this.exception(1);
+        const object = Object.create(cssSelectorBuilder);
+        object.order = 1;
+        object.string = this.string + '#' + value;
+        return object;
     },
 
-    class: function(value) {
-        throw new Error('Not implemented');
+    class(value) {
+        this.exception(2);
+        const object = Object.create(cssSelectorBuilder);
+        object.order = 2;
+        object.string = this.string + '.' + value;
+        return object;
     },
 
-    attr: function(value) {
-        throw new Error('Not implemented');
+    attr(value) {
+        this.exception(3);
+        const object = Object.create(this || cssSelectorBuilder);
+        object.order = 3;
+        object.string = this.string + '[' + value + ']';
+        return object;
     },
 
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
+    pseudoClass(value) {
+        this.exception(4);
+        const object = Object.create(cssSelectorBuilder);
+        object.order = 4;
+        object.string = this.string + ':' + value;
+        return object;
     },
 
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
+    pseudoElement(value) {
+        this.exception(5);
+        const object = Object.create(cssSelectorBuilder);
+        object.order = 5;
+        object.string = this.string + '::' + value;
+        return object;
     },
 
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+    combine(selector1, combinator, selector2) {
+        const object = Object.create(cssSelectorBuilder);
+        object.string = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
+        return object;
     },
+
+    stringify() {
+        return this.string;
+    },
+
+    exception(order) {
+        if (order === this.order && [0, 1, 5].includes(order)) {
+            throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+        }
+        if (order < this.order) {
+            throw new Error('Selector parts should be arranged in the following order: element, id, class, ' +
+                'attribute, pseudo-class, pseudo-element');
+        }
+    }
 };
 
 
