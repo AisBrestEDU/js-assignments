@@ -31,18 +31,16 @@
  */
 function getFizzBuzz(num) {
 
-    if(num%3===0&&num%5===0){
+    if(num % 3 === 0 && num % 5 === 0){
         return "FizzBuzz";
     }
-    if(num%3===0){
+    if(num % 3 === 0){
         return "Fizz"
     }
-    if(num%5===0){
+    if(num % 5 === 0){
         return "Buzz"
     }
     return num;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -64,8 +62,6 @@ function getFactorial(n) {
         res *= n--;
     }
     return res;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -86,11 +82,8 @@ function getSumBetweenNumbers(n1, n2) {
     let x = 0;
     for (let i = n1; i <= n2; i++) {
         x = x + i;
-
     }
     return x;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -114,8 +107,6 @@ function isTriangle(a,b,c) {
     let sum = a+b+c;
 
     return sum-max>max;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -160,14 +151,8 @@ function doRectanglesOverlap(rect1, rect2) {
     let minEndWidth = Math.min(rectangle1.rightDown[0], rectangle2.rightDown[0]);
     let maxStartHeight = Math.max(rectangle1.leftTop[1], rectangle2.leftTop[1]);
     let minEndHeight = Math.min(rectangle1.rightDown[1], rectangle2.rightDown[1]);
-
-    if (minEndWidth - maxStartWidth <= 0 || minEndHeight - maxStartHeight <= 0) {
-        return false;
-    }
-
-    return true;
-
-    //throw new Error('Not implemented');
+   
+    return minEndWidth - maxStartWidth > 0 && minEndHeight - maxStartHeight > 0;
 }
 
 
@@ -199,13 +184,7 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
 
-    if (Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2) < Math.pow(circle.radius, 2)) {
-        return true;
-    }
-
-    return false;
-
-    //throw new Error('Not implemented');
+    return Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2) < Math.pow(circle.radius, 2);
 }
 
 
@@ -229,8 +208,6 @@ function findFirstSingleChar(str) {
         }
     }
     return null;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -264,19 +241,17 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
 
     if(isStartIncluded){
         x = x.concat("["+z+", ");
-    }else{
+    } else {
         x = x.concat("("+z+", ");
     }
 
     if(isEndIncluded){
         y = y.concat(w+"]");
-    }else{
+    } else {
         y = y.concat(w+")");
     }
 
     return x.concat(y);
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -299,8 +274,6 @@ function reverseString(str) {
         newString += str[i];
     }
     return newString;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -319,8 +292,6 @@ function reverseString(str) {
 function reverseInteger(num) {
 
     return parseFloat(num.toString().split('').reverse().join(''))*Math.sign(num);
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -363,8 +334,6 @@ function isCreditCardNumber(ccn) {
 	}
 
     return (nCheck % 10) === 0;
-    
-    //throw new Error('Not implemented');
 }
 
 
@@ -385,23 +354,20 @@ function isCreditCardNumber(ccn) {
 function getDigitalRoot(num) {
 
     let z = num.toString();
+
     if (z.length === 1) {
         return z;
     }
-    while (z.length > 1) {
 
+    while (z.length > 1) {
         let y = 0;
         for (let i = 0; i < z.length; i++) {
             y += parseInt(z[i]);
         }
         z = y.toString();
-
-
     }
 
     return z;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -445,8 +411,6 @@ function isBracketsBalanced(str) {
     }
 
     return stack.length === 0;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -494,55 +458,57 @@ function timespanToHumanString(startDate, endDate) {
     let result = "";
     let x = endDate - startDate;
 
-    switch (true) {
-        case (x > 0 && x <= 45 * seconds):
-            result = result.concat('a few seconds ago');
-            break;
-        case (x > 45 * seconds && x <= 90 * seconds):
-            result = result.concat('a minute ago');
-            break;
-        case (x > 90 * seconds && x <= 45 * mins):
-            result = result.concat(Math.round((x - 1) / mins));
-            result = result.concat(' minutes ago');
-            break;
-        case (x > 45 * mins && x <= 90 * mins):
-            result = result.concat('an hour ago');
-            break;
-        case (x > 90 * mins && x <= 22 * hours):
-            result = result.concat(Math.round((x - 1) / hours));
-            result = result.concat(' hours ago');
-            break;
-        case (x > 22 * hours && x <= 36 * hours):
-            result = result.concat('a day ago');
-            break;
-        case (x > 36 * hours && x <= 25 * days):
-            result = result.concat(Math.round((x - 1) / days));
-            result = result.concat(' days ago');
-            break;
-        case (x > 25 * days && x <= 45 * days):
-            result = result.concat('a month ago');
-            break;
-        case (x > 25 * days && x <= 345 * days):
-            result = result.concat(Math.round((x - 1) / month));
-            result = result.concat(' months ago');
-            break;
-        case (x > 345 * days && x <= 545 * days):
-            result = result.concat('a year ago');
-            break;
-        case (x > 545 * days):
-            result = result.concat(Math.round((x - 1) / year));
-            result = result.concat(' years ago');
-            break;
-
-
-        default:
-            result = result.concat('a few seconds ago2');
-            break;
+    if (x > 0 && x <= 45 * seconds) {
+        result = result.concat('a few seconds ago');
     }
-    return result;
 
-    //throw new Error('Not implemented');
-}
+    if (x > 45 * seconds && x <= 90 * seconds) {
+        result = result.concat('a minute ago');
+    }
+
+    if (x > 90 * seconds && x <= 45 * mins) {
+        result = result.concat(Math.round((x - 1) / mins));
+        result = result.concat(' minutes ago');
+    }
+
+    if (x > 45 * mins && x <= 90 * mins) {
+        result = result.concat('an hour ago');
+    }
+
+    if (x > 90 * mins && x <= 22 * hours) {
+        result = result.concat(Math.round((x - 1) / hours));
+        result = result.concat(' hours ago');
+    }
+
+    if (x > 22 * hours && x <= 36 * hours) {
+        result = result.concat('a day ago');
+    }
+
+    if (x > 36 * hours && x <= 25 * days) {
+        result = result.concat(Math.round((x - 1) / days));
+        result = result.concat(' days ago');
+    }
+
+    if (x > 25 * days && x <= 45 * days) {
+        result = result.concat('a month ago');
+    }
+
+    if (x > 45 * days && x <= 345 * days) {
+        result = result.concat(Math.round((x - 1) / month));
+        result = result.concat(' months ago');
+    }
+
+    if (x > 345 * days && x <= 545 * days) {
+        result = result.concat('a year ago');
+    }
+
+    if (x > 545 * days) {
+        result = result.concat(Math.round((x - 1) / year));
+        result = result.concat(' years ago');
+    }
+
+    return result;
+}   
 
 
 /**
@@ -567,8 +533,6 @@ function timespanToHumanString(startDate, endDate) {
 function toNaryString(num, n) {
 
     return num.toString(n);
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -586,8 +550,8 @@ function toNaryString(num, n) {
  */
 function getCommonDirectoryPath(pathes) {
 
-    let A = pathes.concat().sort();
-    let a1 = A[0], a2 = A[A.length - 1], L = a1.length, i = 0;
+    let a = pathes.concat().sort();
+    let a1 = a[0], a2 = a[a.length - 1], L = a1.length, i = 0;
     while (i < L && a1.charAt(i) === a2.charAt(i)) {
         i++;
     }
@@ -595,8 +559,6 @@ function getCommonDirectoryPath(pathes) {
     let string = sub.lastIndexOf('/');
 
     return sub.substring(0, string + 1);
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -636,8 +598,6 @@ function getMatrixProduct(m1, m2) {
         }
     }
     return product;
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -678,34 +638,39 @@ function evaluateTicTacToePosition(position) {
     let b0 = position[1][0], b1 = position[1][1], b2 = position[1][2];
     let c0 = position[2][0], c1 = position[2][1], c2 = position[2][2];
 
-    if (a0===a1&&a1===a2){
+    if (a0 === a1 && a1 === a2){
         result = a0;
     }
-    if (b0===b1&&b1===b2){
+    
+    if (b0 === b1 && b1 === b2){
         result = b0;
     }
-    if (c0===c1&&c1===c2){
+
+    if (c0 === c1 && c1 === c2){
         result = c0;
     }
-    if (a0===b0&&b0===c0){
+
+    if (a0 === b0 && b0 === c0){
         result = a0;
     }
-    if (a1===b1&&b1===c1){
+
+    if (a1 === b1 && b1 === c1){
         result = a1;
     }
-    if (a2===b2&&b2===c2){
+
+    if (a2 === b2 && b2 === c2){
         result = a2;
     }
-    if (a0===b1&&b1===c2){
+
+    if (a0 === b1 && b1 === c2){
         result = a0;
     }
-    if (a2===b1&&b1===c0){
+
+    if (a2 === b1 && b1 === c0){
         result = a2;
     }   
                       
-    return result;      
-
-    //throw new Error('Not implemented');
+    return result; 
 }
 
 
