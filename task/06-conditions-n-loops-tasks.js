@@ -53,7 +53,7 @@ function getFizzBuzz(num) {
  */
 function getFactorial(n) {
     let result = 1;
-    while(n){
+    while (n){
         result *= n--;
     }
     return result;
@@ -73,7 +73,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    var result = 0;
+    let result = 0;
 
     for (let i = n1; i <= n2; i++)
         result += i;
@@ -275,7 +275,7 @@ function isCreditCardNumber(ccn) {
     return ccn.toString().split('').reverse().map((value, ind) => { 
         if (ind % 2 !== 0) {
             
-            if(2 * value > 9){
+            if (2 * value > 9){
                 return 2 * value - 9;
             }
             return 2 * value;
@@ -331,14 +331,14 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    var stack = [],
+    let stack = [],
         open = ['[', '(', '{', '<'],
         close = [']', ')', '}', '>'];
     
-    for(let i = 0; i < str.length; i++){
+    for (let i = 0; i < str.length; i++){
         let comparer = str[i];
 
-        if(open.indexOf(comparer) !== -1){
+        if (open.indexOf(comparer) !== -1){
             stack.push(comparer);
             continue;
         }
@@ -479,7 +479,7 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    var result = [];
+    let result = [];
     for (let i = 0; i < m1.length; i++) {
         result[i] = [];
         for (let j = 0; j < m2[i].length; j++) {
