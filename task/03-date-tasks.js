@@ -24,8 +24,6 @@
 function parseDataFromRfc2822(value) {
 
    return Date.parse(value);
-
-   //throw new Error('Not implemented');
 }
 
 /**
@@ -42,8 +40,6 @@ function parseDataFromRfc2822(value) {
 function parseDataFromIso8601(value) {
 
    return Date.parse(value);
-
-   //hrow new Error('Not implemented');
 }
 
 
@@ -73,8 +69,6 @@ function isLeapYear(date) {
    }
 
    return false;
-
-   //throw new Error('Not implemented');
 }
 
 
@@ -109,8 +103,6 @@ function timeSpanToString(startDate, endDate) {
    }
    
    return x+y;
-
-   //throw new Error('Not implemented');
 }
 
 
@@ -140,8 +132,6 @@ function angleBetweenClockHands(date) {
    let angleBetweenClockHands = angle * Math.PI / 180;
 
    return angleBetweenClockHands;
-
-   //throw new Error('Not implemented');
 }
 
 

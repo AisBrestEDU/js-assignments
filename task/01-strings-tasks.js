@@ -23,9 +23,7 @@
  */
 function concatenateStrings(value1, value2) {
 
-    return value1+value2;
-
-    //throw new Error('Not implemented');
+    return value1 + value2;    
 }
 
 
@@ -42,9 +40,7 @@ function concatenateStrings(value1, value2) {
  */
 function getStringLength(value) {
 
-    return value.length;
-
-    //throw new Error('Not implemented');
+    return value.length;    
 }
 
 /**
@@ -62,9 +58,7 @@ function getStringLength(value) {
  */
 function getStringFromTemplate(firstName, lastName) {
 
-    return "Hello, "+firstName+ " "+lastName +"!";
-    
-    //throw new Error('Not implemented');
+    return "Hello, " + firstName + " " + lastName + "!";
 }
 
 /**
@@ -79,10 +73,7 @@ function getStringFromTemplate(firstName, lastName) {
  */
 function extractNameFromTemplate(value) {
 
-    let re = /Hello, (\w+)\s(\w+)!/;
-    return value.replace(re, "$1 $2");
-
-    //throw new Error('Not implemented');
+    return value.replace("Hello, " ,"").replace("!", "");    
 }
 
 
@@ -99,8 +90,6 @@ function extractNameFromTemplate(value) {
 function getFirstChar(value) {
 
     return value.charAt(0);
-
-   //throw new Error('Not implemented');
 }
 
 /**
@@ -117,8 +106,6 @@ function getFirstChar(value) {
 function removeLeadingAndTrailingWhitespaces(value) {
 
     return value.trim();
-
-    //throw new Error('Not implemented');
 }
 
 /**
@@ -132,15 +119,9 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(value, count) {
-
-    let string ="";
-    for(let i = 0; i<count; i++){
-        string = string.concat(value);
-    }
-    return string;
-
-    //throw new Error('Not implemented');
+function repeatString(value, count) {    
+    
+    return value.repeat(count); 
 }
 
 /**
@@ -157,13 +138,7 @@ function repeatString(value, count) {
  */
 function removeFirstOccurrences(str, value) {
 
-    let index = str.indexOf(value);
-	if (index === -1) {
-		return str;
-	}
-    return str.slice(0, index) + str.slice(index + value.length);
-    
-    //throw new Error('Not implemented');
+    return str.replace(value, "")
 }
 
 /**
@@ -179,9 +154,7 @@ function removeFirstOccurrences(str, value) {
  */
 function unbracketTag(str) {
 
-    return str.slice(1,-1);
-
-    //throw new Error('Not implemented');
+    return str.slice(1, -1);
 }
 
 
@@ -198,8 +171,6 @@ function unbracketTag(str) {
 function convertToUpperCase(str) {
 
     return str.toUpperCase();
-
-    //throw new Error('Not implemented');
 }
 
 /**
@@ -214,9 +185,7 @@ function convertToUpperCase(str) {
  */
 function extractEmails(str) {
 
-    return str.split(";");    
-     
-    //throw new Error('Not implemented');
+    return str.split(";"); 
 }
 
 /**
@@ -281,13 +250,11 @@ function getRectangleString(width, height) {
                 if (i === width - 1) {
                     str = str.concat("┘\n");
                 }
-
             }
         }
     }
 
-    return str;
-    //throw new Error('Not implemented');
+    return str;   
 }
 
 
@@ -308,9 +275,7 @@ function getRectangleString(width, height) {
  */
 function encodeToRot13(str) {
 
-    return str.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});
-    
-    //throw new Error('Not implemented');
+    return str.replace(/[a-zA-Z]/g, function(c){return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);});
 }
 
 /**
@@ -328,13 +293,7 @@ function encodeToRot13(str) {
  */
 function isString(value) {
 
-    if (typeof value === "string"|| value instanceof String){
-        return true;
-    }
-
-    return false;
-
-    //throw new Error('Not implemented');
+    return typeof value === "string"|| value instanceof String;
 }
 
 
@@ -364,14 +323,12 @@ function isString(value) {
  */
 function getCardId(value) {
 
-    let cards = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+    const cards = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
       'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
       'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
      'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
 
      return cards.indexOf(value);
-     
-   //throw new Error('Not implemented');
 }
 
 
