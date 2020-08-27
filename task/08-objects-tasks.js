@@ -30,10 +30,6 @@ function Rectangle(width, height) {
     Rectangle.prototype.getArea = function () {
         return this.width * this.height;
     }
-
-    return this;
-
-   // throw new Error('Not implemented');
 }
 
 
@@ -50,8 +46,6 @@ function Rectangle(width, height) {
 function getJSON(obj) {
 
     return JSON.stringify(obj);
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -75,8 +69,6 @@ function fromJSON(proto, json) {
     }
 
     return ar; 
-
-   // throw new Error('Not implemented');
 }
 
 
