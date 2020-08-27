@@ -29,9 +29,7 @@ function getComposition(f,g) {
 
     return function(x) {
         return f(g(x));
-      };
-
-    //throw new Error('Not implemented');
+      }
 }
 
 
@@ -56,8 +54,6 @@ function getPowerFunction(exponent) {
     return function(x) {
         return Math.pow(x,exponent);
     }
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -116,14 +112,12 @@ function getPolynom() {
     }
 
     return function (x) {
-        let y = a * Math.pow(x,a) + b * x + c;
-        if(y===0){
+        let y = a * Math.pow(x, a) + b * x + c;
+        if (y === 0) {
             return null;
         }
         return y;
     }
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -144,16 +138,13 @@ function getPolynom() {
 function memoize(func) {
 
     let memory = null;
-    return function(arg){
-        if(memory===null){
-            memory = func(); 
+    return function (arg) {
+        if (memory === null) {
+            memory = func();
             return memory;
-        }
-
-        return memory;        
+        }        
+        return memory;
     }
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -188,8 +179,6 @@ function retry(func, attempts) {
             }
         }
     }
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -231,8 +220,6 @@ function logger(func, logFunc) {
      
         return z;
     }
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -261,8 +248,6 @@ function partialUsingArguments(fn) {
         }
         return fn(...args);
     }
-
-    //throw new Error('Not implemented');
 }
 
 
@@ -282,20 +267,9 @@ function partialUsingArguments(fn) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(startFrom) {
+function getIdGeneratorFunction(startFrom) {     
     
-    let id = startFrom;
-    let bool = false;
-    return function(){
-        if(bool){
-            id++;
-            return id;            
-        }
-        bool = true;
-        return id;        
-    }
-
-    //throw new Error('Not implemented');
+    return () => startFrom++;
 }
 
 
