@@ -33,26 +33,21 @@
  *
  */
 function* get99BottlesOfBeer() {
-    var count = 99;
-    var firstLine = `${count} bottles of beer on the wall, ${count} bottles of beer. `;
-    var secondLine = `Take one down and pass it around, ${count} bottles of beer on the wall.`;
-    var lastBottle = `${count} bottle of beer on the wall, ${count} bottle of beer.`;
-    var lastLine = `Take one down and pass it around, no more bottles of beer on the wall.`;
-    var noMore = `No more bottles of beer on the wall, no more bottles of beer.`
-    var buyMore = `Go to the store and buy some more, ${count} bottles of beer on the wall.`;
-
-    while(count > 1){
-        yield firstLine;
-        count--;
-        yield secondLine;
+    for (let count = 99; count >= 0; count--) {
+        if (count > 2) {
+            yield(`${count} bottles of beer on the wall, ${count} bottles of beer.`);
+            yield(`Take one down and pass it around, ${count - 1} bottles of beer on the wall.`);
+        } else if (count === 2) {
+                yield(`${count} bottles of beer on the wall, ${count} bottles of beer.`);
+                yield(`Take one down and pass it around, ${count - 1} bottle of beer on the wall.`);
+        } else if (count === 1) {
+            yield(`${count} bottle of beer on the wall, ${count} bottle of beer.`);
+            yield("Take one down and pass it around, no more bottles of beer on the wall.");
+        } else {
+            yield("No more bottles of beer on the wall, no more bottles of beer.");
+            yield("Go to the store and buy some more, 99 bottles of beer on the wall.");
+        }
     }
-    while(count === 1){
-        yield lastBottle;
-        count--;
-        yield lastLine;
-    }
-    yield noMore;
-    yield buyMore;
 }
 
 
@@ -66,7 +61,14 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    var fn1 = 1;
+    var fn2 = 0;
+    while (true) {
+        let current = fn2;
+        fn2 = fn1;
+        fn1 = fn1 + current;
+        yield current;
+    }
 }
 
 
