@@ -52,7 +52,7 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    var result = 1;
+    let result = 1;
     while(n){
         result *= n--;
     }
@@ -75,7 +75,7 @@ function getFactorial(n) {
 function getSumBetweenNumbers(n1, n2) {
     var result = 0;
 
-    for (var i = n1; i <= n2; i++)
+    for (let i = n1; i <= n2; i++)
         result += i;
 
     return result;
@@ -184,7 +184,7 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    for (var i = 0; i < str.length; i++)
+    for (let i = 0; i < str.length; i++)
         if (str.indexOf(str[i]) === i && str.lastIndexOf(str[i]) === i)
             return str[i];
     return null;
@@ -274,11 +274,11 @@ function reverseInteger(num) {
 function isCreditCardNumber(ccn) {
     return ccn.toString().split('').reverse().map((value, ind) => { 
         if (ind % 2 !== 0) {
-            if(2 * value > 9) {
+            
+            if(2 * value > 9){
                 return 2 * value - 9;
-            } else {
-                return  2 * value;
             }
+            return 2 * value;
         }
         return value; 
     }).reduce((acc, val) => Number(acc) + Number(val)) % 10 === 0; 
@@ -303,7 +303,7 @@ function getDigitalRoot(num) {
     while (num > 9){
         num = num.toString().split('').reduce(function(a, b) {
             return Number(a) + Number(b);
-    });
+        });
     }
     return num;
 }
@@ -335,18 +335,18 @@ function isBracketsBalanced(str) {
         open = ['[', '(', '{', '<'],
         close = [']', ')', '}', '>'];
     
-    for(var i = 0; i < str.length; i++){
-        var comparer = str[i];
+    for(let i = 0; i < str.length; i++){
+        let comparer = str[i];
 
-        if( open.indexOf(comparer) !== -1 ){
+        if(open.indexOf(comparer) !== -1){
             stack.push(comparer);
             continue;
         }
 
-        var key = stack.pop();
+        let key = stack.pop();
 
-        if( open.indexOf(key) === close.indexOf(comparer) ){}
-        else return false;
+        if (open.indexOf(key) !== close.indexOf(comparer))
+            return false;
     }
     return stack.length === 0;
 }
@@ -480,11 +480,11 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
     var result = [];
-    for (var i = 0; i < m1.length; i++) {
+    for (let i = 0; i < m1.length; i++) {
         result[i] = [];
-        for (var j = 0; j < m2[i].length; j++) {
+        for (let j = 0; j < m2[i].length; j++) {
             result[i][j] = 0;
-            for (var t = 0; t < m1[i].length; t++)
+            for (let t = 0; t < m1[i].length; t++)
                 result[i][j] += m1[i][t] * m2[t][j];
         }
     }
