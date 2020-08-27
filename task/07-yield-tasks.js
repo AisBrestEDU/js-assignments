@@ -33,7 +33,26 @@
  *
  */
 function* get99BottlesOfBeer() {
-    throw new Error('Not implemented');
+    var count = 99;
+    var firstLine = `${count} bottles of beer on the wall, ${count} bottles of beer. `;
+    var secondLine = `Take one down and pass it around, ${count} bottles of beer on the wall.`;
+    var lastBottle = `${count} bottle of beer on the wall, ${count} bottle of beer.`;
+    var lastLine = `Take one down and pass it around, no more bottles of beer on the wall.`;
+    var noMore = `No more bottles of beer on the wall, no more bottles of beer.`
+    var buyMore = `Go to the store and buy some more, ${count} bottles of beer on the wall.`;
+
+    while(count > 1){
+        yield firstLine;
+        count--;
+        yield secondLine;
+    }
+    while(count === 1){
+        yield lastBottle;
+        count--;
+        yield lastLine;
+    }
+    yield noMore;
+    yield buyMore;
 }
 
 
