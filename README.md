@@ -1,5 +1,5 @@
-[![Brest Rolling Scopes](http://brest.rollingscopes.com/images/logo_rs_text.svg)](http://brest.rollingscopes.com/)
-#Brest Rolling Scopes School
+[![VladSelikh](http://brest.rollingscopes.com/images/logo_rs_text.svg)](http://brest.rollingscopes.com/)
+#VladSelikh School
 ## Javascript Assignments  [![Build Status](https://travis-ci.org/AisBrestEDU/js-assignments.svg?branch=master)](https://travis-ci.org/AisBrestEDU/js-assignments)
 
 Yet another javascript assignments. There are a lot of interactive javascript resources for beginners, but most of them are online and do not cover the modern programming workflow. There are some excellent training resources on github (https://github.com/rmurphey/js-assessment, https://github.com/mrdavidlaing/javascript-koans, https://github.com/vasanthk/js-bits etc) but they are not exactly simulate the everyday programming process. So the motivation of this project is to show TDD process in the wild to the beginners. Assingment tests are implemented in various ways to feel a difference and gain the experience what manner is good, what is bad and what is ugly.
@@ -22,7 +22,7 @@ To start javascript assignments please follow the next steps:
 ### How to setup travis-ci
 * Open [https://travis-ci.org/](https://travis-ci.org/) and sign in with your github account.
 * Activate your forked repo **js-assignments**.
-* Edit local README.md file and update all links (just replace all occurrences of `'AisBrestEDU' or 'rolling-scopes-school'` with your account name).
+* Edit local README.md file and update all links (just replace all occurrences of `'VladSelikh'` with your account name).
 * Commit and push updated README.md to github:
 ```bash
   git add README.md
