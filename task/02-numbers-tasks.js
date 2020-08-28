@@ -140,8 +140,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    let stringValue = value.toString();
-    return Number(stringValue[stringValue.length - 1]);
+    return value % 10;
 }
 
 
@@ -195,24 +194,12 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    let unit = 0;
     let roundedNum = num;
-
-    if (roundedNum % 10 > 4) {
-        unit = 1;
+    function roundingFunction(num, pow) {
+        const tenPowerPow = Math.pow(10, pow);
+        roundedNum = Math.round(num / tenPowerPow) * tenPowerPow;
     }
-
-    switch (pow) {
-        case 1:
-            roundedNum = ((num - (num % 10)) / 10 + unit) * 10;
-            break;
-        case 2:
-            roundedNum = ((num - (num % 100)) / 100 + unit) * 100;
-            break;
-        case 3:
-            roundedNum = ((num - (num % 1000)) / 1000 + unit) * 1000;
-            break;
-    }
+    roundingFunction(roundedNum, pow);
     return roundedNum;
 }
 
@@ -263,7 +250,7 @@ function toNumber(value, def) {
     }
     if (!isNaN(value) && value !== null) {
         return Number(value);
-    } 
+    }
     return def;
 }
 

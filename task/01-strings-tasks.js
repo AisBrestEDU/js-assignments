@@ -213,7 +213,7 @@ function getRectangleString(width, height) {
 
     if (width < 2 || height < 2) {
         return rectangle;
-    } 
+    }
     rectangle += leftTopCorner;
     horizontalFunction();
     rectangle += rightTopCorner + newline;
@@ -340,7 +340,7 @@ function isString(value) {
  */
 function getCardId(value) {
     // Char Cods: A - 65 K - 75 Q - 81 J - 74   ♣ - 9827 ♦ - 9830 ♥ - 9829 ♠ - 9824
-    let cardCode = value.slice(0, value.length - 1);
+    let cardCode = value.slice(0, -1);
     let suitCode = value.charCodeAt(value.length - 1);
     let id;
 
