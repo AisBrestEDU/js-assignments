@@ -77,7 +77,7 @@ function getAverage(value1, value2) {
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
      
-    return Math.sqrt(Math.pow(x1+y2,2) + Math.pow(x2+y1,2));
+    return Math.hypot((x1+y2),(x2+y1));
 }
 
 /**
@@ -119,8 +119,8 @@ function getLinearEquationRoot(a, b) {
 function getAngleBetweenVectors(x1, y1, x2, y2) {
      
     let scalar = x1*x2 + y1*y2;
-    let a = Math.sqrt(Math.pow(x1, 2) + Math.pow(y1, 2))    
-    let b = Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2))  
+    let a = Math.hypot(x1, y1)    
+    let b = Math.hypot(x2, y2)  
     let res = scalar/(a*b);
     if(res === 1)
         return 0;
@@ -143,9 +143,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-     
-    if(value < 10)
-        return value
+    
     return value % 10;
 }
 

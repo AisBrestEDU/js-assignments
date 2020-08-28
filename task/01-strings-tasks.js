@@ -151,10 +151,7 @@ function removeFirstOccurrences(str, value) {
  */
 function unbracketTag(str) {
      
-    return str
-            .replace('<', '')
-            .replace('>', '')
-            .replace('/>', '');
+    return str.slice(1, -1);
 
 }
 
@@ -344,9 +341,7 @@ function getCardId(value) {
     'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
     'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
 
-    let map = new Map();
-    cards.forEach((el, ind) => map.set(el, ind));
-    return map.get(value);
+    return cards.indexOf(value);
 }
 
 

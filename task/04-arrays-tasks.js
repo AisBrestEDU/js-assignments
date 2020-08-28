@@ -59,7 +59,7 @@ function generateOdds(len) {
  */
 function doubleArray(arr) {
     
-   return new Array().concat(arr).concat(arr);
+   return [...arr, ...arr];
 }
 
 
@@ -111,8 +111,7 @@ function getArrayOfStrings(arr) {
 function removeFalsyValues(arr) {
     
    return arr.filter(el => {
-      if(el)
-         return el;
+      return el;
    });
 }
 
@@ -270,8 +269,7 @@ function getMovingSum(arr) {
  */
 function getSecondItems(arr) {
     
-   return arr.filter((v, i) => {
-      return i % 2 !== 0;});
+   return arr.filter((v, i) => i % 2 );
 }
 
 
@@ -389,13 +387,9 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(arr) {
-    
-   if(arr.length === 0)
-      return 0;
-   return arr.reduce((prev, cur) =>{
-      return prev += cur;
-   })
+function getItemsSum(arr) {    
+   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+   return arr.reduce(reducer, 0);
 }
  
 /** 
@@ -650,13 +644,7 @@ function selectMany(arr, childrenSelector) {
  */
 function getElementByIndexes(arr, indexes) {
    //  throw new Error('Not implemented');
-   let len = indexes.length;
-   if(len === 1)
-      return arr[indexes[0]];
-   if(len === 2)
-      return arr[indexes[0]][indexes[1]]
-   if(len === 3)
-      return arr[indexes[0]][indexes[1]][indexes[2]]
+   return indexes.reduce((arr2, i) => arr2[i], arr);
 }
 
 
