@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    return Math.hypot((x2 - x1), (y2 - y1));
 }
 
 /**
@@ -111,7 +111,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    return Math.acos((x1 * x2 + y1 * y2) / (Math.sqrt(x1 ** 2 + y1 ** 2) * Math.sqrt(x2 ** 2 + y2 ** 2)));
+    return Math.acos((x1 * x2 + y1 * y2) / Math.hypot(x1, y1) * Math.hypot(x2, y2));
 }
 
 /**
@@ -159,8 +159,8 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
+function getParallelipidedDiagonal(a, b, c) {
+    return Math.hypot(a, b, c);
 }
 
 /**
@@ -228,7 +228,7 @@ function isPrime(n) {
  */
 function toNumber(value, def) {
     let result = Number(value);
-    return Number.isNaN(result) ? Number(def) : result;
+    return Number.isNaN(result) ? def : result;
 }
 
 module.exports = {

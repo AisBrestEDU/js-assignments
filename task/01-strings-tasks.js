@@ -55,8 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    let hello = 'Hello';
-    return hello.concat(', ' + firstName + ' ' + lastName + '!');
+    return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -202,7 +201,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    return `┌${"─".repeat(width - 2)}┐\n${("│" + " ".repeat(width - 2) +"│\n").repeat(height - 2)}└${"─".repeat(width - 2)}┘\n`;
+    return `┌${"─".repeat(width - 2)}┐\n${("│" + " ".repeat(width - 2) + "│\n").repeat(height - 2)}└${"─".repeat(width - 2)}┘\n`;
 }
 
 
@@ -243,10 +242,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if (typeof value === 'string' || value instanceof String) {
-        return true;
-    }
-    return false;
+    return (typeof value === 'string' || value instanceof String);
 }
 
 
