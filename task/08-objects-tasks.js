@@ -23,7 +23,10 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    
+    this.width = width;
+    this.height = height;
+    Rectangle.prototype.getArea = () => width * height;
 }
 
 
@@ -38,7 +41,8 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    
+    return JSON.stringify(obj);
 }
 
 
@@ -54,7 +58,9 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    
+    let obj = JSON.parse(json);
+    return Object.setPrototypeOf(obj, proto);
 }
 
 
@@ -108,33 +114,80 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
-    element: function(value) {
-        throw new Error('Not implemented');
+
+    
+    result: "",
+
+    element: function (value) {
+        let elem = Object.create(cssSelectorBuilder)
+        this.validation(1)
+        elem.sequince = 1,
+            elem.result = this.result + value
+        return elem
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    
+    id: function (value) {
+        let id = Object.create(cssSelectorBuilder)
+        this.validation(2)
+        id.sequince = 2
+        id.result = `${this.result}#${value}`
+        return id
     },
 
-    class: function(value) {
-        throw new Error('Not implemented');
+    
+    class: function (value) {
+        let selectorClass = Object.create(cssSelectorBuilder)
+        this.validation(3)
+        selectorClass.sequince = 3
+        selectorClass.result = `${this.result}.${value}`
+        return selectorClass
     },
 
-    attr: function(value) {
-        throw new Error('Not implemented');
+    
+    attr: function (value) {
+        let attr = Object.create(cssSelectorBuilder)
+        this.validation(4)
+        attr.sequince = 4
+        attr.result = `${this.result}[${value}]`
+        return attr
     },
 
-    pseudoClass: function(value) {
-        throw new Error('Not implemented');
+    
+    pseudoClass: function (value) {
+        let pClass = Object.create(cssSelectorBuilder)
+        this.validation(5)
+        pClass.sequince = 5
+        pClass.result = `${this.result}:${value}`
+        return pClass
     },
 
-    pseudoElement: function(value) {
-        throw new Error('Not implemented');
+    
+    pseudoElement: function (value) {
+        let pElement = Object.create(cssSelectorBuilder)
+        this.validation(6)
+        pElement.sequince = 6
+        pElement.result = `${this.result}::${value}`
+        return pElement
     },
 
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+    
+    combine: function (selector1, combinator, selector2) {
+        let combineSelector = Object.create(cssSelectorBuilder)
+        combineSelector.result = `${selector1.result} ${combinator} ${selector2.result}`
+        return combineSelector
     },
+    stringify: function () {
+        return this.result;
+    },
+    validation: function (sequince) {
+        if (this.sequince === sequince && (sequince === 1 || sequince === 2 || sequince === 6)) {
+            throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector")
+        }
+        if (this.sequince > sequince) {
+            throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element")
+        }
+    }
 };
 
 
