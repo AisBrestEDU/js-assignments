@@ -77,11 +77,7 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-   let result = [];
-   arr.map(function(elem) {
-      if (elem > 0) result.push(elem);
-   });
-   return result;
+   return arr.fiter(elem => elem > 0);
 }
 
 /**
@@ -96,11 +92,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   let result = [];
-   arr.map(function(elem) {
-      if (typeof elem === "string") result.push(elem);
-   });
-   return result;
+   return arr.filter(elem => typeof elem === "string");
 }
 
 /**
@@ -219,11 +211,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   let result =  arr.map(function(elem, index) {
-      elem = elem.join(',')
-      return elem;
-   });
-   return result.join('\n');
+   return arr.join('\n');
 }
 
 /**
@@ -361,15 +349,15 @@ function getPositivesCount(arr) {
 function sortDigitNamesByNumericOrder(arr) {
    function nameToDigit(str){
       if (str.toLowerCase() === 'zero') return 0;
-      else if (str.toLowerCase() === 'one') return 1;
-      else if (str.toLowerCase() === 'two') return 2;
-      else if (str.toLowerCase() === 'three') return 3;
-      else if (str.toLowerCase() === 'four') return 4;
-      else if (str.toLowerCase() === 'five') return 5;
-      else if (str.toLowerCase() === 'six') return 6;
-      else if (str.toLowerCase() === 'seven') return 7;
-      else if (str.toLowerCase() === 'eight') return 8;
-      else if (str.toLowerCase() === 'nine') return 9;
+      if (str.toLowerCase() === 'one') return 1;
+      if (str.toLowerCase() === 'two') return 2;
+      if (str.toLowerCase() === 'three') return 3;
+      if (str.toLowerCase() === 'four') return 4;
+      if (str.toLowerCase() === 'five') return 5;
+      if (str.toLowerCase() === 'six') return 6;
+      if (str.toLowerCase() === 'seven') return 7;
+      if (str.toLowerCase() === 'eight') return 8;
+      if (str.toLowerCase() === 'nine') return 9;
    }
    return arr.sort((a, b) => nameToDigit(a) - nameToDigit(b));
 }
