@@ -1,4 +1,3 @@
-debugger;
 'use strict';
 
 /********************************************************************************************
@@ -24,7 +23,6 @@ debugger;
  */
 function getRectangleArea(width, height) {
     return width*height;
-    throw new Error('Not implemented');
 }
 
 
@@ -40,9 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-
     return 2*Math.PI*radius;
-    throw new Error('Not implemented');
 }
 
 /**
@@ -58,15 +54,11 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-
-    let c= new Number(value1)+new Number(value2);
-
-    if (c/2 == Infinity){
+    let c = value1 + value2;
+    if (c/2 === Infinity){
         return Number.MAX_VALUE;
     }
     return c/2;
-    
-    throw new Error('Not implemented');
 }
 
 /**
@@ -85,11 +77,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-
-
     return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
-
-    throw new Error('Not implemented');
 }
 
 /**
@@ -106,7 +94,6 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  */
 function getLinearEquationRoot(a, b) {
     return -b/a;
-    throw new Error('Not implemented');
 }
 
 
@@ -129,7 +116,6 @@ function getLinearEquationRoot(a, b) {
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
     return Math.acos((x1*x2+y1*y2)/(Math.sqrt(Math.pow(x1,2)+Math.pow(y1,2)) * Math.sqrt(Math.sqrt(Math.pow(x2,2)+Math.pow(y2,2)))));
-    throw new Error('Not implemented');
 }
 
 /**
@@ -146,7 +132,6 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  */
 function getLastDigit(value) {
     return value%10;
-    throw new Error('Not implemented');
 }
 
 
@@ -163,7 +148,6 @@ function getLastDigit(value) {
  */
 function parseNumberFromString(value) {
     return parseFloat(value);
-    throw new Error('Not implemented');
 }
 
 /**
@@ -180,8 +164,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(Math.pow(a,2) +Math.pow(b,2)+Math.pow(c,2));
-    throw new Error('Not implemented');
+    return Math.sqrt(Math.pow(a,2) + Math.pow(b,2)+Math.pow(c,2));
 }
 
 /**
@@ -202,33 +185,13 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    if (pow==0){
-      /*   return Math.round(num*(Math.pow(10,(-pow)))+"0"); */
-      return num;
+
+    /* попробовать с двойным == */
+    if (pow === 0){
+        return num;
     }
-else{
-
-         return Math.round(num*(Math.pow(10,(-(pow))))) +"0".repeat(pow);
-}
-      /*  /* toString ([система счисления от 2 до 36]) */
-    
-    /*      let str = num.toString(10); 
-        var m =Math.pow(10, pow);
-        var st = Math.round(num*m);
-      return parseFloat(  Math.floor(st + '0')    );  */
-    
-    /*     if (!Math.round10) {
-            Math.round10 = function(num, exp) {
-              return decimalAdjust('round', num, exp);
-            }; 
-    }    */
-    
-    
-        /* parseFloat(строка) */
-
-    
-    throw new Error('Not implemented');
-}
+        return (Math.round(num/Math.pow(10, pow))*(Math.pow(10, pow)));
+  }
 
 /**
  * Returns true is the number is prime; otherwise false.
@@ -248,27 +211,12 @@ else{
  *   17 => true
  */
 function isPrime(n) {
-    
-/*     let check=true, count=2
-    while (count <=n/2){
-        if (n%count===0) 
-         {check = false;
-          break
-         }
-         count++
-    }
-    if (check===true) return true;
-    else return false; */
-
-      for(var i = 2; i <= Math.sqrt(n); i += 1){
+    for(let i = 2; i <= Math.sqrt(n); i += 1){
         if(n % i === 0){
           return false;
         }
-      }
-      return true;
-
-
-    throw new Error('Not implemented');
+    }
+    return true;
 }
 
 /**
@@ -287,12 +235,10 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-        if (parseInt(value)){
-        return parseInt(value)
+    if (parseInt(value)){
+        return parseInt(value);
     } 
-    return def; 
-
-    throw new Error('Not implemented');
+    return def;
 }
 
 module.exports = {
