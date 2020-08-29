@@ -57,7 +57,7 @@ function getFizzBuzz(num) {
 function getFactorial(n) {
      
     let result = 1;
-    for(let i = 1; i <=n; i++){
+    for(let i = 1; i <= n; i++){
         result *= i;
     }
     return result;
@@ -181,7 +181,7 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
      
-    return ( (circle.center.x - point.x)*(circle.center.x - point.x) + (circle.center.y - point.y)*(circle.center.y - point.y) < circle.radius*circle.radius );
+    return ((circle.center.x - point.x) * (circle.center.x - point.x) + (circle.center.y - point.y) * (circle.center.y - point.y) < circle.radius * circle.radius);
 }
 
 
@@ -203,7 +203,7 @@ function findFirstSingleChar(str) {
        let count = 0;
        for(let j = 0; j < str.length; j++){
            if(i !== j){
-               if(str[i]===str[j])
+               if(str[i] === str[j])
                count++;
            }
        }
@@ -399,12 +399,12 @@ function getDigitalRoot(num) {
 function isBracketsBalanced(str) {
      
     let stack = [];
-    let open = ['[','{','(','<'];
-    let close = [']','}',')','>'];
+    let open = ['[', '{', '(', '<'];
+    let close = [']', '}', ')', '>'];
     for(let i = 0; i < str.length; i ++){
         if(open.includes(str[i]))
-            stack.push(open.indexOf(str[i]));
-        else if(close[stack.pop()] !== str[i])
+            stack.push( open.indexOf(str[i]) );
+        else if( close[stack.pop()] !== str[i] )
             return false;
     }
     return stack.length === 0;
@@ -453,28 +453,28 @@ function timespanToHumanString(startDate, endDate) {
 
     let date = endDate.getTime() - startDate.getTime() - 1;
 
-    if(date < 45*sec)
+    if(date < 45 * sec)
         return 'a few seconds ago';
-    else if(45*sec <= date && date < 90*sec)
+    else if(45 * sec <= date && date < 90 * sec)
         return 'a minute ago';
-    else if(90*sec <= date && date < 45*min)
-        return `${Math.round(date/min)} minutes ago`;
-    else if(45*min <= date && date < 90*min)
+    else if(90 * sec <= date && date < 45 * min)
+        return `${Math.round(date / min)} minutes ago`;
+    else if(45 * min <= date && date < 90 * min)
         return 'an hour ago';
-    else if(90*min <= date && date < 22*h)
-        return `${Math.round(date/h)} hours ago`;
-    else if(22*h <= date && date < 36*h)
+    else if(90 * min <= date && date < 22 * h)
+        return `${Math.round(date / h)} hours ago`;
+    else if(22 * h <= date && date < 36 * h)
         return 'a day ago';
-    else if( 26*h <= date && date < 25*d)
-        return `${Math.round(date/d)} days ago`;
-    else if(25*d <= date && date < 45*d)
+    else if( 26 * h <= date && date < 25 * d)
+        return `${Math.round(date / d)} days ago`;
+    else if(25 * d <= date && date < 45 * d)
         return 'a month ago';
-    else if(45*d <= date && date < 345*d)
-        return `${Math.round(date/m)} months ago`;
-    else if(345*d <= date && date < 545*d)
+    else if(45 * d <= date && date < 345 * d)
+        return `${Math.round(date / m)} months ago`;
+    else if(345 * d <= date && date < 545 * d)
         return 'a year ago';
-    else if(546*d<=date)
-        return `${Math.round(date/y)} years ago`;
+    else if(546 * d <= date)
+        return `${Math.round(date / y)} years ago`;
 
 }
 
@@ -499,13 +499,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-     
-    let res = '';
-    while(num >= n){
-        res = num % n + res;
-        num = Math.floor(num/n);        
-    }
-    return (num + res).toString();
+    return num.toString(n);
 }
 
 
@@ -527,9 +521,10 @@ function getCommonDirectoryPath(pathes) {
     let l = String(path).lastIndexOf('/');
     let s = '';
     let b = true;
+    
     for(let i = 0; i <= l; i++){
         for(let j = 0; j < pathes.length; j++){
-            if(path[i] !== pathes[j][i])
+            if( path[i] !== pathes[j][i] )
                 b = false
         }
         if(b)
@@ -537,8 +532,10 @@ function getCommonDirectoryPath(pathes) {
         else
             break;
     }
+
     if(s.lastIndexOf('/') === 0)
         return s[0];
+
     return s;
 }
 
@@ -624,13 +621,16 @@ function evaluateTicTacToePosition(position) {
     if(position[0][0] + position[1][1] + position[2][2]  === 'XXX' || 
         position[0][2] + position[1][1] + position[2][0]  === 'XXX')
         return 'X';
+
     if(position[0][0] + position[1][1] + position[2][2] === '000' || 
         position[0][2] + position[1][1] + position[2][0]  === '000')
         return '0';
+
     for(let i = 0; i < 3; i++){
         if(position[i][0] + position[i][1] + position[i][2]  === 'XXX' ||
             position[0][i] + position[1][i] + position[2][i]  === 'XXX')
             return 'X';
+
         if(position[i][0] + position[i][1] + position[i][2]  === '000' ||
             position[0][i] + position[1][i] + position[2][i]  === '000')
             return '0';
