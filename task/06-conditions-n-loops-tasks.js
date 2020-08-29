@@ -100,11 +100,8 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(a,b,c) {
-     
-    if(a+b>c && a+c>b && b+c>a)
-        return true;
-    return false;
+function isTriangle(a,b,c) {     
+    return (a + b > c && a + c > b && b + c > a);
 }
 
 
@@ -506,10 +503,9 @@ function toNaryString(num, n) {
     let res = '';
     while(num >= n){
         res = num % n + res;
-        num = Math.floor(num/n);
-        
+        num = Math.floor(num/n);        
     }
-    return num + res;
+    return (num + res).toString();
 }
 
 
