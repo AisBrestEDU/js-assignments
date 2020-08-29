@@ -25,9 +25,10 @@
 function Rectangle(width, height) {
     this.width = width;
     this.height = height;
-    Rectangle.prototype.getArea = () => this.width * this.height;
 }
-
+Rectangle.prototype.getArea = function () {
+    return this.width * this.height;
+}
 
 /**
  * Returns the JSON representation of specified object
@@ -164,7 +165,7 @@ class CssSelector {
 
     element(value) {
         this.checkLevel(0);
-        if (this.content.element === undefined) {
+        if (!this.content.element) {
             this.content.element = value;
             return this;
         }
@@ -173,7 +174,7 @@ class CssSelector {
 
     id(value) {
         this.checkLevel(1);
-        if (this.content.id === undefined) {
+        if (!this.content.id) {
             this.content.id = value;
             return this;
         }
@@ -200,7 +201,7 @@ class CssSelector {
 
     pseudoElement(value) {
         this.checkLevel(5);
-        if (this.content.pseudoElement === undefined) {
+        if (!this.content.pseudoElement) {
             this.content.pseudoElement = value;
             return this;
         }
@@ -213,13 +214,13 @@ class CssSelector {
     }
 
     stringify() {
-        return (this.content.element !== undefined ? this.content.element : '') +
-            (this.content.id !== undefined ? '#' + this.content.id : '') +
-            (this.content.classes.length ? '.' + this.content.classes.join('.') : '') +
-            (this.content.attributes.length ? this.content.attributes.map(elem => `[${elem}]`).join('') : '') +
-            (this.content.pseudoClasses.length ? ':' + this.content.pseudoClasses.join(':') : '') +
-            (this.content.pseudoElement !== undefined ? '::' + this.content.pseudoElement : '') +
-            (this.follow.length ? this.follow.map(elem => ` ${elem.combinator} ` + elem.element.stringify()).join('') : '');
+        return (this.content.element || '') +
+            (this.content.id && `#${this.content.id}` || '') +
+            (this.content.classes.length && `.${this.content.classes.join('.')}` || '') +
+            (this.content.attributes.length && `${this.content.attributes.map(elem => `[${elem}]`).join('')}` || '') +
+            (this.content.pseudoClasses.length && `:${this.content.pseudoClasses.join(':')}` || '') +
+            (this.content.pseudoElement && `::${this.content.pseudoElement}` || '') +
+            (this.follow.length && `${this.follow.map(elem => ` ${elem.combinator} ` + elem.element.stringify()).join('')}` || '');
     }
 }
 
