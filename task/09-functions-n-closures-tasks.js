@@ -27,7 +27,7 @@
  */
 function getComposition(f,g) {
     
-    return x => f(g(x));
+    return x => f( g(x) );
 }
 
 
@@ -49,7 +49,7 @@ function getComposition(f,g) {
  */
 function getPowerFunction(exponent) {
   
-    return x => x**exponent;
+    return x => x ** exponent;
 }
 
 
@@ -151,7 +151,7 @@ function retry(func, attempts) {
 function logger(func, logFunc) {
     
     return (...args) => {
-        let argsToString = JSON.stringify(args).slice(1,-1);
+        let argsToString = JSON.stringify(args).slice(1, -1);
         logFunc(func.name + `(${argsToString}) starts`);
         let result = func.apply(this, args);
         logFunc(func.name + `(${argsToString}) ends`);
