@@ -148,7 +148,13 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+    return function () {
+        let log = JSON.stringify(Array.from(arguments)).slice(1, -1);
+        logFunc(`${func.name}(${log}) starts`);
+        let result = func.apply(null, arguments);
+        logFunc(`${func.name}(${log}) ends`);
+        return result;
+    };
 }
 
 
@@ -193,8 +199,7 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    let id = startFrom;
-    return () => id++;
+    return () => startFrom++;
 }
 
 
