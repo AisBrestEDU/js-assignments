@@ -60,7 +60,8 @@ function isLeapYear(date) {
 
     if (date%4 !== 0) {
         return false;
-    } else if (date%100 !== 0) {
+    }
+    if (date%100 !== 0) {
         return true;
     }
     return date % 400 === 0;

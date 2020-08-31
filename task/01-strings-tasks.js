@@ -115,11 +115,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    let res = '';
-    for (let i = 0; i < count; i++) {
-        res = res.concat(value);
-    }
-    return res;
+    return value.repeat(Number(count))
 }
 
 /**
@@ -309,38 +305,13 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    let id = 0;
-    let char;
-    if (value.length < 3) {
-        char = value[1];
-    } else {
-        char = value.slice(2)
-    }
-    switch (char) {
-        case '♦':
-            id += 13;
-            break;
-        case '♥':
-            id += 26;
-            break;
-        case '♠':
-            id += 39;
-            break;
-    }
-    switch (value[0]) {
-        case 'A':
-            return id;
-        case 'J':
-            id += 10;
-            return id;
-        case 'Q':
-            id += 11;
-            return id;
-        case 'K':
-            id += 12;
-            return id;
-    }
-    return Number(value.replace(/[^0-9]/, '')) - 1 + id;
+    let cards = [
+        'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+        'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+        'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+        'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
+    ];
+    return cards.indexOf(value);
 }
 
 
