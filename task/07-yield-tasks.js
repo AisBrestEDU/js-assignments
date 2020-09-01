@@ -35,17 +35,17 @@
 function* get99BottlesOfBeer() {
     for (let count = 99; count >= 0; count--) {
         if (count > 2) {
-            yield(`${count} bottles of beer on the wall, ${count} bottles of beer.`);
-            yield(`Take one down and pass it around, ${count - 1} bottles of beer on the wall.`);
+            yield (`${count} bottles of beer on the wall, ${count} bottles of beer.`);
+            yield (`Take one down and pass it around, ${count - 1} bottles of beer on the wall.`);
         } else if (count === 2) {
-                yield(`${count} bottles of beer on the wall, ${count} bottles of beer.`);
-                yield(`Take one down and pass it around, ${count - 1} bottle of beer on the wall.`);
+                yield (`${count} bottles of beer on the wall, ${count} bottles of beer.`);
+                yield (`Take one down and pass it around, ${count - 1} bottle of beer on the wall.`);
         } else if (count === 1) {
-            yield(`${count} bottle of beer on the wall, ${count} bottle of beer.`);
-            yield("Take one down and pass it around, no more bottles of beer on the wall.");
+            yield (`${count} bottle of beer on the wall, ${count} bottle of beer.`);
+            yield ("Take one down and pass it around, no more bottles of beer on the wall.");
         } else {
-            yield("No more bottles of beer on the wall, no more bottles of beer.");
-            yield("Go to the store and buy some more, 99 bottles of beer on the wall.");
+            yield ("No more bottles of beer on the wall, no more bottles of beer.");
+            yield ("Go to the store and buy some more, 99 bottles of beer on the wall.");
         }
     }
 }
@@ -61,8 +61,8 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    var fn1 = 1;
-    var fn2 = 0;
+    let fn1 = 1,
+        fn2 = 0;
     while (true) {
         let current = fn2;
         fn2 = fn1;
@@ -105,11 +105,11 @@ function* getFibonacciSequence() {
 function* depthTraversalTree(root) {
     let arrNode = new Array(root);
 
-    while(arrNode.length){
+    while (arrNode.length){
         let node = arrNode.pop();
         yield node;
 
-        if(node.children)
+        if (node.children)
             arrNode.push(...node.children.reverse());
     }
 }
@@ -139,10 +139,10 @@ function* depthTraversalTree(root) {
 function* breadthTraversalTree(root) {
     let arrNode = new Array(root);
 
-    for(let node of arrNode){
+    for (let node of arrNode){
         yield node;
 
-        if(node.children)
+        if (node.children)
             arrNode.push(...node.children);
     }
 }
@@ -168,7 +168,7 @@ function* mergeSortedSequences(source1, source2) {
         value2 = src2.next().value;
     
     while (true) {
-        if ( (value1 < value2 || value2 === undefined) && value1 !== undefined) {
+        if ((value1 < value2 || value2 === undefined) && value1 !== undefined) {
             yield value1;
             value1 = src1.next().value;
         } else if (value2 !== undefined){
