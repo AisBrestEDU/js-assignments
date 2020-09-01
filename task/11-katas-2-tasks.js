@@ -45,7 +45,7 @@ function parseBankAccount(bankAccount) {
     let middle = bankAccount.slice(i + 28, i + 31);
     let bottom = bankAccount.slice(i + 56, i + 59);
     for (let j = 0; j < 10; j++) {
-      if (top == numbers.top[j] && middle == numbers.middle[j] && bottom == numbers.bottom[j]) result += j;
+      if (top === numbers.top[j][0] && middle === numbers.middle[j][0] && bottom === numbers.bottom[j][0]) result += j;
     }
   }
   return result;
@@ -82,7 +82,7 @@ function* wrapText(text, columns) {
     text = text.slice(columns);
     while (text && line[line.length - 1] !== ' ' && text[0] !== ' ') {
       text = line[line.length - 1].concat(text);
-      line = line.slice(0, line.length - 1);
+      line = line.slice(0, - 1);
     }
     yield line.trim();
   }
@@ -125,22 +125,22 @@ function getPokerHandRank(hand) {
   let sequence = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
   let storage = {};
 
-  let handRanks = hand.map(x => x.slice(0, x.length - 1)).sort((a, b) => {
-    if (a == b) return 0;
-    if (a == 'A' && b < 8) return -1;
-    if (b == 'A' && a < 8) return 1;
-    if (a == 'A') return 1;
-    if (b == 'A') return -1;
-    if (a == 'K') return 1;
-    if (b == 'K') return -1;
-    if (a == 'Q') return 1;
-    if (b == 'Q') return -1;
-    if (a == 'J') return 1;
-    if (b == 'J') return -1;
+  let handRanks = hand.map(x => x.slice(0, - 1)).sort((a, b) => {
+    if (a === b) return 0;
+    if (a === 'A' && b < 8) return -1;
+    if (b === 'A' && a < 8) return 1;
+    if (a === 'A') return 1;
+    if (b === 'A') return -1;
+    if (a === 'K') return 1;
+    if (b === 'K') return -1;
+    if (a === 'Q') return 1;
+    if (b === 'Q') return -1;
+    if (a === 'J') return 1;
+    if (b === 'J') return -1;
     if (Number(a) > Number(b)) return 1;
     return -1;
   })
-  let handSuits = hand.map(x => x.slice(x.length - 1));
+  let handSuits = hand.map(x => x.slice(- 1));
 
 
   let ind = sequence.indexOf(handRanks[0]);
@@ -159,7 +159,7 @@ function getPokerHandRank(hand) {
   let numOfOccurences = Object.values(storage);
   if (numOfOccurences.includes(4)) return PokerRank.FourOfKind;
   else if (numOfOccurences.includes(3) && numOfOccurences.includes(2)) return PokerRank.FullHouse;
-  else if (numOfOccurences.includes(2) && numOfOccurences.length == 3) return PokerRank.TwoPairs;
+  else if (numOfOccurences.includes(2) && numOfOccurences.length === 3) return PokerRank.TwoPairs;
   else if (numOfOccurences.includes(3)) return PokerRank.ThreeOfKind;
   else if (numOfOccurences.includes(2)) return PokerRank.OnePair;
   else return PokerRank.HighCard;
