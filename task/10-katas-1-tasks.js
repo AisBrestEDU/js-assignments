@@ -190,9 +190,9 @@ function getZigZagMatrix(n) {
     rowCount = 0,
     colCount = 0;
   for (let i = 0; i < result.length * 2; i++) {
-    if (colCount % 2 != 0 && rowCount == 0) {
+    if (colCount % 2 !== 0 && rowCount === 0) {
       while (colCount >= 0) {
-        if (colCount == 0) {
+        if (colCount === 0) {
           result[rowCount][colCount] = num;
           num++;
           break
@@ -200,10 +200,10 @@ function getZigZagMatrix(n) {
         result[rowCount++][colCount--] = num;
         num++;
       }
-      rowCount == result.length - 1 ? colCount++ : rowCount++;
-    } else if (rowCount % 2 == 0 && colCount == 0) {
+      rowCount === result.length - 1 ? colCount++ : rowCount++;
+    } else if (rowCount % 2 === 0 && colCount === 0) {
       while (rowCount >= 0) {
-        if (rowCount == 0) {
+        if (rowCount === 0) {
           result[rowCount][colCount] = num;
           num++;
           break
@@ -211,10 +211,10 @@ function getZigZagMatrix(n) {
         result[rowCount--][colCount++] = num;
         num++;
       }
-      colCount == result.length - 1 ? rowCount++ : colCount++;
-    } else if (colCount == result.length - 1) {
+      colCount === result.length - 1 ? rowCount++ : colCount++;
+    } else if (colCount === result.length - 1) {
       while (rowCount < result.length) {
-        if (rowCount == result.length - 1) {
+        if (rowCount === result.length - 1) {
           result[rowCount][colCount] = num;
           num++;
           break
@@ -223,9 +223,9 @@ function getZigZagMatrix(n) {
         num++;
       }
       colCount++;
-    } else if (rowCount == result.length - 1) {
+    } else if (rowCount === result.length - 1) {
       while (colCount < result.length) {
-        if (colCount == result.length - 1) {
+        if (colCount === result.length - 1) {
           result[rowCount][colCount] = num;
           num++;
           break
@@ -261,7 +261,7 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-  if (dominoes.length == 1) return true;
+  if (dominoes.length === 1) return true;
 
   let cur = dominoes.shift(),
     side1 = cur[0],
@@ -270,21 +270,21 @@ function canDominoesMakeRow(dominoes) {
   for (let i = 0; i < dominoes.length; i++) {
     let nextDominoes = dominoes.slice();
 
-    if (dominoes[i][0] == side2) {
+    if (dominoes[i][0] === side2) {
       nextDominoes.splice(i, 1);
       nextDominoes.unshift(cur.concat(dominoes[i]));
       if (canDominoesMakeRow(nextDominoes)) return true;
-    } else if (dominoes[i][1] == side2) {
+    } else if (dominoes[i][1] === side2) {
       nextDominoes.splice(i, 1);
       nextDominoes.unshift(cur.concat(dominoes[i].reverse()));
       if (canDominoesMakeRow(nextDominoes)) return true;
 
-    } else if (dominoes[i][0] == side1) {
+    } else if (dominoes[i][0] === side1) {
       nextDominoes.splice(i, 1);
       nextDominoes.unshift(dominoes[i].reverse().concat(cur));
 
       if (canDominoesMakeRow(nextDominoes)) return true;
-    } else if (dominoes[i][1] == side2) {
+    } else if (dominoes[i][1] === side2) {
       nextDominoes.splice(i, 1);
       nextDominoes.unshift(dominoes[i].concat(cur));
 
@@ -319,12 +319,12 @@ function extractRanges(nums) {
   nums.push('extra');
   nums.reduce((acc, cur) => {
     if (acc + 1 === cur) return `${acc}-${cur}`;
-    if (typeof acc == 'string' && acc.match(/-/)) {
+    if (typeof acc === 'string' && acc.match(/-/)) {
       let range = acc.split('-').map(x => Number(x));
       if (range[1] + 1 === cur) return `${range[0]}-${cur}`;
       if (range[0] + 1 === range[1]) acc = `${range[0]},${range[1]}`;
     }
-    result += cur == 'extra' ? `${acc}` : `${acc},`;
+    result += cur === 'extra' ? `${acc}` : `${acc},`;
     return cur;
   })
   return result;
