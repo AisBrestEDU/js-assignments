@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow((x1-x2),2) + Math.pow((y1-y2),2));
+    return Math.hypot((x1 - x2),(y1 - y2));
 }
 
 /**
@@ -89,7 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    return (0-b)/a;
+    return (0 - b)/a;
  
 }
 
@@ -112,7 +112,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    return Math.acos((x1*x2 + y1*y2)/(Math.abs(x1+y1)*Math.abs(x2+y2)));
+    return Math.acos((x1 * x2 + y1 * y2)/(Math.abs(x1 + y1) * Math.abs(x2 + y2)));
 
   
 }
@@ -164,7 +164,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(Math.pow(a,2)+ Math.pow(b,2) + Math.pow(c,2));
+    return Math.hypot(a , b , c);
 }
 
 /**
@@ -185,11 +185,8 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    if (pow===0){
-        return num;
-    }
-    return Math.round(num/Math.pow(10,pow)) * Math.pow(10,pow);
-    
+    return Math.round(num / Math.pow(10, pow)) * Math.pow(10, pow);
+   
 }
 
 /**
@@ -211,17 +208,18 @@ function roundToPowerOfTen(num, pow) {
  */
 function isPrime(n) {
     let delimiter = 0;
-    for (let num=2; num<=10; num++){
-        if (n%num===0){
-            if (n!==num){
-                delimiter +=1;
-            }
-            else {
-                continue;
-            }
+
+    for (let num = 2; num < n; num++){
+
+        if (n % num === 0){
+
+            delimiter +=1;
+
         }
+
     }
-    return delimiter===0  ? true  : false;
+
+  return delimiter === 0;
     
 }
 

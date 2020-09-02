@@ -40,7 +40,7 @@ function findElement(arr, value) {
  */
 function generateOdds(len) {
    let arr = new Array(len);
-   return arr.fill(0).map((_,i) => i*2 +1);
+   return arr.fill(0).map((_, i) => i * 2 +1);
 }
 
 
@@ -71,7 +71,7 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-   return arr.filter(i=>i>0);
+   return arr.filter(i => i > 0);
 }
 
 /**
@@ -86,7 +86,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   return arr.filter(i=>typeof i === 'string');
+   return arr.filter(i=> typeof i === 'string');
 }
 
 /**
@@ -103,7 +103,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   return arr.filter(i=>i?i:false);
+   return arr.filter(i => i);
 }
 
 /**
@@ -117,7 +117,7 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-   return arr.map(elem=>elem.toUpperCase());
+   return arr.map(elem => elem.toUpperCase());
 }
 
 
@@ -132,7 +132,7 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-   return arr.map(elem=>elem.length);
+   return arr.map(elem => elem.length);
 }
 
 /**
@@ -176,7 +176,7 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-   return arr.slice(arr.length-n,arr.length);
+   return arr.slice(-n);
 }
 
 
@@ -201,7 +201,8 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) { 
-   return arr.map(elem=>elem.join(',')).join('\n');
+    
+   return arr.join('\n');
 }
 
 /**
@@ -236,7 +237,7 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
    let summ=0;
-   return arr.map(elem=>{summ+=arr[arr.indexOf(elem)];return summ;});
+   return arr.map(elem => {summ += arr[arr.indexOf(elem)]; return summ;});
 }
 
 /**
@@ -252,7 +253,7 @@ function getMovingSum(arr) {
  */
 function getSecondItems(arr) {
    let end_arr = [];
-   arr.map(elem=>{if((arr.indexOf(elem)+1)%2===0) end_arr.push(elem)});
+   arr.map(elem=>{if((arr.indexOf(elem) + 1) % 2 === 0) end_arr.push(elem)});
    return end_arr;
 }
 
@@ -291,7 +292,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   return arr.sort(function(a,b){return b-a}).slice(0,3);
+   return arr.sort(function(a, b){return b - a}).slice(0,3);
 }
  
  
@@ -309,7 +310,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   return arr.filter(elem=>elem>0 && typeof elem==='number').length;
+   return arr.filter(elem => elem > 0 && typeof elem === 'number').length;
   
 }
  
@@ -329,7 +330,7 @@ function getPositivesCount(arr) {
 function sortDigitNamesByNumericOrder(arr) {
    let dict = new Map(Object.entries({'zero':0, 'one':1, 'two':2, 'three':3, 'four':4 ,'five':5, 'six':6, 'seven':7 , 'eight':8, 'nine':9}));
    let vice_dict = new Map(Object.entries({0:'zero', 1:'one', 2:'two', 3:'three', 4:'four' ,5:'five', 6:'six', 7:'seven' , 8:'eight', 9:'nine'}));
-   return arr.map(elem=>dict.get(elem)).sort(function(a,b){return a-b;}).map(elem=>vice_dict.get(elem.toString())) ;
+   return arr.map(elem => dict.get(elem)).sort(function(a, b){return a - b;}).map(elem => vice_dict.get( elem.toString())) ;
    
 }
 
@@ -346,7 +347,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-   return arr.reduce((fisr,next)=>fisr+next, 0) ;
+   return arr.reduce((fisr, next)=>fisr+next, 0) ;
 }
  
 /** 
@@ -362,7 +363,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   return arr.filter(elem=>Boolean(elem)===false).length;
+   return arr.filter(elem=>!elem).length;
 }
 
 /**
@@ -527,8 +528,8 @@ function distinct(arr) {
 function group(array, keySelector, valueSelector) {
    let dict = new Map();
    array.map(each_el => {
-   let arr = new Array();
-   if (dict.get(keySelector(each_el)) === undefined) dict.set(keySelector(each_el), new Array(valueSelector(each_el)));
+   let arr = [];
+   if (!dict.get(keySelector(each_el))) dict.set(keySelector(each_el), new Array(valueSelector(each_el)));
    else {
    arr = dict.get(keySelector(each_el));
    arr.push(valueSelector(each_el));
