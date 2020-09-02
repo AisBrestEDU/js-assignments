@@ -59,8 +59,8 @@ return arr;
  */
 function doubleArray(arr) {
   
-   arr.length = arr.length*2  
- return  arr.copyWithin(arr.length/2,0);
+   arr.length = arr.length * 2  
+ return  arr.copyWithin(arr.length / 2,0);
 }
 
 
@@ -78,7 +78,7 @@ function doubleArray(arr) {
 function getArrayOfPositives(arr) {
   
 
-   let arrBufer =  arr.map(function(item,i,arr){
+   let arrBufer =  arr.map(function(item, i, arr){
        if(item > 0)
        return item;      
    });
@@ -176,7 +176,7 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-  return arr.splice(index, 0,item);
+  return arr.splice(index, 0, item);
 }
 
 /**
@@ -191,7 +191,7 @@ function insertItem(arr, item, index) {
  */
 function getHead(arr, n) {
 
- let a = arr.splice(n,arr.length ) ;
+ let a = arr.splice(n, arr.length ) ;
 
    return  arr;
 }
@@ -250,7 +250,7 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-   return arr.map(x=> x*x);
+   return arr.map(x => x*x);
 }
 
 
@@ -270,7 +270,7 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
    var MYarray = [];
-  arr.reduce(function(a,b,i) { return MYarray[i] = a+ b; },0); 
+  arr.reduce(function(a, b, i) { return MYarray[i] = a + b; }, 0); 
   return MYarray;
 }
 
@@ -288,7 +288,7 @@ function getMovingSum(arr) {
 function getSecondItems(arr) {     
 
  
-   return   arr.filter((x, i) => i%2 === 1);
+   return   arr.filter((x, i) => i % 2 === 1);
 }
 
 /**
@@ -335,7 +335,7 @@ return transform(arr);
  */
 function get3TopItems(arr) {
 
-   return  arr.sort( function (a , b) { return b -a}).slice(0,3) ;
+   return  arr.sort( function (a , b) { return b - a}).slice(0,3) ;
 
 }
  
@@ -397,7 +397,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {   
-   let sum = arr.reduce(function(a , b) { return a+b} , 0) ;     
+   let sum = arr.reduce(function(a , b) { return a + b} , 0) ;     
    return  sum;
 }
  
@@ -489,7 +489,7 @@ function sortCitiesArray(arr) {
       if(a.city < b.city) { return -1; }
    });
    */
-  return arr.sort((l,r)=>l.country !== r.country ? l.country.localeCompare(r.country): l.city.localeCompare(r.city))
+  return arr.sort((l, r) => l.country !== r.country ? l.country.localeCompare(r.country): l.city.localeCompare(r.city))
 }
 
 /**
@@ -514,7 +514,7 @@ function getIdentityMatrix(n) {
  
       return Array(n).fill(0).map(function(elem, i) {
         return Array(n).fill(0).map(function(elem2, j) {
-          return 1 - Math.min(Math.abs(i-j),1);
+          return 1 - Math.min(Math.abs(i-j), 1);
         });
       });
     
@@ -631,7 +631,7 @@ function selectMany(arr, childrenSelector) {
  */
 function getElementByIndexes(arr, indexes) {
 
-   let strInd=indexes.map(elem=>{return `[${elem}]`}).join("");
+   let strInd=indexes.map(elem => {return `[${elem}]`} ).join("");
    
    return eval(`arr${strInd}`);
 }
@@ -657,18 +657,18 @@ function getElementByIndexes(arr, indexes) {
  */
 function swapHeadAndTail(arr) {   
     const arrLength = arr.length;
-    if (arrLength===1) return arr;
-    if (arrLength%2!=0){
+    if (arrLength === 1) return arr;
+    if (arrLength %2 !=0){
        let newArr=[];
-       newArr=newArr.concat(arr.slice(Math.round(arrLength/2)));
-       newArr.push(arr[Math.floor(arrLength/2)]);
-       newArr=newArr.concat(arr.slice(0, Math.floor(arrLength/2)));
+       newArr=newArr.concat(arr.slice(Math.round(arrLength / 2)));
+       newArr.push(arr[Math.floor(arrLengt / 2)]);
+       newArr=newArr.concat(arr.slice(0, Math.floor(arrLength / 2)));
        return newArr;
     }
     else {
        let newArr=[];
-       newArr= newArr.concat(arr.slice(arrLength/2));
-       newArr=newArr.concat(arr.slice(0, arrLength/2));
+       newArr= newArr.concat(arr.slice(arrLength / 2));
+       newArr=newArr.concat(arr.slice(0, arrLength / 2));
        return newArr;
      }
 }
