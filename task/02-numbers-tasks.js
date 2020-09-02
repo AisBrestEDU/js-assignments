@@ -41,7 +41,7 @@ function getRectangleArea(width, height) {
 function getCicleCircumference(radius) {
     //throw new Error('Not implemented');
 
-    return radius*2*3.141592653589793;
+    return radius*2*Math.PI;
 }
 
 /**
@@ -76,13 +76,12 @@ function getAverage(value1, value2) {
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-function getDistanceBetweenPoints(x1, y1, x2, y2) {
- 
-   let one = Math.pow( Math.abs(x1) + Math.abs(x2) , 2);
+function getDistanceBetweenPoints(x1, y1, x2, y2) { 
+  
+  let dig1 = Math.abs(x1) + Math.abs(x2)
+  let dig2 = Math.abs(y1) + Math.abs(y2)   
 
-   let two =  Math.pow(Math.abs(y1) + Math.abs(y2), 2);
-   
- return Math.sqrt(one + two);
+ return Math.hypot(dig1,dig2)
 }
 
 /**
@@ -123,7 +122,7 @@ function getLinearEquationRoot(a, b) {
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {       
   
-  let scalar =  (x1*x2 + y1*y2) / (Math.sqrt( Math.pow(x1, 2) + Math.pow(y1,2)) * (Math.sqrt(Math.pow(x2,2) + Math.pow(y2,2)) ));  
+  let scalar =  (x1*x2 + y1*y2) / Math.hypot(x1,y1) * Math.hypot(x2,y2)
   
   return  Math.acos(scalar);
 }
@@ -141,13 +140,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    //throw new Error('Not implemented');
-
-    while(value>=10)
-    {
-       value= value-10;
-    }
-    return value;
+   
+    return value % 10 
 }
 
 
@@ -204,7 +198,7 @@ function getParallelipidedDiagonal(a,b,c) {
  */
 function roundToPowerOfTen(num, pow) {
     
-    if (pow != 0)
+    if (pow !== 0)
     return Math.round(num / Math.pow(10,pow)) *  Math.pow(10,pow) ;
     else{
         return num;
@@ -236,7 +230,7 @@ function isPrime(n) {
 
   for ( let i = 2; i< n; i++) 
 {
-    if( n % i ==0)
+    if( n % i ===0)
     {
         return false;
     }   
