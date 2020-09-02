@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /********************************************************************************************
  *                                                                                          *
@@ -6,6 +6,8 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String  *
  *                                                                                          *
  ********************************************************************************************/
+
+
 
 /**
  * Returns the result of concatenation of two strings.
@@ -22,6 +24,7 @@
 function concatenateStrings(value1, value2) {
   return value1 + value2;
 }
+
 
 /**
  * Returns the length of given string.
@@ -69,6 +72,7 @@ function extractNameFromTemplate(value) {
   return value.slice(7, -1);
 }
 
+
 /**
  * Returns a first char of the given string.
  *
@@ -115,7 +119,7 @@ function repeatString(value, count) {
 
 /**
  * Remove the first occurrence of string inside another string
- *
+ * 
  * @param {string} str
  * @param {string} value
  * @return {string}
@@ -126,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-  return str.replace(value, "");
+  return str.replace(value, '');
 }
 
 /**
@@ -143,6 +147,7 @@ function removeFirstOccurrences(str, value) {
 function unbracketTag(str) {
   return str.slice(1, -1);
 }
+
 
 /**
  * Converts all characters of the specified string into the upper case
@@ -169,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-  return str.split(";");
+  return str.split(';');
 }
 
 /**
@@ -197,15 +202,16 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
   return (
-    "┌" +
-    "─".repeat(width - 2) +
-    "┐\n" +
-    ("│" + " ".repeat(width - 2) + "│\n").repeat(height - 2) +
-    "└" +
-    "─".repeat(width - 2) +
-    "┘\n"
+    '┌' +
+    '─'.repeat(width - 2) +
+    '┐\n' +
+    ('│' + ' '.repeat(width - 2) + '│\n').repeat(height - 2) +
+    '└' +
+    '─'.repeat(width - 2) +
+    '┘\n'
   );
 }
+
 
 /**
  * Encode specified string with ROT13 cipher
@@ -226,9 +232,9 @@ function encodeToRot13(str) {
   return str.replace(
     /[A-Z]/gi,
     (i) =>
-      "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"[
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(i)
-      ]
+    'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm' [
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(i)
+    ]
   );
 }
 
@@ -246,36 +252,37 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return Object.prototype.toString.call(value) === "[object String]";
+  return Object.prototype.toString.call(value) === '[object String]';
 }
+
 
 /**
  * Returns playid card id.
- *
+ * 
  * Playing cards inittial deck inclides the cards in the following order:
- *
+ * 
  *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
  *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
  *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
  *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
- *
+ * 
  * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
  * Function returns the zero-based index of specified card in the initial deck above.
- *
+ * 
  * @param {string} value
  * @return {number}
  *
  * @example
  *   'A♣' => 0
- *   '2♣' => 1
+ *   '2♣' => 1 
  *   '3♣' => 2
  *     ...
  *   'Q♠' => 50
  *   'K♠' => 51
  */
 function getCardId(value) {
-  let cards = "A♣,2♣,3♣,4♣,5♣,6♣,7♣,8♣,9♣,10♣,J♣,Q♣,K♣,A♦,2♦,3♦,4♦,5♦,6♦,7♦,8♦,9♦,10♦,J♦,Q♦,K♦,A♥,2♥,3♥,4♥,5♥,6♥,7♥,8♥,9♥,10♥,J♥,Q♥,K♥,A♠,2♠,3♠,4♠,5♠,6♠,7♠,8♠,9♠,10♠,J♠,Q♠,K♠".split(
-    ","
+  let cards = 'A♣,2♣,3♣,4♣,5♣,6♣,7♣,8♣,9♣,10♣,J♣,Q♣,K♣,A♦,2♦,3♦,4♦,5♦,6♦,7♦,8♦,9♦,10♦,J♦,Q♦,K♦,A♥,2♥,3♥,4♥,5♥,6♥,7♥,8♥,9♥,10♥,J♥,Q♥,K♥,A♠,2♠,3♠,4♠,5♠,6♠,7♠,8♠,9♠,10♠,J♠,Q♠,K♠'.split(
+    ','
   );
 
   for (let i = 0; i < cards.length; i++) {
@@ -284,6 +291,7 @@ function getCardId(value) {
     }
   }
 }
+
 
 module.exports = {
   concatenateStrings: concatenateStrings,
@@ -300,5 +308,5 @@ module.exports = {
   getRectangleString: getRectangleString,
   encodeToRot13: encodeToRot13,
   isString: isString,
-  getCardId: getCardId,
+  getCardId: getCardId
 };

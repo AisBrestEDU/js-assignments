@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /********************************************************************************************
  *                                                                                          *
@@ -7,6 +7,7 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date    *
  *                                                                                          *
  ********************************************************************************************/
+
 
 /**
  * Parses a rfc2822 string date representation into date value
@@ -39,6 +40,7 @@ function parseDataFromIso8601(value) {
    return new Date(value);
 }
 
+
 /**
  * Returns true if specified date is leap year and false otherwise
  * Please find algorithm here: https://en.wikipedia.org/wiki/Leap_year#Algorithm
@@ -56,6 +58,7 @@ function parseDataFromIso8601(value) {
 function isLeapYear(date) {
    return new Date(date.getFullYear(), 1, 29).getMonth() == 1;
 }
+
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -76,10 +79,11 @@ function timeSpanToString(startDate, endDate) {
    return new Date(endDate - startDate).toISOString().slice(11, -1);
 }
 
+
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- *
+ * 
  * @param {date} date
  * @return {number}
  *
@@ -97,14 +101,14 @@ function angleBetweenClockHands(date) {
    if (angle > 180) {
       angle = 360 - angle;
    }
-
    return (angle / 180) * Math.PI;
 }
+
 
 module.exports = {
    parseDataFromRfc2822: parseDataFromRfc2822,
    parseDataFromIso8601: parseDataFromIso8601,
    isLeapYear: isLeapYear,
    timeSpanToString: timeSpanToString,
-   angleBetweenClockHands: angleBetweenClockHands,
+   angleBetweenClockHands: angleBetweenClockHands
 };

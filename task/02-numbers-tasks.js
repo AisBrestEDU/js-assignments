@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /********************************************************************************************
  *                                                                                          *
@@ -8,6 +8,7 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math    *
  *                                                                                          *
  ********************************************************************************************/
+
 
 /**
  * Returns an area of a rectangle given by width and heigth.
@@ -23,6 +24,7 @@
 function getRectangleArea(width, height) {
   return width * height;
 }
+
 
 /**
  * Returns a circumference of circle given by radius.
@@ -93,6 +95,7 @@ function getLinearEquationRoot(a, b) {
   return -b / a;
 }
 
+
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi, coordinates in Cartesian plane
  * See details https://en.wikipedia.org/wiki/Euclidean_vector#Representations
@@ -114,7 +117,6 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
   return Math.abs(Math.atan2(y2, x2) - Math.atan2(y1, x1));
 }
 
-
 /**
  * Returns a last digit of a integer number.
  *
@@ -128,9 +130,10 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  let a = value + "";
+  let a = value + '';
   return a.substr(-1);
 }
+
 
 /**
  * Returns a number by given string representation.
@@ -171,7 +174,7 @@ function getParallelipidedDiagonal(a, b, c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *
+ *  
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -193,7 +196,7 @@ function roundToPowerOfTen(num, pow) {
  *
  * @param {number} n
  * @return {bool}
- *
+ * 
  * @example:
  *   4 => false
  *   5 => true
@@ -244,5 +247,5 @@ module.exports = {
   getParallelipidedDiagonal: getParallelipidedDiagonal,
   roundToPowerOfTen: roundToPowerOfTen,
   isPrime: isPrime,
-  toNumber: toNumber,
+  toNumber: toNumber
 };
