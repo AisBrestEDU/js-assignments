@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width*height;
+    return width * height;
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return 2*Math.PI*radius;
+    return 2 * Math.PI * radius;
 }
 
 /**
@@ -55,7 +55,7 @@ function getCicleCircumference(radius) {
  */
 function getAverage(value1, value2) {
     let c = value1 + value2;
-    if (c/2 === Infinity){
+    if (c/2 === Infinity) {
         return Number.MAX_VALUE;
     }
     return c/2;
@@ -77,7 +77,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
+    return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
 }
 
 /**
@@ -116,7 +116,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    return Math.acos((x1*x2+y1*y2)/(Math.sqrt(Math.pow(x1,2)+Math.pow(y1,2)) * Math.sqrt(Math.sqrt(Math.pow(x2,2)+Math.pow(y2,2)))));
+    return Math.acos((x1 * x2 + y1 * y2) / (Math.sqrt(Math.pow(x1, 2) + Math.pow( y1, 2)) * Math.sqrt(Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2)))));
 }
 
 /**
@@ -165,7 +165,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(Math.pow(a,2) + Math.pow(b,2)+Math.pow(c,2));
+    return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2));
 }
 
 /**
@@ -186,13 +186,11 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-
-    /* попробовать с двойным == */
-    if (pow === 0){
+    if (pow === 0) {
         return num;
     }
-        return (Math.round(num/Math.pow(10, pow))*(Math.pow(10, pow)));
-  }
+    return (Math.round(num / Math.pow(10, pow)) * (Math.pow(10, pow)));
+}
 
 /**
  * Returns true is the number is prime; otherwise false.
@@ -212,8 +210,8 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    for(let i = 2; i <= Math.sqrt(n); i += 1){
-        if(n % i === 0){
+    for (let i = 2; i <= Math.sqrt(n); i += 1) {
+        if (n % i === 0) {
           return false;
         }
     }
@@ -236,7 +234,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (parseInt(value)){
+    if (parseInt(value)) {
         return parseInt(value);
     } 
     return def;

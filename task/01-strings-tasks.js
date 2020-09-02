@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    return `Hello,`+ " " + firstName + " " +lastName + `!`;
+    return `Hello,` + " " + firstName + " " + lastName + `!`;
 }
 
 /**
@@ -148,7 +148,7 @@ function removeFirstOccurrences(str, value) {
  */
 function unbracketTag(str) {
     return str.replace(/[<>]/g, '');
-    }
+}
 
 
 /**
@@ -203,8 +203,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let string = '┌'+('─'.repeat(width-2))+'┐\n'+ (('│'+' '.repeat(width-2)+'│\n').repeat(height-2)) +'└'+'─'.repeat(width-2)+'┘\n';
-    return string;
+    return '┌' + ('─'.repeat(width - 2)) + '┐\n' + (('│' + ' '.repeat(width - 2) + '│\n').repeat(height - 2)) + '└' + '─'.repeat(width - 2) + '┘\n';
 }
 
 
@@ -224,11 +223,10 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  return str.replace(/[A-Za-z]/g, function (c) {
-    return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(
-           "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(c)
-           );
-        } );
+    return str.replace(/[A-Za-z]/g, function(c) {
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(
+            "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(c));
+        });
 }
 
 /**
@@ -245,10 +243,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    if ( value && typeof(value.valueOf()) === ('string' ) ){
-        return true;
-    }
-    return false;
+    return Boolean(value && typeof(value.valueOf()) === 'string');
 }
 
 

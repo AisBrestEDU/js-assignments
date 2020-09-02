@@ -56,13 +56,13 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   if(date.getFullYear()%4 !==0){
+   if (date.getFullYear() % 4 !== 0) {
       return false;
    }
-   else if(date.getFullYear()%100 !==0){
+   else if (date.getFullYear() % 100 !== 0) {
       return true;
    }
-   else if(date.getFullYear()%400 !==0){
+   else if (date.getFullYear() % 400 !== 0) {
       return false;
    }
    return true;
@@ -87,29 +87,29 @@ function isLeapYear(date) {
 function timeSpanToString(startDate, endDate) {
    let time = endDate - startDate;
    let milsec = parseInt(time % 1000);
-   let sec = Math.floor((time /1000) % 60);
-   let min = Math.floor((time /(1000*60))%60);
-   let hours = Math.floor((time / (1000*60*60)) %24);
+   let sec = Math.floor((time / 1000) % 60);
+   let min = Math.floor((time / (1000 * 60)) % 60);
+   let hours = Math.floor((time / (1000 * 60 * 60)) % 24);
 
-   if(startDate.getDay()!== endDate.getDay()){
-      hours = hours+24;
+   if (startDate.getDay() !== endDate.getDay()){
+      hours = hours + 24;
    }
-   if(hours <10){
+   if (hours < 10) {
        hours = "0" + hours;
    }
-   if(min<10){
+   if (min < 10) {
       min = "0" + min;
    }
-   if(sec<10){
+   if (sec < 10) {
       sec = "0" + sec;
    }
-   if(milsec < 10){
+   if (milsec < 10) {
       "0" + milsec;
    }
-   if(milsec < 100){
+   if (milsec < 100) {
       milsec =  "00" + milsec;
    }
-   return hours + ":"  + min + ":" + sec + "." + milsec;
+   return hours + ":" + min + ":" + sec + "." + milsec;
 }
 
 
@@ -130,7 +130,8 @@ function angleBetweenClockHands(date) {
    const hours = date.getUTCHours() % 12;
    const minutes = date.getUTCMinutes();
    let angle = Math.abs(0.5 * (60 * hours - 11 * minutes));
-   if(angle > 180) {
+
+   if (angle > 180) {
       angle = 360 - angle;
    }
 return (angle / 180) * Math.PI;
