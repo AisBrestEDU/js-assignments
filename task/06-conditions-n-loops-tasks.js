@@ -31,9 +31,9 @@
  */
 function getFizzBuzz(num) {
 
-    if(num %5 == 0 & num %3 ==0)return 'FizzBuzz' ;
-    else if(num %3 ==0)         return 'Fizz';  
-    else if(num %5 == 0)       return 'Buzz' ;
+    if(num %5 === 0 & num %3 ===0)return 'FizzBuzz' ;
+    else if(num %3 ===0)         return 'Fizz';  
+    else if(num %5 === 0)       return 'Buzz' ;
     return num; 
   
     
@@ -245,12 +245,10 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    let buffer= '';
-    for( let i = str.length -1; i>=0; i--)
-    {
-    buffer +=str[i];
-    }
-    return buffer;
+    let buffer= Array.from(str)    
+
+    return  buffer.reverse().join("") 
+
 }
 
 
@@ -267,13 +265,10 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    let reverse=[];
-    let buffer = num.toString();
-    for( let i = buffer.length -1; i>=0; i--)
-    {
-        reverse +=buffer[i];
-    }
-    return reverse;
+    let buffer = Array.from(num.toString())
+   
+    return buffer.reverse().join("");
+
 
 }
 
