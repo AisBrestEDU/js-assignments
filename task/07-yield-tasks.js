@@ -226,6 +226,7 @@ function async(generator) {
     }
     return Resolve(result);
 
+}
 
 
 module.exports = {
