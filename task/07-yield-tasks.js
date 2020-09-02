@@ -111,12 +111,12 @@ function* depthTraversalTree(root) {
     stack.push(root);
 
     while (stack.length > 0)  {        
-        let node = stack.pop()
+        let node = stack.pop();
         yield node;
         let leng = node.children ? node.children.length : 0;
 
         for (let i = leng - 1; i >= 0; i--) {
-            stack.push(node.children[i]) ;           
+            stack.push(node.children[i]);           
         }        
     } 
 
@@ -146,14 +146,15 @@ function* depthTraversalTree(root) {
  */
 function* breadthTraversalTree(root) {
   let stack = [];
-  stack.push(root)
+  stack.push(root);
   let i  = 0;
 
   while (stack.length !== i)  {
-      let node = stack[i++]
-      yield node
-      for (let childNode of node.children || [])   {
-        stack.push(childNode) ;
+      let node = stack[i++];
+      yield node;
+      
+      for (let childNode of node.children || [] )  {
+        stack.push(childNode);
       }
 
   }
@@ -209,8 +210,8 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    let iterator = generator()
-    let result = iterator.next()
+    let iterator = generator();
+    let result = iterator.next();
 
     function Resolve(res) {
         if (res.done) {
