@@ -247,8 +247,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
 function reverseString(str) {
     let buffer= Array.from(str)    
 
-    return  buffer.reverse().join("") 
-
+    return  buffer.reverse().join("")    
 }
 
 
