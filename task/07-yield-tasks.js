@@ -33,7 +33,7 @@
  *
  */
 function* get99BottlesOfBeer() {
-    let count = 99
+    let count = 99;
     while (count > 0) {
         let bottle = count === 1 ? 'bottle' : 'bottles'
         yield `${count} bottles of beer on the wall, ${count} ${bottle} of beer.`
@@ -65,7 +65,8 @@ function* getFibonacciSequence() {
     let current = 1;
     yield prev;
     yield current;
-    while(true){
+    
+    while (true){
         let sum = prev + current;
         yield sum;
         prev = current;
@@ -109,14 +110,13 @@ function* depthTraversalTree(root) {
     let stack = [];
     stack.push(root);
 
-    while(stack.length > 0)
-    {
+    while (stack.length > 0)  {        
         let node = stack.pop()
         yield node;
-        let leng = node.children ?node.children.length : 0;
-        for (let i = leng -1; i >=0; i--) {
-            stack.push(node.children[i])
-            
+        let leng = node.children ? node.children.length : 0;
+
+        for (let i = leng - 1; i >= 0; i--) {
+            stack.push(node.children[i]) ;           
         }        
     } 
 
@@ -149,13 +149,11 @@ function* breadthTraversalTree(root) {
   stack.push(root)
   let i  = 0;
 
-  while(stack.length !== i)
-  {
+  while (stack.length !== i)  {
       let node = stack[i++]
       yield node
-      for(let childNode of node.children || [])
-      {
-        stack.push(childNode)
+      for (let childNode of node.children || [])   {
+        stack.push(childNode) ;
       }
 
   }
@@ -181,13 +179,13 @@ function* mergeSortedSequences(source1, source2) {
     let r1 = s1.next();
     let r2 = s2.next();
 
-    while(true) {
-        if(r2.done || r1.value < r2.value) {
+    while (true) {
+        if (r2.done || r1.value < r2.value) {
             yield r1.value;
             r1 = s1.next();
         }
 
-        if(r1.done || r1.value > r2.value) {
+        if (r1.done || r1.value > r2.value) {
             yield r2.value;
             r2 = s2.next();
         }
