@@ -122,7 +122,7 @@ function isTriangle(a,b,c) {
  *
  * @param {object} rect1
  * @param {object} rect2
- * @return {bool}
+ * @return {boolean|boolean}
  *
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
@@ -135,10 +135,7 @@ function isTriangle(a,b,c) {
 function doRectanglesOverlap(rect1, rect2) {
     let top1 = rect1.top + rect1.height;
     let left1 = rect1.left + rect1.width;
-    if (rect2.top < top1 && rect2.left < left1) {
-        return true;
-    }
-    return false;
+    return (rect2.top < top1 && rect2.left < left1);
 }
 
 
