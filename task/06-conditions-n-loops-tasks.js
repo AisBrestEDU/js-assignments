@@ -31,10 +31,10 @@
  */
 function getFizzBuzz(num) {
     let res = '';
-    if (num%3 === 0) {
+    if (num % 3 === 0) {
         res += 'Fizz';
     }
-    if (num%5 === 0) {
+    if (num % 5 === 0) {
         res += 'Buzz';
     }
     return res || num;
@@ -87,7 +87,7 @@ function getSumBetweenNumbers(n1, n2) {
  * @param {number} a
  * @param {number} b
  * @param {number} c
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   1,2,3    =>  false
@@ -96,10 +96,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if ((a + b > c) && (b + c > a) && (a + c > b)) {
-        return true;
-    }
-    return false;
+    return (a + b > c) && (b + c > a) && (a + c > b);
 }
 
 
@@ -244,9 +241,11 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
     }
     if (isStartIncluded && isEndIncluded) {
         return `[${a}, ${b}]`;
-    } else if (!isStartIncluded && isEndIncluded) {
+    }
+    if (!isStartIncluded && isEndIncluded) {
         return `(${a}, ${b}]`;
-    } else if (isStartIncluded && !isEndIncluded) {
+    }
+    if (isStartIncluded && !isEndIncluded) {
         return `[${a}, ${b})`;
     }
     return `(${a}, ${b})`;
@@ -332,7 +331,7 @@ function isCreditCardNumber(ccn) {
         }
         sum += arr[i]
     }
-    return sum%10 === 0;
+    return sum % 10 === 0;
 }
 
 
@@ -447,25 +446,35 @@ function timespanToHumanString(startDate, endDate) {
     let yearsDiff = Math.round(daysDiff / 365);
     if (secondsDiff <= 45) {
         return `a few seconds ago`;
-    } else if (secondsDiff <= 90) {
+    }
+    if (secondsDiff <= 90) {
         return `a minute ago`;
-    } else if (secondsDiff <= 2700) {
+    }
+    if (secondsDiff <= 2700) {
         return `${minutesDiff} minutes ago`;
-    } else if (secondsDiff <= 5400) {
+    }
+    if (secondsDiff <= 5400) {
         return `an hour ago`;
-    } else if (secondsDiff <= 79200) {
+    }
+    if (secondsDiff <= 79200) {
         return `${hoursDiff} hours ago`;
-    } else if (secondsDiff <= 129600) {
+    }
+    if (secondsDiff <= 129600) {
         return `a day ago`;
-    } else if (secondsDiff <= 2.16e+6) {
+    }
+    if (secondsDiff <= 2.16e+6) {
         return `${daysDiff} days ago`;
-    } else if (secondsDiff <= 3.888e+6) {
+    }
+    if (secondsDiff <= 3.888e+6) {
         return `a month ago`;
-    } else if (secondsDiff <= 2.981e+7) {
+    }
+    if (secondsDiff <= 2.981e+7) {
         return `${monthsDiff} months ago`;
-    } else if (secondsDiff <= 4.709e+7) {
+    }
+    if (secondsDiff <= 4.709e+7) {
         return `a year ago`;
-    } else if (secondsDiff <= 6.307e+8) {
+    }
+    if (secondsDiff <= 6.307e+8) {
         return `${yearsDiff} years ago`;
     }
 }
