@@ -32,17 +32,6 @@
 function getFizzBuzz(num) {
     //throw new Error('Not implemented');
     let str = '';
-	
-	/*if(num % 3 === 0 && num % 5 === 0){
-        str = 'FizzBuzz';
-    }
-    else if(num % 3 === 0){
-        str = 'Fizz';
-    }
-    else if(num % 5 === 0){
-        str = 'Buzz';
-    }
-    else str = num;*/
 
     if(num % 3 === 0){
         str = 'Fizz';
@@ -74,7 +63,6 @@ function getFactorial(n) {
 
     for (let i = 1; i <= n; i++){
         res = res * i;
-        //res *= i;
     }
 
     return res;
@@ -120,10 +108,7 @@ function getSumBetweenNumbers(n1, n2) {
  */
 function isTriangle(a,b,c) {
     //throw new Error('Not implemented');
-    if(c < a + b && a < b + c && b < a + c){
-        return true;
-    }
-    else return false;
+    return (c < a + b) && (a < b + c) && (b < a + c);
 }
 
 
@@ -161,11 +146,8 @@ function isTriangle(a,b,c) {
  */
 function doRectanglesOverlap(rect1, rect2) {
     //throw new Error('Not implemented');
-    if((rect1.left + rect1.width) < rect2.left || (rect2.left + rect2.width) < rect1.left ||
-        (rect1.top + rect1.height) < rect2.top || (rect2.top + rect2.height) < rect1.top){
-        return false;
-    }
-    else return true;
+    return ((rect1.left + rect1.width) > rect2.left && (rect2.left + rect2.width) > rect1.left &&
+        (rect1.top + rect1.height) > rect2.top && (rect2.top + rect2.height) > rect1.top);
 }
 
 
@@ -198,12 +180,7 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
     //throw new Error('Not implemented');
-    //if((point.x - circle.center.x) * (point.x - circle.center.x) + (point.y - circle.center.y) * (point.y - circle.center.y) < (circle.radius * circle.radius))
-    
-    if ( Math.hypot( (point.x - circle.center.x), (point.y - circle.center.y) ) < circle.radius ){
-        return true;
-    }
-    else return false;
+    return Math.hypot((point.x - circle.center.x),(point.y - circle.center.y)) < circle.radius;
 }
 
 
@@ -252,21 +229,6 @@ function findFirstSingleChar(str) {
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
     //throw new Error('Not implemented');
     let res = '';
-    /*if(isStartIncluded){
-        res += '[';
-    }
-    else res += '(';
-
-    if(a < b){
-        res += a + ', ' + b;
-    }
-    else res += b + ', ' + a;
-
-    if(isEndIncluded){
-        res += ']';
-    }
-    else res += ')';*/
-
     res += isStartIncluded ? '[' : '(';
 	res += a < b ? a +", "+ b : b +", "+ a;
 	res += isEndIncluded ? ']' : ')';
@@ -335,11 +297,11 @@ function isCreditCardNumber(ccn) {
     let str = ccn.toString();
     let sum = Number(str[str.length -1]);
 
-	for (let i = 0; i < str.length-1; i++) {
+	for (let i = 0; i < str.length-1; i++){
         let digit = Number(str[i])
-        if( (i % 2) === (str.length % 2) ) {
+        if((i % 2) === (str.length % 2)){
             digit = digit * 2;
-			if( digit > 9 )
+			if(digit > 9)
 				digit = digit - 9; 
 		}
 		sum = sum + digit;
@@ -423,9 +385,7 @@ function isBracketsBalanced(str) {
 			}
 		}
 	}
-	if(leftArr.length != 0)
-		return false;
-	return true;
+    return leftArr.length === 0;
 }
 
 
@@ -466,33 +426,34 @@ function timespanToHumanString(startDate, endDate) {
 	let seconds = milliseconds / 1000;
 	let minutes = seconds / 60;
 	let hours = minutes / 60;
-	let days = hours / 24;
-	//let days = Math.trunc(period/(1000*60*60*24));
+    let days = hours / 24;
+    let res = '';
 	
 	if( days > 545 ) {
 		let years = Math.round(days / 365);
-		return years + " years ago";
-	} else if (days > 345 && days <= 545)
-		return "a year ago";
+		res = years + " years ago";
+    } else if (days > 345 && days <= 545)
+        res = "a year ago";
 	else if( days > 45 && days <= 345 ) {
 		let month = Math.round(days / 30.3);
-		return month + " months ago";
+		res = month + " months ago";
 	} else  if( days > 25 && days <= 45 )
-		return "a month ago";
+		res = "a month ago";
 	else if( hours > 36 && days <= 25 ) 
-		return  Math.round((milliseconds - 1)/24/60/60/1000) + " days ago";
+        res =  Math.round((milliseconds - 1)/24/60/60/1000) + " days ago";
 	else if( hours > 22 && days <= 36 )
-		return "a day ago";
+        res = "a day ago";
 	else if( minutes > 90 && hours <= 22 ) 
-		return  Math.round((milliseconds - 1)/60/60/1000) + " hours ago";
+        res =  Math.round((milliseconds - 1)/60/60/1000) + " hours ago";
 	else if( minutes > 45 && minutes <= 90 )
-		return "an hour ago";
+        res = "an hour ago";
 	else if( seconds > 90 && minutes <= 45 ) 
-		return  Math.round((milliseconds - 1)/60/1000) + " minutes ago";
+        res =  Math.round((milliseconds - 1)/60/1000) + " minutes ago";
 	else if( seconds > 45 && seconds <= 90 )
-		return "a minute ago";
+        res = "a minute ago";
 	else
-		return "a few seconds ago";
+        res = "a few seconds ago";
+    return res;
 }
 
     
@@ -589,18 +550,15 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
   //throw new Error('Not implemented');
-    let r_m1 = m1.length, c_m1 = m1[0].length;
+    let r_m1 = m1.length;
     let r_m2 = m2.length, c_m2 = m2[0].length;
     let res = [];
-  //if (c_m1 != r_m2) return false;
     
     for (let i = 0; i < r_m1; i++)
         res[i] = [];
     
-    for (let k = 0; k < c_m2; k++)
-    {
-        for (let i = 0; i < r_m1; i++)
-        {
+    for (let k = 0; k < c_m2; k++) {
+        for (let i = 0; i < r_m1; i++) {
             let sum = 0;
             for (let j = 0; j < r_m2; j++) {
                 sum += m1[i][j] * m2[j][k];
