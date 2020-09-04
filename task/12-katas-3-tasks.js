@@ -29,15 +29,15 @@
  */
 
 function dfs(puzzle, searchStr, i, j, used, cur) {
-    if (cur == searchStr.length) {
+    if (cur === searchStr.length) {
         return true;
     }
     for (let delta_i of [-1,0,1]){
         for (let delta_j of [-1,0,1]){
-            if (delta_i * delta_j == 0 && delta_i != delta_j && 
+            if (delta_i * delta_j === 0 && delta_i !== delta_j && 
                 (i+delta_i >=0 && i+delta_i<puzzle.length) && 
                 (j+delta_j >=0 && j+delta_j<puzzle[i+delta_i].length) && !used[i+delta_i][j+delta_j]){
-                    if (searchStr.charAt(cur) == puzzle[i+delta_i][j+delta_j]) {
+                    if (searchStr.charAt(cur) === puzzle[i+delta_i][j+delta_j]) {
                         used[i+delta_i][j+delta_j] = true;
                         if (dfs(puzzle, searchStr, i+delta_i, j+delta_j, used, cur+1)) {
                             return true;
@@ -52,7 +52,7 @@ function dfs(puzzle, searchStr, i, j, used, cur) {
 function dfsSeria(puzzle, searchStr){
     for (let i = 0; i< puzzle.length; i++){
         for (let j = 0; j< puzzle[i].length; j++){
-            if (puzzle[i][j] == searchStr.charAt(0)){
+            if (puzzle[i][j] === searchStr.charAt(0)){
                 let used = new Array(puzzle.length).fill().map(x=>new Array(puzzle[0].length).fill(false));
                 used[i][j] = true;
                 if (dfs(puzzle, searchStr, i,j, used, 1)) {
@@ -91,7 +91,7 @@ function* getPermutations(chars) {
     let iter = 0;
     while (iter < chars.length){
         for(let j = counter[iter]; j<iter; counter[iter]++, iter=0, j = counter[iter]) {
-            if (iter%2 == 0){
+            if (iter%2 === 0){
                 [chars[iter], chars[0]] =  [chars[0], chars[iter]] 
             }
             else {
