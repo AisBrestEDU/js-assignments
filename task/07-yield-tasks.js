@@ -36,7 +36,7 @@ function* get99BottlesOfBeer() {
     let i = 99;
     let flag = true;
     while (i > 0 || !flag) {
-        let message = i === 0 ? "no more bottles" : i === 1 ? "1 bottle" : `${i} bottles`;
+        let message = getMessage(i);
         if (flag) {
             flag = !flag;
             i--;
@@ -48,6 +48,15 @@ function* get99BottlesOfBeer() {
     }
     yield "No more bottles of beer on the wall, no more bottles of beer.";
     yield `Go to the store and buy some more, 99 bottles of beer on the wall.`;
+
+    function getMessage(i) {
+        if (i === 0)
+            return "no more bottles";
+        else if (i === 1)
+            return "1 bottle";
+
+        return `${i} bottles`;
+    }
 }
 
 
@@ -209,7 +218,7 @@ async function async(generator) {
     let alive = true;
     let number;
 
-    while(alive) {
+    while (alive) {
         let next = gen.next(number);
 
         if (!next.done) {
