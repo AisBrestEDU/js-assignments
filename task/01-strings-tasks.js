@@ -73,8 +73,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    //throw new Error('Not implemented');
-   return value.slice(7,-1);
+   
+   return value.slice(7, -1);
 }
 
 
@@ -121,8 +121,6 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    //throw new Error('Not implemented');
-    
     
     return value.repeat(count);
     
@@ -159,7 +157,7 @@ function removeFirstOccurrences(str, value) {
  */
 function unbracketTag(str) {
     //throw new Error('Not implemented');
-    return str.substring(1,str.length-1);
+    return str.substring(1, str.length-1);
 }
 
 
@@ -219,12 +217,12 @@ function extractEmails(str) {
 function getRectangleString(width, height) {
   //  throw new Error('Not implemented');
    
-   let str = '─'.repeat(width-2);
+   let str = '─'.repeat(width - 2);
    let stringTop = '┌' + str + '┐\n';
    let stringMid = ('│'+ (' '.repeat(width-2)) + '│\n') ;    
    let stringDown ='└' + str+ '┘\n'; 
 
-   return stringTop  + stringMid.repeat(height-2) + stringDown;
+   return stringTop  + stringMid.repeat(height - 2) + stringDown;
 
 }
 
@@ -266,15 +264,10 @@ function encodeToRot13(str) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(value) {
-   // throw new Error('Not implemented');  
-   
-  if( typeof value === "string" || value instanceof String){
-  return true; 
-  }
-  else{ return false; }
-   
-      
+function isString(value) { 
+ 
+   return ( typeof value === "string" || value instanceof String)
+         
 }
   
 

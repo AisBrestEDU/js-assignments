@@ -61,9 +61,9 @@ function isLeapYear(date) {
    //throw new Error('Not implemented');
    
 let year = new Date(date).getFullYear();
-if(!(year %4 ===0) ) return false;
-else if (!(year %100 ===0)) return true;
-else if (!(year % 400 === 0)) return false;
+ if( !(year % 4 === 0) ) return false;
+   else if ( !(year % 100 === 0)) return true;
+     else if ( !(year % 400 === 0)) return false;
 return true;   
 
 }
@@ -94,20 +94,20 @@ function timeSpanToString(startDate, endDate) {
    let day = difference.getUTCDate();   
 
    let hours = difference.getUTCHours();
-     if(day >1) {hours = hours +24;      
-        hours.toString();  } 
-     if(hours<10) { hours = '0'+hours; }  
+     if(day > 1) hours = hours +24; 
+      hours.toString();   
+     if(hours < 10)  hours = '0' + hours; 
       
    let minut = difference.getMinutes().toString() ;
-   if(minut<10){  minut = '0'+ minut; }
+   if (minut < 10) minut = '0' + minut; 
  
 
    let second = difference.getSeconds().toString();
-   if(second <10){second = '0'+second; }
+   if (second < 10) second = '0' + second; 
 
   let milisec = difference.getMilliseconds().toString();   
-   if(milisec <100){milisec = '0' + milisec;}
-   if (milisec <10) milisec = '0' + milisec;
+   if (milisec < 100) milisec = '0' + milisec;
+   if (milisec < 10) milisec = '0' + milisec;
 
    let fon  = hours+':' + minut +':'+second +'.'+ milisec;
 
@@ -130,14 +130,12 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {  
  
- let grad = 0.5 *( 60 * date.getUTCHours()  -  11 *date.getMinutes()) ;
- if(grad > 360) { grad = grad -360;}
- if(grad >180 ) { grad = 360 - grad ;}
+ let grad = 0.5 * (60 * date.getUTCHours()  -  11 * date.getMinutes()) ; 
+ if (grad > 360) grad = grad - 360;
+ if (grad > 180 ) grad = 360 - grad ;
 
+ return  Math.PI / 180 * grad; 
 
- let spisal = Math.PI/180*grad; 
-
- return spisal ;
 }
 
 
