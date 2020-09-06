@@ -36,5 +36,4 @@ node_modules
 # Editors crap
 .vscode
 .idea
-.suo
-.sqlite
+.vs/
