@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value)
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+    return Date.parse(value)
 }
 
 
@@ -56,7 +56,10 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year =new Date(date).getUTCFullYear()
+    if (year%4!=0|| year%100==0&&year%400!=0 ){return false}
+    else {return true}
+
 }
 
 
@@ -76,7 +79,12 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    let result = endDate-startDate
+    let hours=Math.floor(result/(60*60*1000))
+    let min=Math.floor((result%(60*60*1000))/(60*1000))
+    let second=Math.floor(((result%(60*60*1000))%(60*1000))/(1000))
+    let millisecond=Math.floor(((result%(60*60*1000))%(60*1000))%(1000))
+    return ''+hours.toString().padStart(2,"0")+':'+min.toString().padStart(2,"0")+':'+second.toString().padStart(2,"0")+'.'+millisecond.toString().padStart(3,"0")
 }
 
 
@@ -94,9 +102,30 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let time=new Date(date)
+    let hours=time.getUTCHours()
+    if(hours>=12){hours=hours-12}
+    const minutes=time.getUTCMinutes()
+    let result=Math.abs(0.5 * ((60 * hours) - (11 * minutes)))
+    if(result>180){result=360-result}
+    return result*Math.PI/180
 }
-
+if (!String.prototype.padStart) {
+    String.prototype.padStart = function padStart(targetLength,padString) {
+        targetLength = targetLength>>0; //floor if number or convert non-number to 0;
+        padString = String(padString || ' ');
+        if (this.length > targetLength) {
+            return String(this);
+        }
+        else {
+            targetLength = targetLength-this.length;
+            if (targetLength > padString.length) {
+                padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+            }
+            return padString.slice(0,targetLength) + String(this);
+        }
+    };
+}
 
 module.exports = {
     parseDataFromRfc2822: parseDataFromRfc2822,
