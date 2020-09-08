@@ -155,13 +155,13 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    return function(...args) {
-        let arrArgs = JSON.stringify(args).slice(1, -1);
-        logFunc(`${func.name}(${arrArgs}) starts`);
-        let fn = func.apply(null, arguments);
-        logFunc(`${func.name}(${arrArgs}) ends`);
-        return fn;
-    }
+    return function() {
+        const str = `${func.name}(${JSON.stringify(Array.from(arguments)).slice(1, -1)}) `;
+        logFunc(str + 'starts');
+        const result = func.apply(null, arguments);
+        logFunc(str + 'ends');
+        return result;
+    };
 }
 
 
