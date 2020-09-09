@@ -87,8 +87,8 @@ function getArrayOfPositives(arr) {
  */
 function getArrayOfStrings(arr) {
    let result=[]
-   for (var i=0;i<arr.length;i++){
-      if (typeof arr[i]!="string"){
+   for (let i=0; i<arr.length; i++){
+      if (typeof arr[i]!=="string"){
          continue;
       } else {
          result.push(arr[i])
@@ -126,9 +126,7 @@ function removeFalsyValues(arr) {
  */
 function getUpperCaseStrings(arr) {
    let str=arr.toString()
-   let result=[]
-   result=str.toUpperCase().split(',')
-   return result=str.toUpperCase().split(',')
+   return str.toUpperCase().split(',')
 }
 
 
@@ -143,10 +141,10 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-   var result=[]
-   for (var i=0;i<arr.length;i++){
-      result.push(arr[i].length)
-   }
+   let result = [];
+   result = arr.map(function (len) {
+      return len.length
+   })
    return result
 }
 
@@ -231,10 +229,9 @@ function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 function toArrayOfSquares(arr) {
-   var result = arr.map(function (fx) {
-      return Math.pow(fx,2)
+   return arr.map(function (fx) {
+      return Math.pow(fx, 2)
    })
-   return result
 }
 
 
@@ -253,9 +250,9 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   var result =[]
-   var sum =0
-   for (var i=0;i<arr.length;i++){
+   let result =[]
+   let sum =0
+   for (let i=0;i<arr.length;i++){
       sum += arr[i]
       result.push(sum)
    }
@@ -274,8 +271,8 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   var result=[]
-   for (var i=0;i<arr.length;i++) {
+   let result=[]
+   for (let i=0;i<arr.length;i++) {
       i++
       if(i<arr.length) {
          result.push(arr[i])
@@ -324,7 +321,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   var reversed=arr.reverse()
+   let reversed=arr.reverse()
    return reversed.slice(0,3)
 }
  
@@ -345,7 +342,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
    let result=0
    for (let i = 0; i<arr.length;i++){
-      if (typeof (arr[i])=="string"){
+      if (typeof (arr[i])==="string"){
          i++
       }else if (arr[i]>0){
          result+=1
@@ -368,7 +365,7 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   var element = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+   let element = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
    return arr.sort((a, b) => {
       return element.indexOf(a) - element.indexOf(b);
    });
@@ -407,7 +404,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   return arr.reduce((element1, element2) => element1 + (new Boolean(element2) == false), 0);
+   return arr.reduce((element1, element2) => element1 + (Boolean(element2) === false), 0);
 }
 
 /**
@@ -513,7 +510,7 @@ function getIdentityMatrix(n) {
  */
 function getIntervalArray(start, end) {
    let arr=[]
-   for (var i = start; i <= end; i++) {
+   for (let i = start; i <= end; i++) {
       arr.push(i);
    }
    return arr
@@ -531,10 +528,9 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   var resault = arr.filter(function(itm, i, arr) {
-      return i == arr.indexOf(itm);
-   });
-   return resault
+   return arr.filter(function (itm, i, arr) {
+      return i === arr.indexOf(itm);
+   })
 }
 
 /**
@@ -568,10 +564,10 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   var map = new Map();
+   let map = new Map();
    array.map(element => {
-      var key = keySelector(element);
-      var value = valueSelector(element);
+      let key = keySelector(element);
+      let value = valueSelector(element);
       if (map.has(key)) map.get(key).push(value);else map.set(key, [value]);
    });
    return map;
@@ -631,10 +627,10 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   var alen = arr.length;
-   var a = arr.length;
-   var head = arr.splice(0, alen / 2);
-   var tail;
+   let alen = arr.length;
+   let a = arr.length;
+   let head = arr.splice(0, alen / 2);
+   let tail;
    if (a % 2 !== 0) tail = arr.splice(1, alen);else tail = arr.splice(0, alen);
    return tail.concat(arr).concat(head);
 }

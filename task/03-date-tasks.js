@@ -57,8 +57,7 @@ function parseDataFromIso8601(value) {
  */
 function isLeapYear(date) {
    let year =new Date(date).getUTCFullYear()
-    if (year%4!=0|| year%100==0&&year%400!=0 ){return false}
-    else {return true}
+    return !(year % 4 !== 0 || year % 100 === 0 && year % 400 !== 0);
 
 }
 
@@ -117,13 +116,13 @@ if (!String.prototype.padStart) {
         if (this.length > targetLength) {
             return String(this);
         }
-        else {
-            targetLength = targetLength-this.length;
-            if (targetLength > padString.length) {
-                padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
-            }
-            return padString.slice(0,targetLength) + String(this);
-        }
+        // else {
+        //     targetLength = targetLength-this.length;
+        //     if (targetLength > padString.length) {
+        //         padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+        //     }
+        //     return padString.slice(0,targetLength) + String(this);
+        // }
     };
 }
 
