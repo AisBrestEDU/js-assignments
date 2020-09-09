@@ -131,7 +131,7 @@ function isTriangle(a, b, c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    return !(rect2.top > rect1.top + rect1.height || rect2.left > rect1.left + rect1.width);
+    throw new Error('Not implemented');
 }
 
 
@@ -162,8 +162,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    let check = Math.hypot(point.x - circle.center.x, point.y - circle.center.y);
-    return (check < circle.radius);
+    throw new Error('Not implemented');
 }
 
 
@@ -340,29 +339,8 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-
-    let matchingOpeningBracket, ch;
-    let stack = [];
-
-    let openingBrackets = ['[', '{', '(', '<'];
-    let closingBrackets = [']', '}', ')', '>'];
-
-    for (let i = 0; i < str.length; i++) {
-        ch = str[i];
-
-        if (closingBrackets.indexOf(ch) > -1) {
-            matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)];
-            if (stack.length === 0 || (stack.pop() !== matchingOpeningBracket)) {
-                return false;
-            }
-        } else {
-            stack.push(ch);
-        }
-    }
-
-    return (stack.length === 0);
+    throw new Error('Not implemented');
 }
-
 
 
 /**
@@ -452,21 +430,8 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function
-
-
-getCommonDirectoryPath(pathes) {
-    let outStr;
-    let compareStr = pathes[0];
-    for (let i = 0; i < compareStr.length; i++) {
-        for (let j = 1; j < pathes.length; j++) {
-            if(compareStr[i] !== pathes[j].charAt(i)) {
-                outStr = compareStr.substring(0, i);
-                return outStr.substring(0, outStr.lastIndexOf('/') + 1 || '');
-            }
-        }
-    }
-
+function getCommonDirectoryPath(pathes) {
+    throw new Error('Not implemented');
 }
 
 
@@ -544,15 +509,7 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    let p = position;
-    if (p[0][0] && p[0][0] === p[0][1] && p[0][0] === p[0][2]) return p[0][0];
-    else if (p[1][0] === p[1][1] && p[1][0] === p[1][2]) return p[1][0];
-    else if (p[2][0] === p[2][1] && p[2][0] === p[2][2]) return p[2][0];
-    else if (p[0][0] === p[1][0] && p[0][0] === p[2][0]) return p[0][0];
-    else if (p[0][1] === p[1][1] && p[0][1] === p[2][1]) return p[0][1];
-    else if (p[0][2] === p[1][2] && p[0][2] === p[2][2]) return p[0][2];
-    else if (p[0][0] === p[1][1] && p[0][0] === p[2][2]) return p[0][0];
-    else if (p[0][2] === p[1][1] && p[0][2] === p[2][0]) return p[0][2];
+    throw new Error('Not implemented');
 }
 
 
