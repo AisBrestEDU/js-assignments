@@ -210,10 +210,10 @@ function findFirstSingleChar(str) {
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
     let start = Math.min(a, b);
     let end = Math.max(a, b);
-    if (!isStartIncluded && !isEndIncluded) return `(${start}, ${end})`;
-    else if (!isStartIncluded && isEndIncluded) return `(${start}, ${end}]`;
-    else if (isStartIncluded && !isEndIncluded) return `[${start}, ${end})`;
-    else if (isStartIncluded && isEndIncluded) return `[${start}, ${end}]`;
+    if (isStartIncluded === false && isEndIncluded === false) return `(${start}, ${end})`;
+    else if (isStartIncluded === false && isEndIncluded === true) return `(${start}, ${end}]`;
+    else if (isStartIncluded === true && isEndIncluded === false) return `[${start}, ${end})`;
+    else if (isStartIncluded === true && isEndIncluded === true) return `[${start}, ${end}]`;
 }
 
 
@@ -306,12 +306,13 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    
     let sum = Array.from(String(num)).reduce((a, b) => {
         return a + Number(b);
     }, 0);
     if (sum > 9) {
-        return getDigitalRoot(sum);
+        return Array.from(String(sum)).reduce((a, b) => {
+            return a + Number(b);
+        }, 0);
     }
     return sum;
 }
@@ -351,7 +352,7 @@ function isBracketsBalanced(str) {
 
         if (closingBrackets.indexOf(ch) > -1) {
             matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)];
-            if (!stack.length || (stack.pop() !== matchingOpeningBracket)) {
+            if (stack.length === 0 || (stack.pop() !== matchingOpeningBracket)) {
                 return false;
             }
         } else {
@@ -459,7 +460,7 @@ getCommonDirectoryPath(pathes) {
     let compareStr = pathes[0];
     for (let i = 0; i < compareStr.length; i++) {
         for (let j = 1; j < pathes.length; j++) {
-            if (compareStr[i] !== pathes[j].charAt(i)) {
+            if(compareStr[i] !== pathes[j].charAt(i)) {
                 outStr = compareStr.substring(0, i);
                 return outStr.substring(0, outStr.lastIndexOf('/') + 1 || '');
             }
