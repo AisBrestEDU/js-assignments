@@ -33,13 +33,13 @@ function getFizzBuzz(num) {
     //throw new Error('Not implemented');
     let str = '';
 
-    if(num % 3 === 0){
+    if(num % 3 === 0) {
         str = 'Fizz';
     }
-	if(num % 5 === 0){
+	if(num % 5 === 0) {
         str += 'Buzz';
     }
-	if(str === ''){
+	if(str === '') {
 		str = num;
 	}
     return str;
@@ -61,7 +61,7 @@ function getFactorial(n) {
     //throw new Error('Not implemented');
     let res = 1;
 
-    for (let i = 1; i <= n; i++){
+    for (let i = 1; i <= n; i++) {
         res = res * i;
     }
 
@@ -85,7 +85,7 @@ function getSumBetweenNumbers(n1, n2) {
     //throw new Error('Not implemented');
     let summ = 0;
 
-    for(let i = n1; i <= n2; i++){
+    for(let i = n1; i <= n2; i++) {
         summ += i;
     }
     return summ;
@@ -197,7 +197,7 @@ function isInsideCircle(circle, point) {
  */
 function findFirstSingleChar(str) {
     //throw new Error('Not implemented');
-    for(let i = 0; i < str.length; i++){
+    for(let i = 0; i < str.length; i++) {
         if(str.indexOf(str[i]) === str.lastIndexOf(str[i]))
             return str[i];
     }
@@ -297,9 +297,9 @@ function isCreditCardNumber(ccn) {
     let str = ccn.toString();
     let sum = Number(str[str.length -1]);
 
-	for (let i = 0; i < str.length-1; i++){
+	for (let i = 0; i < str.length-1; i++) {
         let digit = Number(str[i])
-        if((i % 2) === (str.length % 2)){
+        if((i % 2) === (str.length % 2)) {
             digit = digit * 2;
 			if(digit > 9)
 				digit = digit - 9; 
@@ -330,10 +330,10 @@ function getDigitalRoot(num) {
     let i = 0;
     let sum = 0;
 
-    while(i < str.length){
+    while(i < str.length) {
         sum += Number(str[i]);
         i++;
-        if(i === str.length && sum > 9){
+        if(i === str.length && sum > 9) {
             str = sum.toString();
             i = 0;
             sum = 0;
@@ -366,7 +366,7 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
     //throw new Error('Not implemented');
-    let leftB = "[({<";
+    /*let leftB = "[({<";
 	let rightB = "])}>";
 	let leftArr = [];
 	if( str.length % 2 )
@@ -385,7 +385,28 @@ function isBracketsBalanced(str) {
 			}
 		}
 	}
-    return leftArr.length === 0;
+    return leftArr.length === 0;*/
+
+    let leftB = "[({<";
+	let rightB = "])}>";
+	let leftArr = [];
+	if( str.length % 2 )
+		return false;
+		
+	for( let i = 0; i < str.length; i++ ) {
+		if( leftB.indexOf(str[i]) != -1 )
+			leftArr.push(str[i]);
+		else {
+			if(leftArr.length === 0)
+				return false;
+			
+			let lB = leftArr.pop();
+			if( leftB.indexOf(lB) != rightB.indexOf(str[i]) )
+				return false;
+		}
+	}
+	return leftArr.length === 0;
+
 }
 
 
