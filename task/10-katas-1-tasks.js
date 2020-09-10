@@ -17,16 +17,16 @@
  *  ]
  */
 function createCompassPoints() {
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    let sides = ['N','E','S','W'];  // use array of cardinal directions only!
     let result = [];
-    var dev1,
+    let dev1,
         dev,
         azim = 360,
         az,
         deg,
         count;
 
-    for (var i = 0; i < 32; i++) {
+    for (let i = 0; i < 32; i++) {
 
         az = i * azim / 32;
         deg = az;
@@ -140,7 +140,7 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    var arr = Array.from({ length: n }, (element, index) => {
+    let arr = Array.from({ length: n }, (element, index) => {
         element = new Array(n).fill(0);
         element[index] = 0;
         return element;
@@ -149,11 +149,11 @@ function getZigZagMatrix(n) {
         if (v1 < n) v1++;else v2 += 2;
         if (v2 > 1) v2--;
     }
-    var i = 1,
+    let i = 1,
         j = 1;
-    for (var k = 0; k < n * n; k++) {
+    for (let k = 0; k < n * n; k++) {
         arr[i - 1][j - 1] = k;
-        if ((i + j) % 2 == 0) {
+        if ((i + j) % 2 === 0) {
             if (j < n) j++;else i += 2;
             if (i > 1) i--;
         } else {
@@ -187,7 +187,7 @@ function getZigZagMatrix(n) {
  */
 function canDominoesMakeRow(dominoes) {
     function task10(current, value, left) {
-        if (left == 0) {
+        if (left === 0) {
             result = true;
             return;
         }
@@ -196,8 +196,8 @@ function canDominoesMakeRow(dominoes) {
 
         for (let i = 0; i < dominoes.length; i++)
             if (!visited[i]) {
-                if (dominoes[i].indexOf(value) != -1) {
-                    task10(i, dominoes[i][0] == value ? dominoes[i][1] : dominoes[i][0], left - 1);
+                if (dominoes[i].indexOf(value) !== -1) {
+                    task10(i, dominoes[i][0] === value ? dominoes[i][1] : dominoes[i][0], left - 1);
                 }
             }
 
@@ -236,9 +236,9 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    var result = '';
-    for (var i = 0; i < nums.length - 1; i++) {
-        var j = i;
+    let result = '';
+    for (let i = 0; i < nums.length - 1; i++) {
+        let j = i;
 
         while (nums[j] === nums[j + 1] - 1) j++;
 
