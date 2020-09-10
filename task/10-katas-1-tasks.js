@@ -18,6 +18,7 @@
  */
 function createCompassPoints() {
     let sides = ['N','E','S','W'];  // use array of cardinal directions only!
+
     let result = [];
     let dev1,
         dev,
@@ -51,6 +52,7 @@ function createCompassPoints() {
         if (deg === 78.75) result.push({ abbreviation: dev + 'b' + sides[count], azimuth: az });
     }
     return result;
+
 }
 
 
