@@ -33,7 +33,7 @@
  *
  */
 function* get99BottlesOfBeer() {
-    var index = 99;
+    let index = 99;
     while (index > 2) {
         yield `${ index } bottles of beer on the wall, ${ index } bottles of beer.`;
         yield `Take one down and pass it around, ${ --index } bottles of beer on the wall.`;
@@ -57,9 +57,9 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    var num1 = 0;
-    var num2 = 1;
-    var result;
+    let num1 = 0;
+    let num2 = 1;
+    let result;
     while (1) {
         result = num1;
         num1 = num2;
@@ -100,12 +100,12 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    var s = [root];
+    let s = [root];
     while (s.length > 0) {
-        var v = s.pop();
+        let v = s.pop();
         yield v;
         if (!v.children) continue;
-        for (var edges of v.children.reverse()) s.push(edges);
+        for (let edges of v.children.reverse()) s.push(edges);
     }
 }
 
@@ -132,12 +132,12 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    var s = [root];
+    let s = [root];
     while (s.length > 0) {
-        var v = s.shift();
+        let v = s.shift();
         yield v;
         if (!v.children) continue;
-        for (var edges of v.children) s.push(edges);
+        for (let edges of v.children) s.push(edges);
     }
 }
 
@@ -163,9 +163,9 @@ function* mergeSortedSequences(source1, source2) {
         let a = first.next().value;
         let b = second.next().value;
 
-        if (a == undefined)
+        if (a === undefined)
             yield b;
-        else if (b == undefined)
+        else if (b === undefined)
             yield a;
         else {
             yield Math.min(a, b);
@@ -190,7 +190,7 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    var generators = generator.apply(this, arguments);
+    let generators = generator.apply(this, arguments);
 
     function handle(result){
         if (result.done) return Promise.resolve(result.value);
