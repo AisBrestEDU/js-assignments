@@ -131,9 +131,9 @@ function* mergeSortedSequences(source1, source2) {
 
 /**
  * Resolve Promises and take values step by step.
- * 
+ *
  * @params {Iterable.<Promise>} generator
- * @return {Promise} Promise with value returned via return 
+ * @return {Promise} Promise with value returned via return
  *
  * @example
  *   async((function*() {
@@ -157,3 +157,4 @@ module.exports = {
     mergeSortedSequences: mergeSortedSequences,
     async               : async
 };
+
