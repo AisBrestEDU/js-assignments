@@ -34,13 +34,13 @@
  */
 function* get99BottlesOfBeer() {
     //throw new Error('Not implemented');
-	for(let i = 99; i >=3; i--) {
-		yield i + " bottles of beer on the wall, " + i + " bottles of beer.";
-		yield "Take one down and pass it around, " + (i-1) + " bottles of beer on the wall.";
-	}
-	yield '2 bottles of beer on the wall, 2 bottles of beer.';
+    for (let i = 99; i >= 3; i--) {
+        yield i + " bottles of beer on the wall, " + i + " bottles of beer.";
+        yield "Take one down and pass it around, " + (i - 1) + " bottles of beer on the wall.";
+    }
+    yield '2 bottles of beer on the wall, 2 bottles of beer.';
     yield 'Take one down and pass it around, 1 bottle of beer on the wall.';
-	yield '1 bottle of beer on the wall, 1 bottle of beer.';
+    yield '1 bottle of beer on the wall, 1 bottle of beer.';
     yield 'Take one down and pass it around, no more bottles of beer on the wall.';
     yield 'No more bottles of beer on the wall, no more bottles of beer.';
     yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
@@ -59,14 +59,14 @@ function* get99BottlesOfBeer() {
 function* getFibonacciSequence() {
     //throw new Error('Not implemented');
     let n1 = 0, n2 = 1;
-	yield n1;
-	yield n2;
-	for(;;) {
-		let n3 = n2 + n1;
-		n1 = n2;
-		n2 = n3;
-		yield n3;
-	}
+    yield n1;
+    yield n2;
+    for (; ;) {
+        let n3 = n2 + n1;
+        n1 = n2;
+        n2 = n3;
+        yield n3;
+    }
 }
 
 
@@ -103,14 +103,14 @@ function* getFibonacciSequence() {
 function* depthTraversalTree(root) {
     //throw new Error('Not implemented');
     let stack = [];
-	stack.push(root)
-	while(stack.length) {
-		let tmpNode = stack.pop();
-		yield tmpNode;
-		if(tmpNode.children)
-			for( let i = tmpNode.children.length-1; i >= 0; i--)
-				stack.push(tmpNode.children[i]);
-	}
+    stack.push(root)
+    while (stack.length) {
+        let tmpNode = stack.pop();
+        yield tmpNode;
+        if (tmpNode.children)
+            for (let i = tmpNode.children.length - 1; i >= 0; i--)
+                stack.push(tmpNode.children[i]);
+    }
 }
 
 
@@ -138,17 +138,17 @@ function* depthTraversalTree(root) {
 function* breadthTraversalTree(root) {
     //throw new Error('Not implemented');
     let queue = [], queue2 = [];
-	queue.push(root);
-	while(queue.length > 0 || queue2.length > 0) {
-		let tmpNode = queue.length ? queue.shift() : queue2.shift();
-		yield tmpNode;
-		if(tmpNode.children)
-			for( let i = 0; i < tmpNode.children.length; i++)
-				if(queue.length < 51000 &&  queue2.length === 0)
-					queue.push(tmpNode.children[i]);
-				else
-					queue2.push(tmpNode.children[i]);
-	}
+    queue.push(root);
+    while (queue.length > 0 || queue2.length > 0) {
+        let tmpNode = queue.length ? queue.shift() : queue2.shift();
+        yield tmpNode;
+        if (tmpNode.children)
+            for (let i = 0; i < tmpNode.children.length; i++)
+                if (queue.length < 51000 && queue2.length === 0)
+                    queue.push(tmpNode.children[i]);
+                else
+                    queue2.push(tmpNode.children[i]);
+    }
 }
 
 
@@ -171,17 +171,17 @@ function* mergeSortedSequences(source1, source2) {
     let gen2 = source2();
     let ob1 = gen1.next();
     let ob2 = gen2.next();
-    while( !ob1.done || !ob2.done) {
+    while (!ob1.done || !ob2.done) {
         let val = 0;
-        if( ob1.done) {
+        if (ob1.done) {
             val = ob2.value;
             ob2 = gen2.next();
-            
-        } else if( ob2.done) {
+
+        } else if (ob2.done) {
             val = ob1.value;
             ob1 = gen1.next();
-            
-        } else	if(ob1.value < ob2.value) {
+
+        } else if (ob1.value < ob2.value) {
             val = ob1.value;
             ob1 = gen1.next();
         } else {
@@ -209,13 +209,13 @@ function* mergeSortedSequences(source1, source2) {
  */
 function async(generator) {
     //throw new Error('Not implemented');
-    let gen = generator();    
-	const getNextTask = (resolve) => {    
-		const next = gen.next(resolve);
-		if (next.done) return next.value;
-		return next.value.then(getNextTask).catch(e => gen.throw(e))  
-	}
-	return getNextTask();
+    let gen = generator();
+    const getNextTask = (resolve) => {
+        const next = gen.next(resolve);
+        if (next.done) return next.value;
+        return next.value.then(getNextTask).catch(e => gen.throw(e))
+    }
+    return getNextTask();
 }
 
 
@@ -225,5 +225,5 @@ module.exports = {
     depthTraversalTree: depthTraversalTree,
     breadthTraversalTree: breadthTraversalTree,
     mergeSortedSequences: mergeSortedSequences,
-    async               : async
+    async: async
 };
