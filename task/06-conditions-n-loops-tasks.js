@@ -388,16 +388,39 @@ function timespanToHumanString(startDate, endDate) {
         return num - Math.floor(num) > 0.5 ? Math.round(num) : Math.floor(num);
     }
 
-    return time > 545 * days ? `${round(time / years)} years ago` :
-        time > 345 * days ? 'a year ago' :
-            time > 45 * days ? `${round(time / months)} months ago` :
-                time > 25 * days ? 'a month ago' :
-                    time > 36 * hours ? `${round(time / days)} days ago` :
-                        time > 22 * hours ? 'a day ago' :
-                            time > 90 * minutes ? `${round(time / hours)} hours ago` :
-                                time > 45 * minutes ? 'an hour ago' :
-                                    time > 90 ? `${round(time / 60)} minutes ago` :
-                                        time > 45 ? 'a minute ago' : 'a few seconds ago';
+    if (time > 545 * days) {
+        return `${round(time / years)} years ago`;
+    } else if (time > 345 * days) {
+        return 'a year ago';
+    } else if (time > 45 * days) {
+        return `${round(time / months)} months ago`;
+    } else if (time > 25 * days) {
+        return 'a month ago';
+    } else if (time > 36 * hours) {
+        return `${round(time / days)} days ago`;
+    } else if (time > 22 * hours) {
+        return 'a day ago';
+    } else if (time > 90 * minutes) {
+        return `${round(time / hours)} hours ago`;
+    } else if (time > 45 * minutes) {
+        return 'an hour ago';
+    } else if (time > 90) {
+        return `${round(time / 60)} minutes ago`;
+    } else if (time > 45) {
+        return 'a minute ago';
+    }
+    return 'a few seconds ago';
+
+    // return time > 545 * days ? `${round(time / years)} years ago` :
+    //     time > 345 * days ? 'a year ago' :
+    //         time > 45 * days ? `${round(time / months)} months ago` :
+    //             time > 25 * days ? 'a month ago' :
+    //                 time > 36 * hours ? `${round(time / days)} days ago` :
+    //                     time > 22 * hours ? 'a day ago' :
+    //                         time > 90 * minutes ? `${round(time / hours)} hours ago` :
+    //                             time > 45 * minutes ? 'an hour ago' :
+    //                                 time > 90 ? `${round(time / 60)} minutes ago` :
+    //                                     time > 45 ? 'a minute ago' : 'a few seconds ago';
 }
 
 
