@@ -30,7 +30,10 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    if (num % 5 === 0 && num % 3 === 0) return 'FizzBuzz';
+    else if (num % 5 === 0) return 'Buzz';
+    else if (num % 3 === 0) return 'Fizz';
+    return num;
 }
 
 
@@ -46,7 +49,12 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    if (n <= 1) return 1;
+    let i = 1;
+    while (n > 1) {
+        i = i * n--;
+    }
+    return i;
 }
 
 
@@ -63,7 +71,11 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    for (let i = n1; i <= n2; i++) {
+        sum = sum + i;
+    }
+    return sum;
 }
 
 
@@ -82,7 +94,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-    throw new Error('Not implemented');
+    return (a + b > c && a + c > b && b + c > a);
 }
 
 
@@ -166,7 +178,10 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    for (let i = 0; i < str.length; i++) {
+        if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) return str[i];
+    }
+    return null;
 }
 
 
@@ -192,7 +207,12 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    let start = Math.min(a, b);
+    let end = Math.max(a, b);
+    if (isStartIncluded === false && isEndIncluded === false) return `(${start}, ${end})`;
+    else if (isStartIncluded === false && isEndIncluded === true) return `(${start}, ${end}]`;
+    else if (isStartIncluded === true && isEndIncluded === false) return `[${start}, ${end})`;
+    else if (isStartIncluded === true && isEndIncluded === true) return `[${start}, ${end}]`;
 }
 
 
@@ -209,7 +229,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    return str.split('').reverse().join('');
 }
 
 
@@ -226,7 +246,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    return +(String(num).split('').reverse().join(''));
 }
 
 
@@ -251,7 +271,22 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    const arr = String(ccn).split('').reverse();
+    const arr2 = arr.map((el, index) => {
+        if (index % 2 !== 0) {
+            el = el * 2;
+            if (el > 9) {
+                el = el - 9;
+            }
+            return el;
+        }
+        return Number(el);
+    });
+    let sum = arr2.reduce((a, b) => {
+        return a + b;
+    }, 0) - arr[0];
+    let lastNumber = (sum * 9) % 10;
+    return (arr2[0] === lastNumber);
 }
 
 
@@ -270,7 +305,15 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    let sum = Array.from(String(num)).reduce((a, b) => {
+        return a + Number(b);
+    }, 0);
+    if (sum > 9) {
+        return Array.from(String(sum)).reduce((a, b) => {
+            return a + Number(b);
+        }, 0);
+    }
+    return sum;
 }
 
 
@@ -332,7 +375,22 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let res = endDate - startDate;
+    let sec = 1000;
+    let min = 60 * sec;
+    let hour = 60 * min;
+    let day = 24 * hour;
+    if (res <= 45 * sec) return 'a few seconds ago';
+    if (res <= 90 * sec) return 'a minute ago';
+    if (res <= 45 * min) return `${Math.round((res - 1) / min)} minutes ago`;
+    if (res <= 90 * min) return 'an hour ago';
+    if (res <= 22 * hour) return `${Math.round((res - 1) / hour)} hours ago`;
+    if (res <= 36 * hour) return 'a day ago';
+    if (res <= 25 * day) return `${Math.round((res - 1) / day)} days ago`;
+    if (res <= 45 * day) return 'a month ago';
+    if (res <= 345 * day) return `${Math.round(res / day / 30)} months ago`;
+    if (res <= 545 * day) return 'a year ago';
+    if (res >= 546 * day) return `${Math.round(res / day / 365)} years ago`;
 }
 
 
@@ -356,7 +414,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);
 }
 
 
@@ -396,7 +454,27 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let m1Rows = m1.length;
+    let m1Cols = m1[0].length;
+    let m2Rows = m2.length;
+    let m2Cols = m2[0].length;
+    let resMatrix = [];
+
+    if (m1Cols !== m2Rows) return false;
+    for (let i = 0; i < m1Rows; i++) {
+        resMatrix[i] = [];
+    }
+
+    for (let m = 0; m < m2Cols; m++) {
+        for (let n = 0; n < m1Rows; n++) {
+            let temp = 0;
+            for (let k = 0; k < m2Rows; k++) {
+                temp += m1[n][k] * m2[k][m];
+                resMatrix[n][m] = temp;
+            }
+        }
+    }
+    return resMatrix;
 }
 
 
