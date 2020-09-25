@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('assert').strict;
 var lint = require('mocha-eslint');
 var tasks = require('../task/02-numbers-tasks');
 it.optional = require('../extensions/it-optional');

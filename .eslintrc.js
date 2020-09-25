@@ -10,6 +10,7 @@ module.exports = {
     "rules": {
         "require-yield": "off",
         "no-unused-vars": "off",
+        "no-prototype-builtins": "off",
         "no-var": "error",
         "no-lonely-if": "error",
         "no-proto": "error",
