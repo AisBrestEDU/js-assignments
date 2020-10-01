@@ -103,14 +103,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if(a + b <= c) {
-        return false;
-    } else if (b + c <= a) {
-        return false;
-    } else if (c + a <= b) {
-        return false;
-    }
-    return true;
+    return (a + b) > c && (a + c) > b && (b + c) > a;
 }
 
 
@@ -179,10 +172,7 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
     let distanceToCenter = Math.sqrt(Math.pow(point.x - circle.center.x, 2) + Math.pow(point.y - circle.center.y, 2));
-    if (distanceToCenter < circle.radius) {
-        return true;
-    }
-    return false;
+    return Boolean(distanceToCenter < circle.radius);
 }
 
 
@@ -240,23 +230,16 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    let bracket_first;
-    let bracket_last;
+    let bracket_first = "(";
+    let bracket_last = ")";
 
-    if (isStartIncluded === true) {
+    if (isStartIncluded) {
         bracket_first = "[";
     }
-    else bracket_first = "(";
-
-    if (isEndIncluded === true) {
+    if (isEndIncluded) {
         bracket_last = "]";
     }
-    else bracket_last = ")";
-
-    if (a > b){
-        return bracket_first + b + ", " + a + bracket_last;
-    }
-    return bracket_first + a + ", " + b + bracket_last;
+    return bracket_first + `${a < b ? a : b}, ${b < a ? a : b}` + bracket_last; 
 }
 
 
