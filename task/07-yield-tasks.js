@@ -101,11 +101,12 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    let nodes= [root];
+    let nodes = [root];
 
-    while(nodes.length){
+    while (nodes.length) {
         let root = nodes.pop();
         yield root;
+
         if (root.children) {
             nodes.push(...root.children.reverse());
         }
@@ -136,10 +137,10 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    let arr = [root],
-        index = 0;
+    let arr = [root];
+    let index = 0;
 
-    while (arr.length !== index){
+    while (arr.length !== index) {
         root = arr[index];
         yield root;
 
@@ -168,19 +169,19 @@ function* mergeSortedSequences(source1, source2) {
     let s1 = source1();
     let s2 = source2();
 
-        while (true) {
-            const val1 = s1.next();
-            const val2 = s2.next();
+    while (true) {
+        const val1 = s1.next();
+        const val2 = s2.next();
 
-            if (val1.done) {
-                yield val2.value;
-            } else if (val2.done) {
-                yield val1.value;
-            } else {
-                yield Math.min(val1.value, val2.value);
-                yield Math.max(val1.value, val2.value); 
-            }
-        }    
+        if (val1.done) {
+            yield val2.value;
+        } else if (val2.done) {
+            yield val1.value;
+        } else {
+            yield Math.min(val1.value, val2.value);
+            yield Math.max(val1.value, val2.value);
+        }
+    }    
 }
 
 /**
