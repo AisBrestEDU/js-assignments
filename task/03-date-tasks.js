@@ -22,7 +22,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   let result = Date.parse(value);
+   return result;
 }
 
 /**
@@ -37,7 +38,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   let result = Date.parse(value);
+   return result;
 }
 
 
@@ -56,7 +58,9 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+   let febTwentyNine = new Date(year, 1, 29);
+   return febTwentyNine.getDate() === 29;
 }
 
 
@@ -76,7 +80,25 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    let datesDiff = new Date(endDate - startDate);
+    let hoursDiff = (startDate.getUTCDay() !== endDate.getUTCDay()) ? 24 + datesDiff.getUTCHours() : datesDiff.getUTCHours();
+
+    let hours = prefixWithZeros(hoursDiff, 2)
+    let minutes = prefixWithZeros(datesDiff.getUTCMinutes(), 2);
+    let seconds = prefixWithZeros(datesDiff.getUTCSeconds(), 2);
+    let milsecs = prefixWithZeros(datesDiff.getUTCMilliseconds(), 3);
+
+    function prefixWithZeros(value, maxNumberLength) {
+        let numberOfDigits = value.toString().length;
+        if (maxNumberLength > numberOfDigits) {
+            let prefix = '0'.repeat(maxNumberLength - numberOfDigits);
+            return prefix + value;
+        } else {
+            return value;
+        }
+    }
+
+    return `${hours}:${minutes}:${seconds}.${milsecs}`;
 }
 
 
@@ -94,7 +116,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let minutesDegrees = 360 / 60 * date.getUTCMinutes();
+   let oneMinuteHourHandDegrees = 0.5;
+   let hoursDegrees = 360 / 12  * (date.getUTCHours() % 12) + (date.getUTCMinutes() * oneMinuteHourHandDegrees);
+   let sumDegrees = Math.abs(hoursDegrees - minutesDegrees);
+   let result = (sumDegrees > 180 ? sumDegrees % 180 : sumDegrees) * Math.PI / 180;
+   return result;
 }
 
 
