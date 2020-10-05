@@ -175,7 +175,7 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-   return arr.slice(arr.length - n);
+   return arr.slice( -n);
 }
 
 
@@ -200,7 +200,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   return arr.map((v) => v.join(',')).join('\n');
+   return arr.join('\n');
 }
 
 /**
