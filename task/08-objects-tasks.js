@@ -112,32 +112,61 @@ function fromJSON(proto, json) {
 
 const cssSelectorBuilder = {
 
+    result: "",
+    last: "",
+    stringify: function () {
+        let res = this.result;
+        this.result = '';
+        return res;
+    },
+
     element: function (value) {
-        throw new Error('Not implemented');
+        //throw new Error('Not implemented');
+        this.last = value;
+        this.result += this.last;
+        return this;
     },
 
     id: function (value) {
-        throw new Error('Not implemented');
+        //throw new Error('Not implemented');
+        this.last = '#' + value;
+        this.result += this.last;
+        return this;
     },
 
     class: function (value) {
-        throw new Error('Not implemented');
+        //throw new Error('Not implemented');
+        this.last = '.' + value;
+        this.result += this.last;
+        return this;
     },
 
     attr: function (value) {
-        throw new Error('Not implemented');
+        //throw new Error('Not implemented');
+        this.last = '[' + value + ']';
+        this.result += this.last;
+        return this;
     },
 
     pseudoClass: function (value) {
-        throw new Error('Not implemented');
+        //throw new Error('Not implemented');
+        this.last = ':' + value;
+        this.result += this.last;
+        return this;
     },
 
     pseudoElement: function (value) {
-        throw new Error('Not implemented');
+        //throw new Error('Not implemented');
+        this.last = '::' + value;
+        this.result += this.last;
+        return this;
     },
 
     combine: function (selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+        //throw new Error('Not implemented');
+        this.result = this.result.slice(0, this.result.length - this.last.length);
+        this.result += ' ' + combinator + ' ' + this.last;
+        return this;
     },
 };
 
