@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +56,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   const year = date.getFullYear();
+   return year % 100 === 0 ? year % 400 === 0 : year % 4 === 0;
 }
 
 
@@ -76,7 +77,15 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   const date = new Date(endDate - startDate);
+   const days = date.getUTCDate();
+   let hours = date.getUTCHours();
+   let stringDate = date.toISOString().slice(13, -1);
+
+   if (days > 1) hours += 24;
+   if (hours < 10) hours = '0' + hours;
+
+   return hours + stringDate;
 }
 
 
@@ -94,14 +103,21 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   const dateNow = new Date(date);
+   const minutes = dateNow.getUTCMinutes();
+   const hour = dateNow.getUTCHours() % 12;
+   let angle = Math.abs(0.5 * (60 * hour - 11 * minutes));
+
+   if (angle > 180) angle -= 180;
+
+   return angle * Math.PI / 180;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
