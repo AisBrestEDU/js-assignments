@@ -9,7 +9,7 @@
  *                                                                                           *
  *********************************************************************************************/
 
-
+ 
 /**
  * Returns an index of the specified element in array or -1 if element is not found
  * 
@@ -289,8 +289,8 @@ function propagateItemsByPositionIndex(arr) {
 function get3TopItems(arr) {
    return arr.sort((a, b) => b - a).slice(0, 3);
 }
-
-
+ 
+ 
 /**  
  * Returns the number of positive numbers from specified array
  * 
@@ -307,7 +307,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
    return arr.filter(value => ((value ^ 0) === value && value > 0)).length;
 }
-
+ 
 /** 
  * Sorts digit names
  * 
@@ -341,7 +341,7 @@ function sortDigitNamesByNumericOrder(arr) {
 function getItemsSum(arr) {
    return arr.reduce((a, b) => a + b, 0);
 }
-
+ 
 /** 
  * Returns the number of all falsy value in the specified array
  * 
@@ -542,7 +542,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   return arr.map(x => childrenSelector(x)).flat();
+    return arr.map(x => childrenSelector(x)).flat();
 }
 
 
@@ -559,8 +559,8 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   indexes.map(x => arr = arr[x]);
-   return arr;
+    indexes.map(x => arr = arr[x]);
+    return arr;
 }
 
 
@@ -583,45 +583,45 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   const headArr = arr.slice(0, arr.length / 2);
-   const tailArr = arr.slice(-arr.length / 2);
-   if (arr.length % 2 !== 0 && arr.length > 1) {
-      return arr = [...tailArr, arr[Math.floor(arr.length / 2)], ...headArr];
-   }
-   return arr = [...tailArr, ...headArr];
+    const headArr = arr.slice(0, arr.length / 2);
+    const tailArr = arr.slice(-arr.length / 2);
+    if (arr.length % 2 !== 0 && arr.length > 1) {
+       return arr = [...tailArr, arr[Math.floor(arr.length / 2)], ...headArr];
+    }
+    return arr = [...tailArr, ...headArr];
 }
 
 
 module.exports = {
-   findElement: findElement,
-   generateOdds: generateOdds,
-   doubleArray: doubleArray,
-   getArrayOfPositives: getArrayOfPositives,
-   getArrayOfStrings: getArrayOfStrings,
-   removeFalsyValues: removeFalsyValues,
-   getUpperCaseStrings: getUpperCaseStrings,
-   getStringsLength: getStringsLength,
-   insertItem: insertItem,
-   getHead: getHead,
-   getTail: getTail,
-   toCsvText: toCsvText,
-   toStringList: toStringList,
-   toArrayOfSquares: toArrayOfSquares,
-   getMovingSum: getMovingSum,
-   getSecondItems: getSecondItems,
-   propagateItemsByPositionIndex: propagateItemsByPositionIndex,
-   get3TopItems: get3TopItems,
-   getPositivesCount: getPositivesCount,
-   sortDigitNamesByNumericOrder: sortDigitNamesByNumericOrder,
-   getItemsSum: getItemsSum,
-   getFalsyValuesCount: getFalsyValuesCount,
-   findAllOccurences: findAllOccurences,
-   sortCitiesArray: sortCitiesArray,
-   getIdentityMatrix: getIdentityMatrix,
-   getIntervalArray: getIntervalArray,
-   distinct: distinct,
-   group: group,
-   selectMany: selectMany,
-   getElementByIndexes: getElementByIndexes,
-   swapHeadAndTail: swapHeadAndTail
+    findElement: findElement,
+    generateOdds: generateOdds,
+    doubleArray: doubleArray,
+    getArrayOfPositives: getArrayOfPositives,
+    getArrayOfStrings: getArrayOfStrings,
+    removeFalsyValues: removeFalsyValues,
+    getUpperCaseStrings: getUpperCaseStrings,
+    getStringsLength: getStringsLength,
+    insertItem: insertItem,
+    getHead: getHead,
+    getTail: getTail,
+    toCsvText: toCsvText,
+    toStringList: toStringList,
+    toArrayOfSquares: toArrayOfSquares,
+    getMovingSum: getMovingSum,
+    getSecondItems: getSecondItems,
+    propagateItemsByPositionIndex: propagateItemsByPositionIndex,
+    get3TopItems: get3TopItems,
+    getPositivesCount: getPositivesCount,
+    sortDigitNamesByNumericOrder: sortDigitNamesByNumericOrder,
+    getItemsSum: getItemsSum,
+    getFalsyValuesCount: getFalsyValuesCount,
+    findAllOccurences: findAllOccurences,
+    sortCitiesArray: sortCitiesArray,
+    getIdentityMatrix: getIdentityMatrix,
+    getIntervalArray: getIntervalArray,
+    distinct: distinct,
+    group: group,
+    selectMany: selectMany,
+    getElementByIndexes: getElementByIndexes,
+    swapHeadAndTail: swapHeadAndTail
 };

@@ -103,21 +103,21 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   const dateNow = new Date(date);
-   const minutes = dateNow.getUTCMinutes();
-   const hour = dateNow.getUTCHours() % 12;
-   let angle = Math.abs(0.5 * (60 * hour - 11 * minutes));
+    const dateNow = new Date(date);
+    const minutes = dateNow.getUTCMinutes();
+    const hour = dateNow.getUTCHours() % 12;
+    let angle = Math.abs(0.5 * (60 * hour - 11 * minutes));
 
-   if (angle > 180) angle -= 180;
+    if (angle > 180) angle -= 180;
 
-   return angle * Math.PI / 180;
+    return angle * Math.PI / 180;
 }
 
 
 module.exports = {
-   parseDataFromRfc2822: parseDataFromRfc2822,
-   parseDataFromIso8601: parseDataFromIso8601,
-   isLeapYear: isLeapYear,
-   timeSpanToString: timeSpanToString,
-   angleBetweenClockHands: angleBetweenClockHands
+    parseDataFromRfc2822: parseDataFromRfc2822,
+    parseDataFromIso8601: parseDataFromIso8601,
+    isLeapYear: isLeapYear,
+    timeSpanToString: timeSpanToString,
+    angleBetweenClockHands: angleBetweenClockHands
 };
