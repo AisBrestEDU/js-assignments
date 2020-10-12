@@ -110,64 +110,98 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
+class BaseSelector {
+    constructor(value, parent) {
+        this.val = value;
+        this.parent = parent;
+        this.__proto__ = cssSelectorBuilder;
+    }
 
-    result: "",
-    last: "",
-    stringify: function () {
-        let res = this.result;
-        this.result = '';
-        return res;
-    },
+}
 
+class Selector extends BaseSelector {
+    constructor(value, parent, type, repit) {
+        super(value, parent);
+        this.type = type;
+        this.repit = repit;
+
+        if (this.parent && this.parent.type) {
+            if (!this.repit && this.type === this.parent.type)
+                throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+
+            let arr = ["e", "#", ".", "[", ":", "::"];
+            if (arr.indexOf(this.parent.type) > arr.indexOf(this.type))
+                throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        }
+
+        this.stringify = function () {
+            let res = "";
+            if (this.parent && this.parent.stringify)
+                res = this.parent.stringify();
+            if (this.type != "e")
+                res += this.type;
+            res += this.val;
+            if (this.type === "[")
+                res += "]";
+            return res;
+        }
+    }
+}
+
+class СombineSelector {
+    constructor(selector1, combinator, selector2, parent) {
+        this.selector1 = selector1;
+        this.combinator = combinator;
+        this.selector2 = selector2;
+        this.parent = parent;
+        this.type = "c";
+        this.__proto__ = cssSelectorBuilder;
+        this.stringify = function () {
+            let res = "";
+            if (this.parent && this.parent.stringify)
+                res = this.parent.stringify();
+
+            return res + selector1.stringify() + ` ${combinator} ` + selector2.stringify();
+        }
+    }
+
+}
+
+
+let cssSelectorBuilder = {
     element: function (value) {
         //throw new Error('Not implemented');
-        this.last = value;
-        this.result += this.last;
-        return this;
+        return new Selector(value, this, "e", false);
     },
 
     id: function (value) {
-        //throw new Error('Not implemented');
-        this.last = '#' + value;
-        this.result += this.last;
-        return this;
+        return new Selector(value, this, "#", false);
     },
 
     class: function (value) {
         //throw new Error('Not implemented');
-        this.last = '.' + value;
-        this.result += this.last;
-        return this;
+        return new Selector(value, this, ".", true);
     },
 
     attr: function (value) {
         //throw new Error('Not implemented');
-        this.last = '[' + value + ']';
-        this.result += this.last;
-        return this;
+        return new Selector(value, this, "[", true);
     },
 
     pseudoClass: function (value) {
         //throw new Error('Not implemented');
-        this.last = ':' + value;
-        this.result += this.last;
-        return this;
+        return new Selector(value, this, ":", true);
     },
 
     pseudoElement: function (value) {
         //throw new Error('Not implemented');
-        this.last = '::' + value;
-        this.result += this.last;
-        return this;
+        return new Selector(value, this, "::", false);
     },
 
     combine: function (selector1, combinator, selector2) {
         //throw new Error('Not implemented');
-        this.result = this.result.slice(0, this.result.length - this.last.length);
-        this.result += ' ' + combinator + ' ' + this.last;
-        return this;
-    },
+        return new СombineSelector(selector1, combinator, selector2, this);
+    }
 };
 
 
