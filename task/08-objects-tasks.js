@@ -57,8 +57,19 @@ function getJSON(obj) {
  *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
  *
  */
-function fromJSON(proto, json) {
+/*function fromJSON(proto, json) {
     return new proto.constructor(...Object.values(JSON.parse(json)));
+}*/
+
+function fromJSON(proto, json) {
+    //throw new Error('Not implemented');
+	let o = JSON.parse(json);
+	let arr = [];
+	for( let p in o )
+		arr.push(o[p]);
+	return new proto.constructor(...arr);
+
+	//return new proto.constructor(...Object.values(JSON.parse(json)));
 }
 
 
