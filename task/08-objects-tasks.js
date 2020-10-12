@@ -152,7 +152,7 @@ class СombineSelector {
     constructor(selector1, combinator, selector2, parent) {
         this.selector1 = selector1;
         this.combinator = combinator;
-        this.selector2 = selector3;
+        this.selector2 = selector2;
         this.parent = parent;
         this.type = "c";
         this.__proto__ = cssSelectorBuilder;
