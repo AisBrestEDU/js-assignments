@@ -114,7 +114,7 @@ class BaseSelector {
     constructor(value, parent) {
         this.val = value;
         this.parent = parent;
-        //this.__proto__ = cssSelectorBuilder;
+        this.__proto__ = cssSelectorBuilder;
     }
 
 }
@@ -155,7 +155,7 @@ class СombineSelector {
         this.selector2 = selector2;
         this.parent = parent;
         this.type = "c";
-        //this.__proto__ = cssSelectorBuilder;
+        this.__proto__ = cssSelectorBuilder;
         this.stringify = function () {
             let res = "";
             if (this.parent && this.parent.stringify)
