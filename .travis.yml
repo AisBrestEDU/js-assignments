@@ -19,7 +19,4 @@ deploy:
 -github-token:  $GITHUB_TOKEN
 -local_dir: build
 on:
-branches:
-  only:
-  - master
-  - task1-4
+branch: task1-4
