@@ -33,7 +33,6 @@
  *
  */
 function* get99BottlesOfBeer() {
-    //throw new Error('Not implemented');
     for (let i = 99; i >= 3; i--) {
         yield i + " bottles of beer on the wall, " + i + " bottles of beer.";
         yield "Take one down and pass it around, " + (i - 1) + " bottles of beer on the wall.";
@@ -57,7 +56,6 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    //throw new Error('Not implemented');
     let n1 = 0, n2 = 1;
     yield n1;
     yield n2;
@@ -101,7 +99,6 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    //throw new Error('Not implemented');
     let stack = [];
     stack.push(root)
     while (stack.length) {
@@ -136,7 +133,6 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    //throw new Error('Not implemented');
     let queue = [], queue2 = [];
     queue.push(root);
     while (queue.length > 0 || queue2.length > 0) {
@@ -166,7 +162,6 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    //throw new Error('Not implemented');
     let gen1 = source1();
     let gen2 = source2();
     let ob1 = gen1.next();
@@ -208,7 +203,6 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    //throw new Error('Not implemented');
     let gen = generator();
     const getNextTask = (resolve) => {
         const next = gen.next(resolve);
