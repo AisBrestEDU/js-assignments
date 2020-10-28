@@ -143,14 +143,10 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    if (rect2.left > rect1.left + rect1.width ||
+    return !(rect2.left > rect1.left + rect1.width ||
         rect1.left > rect2.left + rect2.width ||
         rect1.top > rect2.top + rect2.height ||
-        rect2.top > rect1.top + rect1.height) {
-            return false;
-    } else {
-        return true;
-    }
+        rect2.top > rect1.top + rect1.height)
 }
 
 
@@ -245,15 +241,18 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    let i = 0;
-    let result = "";
+    let arr = str.split('');
+    return arr.reverse().join('');
 
-  while (i < str.length) {
-    let ch = str [str.length - i - 1];
-    result = result + ch;
-    i = i + 1;
-    }
-  return result;
+//     let i = 0;
+//     let result = "";
+
+//   while (i < str.length) {
+//     let ch = str [str.length - i - 1];
+//     result = result + ch;
+//     i = i + 1;
+//     }
+//   return result;
 }
 
 
@@ -270,16 +269,9 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    let result = 0;
-    let number = num;
-
-    while (num.toString().length !== result.toString().length) {
-        result *= 10;
-        result += number%10;
-        number /= 10;
-        result = Math.floor(result);
-    }
-    return result;
+    let numToStr = num.toString();
+    let arrOfInts = numToStr.split('');
+    return arrOfInts.reverse().join('');
 }
 
 
@@ -495,13 +487,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    let result = '';
-    let number = num.toString();
-    while (number >= n) {
-        result = (number % n) + result;
-        number = Math.floor(number / n);
-    }
-    return number + result;
+    return num.toString(n);
 }
 
 
