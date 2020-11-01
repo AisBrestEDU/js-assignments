@@ -201,19 +201,19 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    if(width===0){width+=2}
-    if(width===1){width+=1}
+    if (width === 0) {width += 2}
+    if (width === 1) {width += 1}
   
     function rectStrPart(ch1, ch2, ch3)
       {
           return String.fromCharCode(ch1) + String.fromCharCode(ch2).repeat(width-2) + String.fromCharCode(ch3);
       }
 
-    let top = rectStrPart('0x250C','0x2500','0x2510');
-    let middle = rectStrPart('0x2502','0x0020','0x2502');
-    let bottom = rectStrPart('0x2514','0x2500','0x2518');
+    let top = rectStrPart('0x250C', '0x2500', '0x2510');
+    let middle = rectStrPart('0x2502', '0x0020', '0x2502');
+    let bottom = rectStrPart('0x2514', '0x2500', '0x2518');
 
-    return `${width < 2 ? "" : top }` + '\n' + `${height<=1 ? "" : (middle + '\n').repeat(height-2)}` + `${width < 2 ? "" : bottom + '\n' }`;
+    return `${width < 2 ? "" : top }` + '\n' + `${height <= 1 ? "" : (middle + '\n').repeat(height - 2)}` + `${width < 2 ? "" : bottom + '\n' }`;
     }
     
 
@@ -252,7 +252,7 @@ function getRectangleString(width, height) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return typeof value === 'string' || value instanceof String ? true : false;
+    return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -281,18 +281,12 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    let dictionary={};
+
     let deck = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
                 'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
                 'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
                 'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
-    let i = 0;
-    let indexGenerator= (card)=>{ 
-        dictionary[i] = card;
-        i++;
-    }
-    deck.forEach(indexGenerator);
-    return Object.keys(dictionary)[Object.values(dictionary).indexOf(value)];
+                return deck.indexOf(value);
 }
 
 

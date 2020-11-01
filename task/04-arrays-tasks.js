@@ -103,7 +103,7 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   return arr.filter(el => Boolean(el) !== false);
+   return arr.filter(el => el);
 }
 
 /**
@@ -330,7 +330,7 @@ function getPositivesCount(arr) {
  */
 function sortDigitNamesByNumericOrder(arr) {
    const stringNums = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-   return arr.sort((a, b) => stringNums.findIndex(i => i === a) - stringNums.findIndex(i => i === b));
+   return arr.sort((a, b) => stringNums.indexOf(a) - stringNums.indexOf(b));
 }
 
 /** 

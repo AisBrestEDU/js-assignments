@@ -56,19 +56,14 @@ function getCicleCircumference(radius) {
 function getAverage(value1, value2) {
     const values = [value1, value2];
     let number = values.length;
-    let sum=0, result=0;
-    values.forEach((el) => sum+=el);
-    if (values.includes(0))
-    {
-        result= values.reduce((sum, current) => sum + current)/number;
+    let acc = 0, sum = value1 + value2;
+    if (!isFinite(sum)) {
+        return values.reduce((acc, current) => 
+        acc / number + current / number) 
+        + (acc % 2 === 0 ? 0 : (values.reduce((acc,current) => (acc % number) + (current % number)) / number));
     }
-    else 
-    {  
-        result = values.reduce((sum, current) => 
-        sum / number + current / number) + (sum % 2 === 0 ? 0 : (values.reduce((sum,current) => (sum % number) + (current % number)) / number));
-    }
-     return result;
-}        
+ return sum / number;
+}
  
 /**
  * Returns a distance beetween two points by cartesian coordinates.
@@ -86,7 +81,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    return Math.hypot(x2 - x1, y2 - y1);
 }
 
 /**
@@ -174,7 +169,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.hypot(a,b,c);
+    return Math.hypot(a, b, c);
 }
 
 /**
