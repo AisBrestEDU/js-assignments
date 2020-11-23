@@ -28,15 +28,6 @@ function Rectangle(width, height) {
     Rectangle.prototype.getArea = function () {
         return this.width * this.height; 
     }
-/*     this.getArea = function() {
-        return this.width * this.height;
-    } */
-       /* return Object.setPrototypeOf(JSON.parse(json), proto);  */
-    /*    Rectangle.prototype.getArea = function () {
-            return this.width * this.height;
-        } */
-    
-
 }
 
 
