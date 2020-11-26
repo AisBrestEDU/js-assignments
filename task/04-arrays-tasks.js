@@ -23,7 +23,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 function findElement(arr, value) {
-   throw new Error('Not implemented');
+   return arr.indexOf(value);
 }
 
 /**
@@ -38,8 +38,13 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   throw new Error('Not implemented');
-}
+   let emptyArray = new Array(len);
+      let oneArray = emptyArray.fill(1);
+      let oddsArray = oneArray.map(function(elem, index) {
+        return elem + index * 2;
+        });
+        return oddsArray;
+      }
 
 
 /**
@@ -54,7 +59,7 @@ function generateOdds(len) {
  *    [] => [] 
  */
 function doubleArray(arr) {
-   throw new Error('Not implemented');
+   return arr.concat(arr);
 }
 
 
@@ -70,8 +75,9 @@ function doubleArray(arr) {
  *    [] => [] 
  */
 function getArrayOfPositives(arr) {
-   throw new Error('Not implemented');
-}
+   let pos_arr = arr.filter(number => number > 0);
+        return pos_arr;
+     }
 
 /**
  * Returns the array with strings only in the specified array (in original order)
