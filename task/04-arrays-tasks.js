@@ -91,8 +91,9 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-   throw new Error('Not implemented');
-}
+   let stringArray = arr.filter(elem => typeof elem === 'string');
+   return stringArray;
+ }
 
 /**
  * Removes falsy values from the specified array
@@ -108,8 +109,9 @@ function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 function removeFalsyValues(arr) {
-   throw new Error('Not implemented');
-}
+   let trueArray = arr.filter(elem => elem);
+   return trueArray;
+ }
 
 /**
  * Returns the array of useprcase strings from the specified array
@@ -122,8 +124,10 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-   throw new Error('Not implemented');
-}
+   return arr.map(function toUpper(elem) {
+     return elem.toUpperCase();
+   });
+ }
 
 
 /**
@@ -137,8 +141,10 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-   throw new Error('Not implemented');
-}
+   return arr.map(function getLength(elem) {
+     return elem.length;
+   });
+ }
 
 /**
  * Inserts the item into specified array at specified index
