@@ -22,8 +22,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   let date=new Date(value);
-   return date;
+    let date = new Date(value);
+    return date;
 }
 
 /**
@@ -38,8 +38,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   let date=new Date(value);
-   return date;
+    let date = new Date(value);
+    return date;
 }
 
 
@@ -58,17 +58,17 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   let date_format=new Date(date);
-        let year=date_format.getFullYear();
-        if (year%4!==0) {
-            return false;
-        } else if (year%100!==0) {
-            return true;
-        } else if (year%400!==0) {
-            return false;
-        }
+    let date_format = new Date(date);
+    let year = date_format.getFullYear();
+    if (year % 4 !== 0) {
+        return false;
+    } else if (year % 100 !== 0) {
         return true;
-     }
+    } else if (year % 400 !== 0) {
+        return false;
+    }
+    return true;
+}
 
 
 /**
@@ -89,15 +89,15 @@ function isLeapYear(date) {
 function timeSpanToString(startDate, endDate) {
     let start = new Date(startDate);
     let end = new Date(endDate);
-    let timeSpan=end.getTime() - start.getTime();
-    let millisec=(timeSpan%1000<10)? "00"+timeSpan%1000 : (timeSpan%1000<100)? "0"+timeSpan%1000 : timeSpan%1000;
-    timeSpan=(timeSpan-millisec)/1000;
-    let sec=(timeSpan%60<10)? "0"+timeSpan%60 : timeSpan%60;
-    timeSpan=(timeSpan-sec)/60;
-    let min = (timeSpan%60<10)? "0"+timeSpan%60 : timeSpan%60;
-    let hour=((timeSpan-min)/60<10)? "0"+(timeSpan-min)/60 : (timeSpan-min)/60;
-    return (hour+":"+min+":"+sec+"."+millisec);
- }
+    let timeSpan = end.getTime() - start.getTime();
+    let millisec = (timeSpan % 1000 < 10) ? "00" + timeSpan % 1000 : (timeSpan % 1000 < 100) ? "0" + timeSpan % 1000 : timeSpan % 1000;
+    timeSpan = (timeSpan - millisec) / 1000;
+    let sec = (timeSpan % 60 < 10) ? "0" + timeSpan % 60 : timeSpan % 60;
+    timeSpan = (timeSpan - sec) / 60;
+    let min = (timeSpan % 60 < 10) ? "0" + timeSpan % 60 : timeSpan % 60;
+    let hour = ((timeSpan - min) / 60 < 10) ? "0" + (timeSpan - min) / 60 : (timeSpan - min) / 60;
+    return (hour + ":" + min + ":" + sec + "." + millisec);
+}
 
 
 /**
@@ -114,12 +114,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    let time=new Date(date);
-    let hours = (time.getUTCHours()>11)? time.getUTCHours()-12 : time.getUTCHours();
+    let time = new Date(date);
+    let hours = (time.getUTCHours() > 11) ? time.getUTCHours() - 12 : time.getUTCHours();
     let mins = time.getUTCMinutes();
-    let angle=Math.abs(Math.PI/360 * (60*hours - 11 * mins));
-    if (angle>Math.PI) {
-        return 2*Math.PI - angle;
+    let angle = Math.abs(Math.PI / 360 * (60 * hours - 11 * mins));
+    if (angle > Math.PI) {
+        return 2 * Math.PI - angle;
     }
     return angle;
 }

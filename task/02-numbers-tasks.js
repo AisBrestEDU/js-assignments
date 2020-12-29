@@ -22,7 +22,7 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width*height;
+    return width * height;
 }
 
 
@@ -38,7 +38,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return 2*Math.PI*radius;
+    return 2 * Math.PI * radius;
 }
 
 /**
@@ -54,7 +54,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return value1/2 + value2/2;
+    return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.hypot((x1-x2), (y1-y2));
+    return Math.hypot((x1 - x2), (y1 - y2));
 }
 
 /**
@@ -89,9 +89,9 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    if (b!==0) {
-        return -b/a;
-    } return b/a;
+    if (b !== 0) {
+        return -b / a;
+    } return b / a;
 }
 
 
@@ -113,9 +113,9 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    let dot_prod=x1*x2+y1*y2;
-    let vec_magn=Math.hypot(x1, y1)*Math.hypot(x2, y2);
-    return Math.acos(dot_prod/vec_magn);
+    let dot_prod = x1 * x2 + y1 * y2;
+    let vec_magn = Math.hypot(x1, y1) * Math.hypot(x2, y2);
+    return Math.acos(dot_prod / vec_magn);
 }
 
 /**
@@ -131,9 +131,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    let num_str=value.toString();
-    let last_dig=num_str.length-1;
-    return +num_str[last_dig];
+    return value % 10;
 }
 
 
@@ -165,7 +163,7 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(a,b,c) {
+function getParallelipidedDiagonal(a, b, c) {
     return Math.hypot(a, b, c);
 }
 
@@ -187,8 +185,8 @@ function getParallelipidedDiagonal(a,b,c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    let power=Math.pow(10, pow);
-    return Math.round(num/power)*power;
+    let power = Math.pow(10, pow);
+    return Math.round(num / power) * power;
 }
 
 /**
@@ -209,16 +207,16 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    let del=0;
-    for (let i=1; i<=n; i++) {
-        if (n%i===0) {
+    let del = 0;
+    for (let i = 1; i <= n; i++) {
+        if (n % i === 0) {
             del++;
         }
     }
-        if (del>2) {
+    if (del > 2) {
         return false;
-        }
-        return true;
+    }
+    return true;
 }
 
 /**
@@ -238,7 +236,7 @@ function isPrime(n) {
  */
 function toNumber(value, def) {
     if (isNaN(+value))
-    return def;
+        return def;
     return +value;
 }
 
