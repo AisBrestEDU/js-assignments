@@ -166,7 +166,9 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    let sideOne = Math.abs(circle.center.x - point.x);
+    let sideTwo = Math.abs(circle.center.y - point.y);
+    return Math.hypot(sideOne, sideTwo) < circle.radius;
 }
 
 
@@ -182,8 +184,13 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
-}
+    for (let i = 0; i < str.length; i++) {
+      if (i === str.indexOf(str[i]) && i === str.lastIndexOf(str[i])) {
+        return str[i];
+      }
+    }
+    return null;
+  }
 
 
 /**
@@ -208,8 +215,10 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
-}
+    let openBracket = (isStartIncluded)? '[' : '(';
+    let closeBracket = (isEndIncluded)? ']' : ')';
+    return (a > b)? `${openBracket}${b}, ${a}${closeBracket}` : `${openBracket}${a}, ${b}${closeBracket}`
+  }
 
 
 /**
@@ -225,8 +234,14 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
-}
+    let revStr = '';
+    let i = str.length - 1;
+    while (i >= 0) {
+      revStr += str[i];
+      i--;
+    }
+    return revStr;
+  }
 
 
 /**
@@ -242,8 +257,15 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
-}
+    let strNum = num.toString();
+    let revStrNum = '';
+      let i = strNum.length - 1;
+      while (i >= 0) {
+        revStrNum += strNum[i];
+        i--;
+      }
+      return +revStrNum;
+  }
 
 
 /**
@@ -267,8 +289,34 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
-}
+    if (ccn.toString().length % 2 === 1) {
+      let ccnArr = ccn.toString().split('');
+      let lastNum = + ccnArr.pop();
+      let dobleCcnArr = ccnArr.map((item, index) => {
+        return (index % 2 !== 0) ? (item * 2).toString() : item;
+      });
+      let sumCcnArr = dobleCcnArr.map((item, index) => {
+        return (index % 2 !== 0 && item.length === 2) ? + item[0] + (+ item[1]) : + item;
+      });
+      let checkSum = 0;
+      sumCcnArr.forEach((item) => {
+        checkSum += item;
+      })
+      return ((checkSum + lastNum) % 10) === 0;
+    }
+    let ccnArr = ccn.toString().split('');
+    let dobleCcnArr = ccnArr.map((item, index) => {
+      return (index % 2 !== 1) ? (item * 2).toString() : item;
+    });
+    let sumCcnArr = dobleCcnArr.map((item, index) => {
+      return (index % 2 !== 1 && item.length === 2) ? + item[0] + (+ item[1]) : + item;
+    });
+    let checkSum = 0;
+    sumCcnArr.forEach((item) => {
+      checkSum += item;
+    })
+    return (checkSum % 10) === 0;
+  }
 
 
 /**
@@ -286,7 +334,15 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+  let numArr;
+  while (num > 9) {
+    numArr = num.toString().split('');
+    num = 0;
+    numArr.forEach(element => {
+      num += + element;
+    });
+  }
+  return num;
 }
 
 
@@ -389,7 +445,16 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+  let commonPath = pathes[0];
+  let i = 0;
+  pathes.forEach(item => {
+    while (i < commonPath.length && item[i] === commonPath[i]) {
+      i++;
+    }
+    commonPath = commonPath.substring(0, i);
+    i = 0;
+  });
+  return (commonPath !== '') ? commonPath.substring(0, commonPath.lastIndexOf('/') + 1) : commonPath;
 }
 
 
