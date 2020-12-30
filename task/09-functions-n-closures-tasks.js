@@ -26,7 +26,7 @@
  *
  */
 function getComposition(f,g) {
-    return (x) => f(g(x));
+    return (x) => f( g(x) );
 }
 
 
@@ -69,7 +69,7 @@ function getPolynom() {
     return (x) => {
         let y = 0;
         for (let i = 0; i < arguments.length; i++) {
-            y += arguments[i]*Math.pow(x, arguments.length - i - 1);
+            y += arguments[i] * Math.pow(x, arguments.length - i - 1);
         }
         return y;
     }
