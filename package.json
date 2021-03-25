@@ -2,19 +2,21 @@
   "name": "js-training",
   "version": "0.9.1",
   "description": "JS training tasks",
+  "console": "integratedTerminal",
   "engines": {
     "node": "^10.0.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha",
+    "test": "./node_modules/.bin/mocha --timeout 10000",
     "test-debug": "./node_modules/.bin/mocha --debug",
     "eslint-js": "eslint --config ./.eslintrc.js ./task/**/**.js"
   },
   "author": "aorgish",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.4.0",
-    "mocha": "^8.0.1",
+    "mocha": "^8.2.1",
     "mocha-eslint": "^6.0.0"
   },
   "repository": {
