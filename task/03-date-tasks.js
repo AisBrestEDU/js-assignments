@@ -1,3 +1,5 @@
+
+
 'use strict';
 
 /********************************************************************************************
@@ -22,7 +24,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+ return Date.parse(value);
 }
 
 /**
@@ -37,7 +39,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +58,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+  let year =  new Date(date).getFullYear();
+  return (year % 100 === 0) ? (year % 400 === 0) : (year % 4 === 0);
 }
 
 
@@ -76,7 +79,17 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let start = startDate.getTime();
+   let end = endDate.getTime();
+   let totalSpanMs = (end - start);
+   let result = new Date(totalSpanMs).toISOString().slice(11, -1);
+   if (totalSpanMs >= 8.64e7)
+   {
+     let timeFractions = result.split(/:(?=\d{2})/);
+     timeFractions[0] = (24 * (totalSpanMs / 8.64e7)).toFixed(0);
+     return timeFractions.join(':');
+   }
+   return result;
 }
 
 
@@ -94,7 +107,20 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let minAngle = date.getUTCMinutes() * 6;
+   let hourAngle = (date.getUTCHours() % 12 || 12) * 30;
+   let hourOffset = date.getUTCMinutes() * 0.5;
+   let difference = Math.abs(hourAngle - minAngle + hourOffset);
+   if (difference >= 360)
+   {
+      difference = difference % 360;
+   } 
+   if (difference > 180)
+   {
+      difference = Math.abs(180 - difference);
+   }
+ 
+   return Math.PI/ 180 * difference; 
 }
 
 

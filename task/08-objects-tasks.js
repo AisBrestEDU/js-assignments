@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**************************************************************************************************
  *                                                                                                *
@@ -7,7 +7,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object        *
  *                                                                                                *
  **************************************************************************************************/
-
 
 /**
  * Returns the rectagle object with width and height parameters and getArea() method
@@ -23,9 +22,12 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+  (this.width = width),
+    (this.height = height),
+    (this.getArea = function () {
+      return this.height * this.width;
+    });
 }
-
 
 /**
  * Returns the JSON representation of specified object
@@ -38,7 +40,7 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+  return JSON.stringify(obj);
 }
 
 
@@ -54,9 +56,22 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
-}
+  /* let obj = JSON.stringify(proto, function(k, v) {
+      if (typeof v === 'function') {
+          return '/Function(' + v.toString() + ')/';
+      }
+      return v;)
+  })
+   let parsedJSON = JSON.parse(obj, function(k, v){
+       if (typeof v ==='string' && v.startsWith('myFun')) {
+           v = v.substring(10, v.length - 2);
+           return eval('' + v + '');
+       }
+    return v;
+    }) */
 
+  throw new Error("Not implemented");
+}
 
 /**
  * Css selectors builder
@@ -105,42 +120,184 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
+class Element {
+    constructor(value, selectorType) {             //идет в prototype
+    this.el = {value : value, type : selectorType};
+    Element.elements.push(this.el);
+    this.count = ++Element.count;                       //персональный каунтер сука
+    }
+
+    static count = 0;
+    static elements = [];
+    static buffer = [];    
+                    // для комбинатора
+
+    occurences(str, val){ 
+        let count = 0;
+        str.match(val)? count++ : count;
+        return count;
+    }
+    isElementOccur(elType) {
+        let indexes = [];
+        let count = Element.elements.filter((el) => el.type === elType).length;
+        for (let i = 0; i < Element.elements.length; i++){
+            if (Element.elements[i].type === elType)
+            indexes.push(i);
+        }
+        let reducer = (accumulator, currentValue) => currentValue - accumulator;
+        if (count >= 2 && indexes.reduce(reducer,0) === 1){return true}
+        return false;
+    }
+
+    getElements() {
+        let len = Element.elements.length;
+        if (len) {
+            Element.elements.filter(el => el).map(el => {
+                if (el.type === 'id') {
+                    el.value = `#${el.value}`
+                }
+                if (el.type === 'psel') {
+                    el.value = `::${el.value}`
+                }
+                if(el.type === 'class') {
+                    el.value =  `.${el.value}`;
+                 }
+                 if(el.type === 'attr') {
+                     el.value = `[${el.value}]`;
+                 }
+                 if(el.type === 'pscl') {
+                     el.value = `:${el.value}`;
+                 }
+            });
+            Element.buffer = Element.elements.map(el => el.value); //копия для комбинатора
+            let copy =  Element.elements.map(el => el.value).join('');
+
+            if((this.occurences(copy,"#.*#.*") && this.isElementOccur('id')) ||
+            ( this.occurences(copy,"::.*::.*") && this.isElementOccur('psel') )
+            || this.isElementOccur("el"))
+            {
+                throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');  
+            }
+            Element.elements.splice(0, len);
+            return copy;
+        }
+    }      
+                                                           
+    stringify() {Element.count = 0; return this.getElements();}  
+    element(value){ return new Element(value,'el');}                             
+    id(value) {   return new Element(value, 'id');}
+    class(value) { return new Element(value, 'class'); }
+    attr(value) { return new Element(value, 'attr'); }
+    pseudoClass(value) { return new Element(value, 'pscl'); }
+    pseudoElement(value) { return new Element(value, 'psel');}
+}
+
+class Combinator {
+    constructor(selector1, combinator, selector2) {
+        this.s1 = selector1
+        this.combinator = combinator,
+        this.s2 = selector2,
+        ++Combinator.callCount;
+     //   console.log(this.s1.count) 
+        this.cleaner();     // <----------------- очистка предыдущего результата
+    }
+
+    getElements(len) { 
+        Element.prototype.getElements();
+        let buf = Element.buffer.splice(0, len).join('');
+        return buf;
+    
+    }   
+
+    cleaner(){ 
+        if(this.s2.count - Element.count === 0)  {
+         while(Combinator.elements.length){Combinator.elements.pop()} 
+        Combinator.prevcount = 0;
+    }      
+    }
+
+    counterAdj() {
+        return Combinator.prevcount? this.s1.count - Combinator.prevcount : this.s1.count;
+    }
+    static callCount = 0;
+    static rez = '';
+    static elements = [];           //буфер для вывода конечной строки, помещаем вырезанные нужные строки из основных массивов
+    static prevcount;
+
+    stringify() { 
+    if(!(this.s2 instanceof Element)) {
+        if(Combinator.callCount === 1)
+{
+    Combinator.elements.push(this.getElements(this.s1.count))
+    Combinator.elements.push(` ${this.combinator} `);
+}
+    if(Combinator.callCount >= 2)
+    {
+        Combinator.elements.push(this.getElements(this.s1.count - Combinator.prevcount))
+        Combinator.elements.push(` ${this.combinator} `);
+    }
+    }
+    if(this.s2 instanceof Element) {
+        if(Combinator.callCount === 1)
+        {
+            Combinator.elements.push(this.getElements(this.s1.count));
+            Combinator.elements.push(` ${this.combinator} `);
+            Combinator.elements.push(this.getElements(this.s2.count - this.s1.count));
+        }
+        if (Combinator.callCount >= 2) {
+        Combinator.elements.push(this.getElements(this.s1.count - Combinator.prevcount));
+        Combinator.elements.push(` ${this.combinator} `);
+        Combinator.elements.push(this.getElements(this.s2.count - this.s1.count));}
+    }
+    
+    Element.count = 0; 
+    Combinator.prevcount = this.s1.count;
+   
+    this.s2.stringify();    
+                              
+    Combinator.rez = Combinator.elements.map(el => el).join('');   //превращение массива в результ строку
+ 
+    while(Element.buffer.length) {Element.buffer.pop()}
+                                 
+    return Combinator.rez;             
+    }
+}
 
 const cssSelectorBuilder = {
 
     element: function(value) {
-        throw new Error('Not implemented');
+        return new Element(value, 'el');
     },
 
-    id: function(value) {
-        throw new Error('Not implemented');
+    id: function(value) { 
+      return new Element(value, 'id');
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        return new Element(value, 'class');
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        return new Element(value, 'attr');
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        return new Element(value, 'pscl')
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        return new Element(value, 'psel')
     },
 
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+    combine: function(selector1, combinator, selector2) { 
+        return new Combinator(selector1, combinator, selector2)
     },
 };
 
 
 module.exports = {
-    Rectangle: Rectangle,
-    getJSON: getJSON,
-    fromJSON: fromJSON,
-    cssSelectorBuilder: cssSelectorBuilder
+  Rectangle: Rectangle,
+  getJSON: getJSON,
+  fromJSON: fromJSON,
+  cssSelectorBuilder: cssSelectorBuilder,
 };
