@@ -1,3 +1,28 @@
 language: node_js
 node_js:
-  - "5.10.0"
+- 14
+before_install:
+ - npm i -g npm@6.1.0
+    - p=$(which npm)
+    - rm $p
+    - ln -s /home/travis/.nvm/versions/node/v10.1.0/bin/npm $p || true
+    - npm -v
+install:
+- npm  install
+cache:
+  npm: false
+script:
+  - npm test
+deploy:
+-provider:  pages
+-skip-cleanup:  true
+-github-token:  $GITHUB_TOKEN
+-local_dir: build
+on:
+branches:
+  only:
+  - master
+  - task1-4
+  - task5
+  - task6
+  - task7
